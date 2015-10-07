@@ -29,3 +29,4 @@ Finished Tasks:
     because that would be irrelevant to the domain of your app.
     
 -license our code (hindle recommended to me(Falon) to use GPL3: http://www.gnu.org/licenses/gpl-howto.html)
+        **Make sure the license header is in every java file we have
