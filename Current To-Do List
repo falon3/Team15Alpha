@@ -6,7 +6,9 @@
 For each use case (let's divide them up):
   - draw on computer actor identification use case diagram (for one or all use cases(?) not sure....)
   - do the charts, basic flow and stuff like on slides 35-39 of here: https://eclass.srv.ualberta.ca/pluginfile.php/2350803/mod_resource/content/1/05-Requirements.pdf
-  - write up the junit mock tests (the one's that aren't finished already)
+  - write up the mock junit tests (the one's that aren't finished already)
+        "It should show the intent of the code to implement the use case. 
+        Test values, smoke tests are not enough."
 
 - Storyboard of ONE user scenario and main UI:
     Diagram the layout of your main user interface and major dialogs, with comments describing the important elements. 
