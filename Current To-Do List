@@ -1,0 +1,22 @@
+#CURRENT TO-DO LIST
+(put name in brackets beside it if you wanna claim it or move it to finished tasks if completed)
+
+-Finish the use cases in the wiki list and pick who wants which ones
+
+For each use case (let's divide them up):
+  - draw on computer actor identification use case diagram (for one or all use cases(?) not sure....)
+  - do the charts, basic flow and stuff like on slides 35-39 of here: https://eclass.srv.ualberta.ca/pluginfile.php/2350803/mod_resource/content/1/05-Requirements.pdf
+  - write up the junit mock tests (the one's that aren't finished already)
+
+- Storyboard of ONE user scenario and main UI:
+    Diagram the layout of your main user interface and major dialogs, with comments describing the important elements. 
+    one storyboard sequence for a non-trivial but coherent scenario of using your application, with transitions between 
+    different states of the user interface, caused by the user manipulating the controls or providing input. 
+    Enter this information in your team wiki.
+    
+- Separate Use cases into milestone timelines
+
+- Individual task and peer review form (EVERYONE NEEDS TO DO ONE)
+
+Finished Tasks:
+-Glossary (may need updating as we go)
