@@ -1,5 +1,6 @@
 /*
- * <one line to give the program's name and a brief idea of what it does.>
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
  *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
  *
  *    This program is free software: you can redistribute it and/or modify
