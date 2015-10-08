@@ -1,6 +1,6 @@
 # Team15Alpha
 
-##   __SkillTradiez__ -- _The lost adventures_
+###   __SkillTradiez__ -- _The lost adventures_
    
     Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
 
