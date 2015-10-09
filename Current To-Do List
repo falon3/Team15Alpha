@@ -1,26 +1,16 @@
 #CURRENT TO-DO LIST
 (put name in brackets beside it if you wanna claim it or move it to finished tasks if completed)
   
-  *** DO THIS AFTER USE CASES AND TRY AND FORMAT FORMAT ALREADY STARTED WITH TEST CASES
-  - write up the mock junit tests (the one's that aren't finished already)
-        "It should show the intent of the code to implement the use case. 
-        Test values, smoke tests are not enough."
+- Fix Storyboard! (make into one cohesive story path) from what is in the wiki
 
-- Storyboard of ONE user scenario (NOAH TOMORROW):
-    one storyboard sequence for a non-trivial but coherent scenario of using your application, with transitions between 
-    different states of the user interface, caused by the user manipulating the controls or providing input. 
-    
--main UI: (COLE) 
-    Diagram the layout of your main user interface and major dialogs, with comments describing the important elements. 
-    Enter this information in your team wiki.
-    
-Release Planning: (WE HAVE DETAILED MILESTONES DONE ON WIKI NEED TO PUT USE CASES IN THEM)
-    Plan the major use cases and user stories that need to be done for project part 4, 
-    and what will be deferred until later for project part 5. This plan will likely evolve 
-    and should be maintained up-to-date in your team wiki. This will be used to help track 
-    progress on completing the requirements.
-
+- Add to the UI:
+      Profile
+      Inventory
+      main Search screen(users, skills, offers, requests)
+ 
 Finished Tasks:
+
+Release Planning
 
 For each use case (DIVIDED IN THE GOOGLE DOC SHARED IN EMAIL AND ON SLACK):
   - do the google doc we started with content like on slides 35-39 of here:
@@ -36,3 +26,8 @@ For each use case (DIVIDED IN THE GOOGLE DOC SHARED IN EMAIL AND ON SLACK):
  
 -license our code (hindle recommended to me(Falon) to use GPL3: http://www.gnu.org/licenses/gpl-howto.html)
         **Make sure the license header is in every java file we have
+        
+ *** DO THIS AFTER USE CASES AND TRY AND FORMAT FORMAT ALREADY STARTED WITH TEST CASES
+  - write up the mock junit tests (the one's that aren't finished already)
+        "It should show the intent of the code to implement the use case. 
+        Test values, smoke tests are not enough."
