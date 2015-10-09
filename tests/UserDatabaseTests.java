@@ -18,7 +18,7 @@
  */
 
 
-public class UserTests {
+public class UserDatabaseTests {
 
 	public void testCreateAccount() {
 		UserDatabase db = new UserDatabase();
