@@ -40,8 +40,6 @@ public class ProfileTests {
 		assertEquals(user.getProfile().getEmail(), "apersonsname@awebsite.com");
 	}
 
-	public void
-
 	public void testFieldsTooLong() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
@@ -68,13 +66,27 @@ public class ProfileTests {
 		Picture avatar = new Picture("hello.jpeg");
 		Picture avatar2 = new Picture("hello.jpg");
 
+		//avatar should be empty to begin with
+		assertNull(user.getProfile().getAvatar());
+
+		//test setting avatar
 		user.getProfile().setAvatar(avatar);
 		assertEquals(user.getProfile().getAvatar(), avatar);
 
+		//test changing avatar
 		user.getProfile().setAvatar(avatar2);
 		assertEquals(user.getProfile().getAvatar(), avatar2);
 
+		//test deleting avatar
 		user.getProfile().deleteAvatar();
 		assertNull(user.getProfile().getAvatar());
+	}
+
+	public void testSetDownloadImages() {
+		UserDatabase db = new UserDatabase();
+		User user = db.createUser("Username", "Password");
+
+		user.getProfile().setShouldDownloadImages(true);
+		assertEquals(user.getProfile().getShouldDownloadImages(), true);
 	}
 }
