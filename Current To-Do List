@@ -1,8 +1,5 @@
 #CURRENT TO-DO LIST
 (put name in brackets beside it if you wanna claim it or move it to finished tasks if completed)
-
-For each use case (DIVIDED IN THE GOOGLE DOC SHARED IN EMAIL AND ON SLACK):
-  - do the google doc we started with content like on slides 35-39 of here: https://eclass.srv.ualberta.ca/pluginfile.php/2350803/mod_resource/content/1/05-Requirements.pdf
   
   *** DO THIS AFTER USE CASES AND TRY AND FORMAT FORMAT ALREADY STARTED WITH TEST CASES
   - write up the mock junit tests (the one's that aren't finished already)
@@ -24,6 +21,10 @@ Release Planning: (WE HAVE DETAILED MILESTONES DONE ON WIKI NEED TO PUT USE CASE
     progress on completing the requirements.
 
 Finished Tasks:
+
+For each use case (DIVIDED IN THE GOOGLE DOC SHARED IN EMAIL AND ON SLACK):
+  - do the google doc we started with content like on slides 35-39 of here:
+
 -Glossary (may need updating as we go): (FALON CAN FIX THIS UP AND MAKE IT COMPLETE)
     The glossary entries should specify sources that are relevant to the domain of your application. 
     For example, your definition of "user" should come from some external source, 
