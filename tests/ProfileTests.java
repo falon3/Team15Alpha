@@ -22,41 +22,59 @@ public class ProfileTests {
 	public void testSetNickname() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
-		user.setNickname("Foobar");
-		assertEquals(user.getNickname(), "Foobar");
+		user.getProfile().setNickname("Foobar");
+		assertEquals(user.getProfile().getNickname(), "Foobar");
 	}
 
 	public void testSetPassword() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
-		user.setPassword("hunter2");
-		assertEquals(user.getPassword(), "hunter2");
+		user.getProfile().setPassword("hunter2");
+		assertEquals(user.getProfile().getPassword(), "hunter2");
 	}
 
 	public void testSetEmail() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
-		user.setEmail("apersonsname@awebsite.com");
-		assertEquals(user.getEmail(), "apersonsname@awebsite.com");
+		user.getProfile().setEmail("apersonsname@awebsite.com");
+		assertEquals(user.getProfile().getEmail(), "apersonsname@awebsite.com");
 	}
+
+	public void
 
 	public void testFieldsTooLong() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
 		try {
-			user.setEmail("apersonsname@awebsite.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+			user.getProfile().setEmail("apersonsname@awebsite.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
 			assertTrue(false); // if we got here, the exception didn't happen
 		} catch (InvalidArgumentExecption e) {
 		}
 		try {
-			user.setNickname("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+			user.getProfile().setNickname("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
 			assertTrue(false); // if we got here, the exception didn't happen
 		} catch (InvalidArgumentExecption e) {
 		}
 		try {
-			user.setPassword("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+			user.getProfile().setPassword("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
 			assertTrue(false); // if we got here, the exception didn't happen
 		} catch (InvalidArgumentExecption e) {
 		}
+	}
+
+	public void testAvatar() {
+		UserDatabase db = new UserDatabase();
+		User user = db.createUser("Username", "Password");
+		Picture avatar = new Picture("hello.jpeg");
+		Picture avatar2 = new Picture("hello.jpg");
+
+		user.getProfile().setAvatar(avatar);
+		assertEquals(user.getProfile().getAvatar(), avatar);
+
+		user.getProfile().setAvatar(avatar2);
+		assertEquals(user.getProfile().getAvatar(), avatar2);
+
+		user.getProfile().deleteAvatar();
+		assertNull(user.getProfile().getAvatar());
 	}
 }
