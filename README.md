@@ -1,7 +1,7 @@
 # Team15Alpha
 ####Deliverables 
 Project Part 2 - Oct 9, 2015
-   1. [Use Cases](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
+   1. [Use Cases](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases) | [Tests Cases](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/tests)
    2. [User Interface Mockup and StoryBoard](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Storyboard-and-UI)
    3. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
    4. [Glossary](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Glossary)
