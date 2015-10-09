@@ -1,15 +1,16 @@
 #CURRENT TO-DO LIST
 (put name in brackets beside it if you wanna claim it or move it to finished tasks if completed)
   
-- Fix Storyboard! (make into one cohesive story path) from what is in the wiki
+
+Finished Tasks:
+
+- Fix Storyboard! (make into one cohesive story path) from what is in the slack
 
 - Add to the UI:
       Profile
       Inventory
       main Search screen(users, skills, offers, requests)
- 
-Finished Tasks:
-
+      
 Release Planning
 
 For each use case (DIVIDED IN THE GOOGLE DOC SHARED IN EMAIL AND ON SLACK):
