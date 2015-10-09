@@ -1,5 +1,11 @@
 # Team15Alpha
 
+CMPUT301 Project 2 Deliverables - Oct 9, 2015
+   1. [Use Cases](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
+   2. [User Interface Mockup and StoryBoard](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Storyboard-and-UI)
+   3. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
+   4. [Glossary](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Glossary)
+
 ###   __SkillTradiez__ -- _The lost adventures_
    
     Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
