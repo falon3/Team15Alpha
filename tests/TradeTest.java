@@ -19,4 +19,48 @@
  */
 
 public class TradeTest {
+	public void testInitTrade() {
+		UserDatabase db = new UserDatabase();
+		User user = db.createUser("u", "p");
+		User user2 = db.createUser("u2", "p");
+
+		Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
+		assertEquals(user.getTradeList().getMostRecentTrade(), trade);
+		assertEquals(user2.getTradeList().getMostRecentTrade(), trade);
+	}
+
+	public void testAcceptTradeRequest() {
+		UserDatabase db = new UserDatabase();
+		User user = db.createUser("u", "p");
+		User user2 = db.createUser("u2", "p");
+
+		Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "iLLLLLLLLLLLLLLLL"));
+		user2.getTradeList().getMostRecentTrade().setAccepted(user2);
+		assertTrue(user.getTradeList().getMostRecentTrade().getAccepted(user2));
+	}
+
+	public void testRefuseTradeRequest() {
+		UserDatabase db = new UserDatabase();
+		User user = db.createUser("u", "p");
+		User user2 = db.createUser("u2", "p");
+
+		Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "iLLLLLLLLLLLLLLLL"));
+		// decline the trade
+		trade.setDeclined(user2);
+		assertTrue(trade.getDeclined(user2));
+		// delete the trade
+		user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade());
+		assertTrue(user.getTradeList().getActiveTrades().size() == 0);
+	}
+
+	public void testCounterOfferTradeRequest() {
+		UserDatabase db = new UserDatabase();
+		User user = db.createUser("u", "p");
+		User user2 = db.createUser("u2", "p");
+
+		Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "iLLLLLLLLLLLLLLLL"));
+		trade.setDeclined(user2);
+		trade.setCounterOffer(new List { new Skill("Counter skill", "meta") });
+		assertEquals(trade.getCounterOffer(), new List { new Skill("Counter skill", "meta") });
+	}
 }
