@@ -17,3 +17,32 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+public class SkillTest {
+	public void testSetVisibility() {
+		Skill skill = new Skill("foo", "bar");
+		skill.setVisibile(false);
+		assertFalse(skill.getVisibile());
+	}
+	public void testSetDescription() {
+		Skill skill = new Skill("foo", "bar");
+		skill.setDescription("DESCRIBE'D!!!");
+		assertEqual(skill.getDescription(), "DESCRIBE'D!!!");
+	}
+	public void testPicture() {
+		Skill skill = new Skill("foo", "bar");
+		Image img = new Image("foo.tiff");
+		Image img2 = new Image("foo.bmp");
+		//image should be null initially
+		assertNull(skill.getImage());
+		//test setting image
+		skill.setImage(img);
+		assertEquals(skill.getImage(), img);
+		//test changing image
+		skill.setImage(img2);
+		assertEquals(skill.getImage(), img2);
+		//test deleting image
+		skill.deleteImage();
+		assertNull(skill.getImage());
+	}
+}
