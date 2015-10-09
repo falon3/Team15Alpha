@@ -40,4 +40,24 @@ public class TradeTest {
     tl.delete(t);
     assertTrue(tl.getActiveTrades().size() == 0);
   }
+  
+  public void testBrowseTradeHistory() {
+    UserDatabase db = new UserDatabase();
+    User bob = db.createUser("Bob","Password");
+    User joel = db.createUser("Joel","Password");
+    
+    List<Skill> skillz1 = new List<Skill>(), skillz2 = new List<Skill>();
+    skillz1.add(new Skill("...YEP"));
+    
+    TradeList tl = bob.getTradelist();
+    
+    tl.createTrade(bob, joel, skillz2);
+    Trade t1 = tl.getMostRecentTrade();
+    
+    tl.createTrade(bob, joel, skillz1);
+    Trade t2 = tl.getMostRecentTrade();
+    
+    // Trade History Has been updated
+    assertTrue(!t1.equals(t2));
+  }
 }
