@@ -19,7 +19,7 @@
  */
 
 public class TradeTest {
-  public void testDeleteActiveTrade() {
+  public void testModifyActiveTrade() {
     UserDatabase db = new UserDatabase();
     User bob = db.createUser("Bob","Password");
     User joel = db.createUser("Joel","Password");
@@ -31,8 +31,13 @@ public class TradeTest {
     tl.createTrade(bob, joel, skillz2);
     
     Trade t = tl.getMostRecentTrade();
-    t.changeOffer(bob, skillz1);
     
+    // Modify An Active Trade
+    t.changeOffer(bob, skillz1);
     assertEquals(t.getCurrentOffer(bob), skillz1);
+    
+    // Delete An Active Trade
+    tl.delete(t);
+    assertTrue(tl.getActiveTrades().size() == 0);
   }
 }
