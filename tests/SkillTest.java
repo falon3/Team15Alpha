@@ -29,18 +29,32 @@ public class SkillTest {
 		skill.setDescription("DESCRIBE'D!!!");
 		assertEqual(skill.getDescription(), "DESCRIBE'D!!!");
 	}
-	public void testPicture() {
+	public void testAttachPicture() {
 		Skill skill = new Skill("foo", "bar");
 		Image img = new Image("foo.tiff");
-		Image img2 = new Image("foo.bmp");
 		//image should be null initially
 		assertNull(skill.getImage());
 		//test setting image
 		skill.setImage(img);
 		assertEquals(skill.getImage(), img);
-		//test changing image
+	}
+	public void testRetakePicture() {
+		Skill skill = new Skill("foo", "bar");
+		Image img = new Image("foo.tiff");
+		Image img2 = new Image("foo.bmp");
+		//test setting image
+		skill.setImage(img);
+		assertEquals(skill.getImage(), img);
+		//test changing(retaking) image
 		skill.setImage(img2);
 		assertEquals(skill.getImage(), img2);
+	}
+	public void testDeletePicture() {
+		Skill skill = new Skill("foo", "bar");
+		Image img = new Image("foo.tiff");
+		//test setting image
+		skill.setImage(img);
+		assertEquals(skill.getImage(), img);
 		//test deleting image
 		skill.deleteImage();
 		assertNull(skill.getImage());

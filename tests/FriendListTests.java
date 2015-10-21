@@ -19,7 +19,22 @@
 
 
 public class FriendListTests {
-	public void testAddRemoveFriend() {
+	public void testAddFriend() {
+		UserDatabase db = new UserDatabase();
+		User user1 = db.createUser("u", "p");
+		User user2 = db.createUser("u2", "p2");
+
+		// test adding and confirming a friend
+		user1.getFriendList().requestAddFriend(user2);
+		assertTrue(user1.getFriendList().hasPendingFriendRequest(user2));
+		assertTrue(user2.getFriendList().hasPendingFriendRequest(user1));
+
+		user2.getFriendList().confirmFriendRequest(user1);
+		assertTrue(user1.getFriendList().hasFriend(user2));
+		assertTrue(user2.getFriendList().hasFriend(user1));
+	}
+
+	public void testRemoveFriend() {
 		UserDatabase db = new UserDatabase();
 		User user1 = db.createUser("u", "p");
 		User user2 = db.createUser("u2", "p2");
@@ -32,6 +47,7 @@ public class FriendListTests {
 		assertTrue(user1.getFriendList().hasFriend(user2));
 		assertTrue(user2.getFriendList().hasFriend(user1));
 
+		// test removing a friend
 		user2.getFriendList().removeFriend(user1);
 		assertFalse(user1.getFriendList().hasFriend(user2));
 		assertFalse(user2.getFriendList().hasFriend(user1));

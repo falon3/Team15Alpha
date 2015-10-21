@@ -19,6 +19,9 @@
 
 
 public class ProfileTests {
+
+	// tests for ConfigureProfileDetails
+
 	public void testSetNickname() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
