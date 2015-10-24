@@ -28,14 +28,6 @@ public class Skill {
         this.image = image;
     }
 
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -44,9 +36,17 @@ public class Skill {
         this.description = description;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     private String name;
     private String category;
     private String image;
-    private boolean visibility;
+    private boolean visible;
     private String description;
 }
