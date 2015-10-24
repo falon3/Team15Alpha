@@ -1,3 +1,4 @@
+package com.skilltradiez.skilltraderz;
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -17,23 +18,24 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import static org.junit.Assert.*;
 
 public class UserTests {
-	public void testGetProfile() {
-		UserDatabase db = new UserDatabase();
-		User user = db.createUser("Username", "Profile");
-		assertNotNull(user.getProfile());
-	}
+    public void testGetProfile() {
+        UserDatabase db = new UserDatabase();
+        User user = db.createUser("Username", "Profile");
+        assertNotNull(user.getProfile());
+    }
 
-	public void testGetInventory() {
-		UserDatabase db = new UserDatabase();
-		User user = db.createUser("Username", "Profile");
-		assertNotNull(user.getInventory());
-	}
+    public void testGetInventory() {
+        UserDatabase db = new UserDatabase();
+        User user = db.createUser("Username", "Profile");
+        assertNotNull(user.getInventory());
+    }
 
-	public void testGetFriendsList() {
-		UserDatabase db = new UserDatabase();
-		User user = db.createUser("Username", "Profile");
-		assertNotNull(user.getFriendsList());
-	}
+    public void testGetFriendsList() {
+        UserDatabase db = new UserDatabase();
+        User user = db.createUser("Username", "Profile");
+        assertNotNull(user.getFriendsList());
+    }
 }
