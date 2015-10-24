@@ -39,6 +39,13 @@ public class UserDatabaseTests {
 		}
 	}
 
+	public void testLogin() {
+		UserDatabase db = new UserDatabase();
+
+		User user = db.createUser("Username", "Password");
+		assertEquals(db.login("Username", "Password"), true);
+	}
+
 	public void testDatabasePersistence() {
 		UserDatabase db = new UserDatabase();
 		User user = db.createUser("Username", "Password");
