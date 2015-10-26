@@ -2,13 +2,13 @@
 ####Project Deliverables 
 Project Part 3 - Oct 26, 2015
 
-Feedback from Part 2:
+Feedback from Part 2 addressed:
   1. [Test Cases are split](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
   2. [Storyboards and UI Mockups remade, re-organized and commented for clarity.](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Storyboard-and-UI)
-  3. [Release Planning: dates added for clarity](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
-  4. [Glossary: added terms suggested by TA, as well as a few others for better clarity](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Glossary)
+  3. [Release Planning: dates added](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
+  4. [Glossary: added terms suggested by TA, as well as a few others for better coverage of application terms](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Glossary)
  
-Part 3:
+Part 3 requirements:
    1. [Detailed UML added to the wiki](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/UML)
 
 # License 
