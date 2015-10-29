@@ -27,7 +27,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public void testGetProfile() {
         UserDatabase db = new UserDatabase();
-        User user;
+        User user = null;
 
         try {
             user = db.createUser("Username", "Password");
@@ -39,7 +39,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public void testGetInventory() {
         UserDatabase db = new UserDatabase();
-        User user;
+        User user = null;
 
         try {
             user = db.createUser("Username", "Password");
@@ -51,7 +51,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public void testGetFriendsList() {
         UserDatabase db = new UserDatabase();
-        User user;
+        User user = null;
 
         try {
             user = db.createUser("Username", "Password");

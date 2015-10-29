@@ -28,23 +28,30 @@ public class FriendListTests extends ActivityInstrumentationTestCase2{
 
     public void testAddFriend() {
         UserDatabase db = new UserDatabase();
-        User user1 = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p2");
+        User user1;
+        User user2;
+        try {
+            user1 = db.createUser("u", "p");
+            user2 = db.createUser("u2", "p2");
 
         // test adding and confirming a friend
         user1.getFriendsList().requestAddFriend(user2);
         assertTrue(user1.getFriendsList().hasPendingFriendRequest(user2));
         assertTrue(user2.getFriendsList().hasPendingFriendRequest(user1));
 
-        user2.getFriendList().confirmFriendRequest(user1);
+        user2.getFriendsList().confirmFriendRequest(user1);
         assertTrue(user1.getFriendsList().hasFriend(user2));
         assertTrue(user2.getFriendsList().hasFriend(user1));
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testRemoveFriend() {
         UserDatabase db = new UserDatabase();
-        User user1 = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p2");
+        User user1;
+        User user2;
+        try {
+            user1 = db.createUser("u", "p");
+            user2 = db.createUser("u2", "p2");
 
         user1.getFriendsList().requestAddFriend(user2);
         assertTrue(user1.getFriendsList().hasPendingFriendRequest(user2));
@@ -58,12 +65,16 @@ public class FriendListTests extends ActivityInstrumentationTestCase2{
         user2.getFriendsList().removeFriend(user1);
         assertFalse(user1.getFriendsList().hasFriend(user2));
         assertFalse(user2.getFriendsList().hasFriend(user1));
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testBlockUser() {
         UserDatabase db = new UserDatabase();
-        User user1 = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p2");
+        User user1;
+        User user2;
+        try {
+            user1 = db.createUser("u", "p");
+            user2 = db.createUser("u2", "p2");
 
         user1.getFriendsList().requestAddFriend(user2);
         assertTrue(user1.getFriendsList().hasPendingFriendRequest(user2));
@@ -73,7 +84,7 @@ public class FriendListTests extends ActivityInstrumentationTestCase2{
         assertTrue(user1.getFriendsList().hasFriend(user2));
         assertTrue(user2.getFriendsList().hasFriend(user1));
 
-        user2.getFriendsList().blockFriend(user1);
+        user2.getFriendsList().blockUser(user1);
         assertFalse(user1.getFriendsList().hasFriend(user2));
         assertFalse(user2.getFriendsList().hasFriend(user1));
 
@@ -81,17 +92,22 @@ public class FriendListTests extends ActivityInstrumentationTestCase2{
         user1.getFriendsList().requestAddFriend(user2);
         assertFalse(user1.getFriendsList().hasPendingFriendRequest(user2));
         assertFalse(user2.getFriendsList().hasPendingFriendRequest(user1));
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testGetFriends() {
         UserDatabase db = new UserDatabase();
-        User user1 = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p2");
+        User user1;
+        User user2;
+        try {
+            user1 = db.createUser("u", "p");
+            user2 = db.createUser("u2", "p2");
 
         user1.getFriendsList().requestAddFriend(user2);
         user2.getFriendsList().confirmFriendRequest(user1);
 
-        assertEquals(user1.getFriendsList().get(0), user2);
-        assertEquals(user2.getFriendsList().get(0), user1);
+        assertEquals(user1.getFriendsList().getFriend(0), user2.getUserID());
+        assertEquals(user2.getFriendsList().getFriend(0), user1.getUserID());
+        } catch (UserAlreadyExistsException e) {}
     }
 }

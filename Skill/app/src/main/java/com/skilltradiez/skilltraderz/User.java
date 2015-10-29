@@ -9,12 +9,16 @@ import java.util.List;
 public class User {
     private Profile profile;
     private Inventory inventory;
-    private List<UserID> friendsList;
+    private FriendsList friendsList;
+    private TradeList tradeList;
+    private UserID id;
 
-    User(String username, String password) {
+    User(UserID id, String username, String password) {
+        this.id = id;
         profile = new Profile(username, password);
         inventory = new Inventory(); // Empty
-        friendsList = new ArrayList<UserID>(); // Empty
+        friendsList = new FriendsList(id); // Empty
+        tradeList = new TradeList(id); // Empty
     }
 
     public Profile getProfile() {
@@ -25,7 +29,15 @@ public class User {
         return inventory;
     }
 
-    public List<UserID> getFriendsList() {
+    public FriendsList getFriendsList() {
         return friendsList;
+    }
+
+    public TradeList getTradeList() {
+        return tradeList;
+    }
+
+    public UserID getUserID() {
+        return id;
     }
 }

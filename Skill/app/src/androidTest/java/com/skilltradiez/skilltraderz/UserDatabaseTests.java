@@ -35,10 +35,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
 		try {
 			user = db.createUser("Username", "Password");
-		} catch (UserAlreadyExistsException e) {
 
-		}
-		assertEquals(db.getAccountByUsername("Username"), user);
+			assertEquals(db.getAccountByUsername("Username"), user);
+		} catch (UserAlreadyExistsException e) {}
 	}
 
 	public void testCreateAccountFailCase() {
@@ -53,9 +52,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
 		try {
 			User user2 = db.createUser("Username", "Password");
-			assert(false);
+			assertTrue(false);
 		} catch (UserAlreadyExistsException e) {
-			assert(true);
+			assertTrue(true);
 		}
 	}
 
@@ -74,16 +73,19 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
 	public void testDatabasePersistence() {
 		UserDatabase db = new UserDatabase();
+		try {
 		User user = db.createUser("Username", "Password");
 		db.save();
 
 		// The new database should contain all the previous changes
 		db = new UserDatabase();
 		assertEquals(db.getAccountByUsername("Username"), user);
+		} catch (UserAlreadyExistsException e) {}
 	}
 
 	public void testTradelistPersistence() {
 		UserDatabase db = new UserDatabase();
+		try {
 		User user1 = db.createUser("Username1", "Password"),
 		     user2 = db.createUser("Username2", "Password");
 
@@ -97,21 +99,24 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
 		tl = user1.getTradeList();
 		assertEquals(tl.getMostRecentTrade().getActor2(), user2);
+		} catch (UserAlreadyExistsException e) {}
 	}
 
 	public void testFriendListPersistence() {
 		UserDatabase db = new UserDatabase();
+		try {
 		User user1 = db.createUser("Username1", "Password"),
 		     user2 = db.createUser("Username2", "Password");
 
-		FriendList fl = user1.getFriendList();
+		FriendsList fl = user1.getFriendsList();
 
 		// The new database should contain all the previous changes
 		db = new UserDatabase();
 		user1 = db.getAccountByUsername("Username1");
 		user2 = db.getAccountByUsername("Username2");
 
-		fl = user1.getFriendList();
-		assertEquals(fl.getAccountByNickname("Username2"), user2);
+		fl = user1.getFriendsList();
+		assertEquals(fl.getFriend(2), user2.getUserID());
+		} catch (UserAlreadyExistsException e) {}
 	}
 }

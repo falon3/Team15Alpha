@@ -21,6 +21,9 @@ package com.skilltradiez.skilltraderz;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TradeTest extends ActivityInstrumentationTestCase2{
     public TradeTest() {
         super(com.skilltradiez.skilltraderz.TradeTest.class);
@@ -28,87 +31,115 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
 
     public void testInitTrade() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p");
+        try {
+            User user = db.createUser("u", "p");
+            User user2 = db.createUser("u2", "p");
+            List<Skill> offer = new ArrayList<Skill>();
 
-        Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
-        assertEquals(user.getTradeList().getMostRecentTrade(), trade);
-        assertEquals(user2.getTradeList().getMostRecentTrade(), trade);
+            offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
+
+            Trade trade = user.getTradeList().createTrade(user, user2, offer);
+            assertEquals(user.getTradeList().getMostRecentTrade(), trade);
+            assertEquals(user2.getTradeList().getMostRecentTrade(), trade);
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testAcceptTradeRequest() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p");
+        try {
+            User user = db.createUser("u", "p");
+            User user2 = db.createUser("u2", "p");
+            List<Skill> offer = new ArrayList<Skill>();
 
-        Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "iLLLLLLLLLLLLLLLL"));
-        user2.getTradeList().getMostRecentTrade().setAccepted(user2);
-        assertTrue(user.getTradeList().getMostRecentTrade().getAccepted(user2));
+            offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
+
+            Trade trade = user.getTradeList().createTrade(user, user2, offer);
+            try {
+                user2.getTradeList().getMostRecentTrade().setAccepted(user2);
+            } catch (InactiveTradeException e1) {}
+            assertTrue(user.getTradeList().getMostRecentTrade().isAccepted());
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testRefuseTradeRequest() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p");
+        try {
+            User user = db.createUser("u", "p");
+            User user2 = db.createUser("u2", "p");
+            List<Skill> offer = new ArrayList<Skill>();
 
-        Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "iLLLLLLLLLLLLLLLL"));
-        // decline the trade
-        trade.setDeclined(user2);
-        assertTrue(trade.getDeclined(user2));
-        // delete the trade
-        user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade());
-        assertTrue(user.getTradeList().getActiveTrades().size() == 0);
+            offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
+
+            Trade trade = user.getTradeList().createTrade(user, user2, offer);
+            // decline the trade
+            trade.decline();
+            assertTrue(!trade.isActive());
+            // delete the trade
+            user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade());
+            assertTrue(user.getTradeList().getActiveTrades().size() == 0);
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testCounterOfferTradeRequest() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("u", "p");
-        User user2 = db.createUser("u2", "p");
+        try {
+            User user = db.createUser("u", "p");
+            User user2 = db.createUser("u2", "p");
+            List<Skill> offer = new ArrayList<Skill>();
+            List<Skill> counterOffer = new ArrayList<Skill>();
 
-        Trade trade = user.getTradeList().createTrade(user, user2, new Skill("illlllll", "iLLLLLLLLLLLLLLLL"));
-        trade.setDeclined(user2);
-        trade.setCounterOffer(new List { new Skill("Counter skill", "meta") });
-        assertEquals(trade.getCounterOffer(), new List { new Skill("Counter skill", "meta") });
+            offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
+            counterOffer.add(new Skill("Counter skill", "meta"));
+
+            Trade trade = user.getTradeList().createTrade(user, user2, offer);
+            trade.decline();
+            trade.setCounterOffer(user2, counterOffer);
+            assertEquals(trade.getCurrentOffer(user2), counterOffer);
+        }  catch (UserAlreadyExistsException e) {}
     }
     public void testModifyActiveTrade() {
         UserDatabase db = new UserDatabase();
-        User bob = db.createUser("Bob","Password");
-        User joel = db.createUser("Joel","Password");
+        try {
+            User bob = db.createUser("Bob", "Password");
+            User joel = db.createUser("Joel", "Password");
 
-        List<Skill> skillz1 = new List<Skill>(), skillz2 = new List<Skill>();
-        skillz1.add(new Skill("...YEP"));
+            List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
+            skillz1.add(new Skill("...YEP"));
 
-        TradeList tl = bob.getTradelist();
-        tl.createTrade(bob, joel, skillz2);
+            TradeList tl = bob.getTradeList();
+            tl.createTrade(bob, joel, skillz2);
 
-        Trade t = tl.getMostRecentTrade();
+            Trade t = tl.getMostRecentTrade();
 
-        // Modify An Active Trade
-        t.changeOffer(bob, skillz1);
-        assertEquals(t.getCurrentOffer(bob), skillz1);
+            // Modify An Active Trade
+            t.setCounterOffer(bob, skillz1);
+            assertEquals(t.getCurrentOffer(bob), skillz1);
 
-        // Delete An Active Trade
-        tl.delete(t);
-        assertTrue(tl.getActiveTrades().size() == 0);
+            // Delete An Active Trade
+            tl.delete(t);
+            assertTrue(tl.getActiveTrades().size() == 0);
+        } catch (UserAlreadyExistsException e) {}
     }
 
     public void testBrowseTradeHistory() {
         UserDatabase db = new UserDatabase();
-        User bob = db.createUser("Bob","Password");
-        User joel = db.createUser("Joel","Password");
+        try {
+            User bob = db.createUser("Bob", "Password");
+            User joel = db.createUser("Joel", "Password");
 
-        List<Skill> skillz1 = new List<Skill>(), skillz2 = new List<Skill>();
-        skillz1.add(new Skill("...YEP"));
+            List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
+            skillz1.add(new Skill("...YEP"));
 
-        TradeList tl = bob.getTradelist();
+            TradeList tl = bob.getTradeList();
 
-        tl.createTrade(bob, joel, skillz2);
-        Trade t1 = tl.getMostRecentTrade();
+            tl.createTrade(bob, joel, skillz2);
+            Trade t1 = tl.getMostRecentTrade();
 
-        tl.createTrade(bob, joel, skillz1);
-        Trade t2 = tl.getMostRecentTrade();
+            tl.createTrade(bob, joel, skillz1);
+            Trade t2 = tl.getMostRecentTrade();
 
-        // Trade History Has been updated
-        assertTrue(!t1.equals(t2));
+            // Trade History Has been updated
+            assertTrue(!t1.equals(t2));
+        } catch (UserAlreadyExistsException e) {}
     }
 }
