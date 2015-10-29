@@ -10,6 +10,14 @@ public class Skill {
     private boolean visible;
     private String description;
 
+    Skill(String skill_name) {
+        setName(skill_name);
+        setCategory("Misc.");
+        setVisible(true);//Default is visible
+        setDescription("");//Empty String
+        setImage(new NullImage());
+    }
+
     Skill(String skill_name, String category) {
         setName(skill_name);
         setCategory(category);

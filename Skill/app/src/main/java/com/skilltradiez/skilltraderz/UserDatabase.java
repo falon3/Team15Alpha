@@ -13,7 +13,7 @@ public class UserDatabase {
 
     }
 
-    public User createUser(String username, String password) throws UserAlreadyExistsException{
+    public User createUser(String username, String password) throws UserAlreadyExistsException {
         return null;
     }
 
@@ -26,6 +26,14 @@ public class UserDatabase {
     }
 
     public User getAccountByUsername(String username) {
+        return null;
+    }
+
+    public User getAccountByNickname(String username) {
+        return null;
+    }
+
+    public User getAccountByUserID(UserID id) {
         return null;
     }
 }
