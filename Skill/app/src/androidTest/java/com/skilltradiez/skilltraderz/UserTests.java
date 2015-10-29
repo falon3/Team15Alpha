@@ -18,24 +18,46 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static org.junit.Assert.*;
+import android.test.ActivityInstrumentationTestCase2;
 
-public class UserTests {
+public class UserTests extends ActivityInstrumentationTestCase2 {
+    public UserTests() {
+        super(com.skilltradiez.skilltraderz.UserTests.class);
+    }
+
     public void testGetProfile() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("Username", "Profile");
+        User user;
+
+        try {
+            user = db.createUser("Username", "Password");
+        } catch (UserAlreadyExistsException e) {
+
+        }
         assertNotNull(user.getProfile());
     }
 
     public void testGetInventory() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("Username", "Profile");
+        User user;
+
+        try {
+            user = db.createUser("Username", "Password");
+        } catch (UserAlreadyExistsException e) {
+
+        }
         assertNotNull(user.getInventory());
     }
 
     public void testGetFriendsList() {
         UserDatabase db = new UserDatabase();
-        User user = db.createUser("Username", "Profile");
+        User user;
+
+        try {
+            user = db.createUser("Username", "Password");
+        } catch (UserAlreadyExistsException e) {
+
+        }
         assertNotNull(user.getFriendsList());
     }
 }

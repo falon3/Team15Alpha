@@ -18,20 +18,26 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.skilltradiez.skilltraderz.model.Skill;
-import static org.junit.Assert.*;
 
-public class SkillTest {
+import android.test.ActivityInstrumentationTestCase2;
+
+public class SkillTest extends ActivityInstrumentationTestCase2{
+
+    public SkillTest() {
+        super(com.skilltradiez.skilltraderz.SkillTest.class);
+    }
+
     public void testSetVisibility() {
         Skill skill = new Skill("foo", "bar");
-        skill.setVisibile(false);
-        assertFalse(skill.getVisibile());
+        skill.setVisible(false);
+        assertFalse(skill.isVisible());
     }
     public void testSetDescription() {
         Skill skill = new Skill("foo", "bar");
         skill.setDescription("DESCRIBE'D!!!");
-        assertEqual(skill.getDescription(), "DESCRIBE'D!!!");
+        assertEquals(skill.getDescription(), "DESCRIBE'D!!!");
     }
+
     public void testAttachPicture() {
         Skill skill = new Skill("foo", "bar");
         Image img = new Image("foo.tiff");
@@ -41,6 +47,7 @@ public class SkillTest {
         skill.setImage(img);
         assertEquals(skill.getImage(), img);
     }
+
     public void testRetakePicture() {
         Skill skill = new Skill("foo", "bar");
         Image img = new Image("foo.tiff");
@@ -52,6 +59,7 @@ public class SkillTest {
         skill.setImage(img2);
         assertEquals(skill.getImage(), img2);
     }
+
     public void testDeletePicture() {
         Skill skill = new Skill("foo", "bar");
         Image img = new Image("foo.tiff");

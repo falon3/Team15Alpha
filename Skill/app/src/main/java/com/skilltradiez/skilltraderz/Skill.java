@@ -1,9 +1,23 @@
-package com.skilltradiez.skilltraderz.model;
+package com.skilltradiez.skilltraderz;
 
 /**
  * A skill represents something that a person can do.
  */
 public class Skill {
+    private String name;
+    private String category;
+    private Image image;
+    private boolean visible;
+    private String description;
+
+    Skill(String skill_name, String category) {
+        setName(skill_name);
+        setCategory(category);
+        setVisible(true);//Default is visible
+        setDescription("");//Empty String
+        setImage(new NullImage());
+    }
+
     public String getName() {
         return name;
     }
@@ -20,12 +34,16 @@ public class Skill {
         this.category = category;
     }
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Image image) {
         this.image = image;
+    }
+
+    public void deleteImage() {
+        setImage(new NullImage());
     }
 
     public String getDescription() {
@@ -43,10 +61,4 @@ public class Skill {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-
-    private String name;
-    private String category;
-    private String image;
-    private boolean visible;
-    private String description;
 }

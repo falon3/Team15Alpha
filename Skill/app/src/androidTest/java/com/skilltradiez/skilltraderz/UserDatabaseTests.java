@@ -1,3 +1,4 @@
+package com.skilltradiez.skilltraderz;
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -18,32 +19,57 @@
  */
 
 
-public class UserDatabaseTests {
+import android.test.ActivityInstrumentationTestCase2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
+	public UserDatabaseTests() {
+		super(com.skilltradiez.skilltraderz.UserDatabaseTests.class);
+	}
 
 	public void testCreateAccount() {
 		UserDatabase db = new UserDatabase();
+		User user;
 
-		User user = db.createUser("Username", "Password");
+		try {
+			user = db.createUser("Username", "Password");
+		} catch (UserAlreadyExistsException e) {
+
+		}
 		assertEquals(db.getAccountByUsername("Username"), user);
 	}
 
 	public void testCreateAccountFailCase() {
 		UserDatabase db = new UserDatabase();
+		User user;
 
-		User user = db.createUser("Username", "Password");
+		try {
+			user = db.createUser("Username", "Password");
+		} catch (UserAlreadyExistsException e) {
+
+		}
+
 		try {
 			User user2 = db.createUser("Username", "Password");
-			assertTrue(false);
+			assert(false);
 		} catch (UserAlreadyExistsException e) {
-			assertTrue(true);
+			assert(true);
 		}
 	}
 
 	public void testLogin() {
 		UserDatabase db = new UserDatabase();
+		User user;
 
-		User user = db.createUser("Username", "Password");
-		assertEquals(db.login("Username", "Password"), true);
+		try {
+			user = db.createUser("Username", "Password");
+		} catch (UserAlreadyExistsException e) {
+
+		}
+
+		assertTrue(db.login("Username", "Password") != null);
 	}
 
 	public void testDatabasePersistence() {
@@ -62,7 +88,7 @@ public class UserDatabaseTests {
 		     user2 = db.createUser("Username2", "Password");
 
 		TradeList tl = user1.getTradeList();
-		tl.createTrade(user1, user2, new List<Skill>())
+		tl.createTrade(user1, user2, new ArrayList<Skill>());
 
 		// The new database should contain all the previous changes
 		db = new UserDatabase();

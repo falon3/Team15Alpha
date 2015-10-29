@@ -1,7 +1,5 @@
 package com.skilltradiez.skilltraderz;
 
-import com.skilltradiez.skilltraderz.model.Skill;
-
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -21,9 +19,16 @@ import com.skilltradiez.skilltraderz.model.Skill;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static org.junit.Assert.*;
+import android.test.ActivityInstrumentationTestCase2;
 
-public class UserInventoryTests {
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
+    public UserInventoryTests() {
+        super(com.skilltradiez.skilltraderz.UserInventoryTests.class);
+    }
+
     public void testAddSkill() {
         Inventory inv = new Inventory();
         Skill skill = new Skill("Skill Name", "category");
@@ -51,37 +56,50 @@ public class UserInventoryTests {
         inv.add(skill);
 
         // Testing modifying a skill in inventory
-        Photo dog = new Photo("dog chasing it's tail");
+        Image dog = new Image("dog chasing it's tail");
         Skill held_skill = inv.get(0);
         held_skill.setDescription("I jumped and then got really tired");
-        held_skill.setPhoto(dog);
-        held_skill.setVisibility(false);
-        assertTrue(dog.equals(held_skill.getPhoto()));
+        held_skill.setImage(dog);
+        held_skill.setVisible(false);
+        assertTrue(dog.equals(held_skill.getImage()));
         assertTrue(held_skill.getDescription().equals("I jumped and then got really tired"));
-        assertTrue(held_skill.getVisibility().equals(false));
+        assertTrue(!held_skill.isVisible());
     }
+
     public void testSkillSorting() {
         Inventory inv = new Inventory();
         Skill skill = new Skill("Skill Name", "category");
         Skill skill2 = new Skill("Skill Naem", "dategory");
+        ArrayList<Skill> list1 = new ArrayList<Skill>();
+
+        list1.add(skill);
+        list1.add(skill2);
 
         inv.add(skill2);
         inv.add(skill);
 
-        assertEquals(inv.getSkillsSortedByCategory(), new ArrayList<Skill> { skill, skill2 });
+        assertEquals(inv.orderByCategory(), list1);
     }
+
     public void testSearchSkills() {
         Inventory inv = new Inventory();
         Skill skill = new Skill("Skill Name", "category");
         Skill skill2 = new Skill("Skil Naem", "dategory");
+        ArrayList<Skill> list1 = new ArrayList<Skill>();
+        ArrayList<Skill> list2 = new ArrayList<Skill>();
+
+        list1.add(skill);
+        list2.add(skill2);
 
         inv.add(skill2);
         inv.add(skill);
 
-        assertEquals(inv.findByName("Name"), new Set<Skill> { skill });
-        assertEquals(inv.findByName("Naem"), new Set<Skill> { skill2 });
-        assertEquals(inv.findByCategory("category"), new Set<Skill> { skill });
-        assertEquals(inv.findByCategory("dategory"), new Set<Skill> { skill2 });
-        assertEquals(inv.findByCategory("gory"), new Set<Skill> { skill1, skill2 });
+
+        assertEquals(inv.findByName("Name"), list1);
+        assertEquals(inv.findByName("Naem"), list2);
+        assertEquals(inv.findByCategory("category"), list1);
+        assertEquals(inv.findByCategory("dategory"), list2);
+        list1.add(skill2);
+        assertEquals(inv.findByCategory("gory"), list1);
     }
 }
