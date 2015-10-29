@@ -18,9 +18,14 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static org.junit.Assert.*;
 
-public class TradeTest {
+import android.test.ActivityInstrumentationTestCase2;
+
+public class TradeTest extends ActivityInstrumentationTestCase2{
+    public TradeTest() {
+        super(com.skilltradiez.skilltraderz.TradeTest.class);
+    }
+
     public void testInitTrade() {
         UserDatabase db = new UserDatabase();
         User user = db.createUser("u", "p");

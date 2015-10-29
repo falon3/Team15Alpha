@@ -18,22 +18,27 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static org.junit.Assert.*;
 
-public class FriendListTests {
+import android.test.ActivityInstrumentationTestCase2;
+
+public class FriendListTests extends ActivityInstrumentationTestCase2{
+    public FriendListTests() {
+        super(com.skilltradiez.skilltraderz.FriendListTests.class);
+    }
+
     public void testAddFriend() {
         UserDatabase db = new UserDatabase();
         User user1 = db.createUser("u", "p");
         User user2 = db.createUser("u2", "p2");
 
         // test adding and confirming a friend
-        user1.getFriendList().requestAddFriend(user2);
-        assertTrue(user1.getFriendList().hasPendingFriendRequest(user2));
-        assertTrue(user2.getFriendList().hasPendingFriendRequest(user1));
+        user1.getFriendsList().requestAddFriend(user2);
+        assertTrue(user1.getFriendsList().hasPendingFriendRequest(user2));
+        assertTrue(user2.getFriendsList().hasPendingFriendRequest(user1));
 
         user2.getFriendList().confirmFriendRequest(user1);
-        assertTrue(user1.getFriendList().hasFriend(user2));
-        assertTrue(user2.getFriendList().hasFriend(user1));
+        assertTrue(user1.getFriendsList().hasFriend(user2));
+        assertTrue(user2.getFriendsList().hasFriend(user1));
     }
 
     public void testRemoveFriend() {
@@ -41,18 +46,18 @@ public class FriendListTests {
         User user1 = db.createUser("u", "p");
         User user2 = db.createUser("u2", "p2");
 
-        user1.getFriendList().requestAddFriend(user2);
-        assertTrue(user1.getFriendList().hasPendingFriendRequest(user2));
-        assertTrue(user2.getFriendList().hasPendingFriendRequest(user1));
+        user1.getFriendsList().requestAddFriend(user2);
+        assertTrue(user1.getFriendsList().hasPendingFriendRequest(user2));
+        assertTrue(user2.getFriendsList().hasPendingFriendRequest(user1));
 
-        user2.getFriendList().confirmFriendRequest(user1);
-        assertTrue(user1.getFriendList().hasFriend(user2));
-        assertTrue(user2.getFriendList().hasFriend(user1));
+        user2.getFriendsList().confirmFriendRequest(user1);
+        assertTrue(user1.getFriendsList().hasFriend(user2));
+        assertTrue(user2.getFriendsList().hasFriend(user1));
 
         // test removing a friend
-        user2.getFriendList().removeFriend(user1);
-        assertFalse(user1.getFriendList().hasFriend(user2));
-        assertFalse(user2.getFriendList().hasFriend(user1));
+        user2.getFriendsList().removeFriend(user1);
+        assertFalse(user1.getFriendsList().hasFriend(user2));
+        assertFalse(user2.getFriendsList().hasFriend(user1));
     }
 
     public void testBlockUser() {
@@ -60,22 +65,22 @@ public class FriendListTests {
         User user1 = db.createUser("u", "p");
         User user2 = db.createUser("u2", "p2");
 
-        user1.getFriendList().requestAddFriend(user2);
-        assertTrue(user1.getFriendList().hasPendingFriendRequest(user2));
-        assertTrue(user2.getFriendList().hasPendingFriendRequest(user1));
+        user1.getFriendsList().requestAddFriend(user2);
+        assertTrue(user1.getFriendsList().hasPendingFriendRequest(user2));
+        assertTrue(user2.getFriendsList().hasPendingFriendRequest(user1));
 
-        user2.getFriendList().confirmFriendRequest(user1);
-        assertTrue(user1.getFriendList().hasFriend(user2));
-        assertTrue(user2.getFriendList().hasFriend(user1));
+        user2.getFriendsList().confirmFriendRequest(user1);
+        assertTrue(user1.getFriendsList().hasFriend(user2));
+        assertTrue(user2.getFriendsList().hasFriend(user1));
 
-        user2.getFriendList().blockFriend(user1);
-        assertFalse(user1.getFriendList().hasFriend(user2));
-        assertFalse(user2.getFriendList().hasFriend(user1));
+        user2.getFriendsList().blockFriend(user1);
+        assertFalse(user1.getFriendsList().hasFriend(user2));
+        assertFalse(user2.getFriendsList().hasFriend(user1));
 
         // can't send a friend request to a blocked person
-        user1.getFriendList().requestAddFriend(user2);
-        assertFalse(user1.getFriendList().hasPendingFriendRequest(user2));
-        assertFalse(user2.getFriendList().hasPendingFriendRequest(user1));
+        user1.getFriendsList().requestAddFriend(user2);
+        assertFalse(user1.getFriendsList().hasPendingFriendRequest(user2));
+        assertFalse(user2.getFriendsList().hasPendingFriendRequest(user1));
     }
 
     public void testGetFriends() {
@@ -83,10 +88,10 @@ public class FriendListTests {
         User user1 = db.createUser("u", "p");
         User user2 = db.createUser("u2", "p2");
 
-        user1.getFriendList().requestAddFriend(user2);
-        user2.getFriendList().confirmFriendRequest(user1);
+        user1.getFriendsList().requestAddFriend(user2);
+        user2.getFriendsList().confirmFriendRequest(user1);
 
-        assertEquals(user1.getFriendList().get(0), user2);
-        assertEquals(user2.getFriendList().get(0), user1);
+        assertEquals(user1.getFriendsList().get(0), user2);
+        assertEquals(user2.getFriendsList().get(0), user1);
     }
 }

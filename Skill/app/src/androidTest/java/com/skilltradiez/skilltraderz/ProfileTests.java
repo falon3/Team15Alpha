@@ -18,10 +18,14 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static org.junit.Assert.*;
 
-public class ProfileTests {
+import android.test.ActivityInstrumentationTestCase2;
 
+public class ProfileTests extends ActivityInstrumentationTestCase2{
+
+    public ProfileTests() {
+        super(com.skilltradiez.skilltraderz.ProfileTests.class);
+    }
     // tests for ConfigureProfileDetails
 
     public void testSetNickname() {
