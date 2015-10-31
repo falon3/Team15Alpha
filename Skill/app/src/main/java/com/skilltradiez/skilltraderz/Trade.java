@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class Trade {
+public class Trade implements Notification {
     private User actor1, actor2;
     private List<Skill> offer1, offer2;
     private Boolean accepted = false, active = true;
@@ -55,5 +55,9 @@ public class Trade {
 
     public List<Skill> getCurrentOffer(User user) {
         return null;
+    }
+
+    public void commit(UserDatabase userDB) {
+        //TODO
     }
 }

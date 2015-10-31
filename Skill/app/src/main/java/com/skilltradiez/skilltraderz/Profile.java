@@ -3,7 +3,7 @@ package com.skilltradiez.skilltraderz;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class Profile {
+public class Profile implements Notification {
     private String username, nickname = "", email = "";
     private Object password;
     private Boolean shouldDownloadImages = true;
@@ -66,5 +66,9 @@ public class Profile {
 
     public void setShouldDownloadImages(Boolean shouldDownloadImages) {
         this.shouldDownloadImages = shouldDownloadImages;
+    }
+
+    public void commit(UserDatabase userDB) {
+        //TODO
     }
 }
