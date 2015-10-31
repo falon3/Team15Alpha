@@ -3,7 +3,7 @@ package com.skilltradiez.skilltraderz;
 /**
  * A skill represents something that a person can do.
  */
-public class Skill {
+public class Skill implements Notification {
     private String name;
     private String category;
     private Image image;
@@ -68,5 +68,9 @@ public class Skill {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public void commit(UserDatabase userDB) {
+        //TODO
     }
 }

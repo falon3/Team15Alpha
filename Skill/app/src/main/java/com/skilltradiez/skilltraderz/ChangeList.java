@@ -1,17 +1,38 @@
+package com.skilltradiez.skilltraderz;
+
+import java.util.ArrayList;
+import java.util.List;
+
 class ChangeList {
-  private List<Trade> new_outgoing_trades;
-  private List<Trade> new_completed_trades;
-  private List<FriendRequest> new_outgoing_friendReq;
-  private List<FriendRequest> new_completed_friendReq;
-  private List<Skill> newly_created_skills;
-  private Profile changedProfile;
+  private List<Notification> notifications;
   
-  FalseDB() {
-    new_outgoing_trades = new List<Trade>();
-    new_completed_trades = new List<Trade>();
-    new_outgoing_friendReq = new List<FriendRequest>();
-    new_complete_friendReq = new List<FriendRequest>();
-    newly_created_skills = new List<Skill>();
-    changedProfile = null;i
+  ChangeList() {
+    notifications = new ArrayList<Notification>();
+  }
+
+  public void add(Notification newNote) {
+    notifications.add(newNote);
+  }
+
+  /*
+   * Pushes all notifications to the internet through the User Database
+   * - If the internet is not available or it is disconnected, the Notification
+   * is not removed from the list
+   * - If the commit is successful, then we remove the Notification
+   */
+  public void push(UserDatabase userDB) {
+    List<Notification> finishedNotes = new ArrayList<Notification>();
+    for (Notification note:notifications) {
+      try {
+        note.commit(userDB);
+        finishedNotes.add(note);
+      } catch (NoNodeAvailableException e1) {
+        // Continue
+      } catch {NodeDisconnectedException e2} {
+        // Continue
+      }
+    }
+    for (Notification done:finishedNotes)
+      notifications.remove(done);
   }
 }

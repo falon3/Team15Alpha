@@ -1,13 +1,17 @@
 package com.skilltradiez.skilltraderz;
 
 import com.skilltradiez.skilltraderz.User;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by sja2 on 10/28/15.
  */
 public class UserDatabase {
+    private User currentUser;
     private List<User> users;
+    private ChangeList toBePushed;
 
     UserDatabase() {
 
@@ -19,6 +23,13 @@ public class UserDatabase {
 
     public User login(String username, String password) {
         return null;
+    }
+
+    public pullUsers() {
+        users = new ArrayList<User>();
+        /*TODO
+         * Get The Users (Who Are Cached/Friends) By ElasticSearch
+         */
     }
 
     public void save() {
