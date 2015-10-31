@@ -25,7 +25,7 @@ public class UserDatabase {
         return null;
     }
 
-    public pullUsers() {
+    public void pullUsers() {
         users = new ArrayList<User>();
         /*TODO
          * Get The Users (Who Are Cached/Friends) By ElasticSearch

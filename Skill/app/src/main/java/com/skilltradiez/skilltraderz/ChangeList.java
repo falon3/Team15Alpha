@@ -1,5 +1,8 @@
 package com.skilltradiez.skilltraderz;
 
+import org.elasticsearch.client.transport.NoNodeAvailableException;
+import org.elasticsearch.transport.NodeDisconnectedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,7 @@ class ChangeList {
         finishedNotes.add(note);
       } catch (NoNodeAvailableException e1) {
         // Continue
-      } catch {NodeDisconnectedException e2} {
+      } catch (NodeDisconnectedException e2) {
         // Continue
       }
     }
