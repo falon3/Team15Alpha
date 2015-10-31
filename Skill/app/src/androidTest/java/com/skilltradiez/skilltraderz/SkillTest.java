@@ -42,7 +42,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2{
         Skill skill = new Skill("foo", "bar");
         Image img = new Image("foo.tiff");
         //image should be null initially
-        assertNull(skill.getImage());
+        assertTrue(skill.getImage() instanceof NullImage);
         //test setting image
         skill.setImage(img);
         assertEquals(skill.getImage(), img);
@@ -68,6 +68,6 @@ public class SkillTest extends ActivityInstrumentationTestCase2{
         assertEquals(skill.getImage(), img);
         //test deleting image
         skill.deleteImage();
-        assertNull(skill.getImage());
+        assertTrue(skill.getImage() instanceof NullImage);
     }
 }
