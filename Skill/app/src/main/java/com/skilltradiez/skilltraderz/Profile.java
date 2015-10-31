@@ -13,7 +13,7 @@ public class Profile {
         this.username = username;
         try {
             setPassword(password);
-        } catch (InvalidArgumentException e){}
+        } catch (IllegalArgumentException e){}
         deleteAvatar();
     }
 
@@ -21,15 +21,15 @@ public class Profile {
         return this.nickname;
     }
 
-    public void setNickname(String name) throws InvalidArgumentException {
+    public void setNickname(String name) throws IllegalArgumentException {
         if (name.length() > 12)
-            throw new InvalidArgumentException();
+            throw new IllegalArgumentException();
         this.nickname = name;
     }
 
-    protected void setPassword(String password) throws InvalidArgumentException {
+    protected void setPassword(String password) throws IllegalArgumentException {
         if (password.length() > 12)
-            throw new InvalidArgumentException();
+            throw new IllegalArgumentException();
         // Encrypt it?
         this.password = password.getBytes();
     }
@@ -42,9 +42,9 @@ public class Profile {
         return email;
     }
 
-    public void setEmail(String email) throws InvalidArgumentException {
+    public void setEmail(String email) throws IllegalArgumentException {
         if (email.length() > 12)
-            throw new InvalidArgumentException();
+            throw new IllegalArgumentException();
         this.email = email;
     }
 
