@@ -1,4 +1,5 @@
 package com.skilltradiez.skilltraderz;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -19,10 +20,13 @@ package com.skilltradiez.skilltraderz;
  */
 import java.util.ArrayList;
 import java.util.List;
+import org.elasticsearch.client.transport.NoNodeAvailableException;
+import org.elasticsearch.transport.NodeDisconnectedException;
+
 
 class ChangeList {
   private List<Notification> notifications;
-  
+
   ChangeList() {
     notifications = new ArrayList<Notification>();
   }
@@ -45,7 +49,7 @@ class ChangeList {
         finishedNotes.add(note);
       } catch (NoNodeAvailableException e1) {
         // Continue
-      } catch {NodeDisconnectedException e2} {
+      } catch (NodeDisconnectedException e2) {
         // Continue
       }
     }

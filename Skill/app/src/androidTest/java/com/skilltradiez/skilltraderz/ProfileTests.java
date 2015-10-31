@@ -34,7 +34,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             User user = db.createUser("Username", "Password");
             try {
                 user.getProfile().setNickname("Foobar");
-            } catch (InvalidArgumentException e) {}
+            } catch (IllegalArgumentException e) {}
             assertEquals(user.getProfile().getNickname(), "Foobar");
         } catch (UserAlreadyExistsException e) {}
     }
@@ -45,7 +45,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             User user = db.createUser("Username", "Password");
             try {
                 user.getProfile().setPassword("hunter2");
-            } catch (InvalidArgumentException e) {}
+            } catch (IllegalArgumentException e) {}
             assertTrue(user.getProfile().isPassword("hunter2"));
         } catch (UserAlreadyExistsException e) {}
     }
@@ -56,7 +56,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             User user = db.createUser("Username", "Password");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.com");
-            } catch (InvalidArgumentException e) {}
+            } catch (IllegalArgumentException e) {}
             assertEquals(user.getProfile().getEmail(), "apersonsname@awebsite.com");
         } catch (UserAlreadyExistsException e) {}
     }
@@ -68,17 +68,17 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
-            } catch (InvalidArgumentException e) {
+            } catch (IllegalArgumentException e) {
             }
             try {
                 user.getProfile().setNickname("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
-            } catch (InvalidArgumentException e) {
+            } catch (IllegalArgumentException e) {
             }
             try {
                 user.getProfile().setPassword("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
-            } catch (InvalidArgumentException e) {
+            } catch (IllegalArgumentException e) {
             }
         } catch (UserAlreadyExistsException e) {}
     }
