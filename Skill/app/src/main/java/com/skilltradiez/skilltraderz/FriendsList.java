@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class FriendsList {
 
     /**
      * Gets a list of confirmed friends.
+     *
      * @return A list of their UserIDs.
      */
     public List<UserID> getFriends() {
@@ -55,6 +57,7 @@ public class FriendsList {
 
     /**
      * Initiates a friend request with another user.
+     *
      * @param other_guy The user to initiate the request with.
      * @throws IllegalArgumentException if the user is already a confirmed friend, or is blocked.
      */
@@ -71,6 +74,7 @@ public class FriendsList {
 
     /**
      * Confirms a potential friend request initiated by another user.
+     *
      * @param other_guy the user who initiated the friend request.
      * @throws IllegalArgumentException if the request doesn't exist.
      */
@@ -86,6 +90,7 @@ public class FriendsList {
 
     /**
      * Confirms a friend request that has been accepted by the other user.
+     *
      * @param other_guy the user the request was sent to.
      * @throws IllegalArgumentException if the request doesn't exist.
      */
@@ -100,6 +105,7 @@ public class FriendsList {
 
     /**
      * Denies a friend request that was initiated by another user.
+     *
      * @param other_guy the person who has not even been given a chance.
      */
     public void denyFriendRequest(User other_guy) {
@@ -117,6 +123,7 @@ public class FriendsList {
 
     /**
      * Remove a friend from this friend list.
+     *
      * @param terrible_person the user to remove.
      */
     public void removeFriend(User terrible_person) {
@@ -126,6 +133,7 @@ public class FriendsList {
 
     /**
      * Block a user and remove them as a friend (if applicable).
+     *
      * @param worst_person
      */
     public void blockUser(User worst_person) {
@@ -135,6 +143,7 @@ public class FriendsList {
 
     /**
      * Indicates if another user initiated a friend request with this user.
+     *
      * @param that_guy the user that initiated the request.
      * @return a boolean indicating whether the request exists.
      */
@@ -144,6 +153,7 @@ public class FriendsList {
 
     /**
      * Indicates if there exists a pending friend request sent to another user by this one.
+     *
      * @param that_guy the user that the request was sent to.
      * @return a boolean indicating whether the request exists.
      */
@@ -153,6 +163,7 @@ public class FriendsList {
 
     /**
      * Indicates if another user is currently a friend of this user.
+     *
      * @param that_guy the user to check
      * @return a boolean indicating if they are a friend
      */

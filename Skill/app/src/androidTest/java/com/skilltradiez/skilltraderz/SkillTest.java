@@ -21,7 +21,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-public class SkillTest extends ActivityInstrumentationTestCase2{
+public class SkillTest extends ActivityInstrumentationTestCase2 {
 
     public SkillTest() {
         super(com.skilltradiez.skilltraderz.SkillTest.class);
@@ -32,6 +32,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2{
         skill.setVisible(false);
         assertFalse(skill.isVisible());
     }
+
     public void testSetDescription() {
         Skill skill = new Skill("foo", "bar");
         skill.setDescription("DESCRIBE'D!!!");
