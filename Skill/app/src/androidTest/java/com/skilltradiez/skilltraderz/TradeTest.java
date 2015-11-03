@@ -24,7 +24,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TradeTest extends ActivityInstrumentationTestCase2{
+public class TradeTest extends ActivityInstrumentationTestCase2 {
     public TradeTest() {
         super(com.skilltradiez.skilltraderz.TradeTest.class);
     }
@@ -41,7 +41,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
             Trade trade = user.getTradeList().createTrade(user, user2, offer);
             assertEquals(user.getTradeList().getMostRecentTrade(), trade);
             assertEquals(user2.getTradeList().getMostRecentTrade(), trade);
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testAcceptTradeRequest() {
@@ -56,9 +57,11 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
             Trade trade = user.getTradeList().createTrade(user, user2, offer);
             try {
                 user2.getTradeList().getMostRecentTrade().setAccepted(user2);
-            } catch (InactiveTradeException e1) {}
+            } catch (InactiveTradeException e1) {
+            }
             assertTrue(user.getTradeList().getMostRecentTrade().isAccepted());
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testRefuseTradeRequest() {
@@ -77,7 +80,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
             // delete the trade
             user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade());
             assertTrue(user.getTradeList().getActiveTrades().size() == 0);
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testCounterOfferTradeRequest() {
@@ -95,8 +99,10 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
             trade.decline();
             trade.setCounterOffer(user2, counterOffer);
             assertEquals(trade.getCurrentOffer(user2), counterOffer);
-        }  catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
+
     public void testModifyActiveTrade() {
         UserDatabase db = new UserDatabase();
         try {
@@ -118,7 +124,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
             // Delete An Active Trade
             tl.delete(t);
             assertTrue(tl.getActiveTrades().size() == 0);
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testBrowseTradeHistory() {
@@ -140,6 +147,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2{
 
             // Trade History Has been updated
             assertTrue(!t1.equals(t2));
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 }

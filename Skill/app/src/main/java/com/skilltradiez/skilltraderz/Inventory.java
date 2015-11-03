@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,6 +32,7 @@ public class Inventory {
 
     /**
      * Gets a skill at a given index
+     *
      * @param index the index
      * @return the skill
      */
@@ -42,6 +44,7 @@ public class Inventory {
 
     /**
      * Adds a new skill to the end of the list
+     *
      * @param new_skill the skill to add.
      * @return false if the skill was already in the list
      */
@@ -53,6 +56,7 @@ public class Inventory {
 
     /**
      * Removes a skill from the list
+     *
      * @param skill the skill to remove
      */
     public void remove(Skill skill) {
@@ -68,6 +72,7 @@ public class Inventory {
 
     /**
      * Finds all skills with a particular name.
+     *
      * @param name The skill name to search for
      * @return a list of all skills matching the given name.
      */
@@ -82,10 +87,11 @@ public class Inventory {
     }
 
     /**
-    * Finds all skills with a particular category.
-    * @param category The skill category to search for
-    * @return a list of all skills matching the given category.
-    */
+     * Finds all skills with a particular category.
+     *
+     * @param category The skill category to search for
+     * @return a list of all skills matching the given category.
+     */
     public List<Skill> findByCategory(String category) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         for (Skill s : skillz) {

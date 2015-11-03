@@ -28,7 +28,8 @@ public class Profile implements Notification {
         this.username = username;
         try {
             setPassword(password);
-        } catch (IllegalArgumentException e){}
+        } catch (IllegalArgumentException e) {
+        }
         deleteAvatar();
     }
 

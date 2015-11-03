@@ -21,7 +21,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-public class ProfileTests extends ActivityInstrumentationTestCase2{
+public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public ProfileTests() {
         super(com.skilltradiez.skilltraderz.ProfileTests.class);
@@ -34,9 +34,11 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             User user = db.createUser("Username", "Password");
             try {
                 user.getProfile().setNickname("Foobar");
-            } catch (IllegalArgumentException e) {}
+            } catch (IllegalArgumentException e) {
+            }
             assertEquals(user.getProfile().getNickname(), "Foobar");
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testSetPassword() {
@@ -45,9 +47,11 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             User user = db.createUser("Username", "Password");
             try {
                 user.getProfile().setPassword("hunter2");
-            } catch (IllegalArgumentException e) {}
+            } catch (IllegalArgumentException e) {
+            }
             assertTrue(user.getProfile().isPassword("hunter2"));
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testSetEmail() {
@@ -56,9 +60,11 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             User user = db.createUser("Username", "Password");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.com");
-            } catch (IllegalArgumentException e) {}
+            } catch (IllegalArgumentException e) {
+            }
             assertEquals(user.getProfile().getEmail(), "apersonsname@awebsite.com");
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testFieldsTooLong() {
@@ -80,7 +86,8 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
                 assertTrue(false); // if we got here, the exception didn't happen
             } catch (IllegalArgumentException e) {
             }
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testAvatar() {
@@ -104,7 +111,8 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
             //test deleting avatar
             user.getProfile().deleteAvatar();
             assertNull(user.getProfile().getAvatar());
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     public void testSetDownloadImages() {
@@ -114,6 +122,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
 
             user.getProfile().setShouldDownloadImages(true);
             assertTrue(user.getProfile().getShouldDownloadImages());
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 }

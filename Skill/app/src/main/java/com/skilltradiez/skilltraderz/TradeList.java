@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class TradeList {
     public List<Trade> getActiveTrades() {
         List<Trade> activeTrades = new ArrayList<Trade>();
 
-        for (Trade t:trades)
+        for (Trade t : trades)
             if (t.isActive())
                 activeTrades.add(t);
 
