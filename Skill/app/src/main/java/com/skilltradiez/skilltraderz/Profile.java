@@ -19,47 +19,46 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Profile implements Notification {
-    private String username, nickname = "", email = "";
-    private Object password;
+
+    private String location = "";
     private Boolean shouldDownloadImages = true;
     private Image avatar;
+    private String username = "";
+    private String email = "";
 
-    Profile(String username, String password) {
-        this.username = username;
-        try {
-            setPassword(password);
-        } catch (IllegalArgumentException e) {
-        }
-        deleteAvatar();
+    public String getLocation() {
+        return location;
     }
 
-    public String getNickname() {
-        return this.nickname;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public void setNickname(String name) throws IllegalArgumentException {
+    Profile(String username, String location, String email) {
+        setUsername(username);
+        setLocation(location);
+        setEmail(email);
+
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String name) throws IllegalArgumentException {
         if (name.length() > 12)
             throw new IllegalArgumentException();
-        this.nickname = name;
+        this.username = name;
     }
 
-    protected void setPassword(String password) throws IllegalArgumentException {
-        if (password.length() > 12)
-            throw new IllegalArgumentException();
-        // Encrypt it?
-        this.password = password.getBytes();
-    }
-
-    protected Boolean isPassword(String password) {
-        return this.password.equals(password.getBytes());
-    }
 
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) throws IllegalArgumentException {
-        if (email.length() > 12)
+        // CHANGE THIS EVENTUALLY
+        if (email.length() > 9999999)
             throw new IllegalArgumentException();
         this.email = email;
     }

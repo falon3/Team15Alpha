@@ -33,10 +33,10 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             UserDatabase db = new UserDatabase();
             User user = db.createUser("Username", "Password");
             try {
-                user.getProfile().setNickname("Foobar");
+                user.getProfile().setUsername("Foobar");
             } catch (IllegalArgumentException e) {
             }
-            assertEquals(user.getProfile().getNickname(), "Foobar");
+            assertEquals(user.getProfile().getUsername(), "Foobar");
         } catch (UserAlreadyExistsException e) {
         }
     }
@@ -77,7 +77,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             } catch (IllegalArgumentException e) {
             }
             try {
-                user.getProfile().setNickname("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+                user.getProfile().setUsername("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
             } catch (IllegalArgumentException e) {
             }
