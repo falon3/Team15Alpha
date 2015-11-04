@@ -31,7 +31,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testSetNickname() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
             try {
                 user.getProfile().setNickname("Foobar");
             } catch (IllegalArgumentException e) {
@@ -44,7 +44,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testSetPassword() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
             try {
                 user.getProfile().setPassword("hunter2");
             } catch (IllegalArgumentException e) {
@@ -57,7 +57,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testSetEmail() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.com");
             } catch (IllegalArgumentException e) {
@@ -70,7 +70,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testFieldsTooLong() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
@@ -93,7 +93,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testAvatar() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
             Image avatar = new Image("hello.jpeg");
             Image avatar2 = new Image("hello.jpg");
 
@@ -118,7 +118,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testSetDownloadImages() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
 
             user.getProfile().setShouldDownloadImages(true);
             assertTrue(user.getProfile().getShouldDownloadImages());

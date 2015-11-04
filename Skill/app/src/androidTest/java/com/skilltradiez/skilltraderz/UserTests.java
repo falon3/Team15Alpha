@@ -30,7 +30,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
         User user = null;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }
@@ -42,7 +42,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
         User user = null;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }
@@ -54,7 +54,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
         User user = null;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }

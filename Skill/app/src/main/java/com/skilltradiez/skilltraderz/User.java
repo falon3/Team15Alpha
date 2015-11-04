@@ -31,9 +31,9 @@ public class User {
     private TradeList tradeList;
     private UserID id;
 
-    User(UserID id, String username, String password) {
+    User(UserID id, String username) {
         this.id = id;
-        profile = new Profile(username, password);
+        profile = new Profile(username, "FIXME");
         inventory = new Inventory(); // Empty
         friendsList = new FriendsList(id); // Empty
         tradeList = new TradeList(id); // Empty

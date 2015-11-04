@@ -18,10 +18,23 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.util.Log;
+
+import com.searchly.jestdroid.DroidClientConfig;
+import com.searchly.jestdroid.JestClientFactory;
 import com.skilltradiez.skilltraderz.User;
 
+import org.apache.http.client.params.HttpClientParamConfig;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.searchbox.client.JestClient;
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Get;
+import io.searchbox.core.Index;
+import io.searchbox.indices.mapping.PutMapping;
 
 /**
  * Created by sja2 on 10/28/15.
@@ -30,16 +43,22 @@ public class UserDatabase {
     private User currentUser;
     private List<User> users;
     private ChangeList toBePushed;
+    JestClientFactory factory;
+    JestClient client;
+
+    private static final String INDEX = "cmput301f15t15";
 
     UserDatabase() {
-
+        factory = new JestClientFactory();
+        factory.setDroidClientConfig(new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080").build());
+        client = factory.getObject();
     }
 
-    public User createUser(String username, String password) throws UserAlreadyExistsException {
+    public User createUser(String username) throws UserAlreadyExistsException {
         return null;
     }
 
-    public User login(String username, String password) {
+    public User login(String username) {
         return null;
     }
 

@@ -32,8 +32,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     public void testInitTrade() {
         UserDatabase db = new UserDatabase();
         try {
-            User user = db.createUser("u", "p");
-            User user2 = db.createUser("u2", "p");
+            User user = db.createUser("u");
+            User user2 = db.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
 
             offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
@@ -48,8 +48,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     public void testAcceptTradeRequest() {
         UserDatabase db = new UserDatabase();
         try {
-            User user = db.createUser("u", "p");
-            User user2 = db.createUser("u2", "p");
+            User user = db.createUser("u");
+            User user2 = db.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
 
             offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
@@ -67,8 +67,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     public void testRefuseTradeRequest() {
         UserDatabase db = new UserDatabase();
         try {
-            User user = db.createUser("u", "p");
-            User user2 = db.createUser("u2", "p");
+            User user = db.createUser("u");
+            User user2 = db.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
 
             offer.add(new Skill("illlllll", "LLLLLLLLLLLLLLLL"));
@@ -87,8 +87,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     public void testCounterOfferTradeRequest() {
         UserDatabase db = new UserDatabase();
         try {
-            User user = db.createUser("u", "p");
-            User user2 = db.createUser("u2", "p");
+            User user = db.createUser("u");
+            User user2 = db.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
             List<Skill> counterOffer = new ArrayList<Skill>();
 
@@ -106,8 +106,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     public void testModifyActiveTrade() {
         UserDatabase db = new UserDatabase();
         try {
-            User bob = db.createUser("Bob", "Password");
-            User joel = db.createUser("Joel", "Password");
+            User bob = db.createUser("Bob");
+            User joel = db.createUser("Joel");
 
             List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
             skillz1.add(new Skill("...YEP"));
@@ -131,8 +131,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     public void testBrowseTradeHistory() {
         UserDatabase db = new UserDatabase();
         try {
-            User bob = db.createUser("Bob", "Password");
-            User joel = db.createUser("Joel", "Password");
+            User bob = db.createUser("Bob");
+            User joel = db.createUser("Joel");
 
             List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
             skillz1.add(new Skill("...YEP"));
