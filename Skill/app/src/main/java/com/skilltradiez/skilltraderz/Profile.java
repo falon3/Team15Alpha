@@ -31,14 +31,13 @@ public class Profile implements Notification {
     }
 
     public void setLocation(String location) {
+        if (location.length() > 50)
+            throw new IllegalArgumentException();
         this.location = location;
     }
 
-    Profile(String username, String location, String email) {
+    Profile(String username) {
         setUsername(username);
-        setLocation(location);
-        setEmail(email);
-
     }
 
     public String getUsername() {
@@ -46,7 +45,7 @@ public class Profile implements Notification {
     }
 
     public void setUsername(String name) throws IllegalArgumentException {
-        if (name.length() > 12)
+        if (name.length() > 50)
             throw new IllegalArgumentException();
         this.username = name;
     }
@@ -57,8 +56,7 @@ public class Profile implements Notification {
     }
 
     public void setEmail(String email) throws IllegalArgumentException {
-        // CHANGE THIS EVENTUALLY
-        if (email.length() > 9999999)
+        if (email.length() > 50)
             throw new IllegalArgumentException();
         this.email = email;
     }

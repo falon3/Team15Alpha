@@ -18,6 +18,8 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.Random;
+
 /**
  * Created by sja2 on 10/28/15.
  */
@@ -46,5 +48,9 @@ public class UserID {
 
     public Number getID() {
         return id;
+    }
+
+    static UserID generateRandomID() {
+        return new UserID(new Random().nextLong());
     }
 }

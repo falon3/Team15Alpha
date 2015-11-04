@@ -34,7 +34,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         User user;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
 
             assertEquals(db.getAccountByUsername("Username"), user);
         } catch (UserAlreadyExistsException e) {
@@ -46,13 +46,13 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         User user;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }
 
         try {
-            User user2 = db.createUser("Username", "Password");
+            User user2 = db.createUser("Username");
             assertTrue(false);
         } catch (UserAlreadyExistsException e) {
             assertTrue(true);
@@ -64,18 +64,18 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         User user;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }
 
-        assertTrue(db.login("Username", "Password") != null);
+        assertTrue(db.login("Username") != null);
     }
 
     public void testDatabasePersistence() {
         UserDatabase db = new UserDatabase();
         try {
-            User user = db.createUser("Username", "Password");
+            User user = db.createUser("Username");
             db.save();
 
             // The new database should contain all the previous changes
@@ -88,8 +88,8 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     public void testTradelistPersistence() {
         UserDatabase db = new UserDatabase();
         try {
-            User user1 = db.createUser("Username1", "Password"),
-                    user2 = db.createUser("Username2", "Password");
+            User user1 = db.createUser("Username1"),
+                    user2 = db.createUser("Username2");
 
             TradeList tl = user1.getTradeList();
             tl.createTrade(user1, user2, new ArrayList<Skill>());
@@ -108,8 +108,8 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     public void testFriendListPersistence() {
         UserDatabase db = new UserDatabase();
         try {
-            User user1 = db.createUser("Username1", "Password"),
-                    user2 = db.createUser("Username2", "Password");
+            User user1 = db.createUser("Username1"),
+                    user2 = db.createUser("Username2");
 
             FriendsList fl = user1.getFriendsList();
 

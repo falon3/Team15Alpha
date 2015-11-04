@@ -91,8 +91,8 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         list1.add(skill);
         list2.add(skill2);
 
-        inv.add(skill2);
         inv.add(skill);
+        inv.add(skill2);
 
 
         assertEquals(inv.findByName("Name"), list1);

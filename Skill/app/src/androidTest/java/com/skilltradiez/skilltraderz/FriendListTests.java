@@ -31,8 +31,8 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         User user1;
         User user2;
         try {
-            user1 = db.createUser("u", "p");
-            user2 = db.createUser("u2", "p2");
+            user1 = db.createUser("u");
+            user2 = db.createUser("u2");
 
             // test adding and confirming a friend
             user1.getFriendsList().requestAddFriend(user2);
@@ -51,8 +51,8 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         User user1;
         User user2;
         try {
-            user1 = db.createUser("u", "p");
-            user2 = db.createUser("u2", "p2");
+            user1 = db.createUser("u");
+            user2 = db.createUser("u2");
 
             user1.getFriendsList().requestAddFriend(user2);
             assertTrue(user1.getFriendsList().hasOutgoingFriendRequest(user2));
@@ -75,8 +75,8 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         User user1;
         User user2;
         try {
-            user1 = db.createUser("u", "p");
-            user2 = db.createUser("u2", "p2");
+            user1 = db.createUser("u");
+            user2 = db.createUser("u2");
 
             user1.getFriendsList().requestAddFriend(user2);
             assertTrue(user1.getFriendsList().hasOutgoingFriendRequest(user2));
@@ -103,8 +103,8 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         User user1;
         User user2;
         try {
-            user1 = db.createUser("u", "p");
-            user2 = db.createUser("u2", "p2");
+            user1 = db.createUser("u");
+            user2 = db.createUser("u2");
 
             user1.getFriendsList().requestAddFriend(user2);
             user2.getFriendsList().confirmIncomingFriendRequest(user1);
