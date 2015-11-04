@@ -30,6 +30,10 @@ import java.util.List;
 public class Inventory {
     private ArrayList<Skill> skillz;
 
+    public Inventory() {
+        skillz = new ArrayList<Skill>();
+    }
+
     /**
      * Gets a skill at a given index
      *
@@ -79,7 +83,7 @@ public class Inventory {
     public List<Skill> findByName(String name) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         for (Skill s : skillz) {
-            if (s.getName().equals(name)) {
+            if (s.getName().contains(name)) {
                 matching.add(s);
             }
         }
@@ -95,7 +99,7 @@ public class Inventory {
     public List<Skill> findByCategory(String category) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         for (Skill s : skillz) {
-            if (s.getCategory().equals(category)) {
+            if (s.getCategory().contains(category)) {
                 matching.add(s);
             }
         }
@@ -107,7 +111,7 @@ public class Inventory {
      */
     public ArrayList<Skill> orderByName() {
         ArrayList<Skill> sorted = (ArrayList<Skill>) skillz.clone();
-        Collections.sort(skillz, new Comparator<Skill>() {
+        Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
                 return lhs.getName().compareTo(rhs.getName());
@@ -121,7 +125,7 @@ public class Inventory {
      */
     public ArrayList<Skill> orderByCategory() {
         ArrayList<Skill> sorted = (ArrayList<Skill>) skillz.clone();
-        Collections.sort(skillz, new Comparator<Skill>() {
+        Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
                 return lhs.getCategory().compareTo(rhs.getCategory());

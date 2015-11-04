@@ -35,11 +35,18 @@ public class TradeList {
     }
 
     public Trade createTrade(User user1, User user2, List<Skill> offer) {
-        return null;
+        Trade t = new Trade(user1, user2);
+        t.setOffer(user1, offer);
+        trades.add(t);
+        return t;
     }
 
+    /**
+     * Don't use this please! Just call getActiveTrades.
+     */
+    @Deprecated
     public Trade getMostRecentTrade() {
-        return null;
+        return trades.get(trades.size()-1);
     }
 
     public List<Trade> getActiveTrades() {

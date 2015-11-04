@@ -97,7 +97,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
             Trade trade = user.getTradeList().createTrade(user, user2, offer);
             trade.decline();
-            trade.setCounterOffer(user2, counterOffer);
+            trade.setOffer(user2, counterOffer);
             assertEquals(trade.getCurrentOffer(user2), counterOffer);
         } catch (UserAlreadyExistsException e) {
         }
@@ -118,7 +118,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             Trade t = tl.getMostRecentTrade();
 
             // Modify An Active Trade
-            t.setCounterOffer(bob, skillz1);
+            t.setOffer(bob, skillz1);
             assertEquals(t.getCurrentOffer(bob), skillz1);
 
             // Delete An Active Trade

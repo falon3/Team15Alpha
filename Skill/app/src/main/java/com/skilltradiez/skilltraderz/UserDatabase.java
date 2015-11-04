@@ -43,23 +43,23 @@ public class UserDatabase {
     private User currentUser;
     private List<User> users;
     private ChangeList toBePushed;
-    JestClientFactory factory;
-    JestClient client;
-
-    private static final String INDEX = "cmput301f15t15";
 
     UserDatabase() {
-        factory = new JestClientFactory();
-        factory.setDroidClientConfig(new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080").build());
-        client = factory.getObject();
+        users = new ArrayList<User>();
+        toBePushed = new ChangeList();
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
-        return null;
+        User u = new User(UserID.generateRandomID(), username);
+        users.add(u);
+        currentUser = u;
+        return u;
     }
 
     public User login(String username) {
-        return null;
+        User u = getAccountByUsername(username);
+        currentUser = u;
+        return u;
     }
 
     public void pullUsers() {
@@ -74,14 +74,20 @@ public class UserDatabase {
     }
 
     public User getAccountByUsername(String username) {
-        return null;
-    }
-
-    public User getAccountByNickname(String username) {
+        for (User u : users) {
+            if (u.getProfile().getUsername().equals(username)) {
+                return u;
+            }
+        }
         return null;
     }
 
     public User getAccountByUserID(UserID id) {
+        for (User u : users) {
+            if (u.getUserID().equals(id)) {
+                return u;
+            }
+        }
         return null;
     }
 }

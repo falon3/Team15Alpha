@@ -41,15 +41,15 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testSetPassword() {
+    public void testSetLocation() {
         try {
             UserDatabase db = new UserDatabase();
             User user = db.createUser("Username");
             try {
-                user.getProfile().setPassword("hunter2");
+                user.getProfile().setLocation("Edmonton");
             } catch (IllegalArgumentException e) {
             }
-            assertTrue(user.getProfile().isPassword("hunter2"));
+            assertTrue(user.getProfile().getLocation().equals("Edmonton"));
         } catch (UserAlreadyExistsException e) {
         }
     }
@@ -82,7 +82,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             } catch (IllegalArgumentException e) {
             }
             try {
-                user.getProfile().setPassword("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+                user.getProfile().setLocation("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
             } catch (IllegalArgumentException e) {
             }
@@ -110,7 +110,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
             //test deleting avatar
             user.getProfile().deleteAvatar();
-            assertNull(user.getProfile().getAvatar());
+            assertTrue(user.getProfile().getAvatar() instanceof NullImage);
         } catch (UserAlreadyExistsException e) {
         }
     }
