@@ -18,9 +18,6 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by sja2 on 10/28/15.
  */
@@ -46,9 +43,9 @@ public class User {
         return id != null ? id.hashCode() : 0;
     }
 
-    private UserID id;
+    private ID id;
 
-    User(UserID id, String username) {
+    User(ID id, String username) {
         this.id = id;
         profile = new Profile(username);
         inventory = new Inventory(); // Empty
@@ -72,7 +69,7 @@ public class User {
         return tradeList;
     }
 
-    public UserID getUserID() {
+    public ID getUserID() {
         return id;
     }
 }

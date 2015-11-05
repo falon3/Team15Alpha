@@ -51,7 +51,7 @@ public class UserDatabase {
         if (getAccountByUsername(username) != null)
             throw new UserAlreadyExistsException();
 
-        User u = new User(UserID.generateRandomID(), username);
+        User u = new User(ID.generateRandomID(), username);
         users.add(u);
         currentUser = u;
         try {
@@ -113,7 +113,7 @@ public class UserDatabase {
         return u;
     }
 
-    public User getAccountByUserID(UserID id) {
+    public User getAccountByUserID(ID id) {
         for (User u : users) {
             if (u.getUserID().equals(id)) {
                 return u;

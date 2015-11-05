@@ -23,26 +23,26 @@ import java.util.Random;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class UserID {
-    private Number id;
+public class ID {
+    private long id;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserID userID = (UserID) o;
+        ID id1 = (ID) o;
 
-        return !(id != null ? !id.equals(userID.id) : userID.id != null);
+        return id == id1.id;
 
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return (int) (id ^ (id >>> 32));
     }
 
-    UserID(Number num) {
+    ID(long num) {
         id = num;
     }
 
@@ -50,7 +50,7 @@ public class UserID {
         return id;
     }
 
-    static UserID generateRandomID() {
-        return new UserID(new Random().nextLong());
+    static ID generateRandomID() {
+        return new ID(new Random().nextLong());
     }
 }
