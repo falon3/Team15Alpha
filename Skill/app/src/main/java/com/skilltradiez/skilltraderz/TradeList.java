@@ -26,10 +26,10 @@ import java.util.List;
  */
 
 public class TradeList {
-    private UserID owner;
+    private ID owner;
     private List<Trade> trades;
 
-    TradeList(UserID id) {
+    TradeList(ID id) {
         owner = id;
         trades = new ArrayList<Trade>();
     }

@@ -18,6 +18,8 @@
  */
 package com.skilltradiez.skilltraderz;
 
+import java.io.IOException;
+
 /**
  * ~~DESCRIPTION:
  * A skill represents something that a person can do. In this application we have skills as the
@@ -124,6 +126,7 @@ public class Skill implements Notification {
     private Image image;
     private boolean visible;
     private String description;
+    private Integer version = 0;
 
     /**
      * CONSTRUCTORS
@@ -203,5 +206,20 @@ public class Skill implements Notification {
 
     public void commit(UserDatabase userDB) {
         //TODO
+        Elastic ela = userDB.getElastic();
+        Skill prev_version;
+
+        try {
+            prev_version = ela.getDocumentSkill(name + "_" + version);
+
+            //TODO make equals method
+            if (!prev_version.equals(this)) {
+                version = version + 1;
+                ela.addDocument("skill", name + "_" + version, this);
+            }
+        } catch (IOException e) {
+            //TODO Save Locally
+            e.printStackTrace();
+        }
     }
 }

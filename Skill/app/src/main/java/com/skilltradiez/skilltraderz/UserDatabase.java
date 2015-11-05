@@ -58,7 +58,7 @@ public class UserDatabase {
         if (getAccountByUsername(username) != null)
             throw new UserAlreadyExistsException();
 
-        User u = new User(UserID.generateRandomID(), username);
+        User u = new User(ID.generateRandomID(), username);
         users.add(u);
         currentUser = u;
         try {
@@ -112,7 +112,7 @@ public class UserDatabase {
         //TODO Maybe this should throw an exception instead of returning null.
         User u = null;
         try {
-            u = elastic.getDocumentUser("user", username);
+            u = elastic.getDocumentUser(username);
             if (u != null)
                 users.add(u);
         } catch (IOException e) {
@@ -120,7 +120,7 @@ public class UserDatabase {
         return u;
     }
 
-    public User getAccountByUserID(UserID id) {
+    public User getAccountByUserID(ID id) {
         for (User u : users) {
             if (u.getUserID().equals(id)) {
                 return u;

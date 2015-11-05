@@ -25,24 +25,24 @@ import java.util.List;
  * FriendsList manages confirmed, pending and blocked friends for a single user.
  */
 public class FriendsList {
-    private UserID owner;
-    private List<UserID> friendsList,
+    private ID owner;
+    private List<ID> friendsList,
             outgoingFriendRequests,
             incomingFriendRequests,
             blockedUsers;
 
-    FriendsList(UserID owner_id) {
+    FriendsList(ID owner_id) {
         owner = owner_id;
-        friendsList = new ArrayList<UserID>();
-        outgoingFriendRequests = new ArrayList<UserID>();
-        incomingFriendRequests = new ArrayList<UserID>();
-        blockedUsers = new ArrayList<UserID>();
+        friendsList = new ArrayList<ID>();
+        outgoingFriendRequests = new ArrayList<ID>();
+        incomingFriendRequests = new ArrayList<ID>();
+        blockedUsers = new ArrayList<ID>();
     }
 
     /**
      * Gets the owner of this friend list.
      */
-    public UserID getOwner() {
+    public ID getOwner() {
         return owner;
     }
 
@@ -51,7 +51,7 @@ public class FriendsList {
      *
      * @return A list of their UserIDs.
      */
-    public List<UserID> getFriends() {
+    public List<ID> getFriends() {
         return friendsList;
     }
 
@@ -83,7 +83,7 @@ public class FriendsList {
         if (idx == -1) {
             throw new IllegalArgumentException("Cannot confirm friend request, request doesn't exist");
         }
-        UserID id = incomingFriendRequests.remove(idx);
+        ID id = incomingFriendRequests.remove(idx);
         friendsList.add(id);
         // TODO send confirmation to the other user
     }
@@ -99,7 +99,7 @@ public class FriendsList {
         if (idx == -1) {
             throw new IllegalArgumentException("Cannot confirm friend request, request doesn't exist");
         }
-        UserID id = outgoingFriendRequests.remove(idx);
+        ID id = outgoingFriendRequests.remove(idx);
         friendsList.add(id);
     }
 
@@ -117,7 +117,7 @@ public class FriendsList {
      * This shouldn't be used. Use getFriends instead.
      */
     @Deprecated
-    public UserID getFriend(Integer index) {
+    public ID getFriend(Integer index) {
         return friendsList.get(index);
     }
 
