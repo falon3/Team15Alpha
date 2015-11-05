@@ -19,14 +19,24 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class FriendRequest implements Notification {
-    User requester, requested;
+    private ID requester, requested;
+    private Boolean accepted = false;
 
     FriendRequest(User actor1, User actor2) {
-        requester = actor1;
-        requested = actor2;
+        requester = actor1.getUserID();
+        requested = actor2.getUserID();
+    }
+
+    public void accept() {
+        accepted = true;
     }
 
     public void commit(UserDatabase userDB) {
         //TODO
+        if (accepted) {
+            // TODO Assert Friendship Status
+        } else {
+            // TODO Ask Other User For ~Friendly~ Confirmation
+        }
     }
 }

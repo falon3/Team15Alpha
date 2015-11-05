@@ -24,7 +24,7 @@ import java.util.Random;
  * Created by sja2 on 10/28/15.
  */
 public class ID {
-    private long id;
+    private Long id;
 
     @Override
     public boolean equals(Object o) {
@@ -35,6 +35,11 @@ public class ID {
 
         return id == id1.id;
 
+    }
+
+    @Override
+    public String toString() {
+        return id.toString();
     }
 
     @Override

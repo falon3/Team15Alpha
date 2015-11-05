@@ -18,6 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,17 +28,30 @@ import java.util.List;
 
 public class TradeList {
     private ID owner;
-    private List<Trade> trades;
+    private List<ID> trades;
 
     TradeList(ID id) {
         owner = id;
-        trades = new ArrayList<Trade>();
+        trades = new ArrayList<ID>();
     }
 
-    public Trade createTrade(User user1, User user2, List<Skill> offer) {
+    public ID getOwnerID() {
+        return owner;
+    }
+
+    public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer) {
         Trade t = new Trade(user1, user2);
         t.setOffer(user1, offer);
-        trades.add(t);
+        trades.add(t.getTradeID());
+
+        // TODO commit trade to database/local
+        try {
+            userDB.getElastic().addDocument("trade", t.getTradeID().toString(), t);
+        } catch (IOException e) {
+            // TODO: Push Locally
+            e.printStackTrace();
+        }
+
         return t;
     }
 
@@ -45,17 +59,20 @@ public class TradeList {
      * Don't use this please! Just call getActiveTrades.
      */
     @Deprecated
-    public Trade getMostRecentTrade() {
+    public Trade getMostRecentTrade(UserDatabase userDB) {
         if (trades.isEmpty()) return null;
-        return trades.get(trades.size()-1);
+        return userDB.getTradeByID(trades.get(trades.size()-1));
     }
 
-    public List<Trade> getActiveTrades() {
+    public List<Trade> getActiveTrades(UserDatabase userDB) {
         List<Trade> activeTrades = new ArrayList<Trade>();
+        Trade trade;
 
-        for (Trade t : trades)
-            if (t.isActive())
-                activeTrades.add(t);
+        for (ID t : trades) {
+            trade = userDB.getTradeByID(t);
+            if (trade.isActive())
+                activeTrades.add(trade);
+        }
 
         return activeTrades;
     }

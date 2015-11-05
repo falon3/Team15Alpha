@@ -28,25 +28,11 @@ import java.util.List;
 public class UserDatabase {
     private User currentUser;
     private List<User> users;
-
-    public ChangeList getChangeList() {
-        return toBePushed;
-    }
-
+    private List<Trade> trades;
+    private List<Skill> skillz;
     private ChangeList toBePushed;
-
-    public Elastic getElastic() {
-        return elastic;
-    }
-
-    public Local getLocal() {
-
-        return local;
-    }
-
-    Local local;
-
-    Elastic elastic;
+    private Elastic elastic;
+    private Local local;
 
     UserDatabase() {
         users = new ArrayList<User>();
@@ -58,7 +44,7 @@ public class UserDatabase {
         if (getAccountByUsername(username) != null)
             throw new UserAlreadyExistsException();
 
-        User u = new User(ID.generateRandomID(), username);
+        User u = new User(username);
         users.add(u);
         currentUser = u;
         try {
@@ -99,6 +85,24 @@ public class UserDatabase {
         // Saves locally and pushes changes if connected to the internet
     }
 
+    public ChangeList getChangeList() {
+        return toBePushed;
+    }
+
+    /*
+     * The internet API
+     */
+    public Elastic getElastic() {
+        return elastic;
+    }
+
+    /*
+     * The Local API
+     */
+    public Local getLocal() {
+        return local;
+    }
+
     public User getAccountByUsername(String username) {
         for (User u : users) {
             if (u.getProfile().getUsername().equals(username)) {
@@ -121,11 +125,23 @@ public class UserDatabase {
     }
 
     public User getAccountByUserID(ID id) {
-        for (User u : users) {
-            if (u.getUserID().equals(id)) {
+        for (User u : users)
+            if (u.getUserID().equals(id))
                 return u;
-            }
-        }
+        return null;
+    }
+
+    public Trade getTradeByID(ID id) {
+        for (Trade t : trades)
+            if (t.getTradeID().equals(id))
+                return t;
+        return null;
+    }
+
+    public Skill getSkillByID(ID id) {
+        for (Skill s : skillz)
+            if (s.getSkillID().equals(id))
+                return s;
         return null;
     }
 }
