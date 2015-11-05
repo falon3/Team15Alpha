@@ -61,6 +61,8 @@ public class Elastic {
         httpClient.post(baseUrl + type + "/" + id + "/_update", sb.toString());
     }
 
+    //The next three methods need to be separate because java's generics aren't real generics,
+    //they are actually fake. But anyways, they get different types of documents from the database.
     public User getDocumentUser(String id) throws IOException {
         String resp = httpClient.get(baseUrl + "user" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
