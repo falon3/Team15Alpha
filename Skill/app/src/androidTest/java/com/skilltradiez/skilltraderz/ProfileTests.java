@@ -31,6 +31,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     public void testSetNickname() {
         try {
             UserDatabase db = new UserDatabase();
+            db.deleteAllData();
             User user = db.createUser("Username");
             try {
                 user.getProfile().setUsername("Foobar");
@@ -38,12 +39,14 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             }
             assertEquals(user.getProfile().getUsername(), "Foobar");
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testSetLocation() {
         try {
             UserDatabase db = new UserDatabase();
+            db.deleteAllData();
             User user = db.createUser("Username");
             try {
                 user.getProfile().setLocation("Edmonton");
@@ -51,12 +54,14 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             }
             assertTrue(user.getProfile().getLocation().equals("Edmonton"));
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testSetEmail() {
         try {
             UserDatabase db = new UserDatabase();
+            db.deleteAllData();
             User user = db.createUser("Username");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.com");
@@ -64,12 +69,14 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             }
             assertEquals(user.getProfile().getEmail(), "apersonsname@awebsite.com");
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testFieldsTooLong() {
         try {
             UserDatabase db = new UserDatabase();
+            db.deleteAllData();
             User user = db.createUser("Username");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
@@ -87,42 +94,44 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
             } catch (IllegalArgumentException e) {
             }
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
-    public void testAvatar() {
-        try {
-            UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username");
-            Image avatar = new Image("hello.jpeg");
-            Image avatar2 = new Image("hello.jpg");
+    public void testAvatar() throws UserAlreadyExistsException {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        User user = db.createUser("Username");
+        Image avatar = new Image("hello.jpeg");
+        Image avatar2 = new Image("hello.jpg");
 
-            //avatar should be empty to begin with
-            assertNull(user.getProfile().getAvatar());
+        //avatar should be empty to begin with
+        assertNull(user.getProfile().getAvatar());
 
-            //test setting avatar
-            user.getProfile().setAvatar(avatar);
-            assertEquals(user.getProfile().getAvatar(), avatar);
+        //test setting avatar
+        user.getProfile().setAvatar(avatar);
+        assertEquals(user.getProfile().getAvatar(), avatar);
 
-            //test changing avatar
-            user.getProfile().setAvatar(avatar2);
-            assertEquals(user.getProfile().getAvatar(), avatar2);
+        //test changing avatar
+        user.getProfile().setAvatar(avatar2);
+        assertEquals(user.getProfile().getAvatar(), avatar2);
 
-            //test deleting avatar
-            user.getProfile().deleteAvatar();
-            assertTrue(user.getProfile().getAvatar() instanceof NullImage);
-        } catch (UserAlreadyExistsException e) {
-        }
+        //test deleting avatar
+        user.getProfile().deleteAvatar();
+        assertTrue(user.getProfile().getAvatar() instanceof NullImage);
+
     }
 
     public void testSetDownloadImages() {
         try {
             UserDatabase db = new UserDatabase();
+            db.deleteAllData();
             User user = db.createUser("Username");
 
             user.getProfile().setShouldDownloadImages(true);
             assertTrue(user.getProfile().getShouldDownloadImages());
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 }

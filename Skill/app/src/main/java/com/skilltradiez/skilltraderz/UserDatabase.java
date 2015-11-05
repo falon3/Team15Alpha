@@ -28,7 +28,17 @@ import java.util.List;
 public class UserDatabase {
     private User currentUser;
     private List<User> users;
+
+    public ChangeList getChangeList() {
+        return toBePushed;
+    }
+
     private ChangeList toBePushed;
+
+    public Elastic getElastic() {
+        return elastic;
+    }
+
     Elastic elastic;
 
     UserDatabase() {
@@ -73,6 +83,12 @@ public class UserDatabase {
     }
 
     public void save() {
+        try {
+            elastic.addDocument("user", currentUser.getProfile().getUsername(), currentUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        toBePushed.push(this);
         // Saves locally and pushes changes if connected to the internet
     }
 
@@ -86,6 +102,7 @@ public class UserDatabase {
     }
 
     private User getOnlineAccountByUsername(String username) {
+        //TODO Maybe this should throw an exception instead of returning null.
         User u = null;
         try {
             u = elastic.getDocumentUser("user", username);
