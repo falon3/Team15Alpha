@@ -31,6 +31,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
     public void testCreateAccount() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user;
 
         try {
@@ -43,6 +44,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
     public void testCreateAccountFailCase() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user;
 
         try {
@@ -61,11 +63,13 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
     public void testLogin() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user;
 
         try {
             user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
 
         }
 
@@ -74,6 +78,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
     public void testDatabasePersistence() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user = db.createUser("Username");
             db.save();
@@ -82,11 +87,13 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             db = new UserDatabase();
             assertEquals(db.getAccountByUsername("Username"), user);
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testTradelistPersistence() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user1 = db.createUser("Username1"),
                     user2 = db.createUser("Username2");
@@ -102,11 +109,13 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             tl = user1.getTradeList();
             assertEquals(tl.getMostRecentTrade().getActor2(), user2);
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testFriendListPersistence() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user1 = db.createUser("Username1"),
                     user2 = db.createUser("Username2");
@@ -121,6 +130,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             fl = user1.getFriendsList();
             assertEquals(fl.getFriend(2), user2.getUserID());
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 }
