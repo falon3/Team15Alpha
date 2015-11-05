@@ -19,6 +19,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -88,5 +89,20 @@ public class Trade implements Notification {
 
     public void commit(UserDatabase userDB) {
         //TODO
+        Elastic ela = userDB.getElastic();
+        Skill prev_version;
+
+        try {
+            prev_version = ela.getDocumentSkill(name + "_" + version);
+
+            if (!prev_version.equals(this)) {
+                version = version + 1;
+                ela.addDocument("skill", name + "_" + version, this);
+            }
+
+        } catch (IOException e) {
+            //TODO Save Locally
+            e.printStackTrace();
+        }
     }
 }

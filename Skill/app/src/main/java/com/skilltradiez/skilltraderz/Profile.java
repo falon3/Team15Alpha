@@ -85,8 +85,9 @@ public class Profile implements Notification {
 
     public void commit(UserDatabase userDB) {
         try {
-            userDB.getElastic().updateDocument("user", username, this, "profile/foo/bar");
+            userDB.getElastic().updateDocument("user", username, this, "profile");
         } catch (IOException e) {
+            //TODO Save Locally
             e.printStackTrace();
         }
     }

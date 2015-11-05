@@ -42,10 +42,16 @@ public class Elastic {
         httpClient.post(baseUrl + type + "/" + id + "/_update", sb.toString());
     }
 
-    public User getDocumentUser(String type, String id) throws IOException {
-        String resp = httpClient.get(baseUrl + type + "/" + id);
+    public User getDocumentUser(String id) throws IOException {
+        String resp = httpClient.get(baseUrl + "user" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
         return ((GetResponse<User>)gson.fromJson(resp, getResponseType))._source;
+    }
+
+    public Skill getDocumentSkill(String id) throws IOException {
+        String resp = httpClient.get(baseUrl + "skill" + "/" + id);
+        Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
+        return ((GetResponse<Skill>)gson.fromJson(resp, getResponseType))._source;
     }
 
     public void deleteDocument(String type, String id) throws IOException {
