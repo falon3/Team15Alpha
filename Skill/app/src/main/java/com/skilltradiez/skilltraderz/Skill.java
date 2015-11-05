@@ -132,20 +132,24 @@ public class Skill implements Notification {
     /**
      * CONSTRUCTORS
      **/
-    Skill(String skill_name) {
+    Skill(UserDatabase db, String skill_name) {
         setName(skill_name);
         setCategory("Misc.");
         setVisible(true);//Default is visible
         setDescription("");//Empty String
         setImage(new NullImage());
+
+        db.addSkill(this);
     }
 
-    Skill(String skill_name, String category) {
+    Skill(UserDatabase db, String skill_name, String category) {
         setName(skill_name);
         setCategory(category);
         setVisible(true);//Default is visible
         setDescription("");//Empty String
         setImage(new NullImage());
+
+        db.addSkill(this);
     }
 
 

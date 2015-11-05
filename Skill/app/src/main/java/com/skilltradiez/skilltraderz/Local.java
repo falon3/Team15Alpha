@@ -27,8 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-
-
+import java.util.List;
 
 /**
  * Created by Falon3 on 2015-11-04.
@@ -37,10 +36,23 @@ public class Local {
     LocalPersistentObject save_object;
     private static final String SAVE_FILE = "save_file.sav";
 
+    public Local() {
+        try {
+            save_object = readFromFile();
+        } catch (IOException e) {
+            // Not Sure what this means
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    // method to get Locally Saved Data
+    public LocalPersistentObject getLocalData() {
+        return save_object;
+    }
 
     // method to save LocalPersistentObject to local file
     public void saveToFile() throws IOException {
-
         FileOutputStream fop = null;
         File file = new File(SAVE_FILE);
 
@@ -54,13 +66,12 @@ public class Local {
         gson.toJson(save_object, output);
         output.flush();
         fop.close();
-
-
     }
-    // method to read LocalPersistentObject from local file
-    // returns what is read as a LocalPersistentObject
-    public LocalPersistentObject readFromFile() throws IOException {
 
+    /* method to read LocalPersistentObject from local file
+     * returns what is read as a LocalPersistentObject
+     */
+    public LocalPersistentObject readFromFile() throws IOException {
         FileInputStream fip = null;
         File file = new File(SAVE_FILE);
 
@@ -74,11 +85,5 @@ public class Local {
         Gson gson = new Gson();
 
         return gson.fromJson(in, LocalPersistentObject.class);
-
-
     }
-
-
-
-
 }
