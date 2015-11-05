@@ -32,6 +32,7 @@ public class UserDatabase {
     private List<Skill> skillz;
     private ChangeList toBePushed;
     private Elastic elastic;
+    private Local local;
 
     UserDatabase() {
         users = new ArrayList<User>();
@@ -88,8 +89,18 @@ public class UserDatabase {
         return toBePushed;
     }
 
+    /*
+     * The internet API
+     */
     public Elastic getElastic() {
         return elastic;
+    }
+
+    /*
+     * The Local API
+     */
+    public Local getLocal() {
+        return local;
     }
 
     public User getAccountByUsername(String username) {
