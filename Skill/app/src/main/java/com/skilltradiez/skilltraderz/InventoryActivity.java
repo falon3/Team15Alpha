@@ -1,0 +1,97 @@
+package com.skilltradiez.skilltraderz;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+public class InventoryActivity extends ActionBarActivity {
+
+    public static String USER_INVENTORY = "USER_INVENTORY";
+
+    Context inventoryContext = this;
+
+    private Button searchButton;
+    private Button startTrade;
+    private EditText searchField;
+    private String searchInventory;
+    private Spinner categorySpinner;
+    private ListView inventoryList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_inventory);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        searchButton = (Button) findViewById(R.id.search_button);
+        searchField = (EditText) findViewById(R.id.search_bar);
+        startTrade = (Button) findViewById(R.id.maketrade);
+        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        inventoryList = (ListView) findViewById(R.id.search_list);
+
+        searchInventory = "";
+    }
+
+    /**
+     * Begin the trade activity
+     * @param view
+     * @ TODO:
+     */
+    public void startTrade(View view){
+        //need to check that you are friends with this person
+        //then un-grey out the 'make trade' button
+        Intent intent = new Intent(inventoryContext, TradeRequestActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Search through a user's inventory with a textual query to refine the number of items that
+     * are shown
+     * @ TODO:
+     */
+    public void searchInventory(){
+        //searchfield = what you're searching for
+        //update list of skills based on closest to search field
+
+    }
+
+    /**
+     * Refine the number of skills that are shown on screen based on the category that each skill
+     * belongs to
+     * @ TODO:
+     */
+    public void refineInventoryByCategory(){
+        //inflate the spinner category. Populate it with a list of categories
+        //refine skill list based on the category
+    }
+
+    /**
+     * Sends a query to the database with a specific user ID to get the list of skills in their
+     * inventory
+     * @ TODO:
+     */
+    public void populateInventory(){
+        //need to populate inventory list with the skills from a specific user by using the
+        // USER_INVENTORY string and calling whatever database thing that'll do it
+    }
+
+    /**
+     * onClick for a chosen skill. Will being a Skill Description activity
+     * @param view
+     */
+    public void skillDetails(View view){
+        Intent intent = new Intent(inventoryContext, TradeRequestActivity.class);
+        startActivity(intent);
+
+    }
+}
