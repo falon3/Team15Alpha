@@ -67,10 +67,9 @@ public class UserDatabase {
     }
 
     public void pullUsers() {
-        users = new ArrayList<User>();
-        /*TODO
-         * Get The Users (Who Are Cached/Friends) By ElasticSearch
-         */
+        for (int i = 0; i < users.size(); i++) {
+            users.set(i, getOnlineAccountByUsername(users.get(i).getProfile().getUsername()));
+        }
     }
 
     public void save() {
@@ -83,6 +82,10 @@ public class UserDatabase {
                 return u;
             }
         }
+        return getOnlineAccountByUsername(username);
+    }
+
+    private User getOnlineAccountByUsername(String username) {
         User u = null;
         try {
             u = elastic.getDocumentUser("user", username);
