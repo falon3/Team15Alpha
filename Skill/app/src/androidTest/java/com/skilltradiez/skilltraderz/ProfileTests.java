@@ -21,7 +21,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-public class ProfileTests extends ActivityInstrumentationTestCase2{
+public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public ProfileTests() {
         super(com.skilltradiez.skilltraderz.ProfileTests.class);
@@ -31,89 +31,107 @@ public class ProfileTests extends ActivityInstrumentationTestCase2{
     public void testSetNickname() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            db.deleteAllData();
+            User user = db.createUser("Username");
             try {
-                user.getProfile().setNickname("Foobar");
-            } catch (IllegalArgumentException e) {}
-            assertEquals(user.getProfile().getNickname(), "Foobar");
-        } catch (UserAlreadyExistsException e) {}
+                user.getProfile().setUsername("Foobar");
+            } catch (IllegalArgumentException e) {
+            }
+            assertEquals(user.getProfile().getUsername(), "Foobar");
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
     }
 
-    public void testSetPassword() {
+    public void testSetLocation() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            db.deleteAllData();
+            User user = db.createUser("Username");
             try {
-                user.getProfile().setPassword("hunter2");
-            } catch (IllegalArgumentException e) {}
-            assertTrue(user.getProfile().isPassword("hunter2"));
-        } catch (UserAlreadyExistsException e) {}
+                user.getProfile().setLocation("Edmonton");
+            } catch (IllegalArgumentException e) {
+            }
+            assertTrue(user.getProfile().getLocation().equals("Edmonton"));
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
     }
 
     public void testSetEmail() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            db.deleteAllData();
+            User user = db.createUser("Username");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.com");
-            } catch (IllegalArgumentException e) {}
+            } catch (IllegalArgumentException e) {
+            }
             assertEquals(user.getProfile().getEmail(), "apersonsname@awebsite.com");
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
     }
 
     public void testFieldsTooLong() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            db.deleteAllData();
+            User user = db.createUser("Username");
             try {
                 user.getProfile().setEmail("apersonsname@awebsite.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
             } catch (IllegalArgumentException e) {
             }
             try {
-                user.getProfile().setNickname("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+                user.getProfile().setUsername("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
             } catch (IllegalArgumentException e) {
             }
             try {
-                user.getProfile().setPassword("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
+                user.getProfile().setLocation("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahahahhahahahahahhahahahahahaha");
                 assertTrue(false); // if we got here, the exception didn't happen
             } catch (IllegalArgumentException e) {
             }
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
     }
 
-    public void testAvatar() {
-        try {
-            UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
-            Image avatar = new Image("hello.jpeg");
-            Image avatar2 = new Image("hello.jpg");
+    public void testAvatar() throws UserAlreadyExistsException {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        User user = db.createUser("Username");
+        Image avatar = new Image("hello.jpeg");
+        Image avatar2 = new Image("hello.jpg");
 
-            //avatar should be empty to begin with
-            assertNull(user.getProfile().getAvatar());
+        //avatar should be empty to begin with
+        assertNull(user.getProfile().getAvatar());
 
-            //test setting avatar
-            user.getProfile().setAvatar(avatar);
-            assertEquals(user.getProfile().getAvatar(), avatar);
+        //test setting avatar
+        user.getProfile().setAvatar(avatar);
+        assertEquals(user.getProfile().getAvatar(), avatar);
 
-            //test changing avatar
-            user.getProfile().setAvatar(avatar2);
-            assertEquals(user.getProfile().getAvatar(), avatar2);
+        //test changing avatar
+        user.getProfile().setAvatar(avatar2);
+        assertEquals(user.getProfile().getAvatar(), avatar2);
 
-            //test deleting avatar
-            user.getProfile().deleteAvatar();
-            assertNull(user.getProfile().getAvatar());
-        } catch (UserAlreadyExistsException e) {}
+        //test deleting avatar
+        user.getProfile().deleteAvatar();
+        assertTrue(user.getProfile().getAvatar() instanceof NullImage);
+
     }
 
     public void testSetDownloadImages() {
         try {
             UserDatabase db = new UserDatabase();
-            User user = db.createUser("Username", "Password");
+            db.deleteAllData();
+            User user = db.createUser("Username");
 
             user.getProfile().setShouldDownloadImages(true);
             assertTrue(user.getProfile().getShouldDownloadImages());
-        } catch (UserAlreadyExistsException e) {}
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
     }
 }

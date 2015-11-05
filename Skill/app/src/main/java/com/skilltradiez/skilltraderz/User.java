@@ -1,7 +1,22 @@
 package com.skilltradiez.skilltraderz;
-
-import java.util.ArrayList;
-import java.util.List;
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * Created by sja2 on 10/28/15.
@@ -11,11 +26,28 @@ public class User {
     private Inventory inventory;
     private FriendsList friendsList;
     private TradeList tradeList;
-    private UserID id;
 
-    User(UserID id, String username, String password) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return !(id != null ? !id.equals(user.id) : user.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    private ID id;
+
+    User(ID id, String username) {
         this.id = id;
-        profile = new Profile(username, password);
+        profile = new Profile(username);
         inventory = new Inventory(); // Empty
         friendsList = new FriendsList(id); // Empty
         tradeList = new TradeList(id); // Empty
@@ -37,7 +69,7 @@ public class User {
         return tradeList;
     }
 
-    public UserID getUserID() {
+    public ID getUserID() {
         return id;
     }
 }

@@ -1,4 +1,22 @@
 package com.skilltradiez.skilltraderz;
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,37 +25,39 @@ import java.util.List;
  * FriendsList manages confirmed, pending and blocked friends for a single user.
  */
 public class FriendsList {
-    private UserID owner;
-    private List<UserID> friendsList,
+    private ID owner;
+    private List<ID> friendsList,
             outgoingFriendRequests,
             incomingFriendRequests,
             blockedUsers;
 
-    FriendsList(UserID owner_id) {
+    FriendsList(ID owner_id) {
         owner = owner_id;
-        friendsList = new ArrayList<UserID>();
-        outgoingFriendRequests = new ArrayList<UserID>();
-        incomingFriendRequests = new ArrayList<UserID>();
-        blockedUsers = new ArrayList<UserID>();
+        friendsList = new ArrayList<ID>();
+        outgoingFriendRequests = new ArrayList<ID>();
+        incomingFriendRequests = new ArrayList<ID>();
+        blockedUsers = new ArrayList<ID>();
     }
 
     /**
      * Gets the owner of this friend list.
      */
-    public UserID getOwner() {
+    public ID getOwner() {
         return owner;
     }
 
     /**
      * Gets a list of confirmed friends.
+     *
      * @return A list of their UserIDs.
      */
-    public List<UserID> getFriends() {
+    public List<ID> getFriends() {
         return friendsList;
     }
 
     /**
      * Initiates a friend request with another user.
+     *
      * @param other_guy The user to initiate the request with.
      * @throws IllegalArgumentException if the user is already a confirmed friend, or is blocked.
      */
@@ -54,6 +74,7 @@ public class FriendsList {
 
     /**
      * Confirms a potential friend request initiated by another user.
+     *
      * @param other_guy the user who initiated the friend request.
      * @throws IllegalArgumentException if the request doesn't exist.
      */
@@ -62,13 +83,14 @@ public class FriendsList {
         if (idx == -1) {
             throw new IllegalArgumentException("Cannot confirm friend request, request doesn't exist");
         }
-        UserID id = incomingFriendRequests.remove(idx);
+        ID id = incomingFriendRequests.remove(idx);
         friendsList.add(id);
         // TODO send confirmation to the other user
     }
 
     /**
      * Confirms a friend request that has been accepted by the other user.
+     *
      * @param other_guy the user the request was sent to.
      * @throws IllegalArgumentException if the request doesn't exist.
      */
@@ -77,12 +99,13 @@ public class FriendsList {
         if (idx == -1) {
             throw new IllegalArgumentException("Cannot confirm friend request, request doesn't exist");
         }
-        UserID id = outgoingFriendRequests.remove(idx);
+        ID id = outgoingFriendRequests.remove(idx);
         friendsList.add(id);
     }
 
     /**
      * Denies a friend request that was initiated by another user.
+     *
      * @param other_guy the person who has not even been given a chance.
      */
     public void denyFriendRequest(User other_guy) {
@@ -94,12 +117,13 @@ public class FriendsList {
      * This shouldn't be used. Use getFriends instead.
      */
     @Deprecated
-    public UserID getFriend(Integer index) {
+    public ID getFriend(Integer index) {
         return friendsList.get(index);
     }
 
     /**
      * Remove a friend from this friend list.
+     *
      * @param terrible_person the user to remove.
      */
     public void removeFriend(User terrible_person) {
@@ -109,6 +133,7 @@ public class FriendsList {
 
     /**
      * Block a user and remove them as a friend (if applicable).
+     *
      * @param worst_person
      */
     public void blockUser(User worst_person) {
@@ -118,6 +143,7 @@ public class FriendsList {
 
     /**
      * Indicates if another user initiated a friend request with this user.
+     *
      * @param that_guy the user that initiated the request.
      * @return a boolean indicating whether the request exists.
      */
@@ -127,6 +153,7 @@ public class FriendsList {
 
     /**
      * Indicates if there exists a pending friend request sent to another user by this one.
+     *
      * @param that_guy the user that the request was sent to.
      * @return a boolean indicating whether the request exists.
      */
@@ -136,6 +163,7 @@ public class FriendsList {
 
     /**
      * Indicates if another user is currently a friend of this user.
+     *
      * @param that_guy the user to check
      * @return a boolean indicating if they are a friend
      */

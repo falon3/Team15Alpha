@@ -25,98 +25,112 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
-	public UserDatabaseTests() {
-		super(com.skilltradiez.skilltraderz.UserDatabaseTests.class);
-	}
+    public UserDatabaseTests() {
+        super(com.skilltradiez.skilltraderz.UserDatabaseTests.class);
+    }
 
-	public void testCreateAccount() {
-		UserDatabase db = new UserDatabase();
-		User user;
+    public void testCreateAccount() {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        User user;
 
-		try {
-			user = db.createUser("Username", "Password");
+        try {
+            user = db.createUser("Username");
 
-			assertEquals(db.getAccountByUsername("Username"), user);
-		} catch (UserAlreadyExistsException e) {}
-	}
+            assertEquals(db.getAccountByUsername("Username"), user);
+        } catch (UserAlreadyExistsException e) {
+        }
+    }
 
-	public void testCreateAccountFailCase() {
-		UserDatabase db = new UserDatabase();
-		User user;
+    public void testCreateAccountFailCase() {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        User user;
 
-		try {
-			user = db.createUser("Username", "Password");
-		} catch (UserAlreadyExistsException e) {
+        try {
+            user = db.createUser("Username");
+        } catch (UserAlreadyExistsException e) {
 
-		}
+        }
 
-		try {
-			User user2 = db.createUser("Username", "Password");
-			assertTrue(false);
-		} catch (UserAlreadyExistsException e) {
-			assertTrue(true);
-		}
-	}
+        try {
+            User user2 = db.createUser("Username");
+            assertTrue(false);
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(true);
+        }
+    }
 
-	public void testLogin() {
-		UserDatabase db = new UserDatabase();
-		User user;
+    public void testLogin() {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        User user;
 
-		try {
-			user = db.createUser("Username", "Password");
-		} catch (UserAlreadyExistsException e) {
+        try {
+            user = db.createUser("Username");
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
 
-		}
+        }
 
-		assertTrue(db.login("Username", "Password") != null);
-	}
+        assertTrue(db.login("Username") != null);
+    }
 
-	public void testDatabasePersistence() {
-		UserDatabase db = new UserDatabase();
-		try {
-		User user = db.createUser("Username", "Password");
-		db.save();
+    public void testDatabasePersistence() {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        try {
+            User user = db.createUser("Username");
+            db.save();
 
-		// The new database should contain all the previous changes
-		db = new UserDatabase();
-		assertEquals(db.getAccountByUsername("Username"), user);
-		} catch (UserAlreadyExistsException e) {}
-	}
+            // The new database should contain all the previous changes
+            db = new UserDatabase();
+            assertTrue(db.getAccountByUsername("Username").equals(user));
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
+    }
 
-	public void testTradelistPersistence() {
-		UserDatabase db = new UserDatabase();
-		try {
-		User user1 = db.createUser("Username1", "Password"),
-		     user2 = db.createUser("Username2", "Password");
+    public void testTradelistPersistence() {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        try {
+            User user1 = db.createUser("Username1"),
+                    user2 = db.createUser("Username2");
 
-		TradeList tl = user1.getTradeList();
-		tl.createTrade(user1, user2, new ArrayList<Skill>());
+            TradeList tl = user1.getTradeList();
+            tl.createTrade(user1, user2, new ArrayList<Skill>());
 
-		// The new database should contain all the previous changes
-		db = new UserDatabase();
-		user1 = db.getAccountByUsername("Username1");
-		user2 = db.getAccountByUsername("Username2");
+            // The new database should contain all the previous changes
+            db = new UserDatabase();
+            user1 = db.getAccountByUsername("Username1");
+            user2 = db.getAccountByUsername("Username2");
 
-		tl = user1.getTradeList();
-		assertEquals(tl.getMostRecentTrade().getActor2(), user2);
-		} catch (UserAlreadyExistsException e) {}
-	}
+            tl = user1.getTradeList();
+            assertEquals(tl.getMostRecentTrade().getActor2(), user2);
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
+    }
 
-	public void testFriendListPersistence() {
-		UserDatabase db = new UserDatabase();
-		try {
-		User user1 = db.createUser("Username1", "Password"),
-		     user2 = db.createUser("Username2", "Password");
+    public void testFriendListPersistence() {
+        UserDatabase db = new UserDatabase();
+        db.deleteAllData();
+        try {
+            User user1 = db.createUser("Username1"),
+                    user2 = db.createUser("Username2");
 
-		FriendsList fl = user1.getFriendsList();
+            FriendsList fl = user1.getFriendsList();
 
-		// The new database should contain all the previous changes
-		db = new UserDatabase();
-		user1 = db.getAccountByUsername("Username1");
-		user2 = db.getAccountByUsername("Username2");
+            // The new database should contain all the previous changes
+            db = new UserDatabase();
+            user1 = db.getAccountByUsername("Username1");
+            user2 = db.getAccountByUsername("Username2");
 
-		fl = user1.getFriendsList();
-		assertEquals(fl.getFriend(2), user2.getUserID());
-		} catch (UserAlreadyExistsException e) {}
-	}
+            fl = user1.getFriendsList();
+            assertEquals(fl.getFriend(2), user2.getUserID());
+        } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
+        }
+    }
 }
