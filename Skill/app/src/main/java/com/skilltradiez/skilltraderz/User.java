@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,28 @@ public class User {
     private Inventory inventory;
     private FriendsList friendsList;
     private TradeList tradeList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return !(id != null ? !id.equals(user.id) : user.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     private UserID id;
 
-    User(UserID id, String username, String password) {
+    User(UserID id, String username) {
         this.id = id;
-        profile = new Profile(username, password);
+        profile = new Profile(username);
         inventory = new Inventory(); // Empty
         friendsList = new FriendsList(id); // Empty
         tradeList = new TradeList(id); // Empty

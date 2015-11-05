@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,17 +35,25 @@ public class TradeList {
     }
 
     public Trade createTrade(User user1, User user2, List<Skill> offer) {
-        return null;
+        Trade t = new Trade(user1, user2);
+        t.setOffer(user1, offer);
+        trades.add(t);
+        return t;
     }
 
+    /**
+     * Don't use this please! Just call getActiveTrades.
+     */
+    @Deprecated
     public Trade getMostRecentTrade() {
-        return null;
+        if (trades.isEmpty()) return null;
+        return trades.get(trades.size()-1);
     }
 
     public List<Trade> getActiveTrades() {
         List<Trade> activeTrades = new ArrayList<Trade>();
 
-        for (Trade t:trades)
+        for (Trade t : trades)
             if (t.isActive())
                 activeTrades.add(t);
 

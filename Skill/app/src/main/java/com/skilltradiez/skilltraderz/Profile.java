@@ -1,5 +1,7 @@
 package com.skilltradiez.skilltraderz;
 
+import java.io.IOException;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -19,46 +21,44 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Profile implements Notification {
-    private String username, nickname = "", email = "";
-    private Object password;
+
+    private String location = "";
     private Boolean shouldDownloadImages = true;
     private Image avatar;
+    private String username = "";
+    private String email = "";
 
-    Profile(String username, String password) {
-        this.username = username;
-        try {
-            setPassword(password);
-        } catch (IllegalArgumentException e){}
-        deleteAvatar();
+    public String getLocation() {
+        return location;
     }
 
-    public String getNickname() {
-        return this.nickname;
-    }
-
-    public void setNickname(String name) throws IllegalArgumentException {
-        if (name.length() > 12)
+    public void setLocation(String location) {
+        if (location.length() > 50)
             throw new IllegalArgumentException();
-        this.nickname = name;
+        this.location = location;
     }
 
-    protected void setPassword(String password) throws IllegalArgumentException {
-        if (password.length() > 12)
+    Profile(String username) {
+        setUsername(username);
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String name) throws IllegalArgumentException {
+        if (name.length() > 50)
             throw new IllegalArgumentException();
-        // Encrypt it?
-        this.password = password.getBytes();
+        this.username = name;
     }
 
-    protected Boolean isPassword(String password) {
-        return this.password.equals(password.getBytes());
-    }
 
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) throws IllegalArgumentException {
-        if (email.length() > 12)
+        if (email.length() > 50)
             throw new IllegalArgumentException();
         this.email = email;
     }
@@ -84,6 +84,11 @@ public class Profile implements Notification {
     }
 
     public void commit(UserDatabase userDB) {
-        //TODO
+        try {
+            userDB.getElastic().updateDocument("user", username, this, "profile");
+        } catch (IOException e) {
+            //TODO Save Locally
+            e.printStackTrace();
+        }
     }
 }

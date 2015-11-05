@@ -18,6 +18,8 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,6 +28,7 @@ import java.util.List;
 public class Trade implements Notification {
     private User actor1, actor2;
     private List<Skill> offer1, offer2;
+    private Integer tradeID;
     private Boolean accepted = false, active = true;
 
     Trade(User user1, User user2) {
@@ -66,16 +69,48 @@ public class Trade implements Notification {
         // The Trade been declined
     }
 
-    public void setCounterOffer(User user, List<Skill> new_offer) {
-        // Find this user
-        // change their offer
+    public void setOffer(User user, List<Skill> new_offer) {
+        if (user.equals(actor1)) {
+            offer1 = new_offer;
+        } else if (user.equals(actor2)) {
+            offer2 = new_offer;
+        } else {
+            throw new IllegalArgumentException("User is not involved in trade!");
+        }
     }
 
     public List<Skill> getCurrentOffer(User user) {
+        if (user.equals(actor1)) {
+            return offer1;
+        } else if (user.equals(actor2)) {
+            return offer2;
+        }
         return null;
     }
 
     public void commit(UserDatabase userDB) {
         //TODO
+        Elastic ela = userDB.getElastic();
+        Trade prev_version;
+
+        try {
+            prev_version = ela.getDocumentTrade(tradeID.toString());
+
+            //TODO make equals method
+            if (!prev_version.equals(this)) {
+                // Check for new info
+
+
+                // Update this object
+
+
+                // Send your changes
+                ela.addDocument("trade", tradeID.toString(), this);
+            }
+
+        } catch (IOException e) {
+            //TODO Save Locally
+            e.printStackTrace();
+        }
     }
 }

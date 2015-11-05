@@ -27,10 +27,11 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public void testGetProfile() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user = null;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }
@@ -39,10 +40,11 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public void testGetInventory() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user = null;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }
@@ -51,10 +53,11 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public void testGetFriendsList() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user = null;
 
         try {
-            user = db.createUser("Username", "Password");
+            user = db.createUser("Username");
         } catch (UserAlreadyExistsException e) {
 
         }

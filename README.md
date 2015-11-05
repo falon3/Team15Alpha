@@ -11,6 +11,8 @@ Feedback from Part 2 addressed:
 Part 3 requirements:
    1. [Detailed UML added to the wiki](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/UML)
 
+### Please press Ctrl-Alt-L on every file you changed to format it before you commit!
+
 # License 
 ####   __SkillTradiez__ -- _The lost adventures_
    
