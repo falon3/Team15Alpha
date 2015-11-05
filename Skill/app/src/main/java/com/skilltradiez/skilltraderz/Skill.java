@@ -127,6 +127,7 @@ public class Skill implements Notification {
     private boolean visible;
     private String description;
     private Integer version = 0;
+    private ID skillID = ID.generateRandomID();
 
     /**
      * CONSTRUCTORS
@@ -204,18 +205,54 @@ public class Skill implements Notification {
         this.visible = visible;
     }
 
+    public ID getSkillID() {
+        return skillID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Skill skill = (Skill) o;
+
+        if (isVisible() != skill.isVisible()) return false;
+        if (!getName().equals(skill.getName())) return false;
+        if (getCategory() != null ? !getCategory().equals(skill.getCategory()) : skill.getCategory() != null)
+            return false;
+        if (getImage() != null ? !getImage().equals(skill.getImage()) : skill.getImage() != null)
+            return false;
+        if (getDescription() != null ? !getDescription().equals(skill.getDescription()) : skill.getDescription() != null)
+            return false;
+        if (!version.equals(skill.version)) return false;
+        return getSkillID().equals(skill.getSkillID());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName().hashCode();
+        result = 31 * result + (getCategory() != null ? getCategory().hashCode() : 0);
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + (isVisible() ? 1 : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + version.hashCode();
+        result = 31 * result + getSkillID().hashCode();
+        return result;
+    }
+
     public void commit(UserDatabase userDB) {
         //TODO
         Elastic ela = userDB.getElastic();
         Skill prev_version;
 
         try {
-            prev_version = ela.getDocumentSkill(name + "_" + version);
+            prev_version = ela.getDocumentSkill(skillID.getID() + "_" + version);
 
             //TODO make equals method
             if (!prev_version.equals(this)) {
                 version = version + 1;
-                ela.addDocument("skill", name + "_" + version, this);
+                ela.addDocument("skill", skillID.getID() + "_" + version, this);
             }
         } catch (IOException e) {
             //TODO Save Locally

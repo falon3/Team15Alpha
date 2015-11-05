@@ -18,17 +18,19 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * FriendsList manages confirmed, pending and blocked friends for a single user.
  */
-public class FriendsList {
+public class FriendsList implements Notification {
     private ID owner;
     private List<ID> friendsList,
             outgoingFriendRequests,
             incomingFriendRequests,
+            acceptedFriendRequests,
             blockedUsers;
 
     FriendsList(ID owner_id) {
@@ -36,6 +38,7 @@ public class FriendsList {
         friendsList = new ArrayList<ID>();
         outgoingFriendRequests = new ArrayList<ID>();
         incomingFriendRequests = new ArrayList<ID>();
+        acceptedFriendRequests = new ArrayList<ID>();
         blockedUsers = new ArrayList<ID>();
     }
 
@@ -129,6 +132,12 @@ public class FriendsList {
     public void removeFriend(User terrible_person) {
         friendsList.remove(terrible_person.getUserID());
         // TODO remove the friend from the other user's friend list as well
+
+    }
+
+    public void addFriend(ID great_person) {
+        friendsList.add(great_person);
+        // Great Person should already have you on their list
     }
 
     /**
@@ -169,5 +178,20 @@ public class FriendsList {
      */
     public Boolean hasFriend(User that_guy) {
         return friendsList.contains(that_guy.getUserID());
+    }
+
+    public void commit(UserDatabase userDB) {
+        User newFriend;
+        //TODO Commit Via Internet
+        for (ID id:acceptedFriendRequests) {
+            newFriend = userDB.getAccountByUserID(id);
+            newFriend.getFriendsList().addFriend(owner);
+            try {
+                userDB.getElastic().addDocument("user", newFriend.getUserID().toString(), newFriend);
+            } catch (IOException e) {
+
+            }
+        }
+        //TODO And Commit Locally
     }
 }

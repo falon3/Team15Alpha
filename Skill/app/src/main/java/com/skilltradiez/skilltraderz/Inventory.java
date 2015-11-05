@@ -28,10 +28,10 @@ import java.util.List;
  * An inventory contains the the skills held by a user.
  */
 public class Inventory {
-    private ArrayList<Skill> skillz;
+    private ArrayList<ID> skillz;
 
     public Inventory() {
-        skillz = new ArrayList<Skill>();
+        skillz = new ArrayList<ID>();
     }
 
     /**
@@ -40,7 +40,13 @@ public class Inventory {
      * @param index the index
      * @return the skill
      */
-    public Skill get(Integer index) {
+    public Skill get(UserDatabase userDB, Integer index) {
+        if (index < skillz.size())
+            return userDB.getSkillByID(skillz.get(index));
+        return null;
+    }
+
+    public ID get(Integer index) {
         if (index < skillz.size())
             return skillz.get(index);
         return null;
@@ -53,8 +59,8 @@ public class Inventory {
      * @return false if the skill was already in the list
      */
     public Boolean add(Skill new_skill) {
-        if (skillz.contains(new_skill)) return false;
-        skillz.add(new_skill);
+        if (skillz.contains(new_skill.getSkillID())) return false;
+        skillz.add(new_skill.getSkillID());
         return true;
     }
 
@@ -63,7 +69,7 @@ public class Inventory {
      *
      * @param skill the skill to remove
      */
-    public void remove(Skill skill) {
+    public void remove(ID skill) {
         skillz.remove(skill);
     }
 
@@ -80,11 +86,13 @@ public class Inventory {
      * @param name The skill name to search for
      * @return a list of all skills matching the given name.
      */
-    public List<Skill> findByName(String name) {
+    public List<Skill> findByName(UserDatabase userDB, String name) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
-        for (Skill s : skillz) {
-            if (s.getName().contains(name)) {
-                matching.add(s);
+        Skill temp;
+        for (ID s : skillz) {
+            temp = userDB.getSkillByID(s);
+            if (temp.getName().contains(name)) {
+                matching.add(temp);
             }
         }
         return matching;
@@ -96,11 +104,13 @@ public class Inventory {
      * @param category The skill category to search for
      * @return a list of all skills matching the given category.
      */
-    public List<Skill> findByCategory(String category) {
+    public List<Skill> findByCategory(UserDatabase userDB, String category) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
-        for (Skill s : skillz) {
-            if (s.getCategory().contains(category)) {
-                matching.add(s);
+        Skill temp;
+        for (ID s : skillz) {
+            temp = userDB.getSkillByID(s);
+            if (temp.getCategory().contains(category)) {
+                matching.add(temp);
             }
         }
         return matching;
@@ -109,8 +119,8 @@ public class Inventory {
     /**
      * Returns a copy of the list of skills, sorted ascending by name.
      */
-    public ArrayList<Skill> orderByName() {
-        ArrayList<Skill> sorted = (ArrayList<Skill>) skillz.clone();
+    public ArrayList<Skill> orderByName(UserDatabase userDB) {
+        ArrayList<Skill> sorted = cloneSkillz(userDB);
         Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
@@ -123,8 +133,8 @@ public class Inventory {
     /**
      * Returns a copy of the list of skills, sorted ascending by name.
      */
-    public ArrayList<Skill> orderByCategory() {
-        ArrayList<Skill> sorted = (ArrayList<Skill>) skillz.clone();
+    public ArrayList<Skill> orderByCategory(UserDatabase userDB) {
+        ArrayList<Skill> sorted = cloneSkillz(userDB);
         Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
@@ -132,5 +142,12 @@ public class Inventory {
             }
         });
         return sorted;
+    }
+
+    public ArrayList<Skill> cloneSkillz(UserDatabase userDB) {
+        ArrayList<Skill> newList = new ArrayList<Skill>();
+        for (ID id:skillz)
+            newList.add(userDB.getSkillByID(id));
+        return newList;
     }
 }
