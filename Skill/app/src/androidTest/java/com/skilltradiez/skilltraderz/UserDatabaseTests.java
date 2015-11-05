@@ -85,7 +85,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
             // The new database should contain all the previous changes
             db = new UserDatabase();
-            assertEquals(db.getAccountByUsername("Username"), user);
+            assertTrue(db.getAccountByUsername("Username").equals(user));
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }
