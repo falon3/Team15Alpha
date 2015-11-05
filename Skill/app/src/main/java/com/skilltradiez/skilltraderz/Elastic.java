@@ -61,10 +61,22 @@ public class Elastic {
         httpClient.post(baseUrl + type + "/" + id + "/_update", sb.toString());
     }
 
-    public User getDocumentUser(String type, String id) throws IOException {
-        String resp = httpClient.get(baseUrl + type + "/" + id);
+    public User getDocumentUser(String id) throws IOException {
+        String resp = httpClient.get(baseUrl + "user" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
         return ((GetResponse<User>)gson.fromJson(resp, getResponseType))._source;
+    }
+
+    public Skill getDocumentSkill(String id) throws IOException {
+        String resp = httpClient.get(baseUrl + "skill" + "/" + id);
+        Type getResponseType = new TypeToken<GetResponse<Skill>>() { }.getType();
+        return ((GetResponse<Skill>)gson.fromJson(resp, getResponseType))._source;
+    }
+
+    public Trade getDocumentTrade(String id) throws IOException {
+        String resp = httpClient.get(baseUrl + "trade" + "/" + id);
+        Type getResponseType = new TypeToken<GetResponse<Trade>>() { }.getType();
+        return ((GetResponse<Trade>)gson.fromJson(resp, getResponseType))._source;
     }
 
     /**

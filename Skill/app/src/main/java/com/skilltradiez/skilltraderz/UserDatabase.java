@@ -105,7 +105,7 @@ public class UserDatabase {
         //TODO Maybe this should throw an exception instead of returning null.
         User u = null;
         try {
-            u = elastic.getDocumentUser("user", username);
+            u = elastic.getDocumentUser(username);
             if (u != null)
                 users.add(u);
         } catch (IOException e) {
