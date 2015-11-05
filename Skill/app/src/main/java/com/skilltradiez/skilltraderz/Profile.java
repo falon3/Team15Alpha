@@ -1,5 +1,7 @@
 package com.skilltradiez.skilltraderz;
 
+import java.io.IOException;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -82,6 +84,10 @@ public class Profile implements Notification {
     }
 
     public void commit(UserDatabase userDB) {
-        //TODO
+        try {
+            userDB.getElastic().updateDocument("user", username, this, "profile/foo/bar");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

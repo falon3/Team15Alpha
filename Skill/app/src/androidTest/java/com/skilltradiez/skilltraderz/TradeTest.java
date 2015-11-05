@@ -31,6 +31,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
     public void testInitTrade() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user = db.createUser("u");
             User user2 = db.createUser("u2");
@@ -47,6 +48,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
     public void testAcceptTradeRequest() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user = db.createUser("u");
             User user2 = db.createUser("u2");
@@ -66,6 +68,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
     public void testRefuseTradeRequest() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user = db.createUser("u");
             User user2 = db.createUser("u2");
@@ -86,6 +89,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
     public void testCounterOfferTradeRequest() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User user = db.createUser("u");
             User user2 = db.createUser("u2");
@@ -105,6 +109,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
     public void testModifyActiveTrade() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User bob = db.createUser("Bob");
             User joel = db.createUser("Joel");
@@ -130,6 +135,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
     public void testBrowseTradeHistory() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         try {
             User bob = db.createUser("Bob");
             User joel = db.createUser("Joel");

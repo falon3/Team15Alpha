@@ -18,23 +18,9 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import android.util.Log;
-
-import com.searchly.jestdroid.DroidClientConfig;
-import com.searchly.jestdroid.JestClientFactory;
-import com.skilltradiez.skilltraderz.User;
-
-import org.apache.http.client.params.HttpClientParamConfig;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.searchbox.client.JestClient;
-import io.searchbox.client.JestResult;
-import io.searchbox.core.Get;
-import io.searchbox.core.Index;
-import io.searchbox.indices.mapping.PutMapping;
 
 /**
  * Created by sja2 on 10/28/15.
@@ -42,17 +28,37 @@ import io.searchbox.indices.mapping.PutMapping;
 public class UserDatabase {
     private User currentUser;
     private List<User> users;
+
+    public ChangeList getChangeList() {
+        return toBePushed;
+    }
+
     private ChangeList toBePushed;
+
+    public Elastic getElastic() {
+        return elastic;
+    }
+
+    Elastic elastic;
 
     UserDatabase() {
         users = new ArrayList<User>();
         toBePushed = new ChangeList();
+        elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/");
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
+        if (getAccountByUsername(username) != null)
+            throw new UserAlreadyExistsException();
+
         User u = new User(UserID.generateRandomID(), username);
         users.add(u);
         currentUser = u;
+        try {
+            elastic.addDocument("user", username, u);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return u;
     }
 
@@ -62,14 +68,27 @@ public class UserDatabase {
         return u;
     }
 
+    public void deleteAllData() {
+        try {
+            elastic.deleteDocument("user", "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void pullUsers() {
-        users = new ArrayList<User>();
-        /*TODO
-         * Get The Users (Who Are Cached/Friends) By ElasticSearch
-         */
+        for (int i = 0; i < users.size(); i++) {
+            users.set(i, getOnlineAccountByUsername(users.get(i).getProfile().getUsername()));
+        }
     }
 
     public void save() {
+        try {
+            elastic.addDocument("user", currentUser.getProfile().getUsername(), currentUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        toBePushed.push(this);
         // Saves locally and pushes changes if connected to the internet
     }
 
@@ -79,7 +98,19 @@ public class UserDatabase {
                 return u;
             }
         }
-        return null;
+        return getOnlineAccountByUsername(username);
+    }
+
+    private User getOnlineAccountByUsername(String username) {
+        //TODO Maybe this should throw an exception instead of returning null.
+        User u = null;
+        try {
+            u = elastic.getDocumentUser("user", username);
+            if (u != null)
+                users.add(u);
+        } catch (IOException e) {
+        }
+        return u;
     }
 
     public User getAccountByUserID(UserID id) {
