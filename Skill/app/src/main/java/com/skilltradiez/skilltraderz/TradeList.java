@@ -46,6 +46,7 @@ public class TradeList {
      */
     @Deprecated
     public Trade getMostRecentTrade() {
+        if (trades.isEmpty()) return null;
         return trades.get(trades.size()-1);
     }
 

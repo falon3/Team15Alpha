@@ -28,6 +28,7 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
 
     public void testAddFriend() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user1;
         User user2;
         try {
@@ -43,11 +44,13 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
             assertTrue(user1.getFriendsList().hasFriend(user2));
             assertTrue(user2.getFriendsList().hasFriend(user1));
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testRemoveFriend() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user1;
         User user2;
         try {
@@ -67,11 +70,13 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
             assertFalse(user1.getFriendsList().hasFriend(user2));
             assertFalse(user2.getFriendsList().hasFriend(user1));
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testBlockUser() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user1;
         User user2;
         try {
@@ -95,11 +100,13 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
             assertFalse(user1.getFriendsList().hasOutgoingFriendRequest(user2));
             assertFalse(user2.getFriendsList().hasIncomingFriendRequest(user1));
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 
     public void testGetFriends() {
         UserDatabase db = new UserDatabase();
+        db.deleteAllData();
         User user1;
         User user2;
         try {
@@ -112,6 +119,7 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
             assertEquals(user1.getFriendsList().getFriends().get(0), user2.getUserID());
             assertEquals(user2.getFriendsList().getFriends().get(0), user1.getUserID());
         } catch (UserAlreadyExistsException e) {
+            assertTrue(false);
         }
     }
 }
