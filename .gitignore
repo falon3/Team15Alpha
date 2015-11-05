@@ -34,3 +34,9 @@ captures/
 
 */.idea/
 Skill/Skill.iml
+
+Skill/.idea/gradle.xml
+Skill/app/app.iml
+
+# windoes shit
+*/Thumbs.db
