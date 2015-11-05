@@ -58,7 +58,7 @@ public class TradeList {
     /**
      * Don't use this please! Just call getActiveTrades.
      */
-    @Deprecated
+    //@Deprecated
     public Trade getMostRecentTrade(UserDatabase userDB) {
         if (trades.isEmpty()) return null;
         return userDB.getTradeByID(trades.get(trades.size()-1));

@@ -28,19 +28,22 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSetVisibility() {
-        Skill skill = new Skill("foo", "bar");
+        UserDatabase db = new UserDatabase();
+        Skill skill = new Skill(db, "foo", "bar");
         skill.setVisible(false);
         assertFalse(skill.isVisible());
     }
 
     public void testSetDescription() {
-        Skill skill = new Skill("foo", "bar");
+        UserDatabase db = new UserDatabase();
+        Skill skill = new Skill(db, "foo", "bar");
         skill.setDescription("DESCRIBE'D!!!");
         assertEquals(skill.getDescription(), "DESCRIBE'D!!!");
     }
 
     public void testAttachPicture() {
-        Skill skill = new Skill("foo", "bar");
+        UserDatabase db = new UserDatabase();
+        Skill skill = new Skill(db, "foo", "bar");
         Image img = new Image("foo.tiff");
         //image should be null initially
         assertTrue(skill.getImage() instanceof NullImage);
@@ -50,7 +53,8 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testRetakePicture() {
-        Skill skill = new Skill("foo", "bar");
+        UserDatabase db = new UserDatabase();
+        Skill skill = new Skill(db, "foo", "bar");
         Image img = new Image("foo.tiff");
         Image img2 = new Image("foo.bmp");
         //test setting image
@@ -62,7 +66,8 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testDeletePicture() {
-        Skill skill = new Skill("foo", "bar");
+        UserDatabase db = new UserDatabase();
+        Skill skill = new Skill(db, "foo", "bar");
         Image img = new Image("foo.tiff");
         //test setting image
         skill.setImage(img);
