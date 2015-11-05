@@ -43,10 +43,9 @@ public class User {
         return id != null ? id.hashCode() : 0;
     }
 
-    private ID id;
+    private ID id = ID.generateRandomID();
 
-    User(ID id, String username) {
-        this.id = id;
+    User(String username) {
         profile = new Profile(username);
         inventory = new Inventory(); // Empty
         friendsList = new FriendsList(id); // Empty

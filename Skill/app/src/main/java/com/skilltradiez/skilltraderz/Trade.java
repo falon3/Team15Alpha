@@ -28,7 +28,7 @@ import java.util.List;
 public class Trade implements Notification {
     private User actor1, actor2;
     private List<Skill> offer1, offer2;
-    private Integer tradeID;
+    private ID tradeID = ID.generateRandomID();
     private Boolean accepted = false, active = true;
 
     Trade(User user1, User user2) {
@@ -42,6 +42,10 @@ public class Trade implements Notification {
 
     public User getActor2() {
         return actor2;
+    }
+
+    public ID getTradeID() {
+        return tradeID;
     }
 
     public void setAccepted(User other) throws InactiveTradeException {
@@ -79,6 +83,35 @@ public class Trade implements Notification {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Trade trade = (Trade) o;
+
+        if (!getActor1().equals(trade.getActor1())) return false;
+        if (!getActor2().equals(trade.getActor2())) return false;
+        if (offer1 != null ? !offer1.equals(trade.offer1) : trade.offer1 != null) return false;
+        if (offer2 != null ? !offer2.equals(trade.offer2) : trade.offer2 != null) return false;
+        if (!getTradeID().equals(trade.getTradeID())) return false;
+        if (!accepted.equals(trade.accepted)) return false;
+        return active.equals(trade.active);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getActor1().hashCode();
+        result = 31 * result + getActor2().hashCode();
+        result = 31 * result + (offer1 != null ? offer1.hashCode() : 0);
+        result = 31 * result + (offer2 != null ? offer2.hashCode() : 0);
+        result = 31 * result + getTradeID().hashCode();
+        result = 31 * result + accepted.hashCode();
+        result = 31 * result + active.hashCode();
+        return result;
+    }
+
     public List<Skill> getCurrentOffer(User user) {
         if (user.equals(actor1)) {
             return offer1;
@@ -98,14 +131,14 @@ public class Trade implements Notification {
 
             //TODO make equals method
             if (!prev_version.equals(this)) {
-                // Check for new info
+                // TODO Check for new info
 
 
-                // Update this object
+                // TODO Update this object
 
 
-                // Send your changes
-                ela.addDocument("trade", tradeID.toString(), this);
+                // TODO Send your changes
+                ela.addDocument("trade", tradeID.getID().toString(), this);
             }
 
         } catch (IOException e) {

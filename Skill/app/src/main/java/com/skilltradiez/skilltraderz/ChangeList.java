@@ -43,6 +43,7 @@ class ChangeList {
         List<Notification> finishedNotes = new ArrayList<Notification>();
         for (Notification note : notifications) {
             try {
+                // Perform needed changes
                 note.commit(userDB);
                 finishedNotes.add(note);
             } catch (Exception e2) {
