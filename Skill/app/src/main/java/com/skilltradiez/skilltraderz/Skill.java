@@ -212,6 +212,7 @@ public class Skill implements Notification {
         try {
             prev_version = ela.getDocumentSkill(name + "_" + version);
 
+            //TODO make equals method
             if (!prev_version.equals(this)) {
                 version = version + 1;
                 ela.addDocument("skill", name + "_" + version, this);

@@ -69,8 +69,14 @@ public class Elastic {
 
     public Skill getDocumentSkill(String id) throws IOException {
         String resp = httpClient.get(baseUrl + "skill" + "/" + id);
-        Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
+        Type getResponseType = new TypeToken<GetResponse<Skill>>() { }.getType();
         return ((GetResponse<Skill>)gson.fromJson(resp, getResponseType))._source;
+    }
+
+    public Trade getDocumentTrade(String id) throws IOException {
+        String resp = httpClient.get(baseUrl + "trade" + "/" + id);
+        Type getResponseType = new TypeToken<GetResponse<Trade>>() { }.getType();
+        return ((GetResponse<Trade>)gson.fromJson(resp, getResponseType))._source;
     }
 
     /**
