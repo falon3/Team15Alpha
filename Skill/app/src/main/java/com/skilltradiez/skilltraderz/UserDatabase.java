@@ -39,6 +39,13 @@ public class UserDatabase {
         return elastic;
     }
 
+    public Local getLocal() {
+
+        return local;
+    }
+
+    Local local;
+
     Elastic elastic;
 
     UserDatabase() {
