@@ -9,9 +9,7 @@ Project Part 4 - Submission date: Nov 6, 2015
 Part 4 requirements:
 
 
-   1. Code Base of Prototype: have a code base:
-   
-   https://github.com/CMPUT301F15T15/Team15Alpha
+   1. [Code Base of Prototype: have a code base:]https://github.com/CMPUT301F15T15/Team15Alpha
 
 
    2. Demonstrate something tangible (video): 
