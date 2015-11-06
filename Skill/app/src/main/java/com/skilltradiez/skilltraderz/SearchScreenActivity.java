@@ -109,7 +109,7 @@ public class SearchScreenActivity extends ActionBarActivity {
     private Bundle searchExtras;
 
     private ArrayAdapter<Skill> searchViewSkillAdapter;
-    private ArrayAdapter<User> serachViewUserAdapter;
+    private ArrayAdapter<User> searchViewUserAdapter;
     private ListView searchResultsList;
 
     @Override
@@ -120,7 +120,7 @@ public class SearchScreenActivity extends ActionBarActivity {
         searchExtras = getIntent().getExtras();
         searchScreenType = searchExtras.getInt("All_search");
         searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item);
-        searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item);
+        searchViewUserAdapter = new ArrayAdapter<User>(searchScreenContext, R.layout.list_item);
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);

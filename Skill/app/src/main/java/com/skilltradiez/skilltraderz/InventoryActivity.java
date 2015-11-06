@@ -166,7 +166,7 @@ public class InventoryActivity extends ActionBarActivity {
     public void startTrade(View view){
         //need to check that you are friends with this person
         //then un-grey out the 'make trade' button
-        Intent intent = new Intent(inventoryContext, TradeRequestActivity.class);
+        Intent intent = new Intent(inventoryContext, EditTradeActivity.class);
         startActivity(intent);
     }
 
