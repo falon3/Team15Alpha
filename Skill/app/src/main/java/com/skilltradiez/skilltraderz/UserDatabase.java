@@ -177,7 +177,7 @@ public class UserDatabase {
         for (Skill s : skillz)
             if (s.getSkillID().equals(id))
                 return s;
-        return null;
+        return getOnlineSkillByID(id);
     }
 
     private Skill getOnlineSkillByID(ID id) {
