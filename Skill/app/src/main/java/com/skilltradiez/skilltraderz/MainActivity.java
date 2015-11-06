@@ -159,9 +159,12 @@ public class MainActivity extends ActionBarActivity {
      */
     public void beginAllSearch(View view){
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
+        if(view.getId() == R.id.browse_skillz){
+            intent.putExtra("All_skills", 0);
+        } else {
+            intent.putExtra("All_users", 1);
+        }
         startActivity(intent);
-        //@todo need to send the proper context to search.
-        // Browse Skills/Users/Refined search are three separate
     }
 
     /**
@@ -170,7 +173,6 @@ public class MainActivity extends ActionBarActivity {
      */
     public void beginRefinedSearch(View view){
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
-        //intent.putExtra(SearchScreenActivity.TO_SEARCH, searchDatabase)
         startActivity(intent);
     }
 

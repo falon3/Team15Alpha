@@ -34,14 +34,16 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     private Context searchScreenContext = this;
 
-    private Skill skills;
     private User users;
+    private Skill skillz;
 
     private Button searchButton;
     private EditText searchField;
     private String searchInventory;
     private Spinner categorySpinner;
 
+    private ArrayAdapter<Skill> searchViewSkillAdapter;
+    private ArrayAdapter<User> serachViewUserAdapter;
     private ListView searchResultsList;
 
     @Override
@@ -53,6 +55,8 @@ public class SearchScreenActivity extends ActionBarActivity {
     @Override
     public void onStart(){
         super.onStart();
+
+        searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item)
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
