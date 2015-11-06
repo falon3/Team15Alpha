@@ -1,24 +1,52 @@
 # Team15Alpha
 ####Project Deliverables 
-Project Part 4 - Nov 6, 2015
+Project Part 4 - Submission date: Nov 6, 2015
 
-Addressing Feedback From Part 3:
+## Addressing Feedback From Part 3:
   1. All feedback was positive (GREAT!)
 
-================================Still Needs To Be Changed==================================
+## Relevant To Part 4 Of Our Project
 Part 4 requirements:
-   1. Code Base of Prototype: have a code base (done), demonstrate something tangible (video)
-   2. Code Documentation: brief introductory comment for each source file (Cole was doing it right), 
-                          Javadoc interface documentation for your use cases and basic command classes and their public                                methods (at least). Deliver the compiled Javadoc documentation to your source repository.
-   3. Test Cases: Junit tests for all use cases (complete implementation not yet necessary) (oops)
-   4. Object-Oriented Design: update UML (Smells MVC-ish?) (done for now?)
-   5. Release Planning: plan use case/stories for part 5 (done?)
-   6. Reuse Statement: third party libraries(Should be in wiki)
-=======================================End Of Changes======================================
 
-### Please press Ctrl-Alt-L on every file you changed to format it before you commit!
 
-# License 
+   1. Code Base of Prototype: have a code base:
+   
+   https://github.com/CMPUT301F15T15/Team15Alpha
+
+
+   2. Demonstrate something tangible (video): 
+   
+   
+   
+   3. Code Documentation: brief introductory comment for each source file:
+   
+
+
+   https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File
+   
+   
+   Javadoc interface documentation:
+
+   4. Test Cases:
+
+
+   https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
+   
+   5. Object-Oriented Design:
+   
+   https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
+
+   6. Release Planning:
+   
+      https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning
+
+   7. Reuse Statement: 
+   
+      https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch
+
+
+
+## License 
 ####   __SkillTradiez__ -- _The lost adventures_
    
     Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
