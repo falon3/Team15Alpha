@@ -1,15 +1,20 @@
 # Team15Alpha
 ####Project Deliverables 
-Project Part 3 - Oct 26, 2015
+Project Part 4 - Nov 6, 2015
 
-Feedback from Part 2 addressed:
-  1. [Test Cases are split](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
-  2. [Storyboards and UI Mockups remade, re-organized and commented for clarity.](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Storyboard-and-UI)
-  3. [Release Planning: dates added](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
-  4. [Glossary: added terms suggested by TA, as well as a few others for better coverage of application terms](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Glossary)
- 
-Part 3 requirements:
-   1. [Detailed UML added to the wiki](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/UML)
+Addressing Feedback From Part 3:
+  1. All feedback was positive (GREAT!)
+
+================================Still Needs To Be Changed==================================
+Part 4 requirements:
+   1. Code Base of Prototype: have a code base (done), demonstrate something tangible (video)
+   2. Code Documentation: brief introductory comment for each source file (Cole was doing it right), 
+                          Javadoc interface documentation for your use cases and basic command classes and their public                                methods (at least). Deliver the compiled Javadoc documentation to your source repository.
+   3. Test Cases: Junit tests for all use cases (complete implementation not yet necessary) (oops)
+   4. Object-Oriented Design: update UML (Smells MVC-ish?) (done for now?)
+   5. Release Planning: plan use case/stories for part 5 (done?)
+   6. Reuse Statement: third party libraries(Should be in wiki)
+=======================================End Of Changes======================================
 
 ### Please press Ctrl-Alt-L on every file you changed to format it before you commit!
 
