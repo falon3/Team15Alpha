@@ -45,7 +45,7 @@ public class UserDatabase {
         elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/");
         // Via SD Card(Local)
         //TODO: Get Permissions/Figure Out what's wrong with Local
-        //local = new Local();
+        local = new Local();
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
@@ -74,6 +74,8 @@ public class UserDatabase {
     public void deleteAllData() {
         try {
             elastic.deleteDocument("user", "");
+            elastic.deleteDocument("skill", "");
+            elastic.deleteDocument("trade", "");
         } catch (IOException e) {
             e.printStackTrace();
         }

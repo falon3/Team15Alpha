@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class Trade implements Notification {
+public class Trade extends Notification {
     private User actor1, actor2;
     private List<Skill> offer1, offer2;
     private ID tradeID = ID.generateRandomID();
