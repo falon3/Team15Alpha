@@ -25,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 
 /**
  * Elastic
@@ -47,6 +48,8 @@ public class Elastic {
      * @throws IOException if there's some sort of error with internet things or parsing.
      */
     public <T> void addDocument(String type, String id, T data) throws IOException {
+        type = URLEncoder.encode(type, "ISO-8859-1");
+        id = URLEncoder.encode(id, "ISO-8859-1");
         httpClient.post(baseUrl + type + "/" + id, gson.toJson(data));
     }
 
@@ -63,6 +66,8 @@ public class Elastic {
      * @throws IOException if internet things fail
      */
     public <T> void updateDocument(String type, String id, T data, String path) throws IOException {
+        type = URLEncoder.encode(type, "ISO-8859-1");
+        id = URLEncoder.encode(id, "ISO-8859-1");
         StringBuilder sb = new StringBuilder();
         String[] paths = path.split("/");
         for (String s : paths) {
@@ -82,18 +87,21 @@ public class Elastic {
     //The next three methods need to be separate because java's generics aren't real generics,
     //they are actually fake. But anyways, they get different types of documents from the database.
     public User getDocumentUser(String id) throws IOException {
+        id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "user" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
         return ((GetResponse<User>)gson.fromJson(resp, getResponseType))._source;
     }
 
     public Skill getDocumentSkill(String id) throws IOException {
+        id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "skill" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<Skill>>() { }.getType();
         return ((GetResponse<Skill>)gson.fromJson(resp, getResponseType))._source;
     }
 
     public Trade getDocumentTrade(String id) throws IOException {
+        id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "trade" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<Trade>>() { }.getType();
         return ((GetResponse<Trade>)gson.fromJson(resp, getResponseType))._source;
@@ -106,6 +114,8 @@ public class Elastic {
      * @throws IOException if the internet breaks.
      */
     public void deleteDocument(String type, String id) throws IOException {
+        type = URLEncoder.encode(type, "ISO-8859-1");
+        id = URLEncoder.encode(id, "ISO-8859-1");
         httpClient.delete(baseUrl + type + "/" + id);
     }
 }
