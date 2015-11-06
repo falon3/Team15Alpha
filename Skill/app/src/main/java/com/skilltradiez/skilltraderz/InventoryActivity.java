@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,14 +54,20 @@ public class InventoryActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        //TODO: change to a user ID passed by intent
-        currentUser = MainActivity.userDB.getCurrentUser();
+        currentUser = MainActivity.userDB.getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         startTrade = (Button) findViewById(R.id.maketrade);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         inventoryList = (ListView) findViewById(R.id.search_list);
+
+        inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                Skill skill = (Skill) adapter.getItemAtPosition(position);
+                skillDetails(skill);
+            }
+        });
 
         searchInventory = "";
     }
@@ -126,11 +133,12 @@ public class InventoryActivity extends ActionBarActivity {
     }
 
     /**
-     * onClick for a chosen skill. Will being a Skill Description activity
-     * @param view
+     * onClick for a chosen skill. Will bring a Skill Description activity
+     * @param skill
      */
-    public void skillDetails(View view){
-        Intent intent = new Intent(inventoryContext, TradeRequestActivity.class);
+    public void skillDetails(Skill skill){
+        Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);
+        intent.putExtra("Skill", skill);
         startActivity(intent);
 
     }

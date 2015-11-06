@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -36,16 +38,18 @@ public class TradeRequestActivity extends ActionBarActivity {
     private Button acceptRequest;
     private Button deleteRequest;
     private Button counterOffer;
-    private String tradeTitle;
+    private TextView tradeTitle;
     private TextView tradeDescription;
     private ListView skillsInTrade;
-
+    private Trade trade;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_request);
+        Bundle extras = getIntent().getExtras();
+        trade = MainActivity.userDB.getTradeByID((ID) extras.get("trade_id"));
     }
 
     @Override
@@ -57,7 +61,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         counterOffer = (Button) findViewById(R.id.counterTrade);
         tradeDescription = (TextView) findViewById(R.id.trade_description);
         skillsInTrade = (ListView) findViewById(R.id.skillListInTrade);
-        tradeTitle = "";
+        tradeTitle = (TextView) findViewById(R.id.trading_with);
 
 
     }
@@ -71,6 +75,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         //Add the trade to your history
         Toast toast = Toast.makeText(tradeContext, "Accepted a Trade", Toast.LENGTH_SHORT);
         toast.show();
+        trade.getHalfForUser(MainActivity.userDB.getCurrentUser()).setAccepted(true);
     }
 
     /**
@@ -81,6 +86,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         // alert dialogue for making sure that you want to delete the request. Confirmation.
         Toast toast = Toast.makeText(tradeContext, "Deleted a Request", Toast.LENGTH_SHORT);
         toast.show();
+        //TODO the model doesn't support this yet.
     }
 
     /**
@@ -89,12 +95,15 @@ public class TradeRequestActivity extends ActionBarActivity {
      */
     public void counterOffer(View view){
         Intent intent = new Intent(tradeContext, EditTradeActivity.class);
+        intent.putExtra("trade_id", trade.getTradeID());
         startActivity(intent);
-        //need to probably put an intent.putextra with ... info
+        //TODO
+        intent.getExtras().get("counter_offer");
     }
 
     /**
      * Set the details of the trade offer.
+     * View
      * @ TODO:
      */
     public void setTradeDetails(){
@@ -104,6 +113,7 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Set the notes of the trade as given by the trade requester
+     * View
      * @ TODO:
      */
     public void setTradeNotes(){
@@ -113,10 +123,14 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Who you're trading with
+     * View
      * @ TODO:
      */
     public void setTradeTitle(){
         //tradeTitle = who you're trading with
+        UserDatabase db = MainActivity.userDB;
+        User otherUser = db.getAccountByUserID(trade.getOppositeHalf(db.getCurrentUser()).getUser());
+        tradeTitle.setText(otherUser.getProfile().getUsername());
     }
 
 }

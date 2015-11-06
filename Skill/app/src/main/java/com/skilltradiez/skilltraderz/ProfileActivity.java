@@ -95,8 +95,7 @@ public class ProfileActivity extends ActionBarActivity {
      */
     public void checkInventory(View view){
         Intent intent = new Intent(profileContext, InventoryActivity.class);
-        //@todo need to get the id of the user we're looking at, either self or other to send to InventoryActivity
-        //intent.putExtra(viewedUser.getUserID())
+        intent.putExtra("user_id", currentUser.getUserID());
         startActivity(intent);
     }
 
@@ -125,28 +124,27 @@ public class ProfileActivity extends ActionBarActivity {
      * Add a user as a friend.
      */
     public void addFriend(){
+        MainActivity.userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
+        MainActivity.userDB.save();
 
-        //@todo send friend to be added to friend list
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
-        addRemoveFriend.setText(R.string.remove_friend);
 
+        addRemoveFriend.setText(R.string.remove_friend);
     }
 
     /**
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
-        //@todo send friend to remove from friend list
+        MainActivity.userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
+        MainActivity.userDB.save();
+
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                addRemoveFriend.setText(R.string.add_friend);
-            }
-        });
+
+        addRemoveFriend.setText(R.string.add_friend);
     }
 }
