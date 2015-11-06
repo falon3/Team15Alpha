@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGLDisplay;
+import java.util.ArrayList;
 
 /*
  *    Team15Alpha
@@ -39,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    public static UserDatabase userDB = new UserDatabase();
+    public static UserDatabase userDB;
 
     //Main screen
     private Button searchButton;
@@ -63,9 +64,11 @@ public class MainActivity extends ActionBarActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if(userDB.getCurrentUser() != null){
+        userDB = new UserDatabase();
+
+        if (userDB.getCurrentUser() != null) {
             setContentView(R.layout.activity_main);
-        }else{
+        } else {
             setContentView(R.layout.first_time_user);
         }
 
@@ -87,6 +90,7 @@ public class MainActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
+        userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
     }
 
     @Override
@@ -189,7 +193,6 @@ public class MainActivity extends ActionBarActivity {
      * @param view
      */
     public void createNewSkill(View view){
-        //@todo need to differentiate 'createnewskill' and 'edit exisiting skill'???????
         Intent intent = new Intent(mainContext, EditSkillActivity.class);
         startActivity(intent);
     }
