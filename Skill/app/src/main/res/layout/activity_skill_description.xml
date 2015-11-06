@@ -27,6 +27,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/button_with_border"
         android:text="@string/skill_description"
+        android:inputType="textMultiLine"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button

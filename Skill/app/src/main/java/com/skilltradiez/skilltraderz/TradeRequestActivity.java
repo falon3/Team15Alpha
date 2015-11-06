@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -36,16 +38,18 @@ public class TradeRequestActivity extends ActionBarActivity {
     private Button acceptRequest;
     private Button deleteRequest;
     private Button counterOffer;
-    private String tradeTitle;
+    private TextView tradeTitle;
     private TextView tradeDescription;
     private ListView skillsInTrade;
-
+    private ID tradeID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_request);
+        Bundle extras = getIntent().getExtras();
+        tradeID = (ID) extras.get("trade_id");
     }
 
     @Override
@@ -57,7 +61,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         counterOffer = (Button) findViewById(R.id.counterTrade);
         tradeDescription = (TextView) findViewById(R.id.trade_description);
         skillsInTrade = (ListView) findViewById(R.id.skillListInTrade);
-        tradeTitle = "";
+        tradeTitle = (TextView) findViewById(R.id.trading_with);
 
 
     }
@@ -95,6 +99,7 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Set the details of the trade offer.
+     * View
      * @ TODO:
      */
     public void setTradeDetails(){
@@ -104,6 +109,7 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Set the notes of the trade as given by the trade requester
+     * View
      * @ TODO:
      */
     public void setTradeNotes(){
@@ -113,10 +119,13 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Who you're trading with
+     * View
      * @ TODO:
      */
     public void setTradeTitle(){
         //tradeTitle = who you're trading with
+        UserDatabase db = MainActivity.userDB;
+        tradeTitle.setText(MainActivity.userDB.getAccountByUserID(MainActivity.userDB.getTradeByID(tradeID).getOppositeHalf(MainActivity.userDB.getCurrentUser()).getUser()).getProfile().getUsername());
     }
 
 }
