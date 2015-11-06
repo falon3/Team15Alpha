@@ -1,11 +1,11 @@
 # Team15Alpha
 ####Project Deliverables 
-Project Part 4 - Nov 6, 2015
+Project Part 4 - Submission date: Nov 6, 2015
 
-Addressing Feedback From Part 3:
+## Addressing Feedback From Part 3:
   1. All feedback was positive (GREAT!)
 
-================================Relevant To Part 4 Of Our Project==================================
+## Relevant To Part 4 Of Our Project
 Part 4 requirements:
    1. Code Base of Prototype: have a code base:https://github.com/CMPUT301F15T15/Team15Alpha
    2. Demonstrate something tangible (video): 
@@ -16,10 +16,10 @@ Part 4 requirements:
    5. Object-Oriented Design:  https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
    6. Release Planning: https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning
    7. Reuse Statement: third party libraries:  https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch
-=======================================End Of Changes======================================
 
 
-# License 
+
+## License 
 ####   __SkillTradiez__ -- _The lost adventures_
    
     Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
