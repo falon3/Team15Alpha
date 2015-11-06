@@ -196,6 +196,7 @@ public class UserDatabase {
         // New Skill
         getChangeList().add(s);
         try {
+            //TODO: Seems to be a problem for no apparent reason
             getElastic().addDocument("skill", s.getSkillID().toString(), s);
         } catch (IOException e) {
             e.printStackTrace();
