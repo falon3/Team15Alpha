@@ -47,7 +47,12 @@ public class UserDatabase {
         //TODO: Get Permissions/Figure Out what's wrong with Local
         local = new Local();
 
-        currentUser = local.getLocalData().getCurrentUser();
+        LocalPersistentObject lpo = local.getLocalData();
+        if (lpo != null) {
+            currentUser = lpo.getCurrentUser();
+        } else {
+            currentUser = null;
+        }
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
@@ -130,6 +135,7 @@ public class UserDatabase {
         //TODO Maybe this should throw an exception instead of returning null.
         User u = null;
         try {
+            System.out.println(username);
             u = elastic.getDocumentUser(username);
             if (u != null)
                 users.add(u);
