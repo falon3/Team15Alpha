@@ -17,7 +17,7 @@ Part 4 requirements:
    
    3. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
    
-   Javadoc interface documentation:
+   Javadoc interface documentation: [Javadocs of glory](https://github.com/ctevans/Team15Alpha/tree/master/docs/Javadocs)
 
    4. Test Cases: [All 37 complete successfully](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
    
