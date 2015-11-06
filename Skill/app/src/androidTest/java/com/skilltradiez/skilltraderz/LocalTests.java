@@ -1,5 +1,4 @@
 package com.skilltradiez.skilltraderz;
-
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -18,20 +17,36 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public abstract class Notification {
-    private boolean notify = false;
-    public void notifyDB() {
-        notify = true;
+
+import android.test.ActivityInstrumentationTestCase2;
+
+import com.google.gson.Gson;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+
+/**
+ * Created by Falon3 on 2015-11-05.
+ */
+public class LocalTests extends ActivityInstrumentationTestCase2 {
+    public LocalTests() {super(com.skilltradiez.skilltraderz.LocalTests.class); }
+
+    public void testAddLocal() {
+           Local lo = new Local();
+
+        try {
+            lo.saveToFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * Reads the flag indicating if something has changed, and clears it.
-     */
-    public boolean readChanged() {
-        boolean tmp = notify;
-        notify = false;
-        return tmp;
-    }
 
-    abstract boolean commit(UserDatabase userDB);
+
 }

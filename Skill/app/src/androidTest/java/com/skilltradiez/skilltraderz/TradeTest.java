@@ -58,12 +58,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL"));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
-            try {
-                user2.getTradeList().getMostRecentTrade(db).setAccepted(user2);
-            } catch (InactiveTradeException e1) {
-                // It's definitely active
-            }
-            assertTrue(trade.isAccepted());
+            trade.getHalfForUser(user2).setAccepted(true);
+            assertTrue(!trade.isActive());
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }
@@ -81,7 +77,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             // decline the trade
-            trade.decline();
+            trade.getHalfForUser(user2).setAccepted(false);
             assertTrue(!trade.isActive());
             // delete the trade
             user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade(db));
@@ -104,9 +100,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             counterOffer.add(new Skill(db,"Counter skill", "meta"));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
-            trade.decline();
-            trade.setOffer(user2, counterOffer);
-            assertEquals(trade.getCurrentOffer(user2), counterOffer);
+            trade.getHalfForUser(user2).setAccepted(false);
+            trade.getHalfForUser(user2).setOffer(counterOffer);
+            assertEquals(trade.getHalfForUser(user2).getOffer(), counterOffer);
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }
@@ -128,8 +124,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             Trade t = tl.getMostRecentTrade(db);
 
             // Modify An Active Trade
-            t.setOffer(bob, skillz1);
-            assertEquals(t.getCurrentOffer(bob), skillz1);
+            t.getHalfForUser(bob).setOffer(skillz1);
+            assertEquals(t.getHalfForUser(bob).getOffer(), skillz1);
 
             // Delete An Active Trade
             tl.delete(t);

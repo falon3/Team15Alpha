@@ -18,7 +18,6 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +28,14 @@ import java.util.List;
 public class TradeList extends Notification {
     private ID owner;
     private List<ID> trades;
+    private List<ID> newTrades;
+    private List<ID> deletedTrades;
 
     TradeList(ID id) {
         owner = id;
         trades = new ArrayList<ID>();
+        newTrades = new ArrayList<ID>();
+        deletedTrades = new ArrayList<ID>();
     }
 
     public ID getOwnerID() {
@@ -41,19 +44,12 @@ public class TradeList extends Notification {
 
     public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer) {
         Trade t = new Trade(userDB, user1, user2);
-        t.setOffer(user1, offer);
+        t.getHalfForUser(user1).setOffer(offer);
         trades.add(t.getTradeID());
+        newTrades.add(t.getTradeID());
+        notifyDB();
 
         return t;
-    }
-
-    /**
-     * Don't use this please! Just call getActiveTrades.
-     */
-    //@Deprecated
-    public Trade getMostRecentTrade(UserDatabase userDB) {
-        if (trades.isEmpty()) return null;
-        return userDB.getTradeByID(trades.get(trades.size()-1));
     }
 
     public List<Trade> getActiveTrades(UserDatabase userDB) {
@@ -70,11 +66,28 @@ public class TradeList extends Notification {
     }
 
     public void delete(Trade trade) {
-        trades.remove(trade);
+        trades.remove(trade.getTradeID());
+        deletedTrades.add(trade.getTradeID());
+        notifyDB();
+    }
+
+    public Trade getMostRecentTrade(UserDatabase userDB) {
+        if (trades.isEmpty()) return null;
+        return userDB.getTradeByID(trades.get(trades.size()-1));
     }
 
     @Override
-    public void commit(UserDatabase userDB) {
-
+    public boolean commit(UserDatabase userDB) {
+        for (ID tradeId : newTrades) {
+            Trade trade = userDB.getTradeByID(tradeId);
+            if (!trade.commit(userDB))
+                return false;
+        }
+        newTrades.clear();
+        for (ID tradeId : deletedTrades) {
+            //TODO how to delete ttrade
+        }
+        newTrades.clear();
+        return true;
     }
 }

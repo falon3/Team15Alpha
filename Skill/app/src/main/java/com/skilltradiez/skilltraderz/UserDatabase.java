@@ -44,7 +44,6 @@ public class UserDatabase {
         // Via ElasticSearch(Internet)
         elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/");
         // Via SD Card(Local)
-        //TODO: Get Permissions/Figure Out what's wrong with Local
         local = new Local();
 
         LocalPersistentObject lpo = local.getLocalData();

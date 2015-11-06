@@ -82,7 +82,7 @@ public class FriendsList extends Notification {
         return friendsList.contains(that_guy.getUserID());
     }
 
-    public void commit(UserDatabase userDB) {
+    public boolean commit(UserDatabase userDB) {
         for (ID id : newFriends) {
             User newFriend = userDB.getAccountByUserID(id);
             newFriend.getFriendsList().addFriend(userDB.getAccountByUserID(owner));
@@ -90,7 +90,7 @@ public class FriendsList extends Notification {
                 userDB.getElastic().addDocument("user", newFriend.getUserID().toString(), newFriend);
             } catch (IOException e) {
                 // try again later
-                return;
+                return false;
             }
         }
         newFriends.clear();
@@ -102,9 +102,10 @@ public class FriendsList extends Notification {
                 userDB.getElastic().addDocument("user", deadFriend.getUserID().toString(), deadFriend);
             } catch (IOException e) {
                 // try again later
-                return;
+                return false;
             }
         }
         oldFriends.clear();
+        return true;
     }
 }
