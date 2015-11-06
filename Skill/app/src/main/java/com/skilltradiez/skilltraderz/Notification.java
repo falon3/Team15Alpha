@@ -18,6 +18,16 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public interface Notification {
-    void commit(UserDatabase userDB);
+public abstract class Notification {
+    private Boolean notify = false;
+    public void notifyDB() {
+        notify = true;
+    }
+
+    private Boolean hasChanged() {
+        notify = !notify;
+        return !notify;
+    }
+
+    abstract void commit(UserDatabase userDB);
 }

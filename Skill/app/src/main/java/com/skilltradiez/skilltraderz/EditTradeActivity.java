@@ -1,4 +1,8 @@
 package com.skilltradiez.skilltraderz;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -17,8 +21,6 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
 public class EditTradeActivity extends ActionBarActivity {
 
@@ -27,5 +29,7 @@ public class EditTradeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
     }
+
+
 
 }

@@ -1,4 +1,14 @@
 package com.skilltradiez.skilltraderz;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -17,22 +27,24 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 
 public class SearchScreenActivity extends ActionBarActivity {
 
-    public static String TO_SEARCH = "TO_SEARCH";
+    //@todo what context are we getting things from? private int searchContext?
+
+    private Context searchScreenContext = this;
+
+    private Skill skills;
+    private User users;
 
     private Button searchButton;
     private EditText searchField;
     private String searchInventory;
     private Spinner categorySpinner;
+
     private ListView searchResultsList;
+    private ArrayAdapter<Skill> skillViewAdapter;
+    private ArrayAdapter<User> userViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +56,12 @@ public class SearchScreenActivity extends ActionBarActivity {
     public void onStart(){
         super.onStart();
 
+        searchViewAdapter = new ArrayAdapter<Skill>(this, R.id.search_list, skills);
+        searchResultsList.setAdapter(searchViewAdapter);
+
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
-        searchResultsList = (ListView) findViewById(R.id.search_list);
+
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
     }
