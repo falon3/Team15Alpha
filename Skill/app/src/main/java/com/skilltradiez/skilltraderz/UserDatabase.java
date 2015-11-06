@@ -61,8 +61,7 @@ public class UserDatabase {
         User u = new User(username);
         users.add(u);
         // You wouldn't be creating a user if you already had one
-        currentUser = u;
-        getChangeList().add(u.getFriendsList());
+        setCurrentUser(u);
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
@@ -73,8 +72,7 @@ public class UserDatabase {
 
     public User login(String username) {
         User u = getAccountByUsername(username);
-        currentUser = u;
-        getChangeList().add(u.getFriendsList());
+        setCurrentUser(u);
         return u;
     }
 
@@ -174,5 +172,11 @@ public class UserDatabase {
         trades.add(t);
         // New Trade
         getChangeList().add(t);
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        getChangeList().add(currentUser.getFriendsList());
+        getChangeList().add(currentUser.getTradeList());
     }
 }
