@@ -106,29 +106,34 @@ public class MainActivity extends ActionBarActivity {
         SearchThread thread = new SearchThread(string);
         thread.start();*/
     }
-
+    private static User new_guy = null;
     public void newUser(View view){
-        Context context = getApplicationContext();
-        if(newUserName.getText().toString() == ""){
-            //@todo toast! "You need a name"
+
+        final Context context = getApplicationContext();
+        if(newUserName.getText().toString().isEmpty()){
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Hello " + newUserName.getText().toString(), Toast.LENGTH_SHORT).show();
-            setContentView(R.layout.activity_main);
+            final String username = newUserName.getText().toString();
+            new Thread() {
+                public void run() {
+                    try {
+                        new_guy = userDB.createUser(username);
+                    } catch (UserAlreadyExistsException e) {
+                        // Failed
+                    }
+                }
+            }.start();
+
+            if (new_guy != null) {
+                Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
+                setContentView(R.layout.activity_main);
+            } else {
+                Toast.makeText(context, username + " Already Exists!", Toast.LENGTH_SHORT).show();
+                // Do nothing
+            }
+
             //@todo email if needed
         }
-
-        /*try {
-            if(newUserName.getText().toString() == ""){
-                //@todo toast! "You need a name"
-                //Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-            }else {
-                userDB.createUser(newUserName.getText().toString());
-                //@todo email if needed
-            }
-        } catch (UserAlreadyExistsException e) {
-            //@todo that don't work toast or etc
-        }*/
     }
 
     /**
