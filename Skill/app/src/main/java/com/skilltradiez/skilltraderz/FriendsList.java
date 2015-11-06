@@ -87,7 +87,7 @@ public class FriendsList extends Notification {
             User newFriend = userDB.getAccountByUserID(id);
             newFriend.getFriendsList().addFriend(userDB.getAccountByUserID(owner));
             try {
-                userDB.getElastic().addDocument("user", newFriend.getUserID().toString(), newFriend);
+                userDB.getElastic().addDocument("user", newFriend.getProfile().getUsername(), newFriend);
             } catch (IOException e) {
                 // try again later
                 return false;
@@ -99,7 +99,7 @@ public class FriendsList extends Notification {
             User deadFriend = userDB.getAccountByUserID(id);
             deadFriend.getFriendsList().removeFriend(userDB.getAccountByUserID(owner));
             try {
-                userDB.getElastic().addDocument("user", deadFriend.getUserID().toString(), deadFriend);
+                userDB.getElastic().addDocument("user", deadFriend.getProfile().getUsername(), deadFriend);
             } catch (IOException e) {
                 // try again later
                 return false;

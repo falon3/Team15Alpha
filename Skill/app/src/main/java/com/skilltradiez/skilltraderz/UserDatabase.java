@@ -49,6 +49,9 @@ public class UserDatabase {
         LocalPersistentObject lpo = local.getLocalData();
         if (lpo != null) {
             currentUser = lpo.getCurrentUser();
+            users.addAll(lpo.getUsers());
+            skillz.addAll(lpo.getSkillz());
+            trades.addAll(lpo.getTrades());
         } else {
             currentUser = null;
         }
@@ -61,20 +64,19 @@ public class UserDatabase {
         User u = new User(username);
         users.add(u);
         // You wouldn't be creating a user if you already had one
-        currentUser = u;
-        getChangeList().add(u.getFriendsList());
+        setCurrentUser(u);
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
-            e.printStackTrace();
+            // No internet, no registration
+            throw new RuntimeException();
         }
         return u;
     }
 
     public User login(String username) {
         User u = getAccountByUsername(username);
-        currentUser = u;
-        getChangeList().add(u.getFriendsList());
+        setCurrentUser(u);
         return u;
     }
 
@@ -96,7 +98,8 @@ public class UserDatabase {
 
     public void save() {
         toBePushed.push(this);
-        // Saves locally and pushes changes if connected to the internet
+        // TODO: Saves locally and pushes changes if connected to the internet
+        local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
     }
 
     public ChangeList getChangeList() {
@@ -154,7 +157,19 @@ public class UserDatabase {
         for (Trade t : trades)
             if (t.getTradeID().equals(id))
                 return t;
-        return null;
+        return getOnlineTradeByID(id);
+    }
+
+    private Trade getOnlineTradeByID(ID id) {
+        Trade t = null;
+        try {
+            t = elastic.getDocumentTrade(id.toString());
+            if (t != null)
+                trades.add(t);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 
     public Skill getSkillByID(ID id) {
@@ -164,6 +179,17 @@ public class UserDatabase {
         return null;
     }
 
+    private Skill getOnlineSkillByID(ID id) {
+        Skill s = null;
+        try {
+            s = elastic.getDocumentSkill(id.toString());
+            if (s != null)
+                skillz.add(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
     public void addSkill(Skill s) {
         skillz.add(s);
         // New Skill
@@ -174,5 +200,11 @@ public class UserDatabase {
         trades.add(t);
         // New Trade
         getChangeList().add(t);
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        getChangeList().add(currentUser.getFriendsList());
+        getChangeList().add(currentUser.getTradeList());
     }
 }

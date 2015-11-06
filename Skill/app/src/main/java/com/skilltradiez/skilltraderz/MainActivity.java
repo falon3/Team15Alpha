@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -125,15 +126,24 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
         }else {
             final String username = newUserName.getText().toString();
-            new Thread() {
+            Thread thread = new Thread() {
                 public void run() {
                     try {
                         new_guy = userDB.createUser(username);
                     } catch (UserAlreadyExistsException e) {
                         // Failed
+                        e.printStackTrace();
                     }
                 }
-            }.start();
+            };
+
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
