@@ -20,15 +20,9 @@ package com.skilltradiez.skilltraderz;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.google.gson.Gson;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+
 
 
 /**
@@ -38,14 +32,19 @@ public class LocalTests extends ActivityInstrumentationTestCase2 {
     public LocalTests() {super(com.skilltradiez.skilltraderz.LocalTests.class); }
 
     public void testAddLocal() {
-           Local lo = new Local();
+        Local lo = new Local();
 
         try {
             lo.saveToFile();
+            assertEquals(lo.readFromFile(), lo.getLocalData());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
 
 
 
