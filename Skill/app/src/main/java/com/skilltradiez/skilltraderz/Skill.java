@@ -140,6 +140,7 @@ public class Skill extends Notification {
         setDescription("");//Empty String
         setImage(new NullImage());
 
+        //TODO this probably shouldn't add itself to the database.
         db.addSkill(this);
     }
 

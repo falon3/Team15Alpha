@@ -3,6 +3,7 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -57,6 +58,10 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO HACK
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         if(userDB.getCurrentUser() != null){
             setContentView(R.layout.activity_main);
@@ -123,26 +128,14 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
         }else {
             username = newUserName.getText().toString();
-            Thread thread = new Thread() {
-                public void run() {
-                    try {
-                        new_guy = userDB.createUser(username);
-                        new_guy.getProfile().setEmail(newUserEmail.getText().toString());
-                        userDB.save();
-                    } catch (UserAlreadyExistsException e) {
-                        // Failed
-                        e.printStackTrace();
-                    }
-                }
-            };
 
-            thread.start();
             try {
-                thread.join();
-            } catch (InterruptedException e) {
+                new_guy = userDB.createUser(username);
+            } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
-                throw new RuntimeException();
             }
+            new_guy.getProfile().setEmail(newUserEmail.getText().toString());
+            userDB.save();
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
