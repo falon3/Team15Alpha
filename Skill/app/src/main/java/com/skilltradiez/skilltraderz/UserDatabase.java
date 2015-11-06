@@ -217,5 +217,6 @@ public class UserDatabase {
         this.currentUser = currentUser;
         getChangeList().add(currentUser.getFriendsList());
         getChangeList().add(currentUser.getTradeList());
+        getChangeList().add(currentUser.getProfile());
     }
 }

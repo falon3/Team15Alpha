@@ -45,6 +45,10 @@ public class Trade extends Notification {
         db.addTrade(this);
     }
 
+    /**
+     * Gets the parts of this trade corresponding to one of the involved users.
+     * @return The half corresponding to the user, or null if the user is not involved in the trade.
+     */
     public HalfTrade getHalfForUser(User user) {
         if (half1.getUser().equals(user.getUserID())) {
             return half1;
@@ -74,8 +78,11 @@ public class Trade extends Notification {
         return tradeID;
     }
 
+    /**
+     * A trade is active if both parties have not yet accepted it.
+     * @return
+     */
     public boolean isActive() {
-        if (half2.isAccepted() == false) return false;
         return !(half1.isAccepted() && half2.isAccepted());
     }
 
