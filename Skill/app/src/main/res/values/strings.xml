@@ -27,8 +27,10 @@
     <string name="refine_search">Refine Search</string>
     <string name="trade_notes">Trade notes from trading partner</string>
     <string name="accept_trade">Accept Trade</string>
+    <string name="send_trade">Send Trade</string>
     <string name="counter_trade">Counter Offer</string>
     <string name="delete_trade">Delete Request</string>
+    <string name="note_for_trade">Describe your request!</string>
     <string name="title_activity_skill_description">SkillDescription</string>
     <string name="skill_title">Skill Title</string>
     <string name="skill_description">Skill Description</string>
