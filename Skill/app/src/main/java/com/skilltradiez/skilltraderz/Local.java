@@ -27,7 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.List;
+
 
 /**
  * Created by Falon3 on 2015-11-04.
@@ -69,8 +69,7 @@ public class Local {
     }
 
     /* method to read LocalPersistentObject from local file
-     * returns what is read as a LocalPersistentObject
-     */
+     * returns what is read as a LocalPersistentObject*/
     public LocalPersistentObject readFromFile() throws IOException {
         FileInputStream fip = null;
         File file = new File(SAVE_FILE);
