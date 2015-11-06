@@ -38,10 +38,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_description);
 
-        // Pass in a Skill with intent.putExtra("Skill_ID", skill_ID);
-        //Bundle extras = getIntent().getExtras();
-        // MainActivity.userDB.getSkillByID(new ID(extras.getInt("Skill_ID")));
-        currentSkill = (Skill)getIntent().getSerializableExtra("Skill");
+        currentSkill = MainActivity.userDB.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
 
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);
