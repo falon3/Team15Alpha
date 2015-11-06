@@ -46,7 +46,7 @@ public class EditTradeActivity extends ActionBarActivity {
 
         tradeTitle = (TextView) findViewById(R.id.trading_with);
 
-        skillsInTrade = (ListView)
+        skillsInTrade = (ListView) ;
     }
 
 
