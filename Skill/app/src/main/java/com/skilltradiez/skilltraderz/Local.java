@@ -19,6 +19,8 @@ package com.skilltradiez.skilltraderz;
  */
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,9 +105,9 @@ public class Local {
 
         save_object = null;
         try {
-            save_object = gson.fromJson(in, LocalPersistentObject.class);
-        } catch (RuntimeException e) {
-        }
+            Type lpo_type = new TypeToken<LocalPersistentObject>(){}.getType();
+            save_object = gson.fromJson(in, lpo_type);
+        } catch (RuntimeException e) {}
         if (save_object == null) {
             save_object = new LocalPersistentObject();
         }

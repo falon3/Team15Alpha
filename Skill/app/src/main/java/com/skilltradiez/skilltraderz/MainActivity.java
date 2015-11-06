@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGLDisplay;
+import java.util.ArrayList;
 
 /*
  *    Team15Alpha
@@ -88,6 +89,8 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+
+        userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
     }
 
     @Override
@@ -190,7 +193,6 @@ public class MainActivity extends ActionBarActivity {
      * @param view
      */
     public void createNewSkill(View view){
-        //@todo need to differentiate 'createnewskill' and 'edit exisiting skill'???????
         Intent intent = new Intent(mainContext, EditSkillActivity.class);
         startActivity(intent);
     }
