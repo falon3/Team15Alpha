@@ -196,4 +196,9 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(mainContext, EditSkillActivity.class);
         startActivity(intent);
     }
+
+    public void deleteDatabase(View view) {
+        userDB.deleteAllData();
+        Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
+    }
 }
