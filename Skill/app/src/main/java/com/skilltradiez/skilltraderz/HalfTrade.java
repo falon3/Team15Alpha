@@ -10,7 +10,7 @@ import java.util.List;
 public class HalfTrade extends Notification {
     private ID user;
     private List<ID> offer;
-    private Boolean accepted;
+    private boolean accepted;
     private ID tradeID;
     private int part;
 
@@ -18,7 +18,7 @@ public class HalfTrade extends Notification {
         tradeID = trade;
         this.user = user;
         offer = new ArrayList<ID>();
-        accepted = null;
+        accepted = false;
         this.part = part;
     }
 
@@ -44,11 +44,11 @@ public class HalfTrade extends Notification {
         notifyDB();
     }
 
-    public Boolean isAccepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Boolean accepted) {
+    public void setAccepted(boolean accepted) {
         this.accepted = accepted;
         notifyDB();
     }

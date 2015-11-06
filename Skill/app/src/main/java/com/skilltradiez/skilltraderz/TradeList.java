@@ -18,6 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +46,16 @@ public class TradeList extends Notification {
     public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer) {
         Trade t = new Trade(userDB, user1, user2);
         t.getHalfForUser(user1).setOffer(offer);
-        trades.add(t.getTradeID());
-        newTrades.add(t.getTradeID());
-        notifyDB();
+        t.getHalfForUser(user1).setAccepted(true);
+        addTrade(userDB, t);
 
         return t;
+    }
+
+    public void addTrade(UserDatabase db, Trade trade) {
+        trades.add(trade.getTradeID());
+        newTrades.add(trade.getTradeID());
+        notifyDB();
     }
 
     public List<Trade> getActiveTrades(UserDatabase userDB) {
@@ -80,6 +86,14 @@ public class TradeList extends Notification {
     public boolean commit(UserDatabase userDB) {
         for (ID tradeId : newTrades) {
             Trade trade = userDB.getTradeByID(tradeId);
+            User otherUser = userDB.getAccountByUserID(trade.getHalf2().getUser());
+            otherUser.getTradeList().addTrade(userDB, trade);
+            try {
+                userDB.getElastic().addDocument("user", otherUser.getProfile().getUsername(), otherUser);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
             if (!trade.commit(userDB))
                 return false;
         }

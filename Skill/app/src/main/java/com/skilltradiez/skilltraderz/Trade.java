@@ -46,9 +46,9 @@ public class Trade extends Notification {
     }
 
     public HalfTrade getHalfForUser(User user) {
-        if (half1.getUser().equals(user)) {
+        if (half1.getUser().equals(user.getUserID())) {
             return half1;
-        } else if (half2.getUser().equals(user)) {
+        } else if (half2.getUser().equals(user.getUserID())) {
             return half2;
         }
         return null;
@@ -74,8 +74,8 @@ public class Trade extends Notification {
         return tradeID;
     }
 
-    public Boolean isActive() {
-        if (half2.isAccepted() == Boolean.FALSE) return false;
+    public boolean isActive() {
+        if (half2.isAccepted() == false) return false;
         return !(half1.isAccepted() && half2.isAccepted());
     }
 

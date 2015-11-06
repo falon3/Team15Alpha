@@ -40,6 +40,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL"));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
+            db.save();
             assertEquals(user.getTradeList().getMostRecentTrade(db), trade);
             assertEquals(user2.getTradeList().getMostRecentTrade(db), trade);
         } catch (UserAlreadyExistsException e) {
@@ -78,9 +79,11 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             // decline the trade
             trade.getHalfForUser(user2).setAccepted(false);
+            db.save();
             assertTrue(!trade.isActive());
             // delete the trade
             user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade(db));
+            db.save();
             assertTrue(user.getTradeList().getActiveTrades(db).size() == 0);
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
@@ -102,7 +105,11 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             trade.getHalfForUser(user2).setAccepted(false);
             trade.getHalfForUser(user2).setOffer(counterOffer);
-            assertEquals(trade.getHalfForUser(user2).getOffer(), counterOffer);
+            List<ID> ids = new ArrayList<ID>();
+            for (Skill skill : counterOffer) {
+                ids.add(skill.getSkillID());
+            }
+            assertEquals(trade.getHalfForUser(user2).getOffer(), ids);
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }
@@ -125,7 +132,11 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
             // Modify An Active Trade
             t.getHalfForUser(bob).setOffer(skillz1);
-            assertEquals(t.getHalfForUser(bob).getOffer(), skillz1);
+            List<ID> ids = new ArrayList<ID>();
+            for (Skill skill : skillz1) {
+                ids.add(skill.getSkillID());
+            }
+            assertEquals(t.getHalfForUser(bob).getOffer(), ids);
 
             // Delete An Active Trade
             tl.delete(t);
