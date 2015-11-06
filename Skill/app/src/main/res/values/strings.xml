@@ -18,7 +18,7 @@
     <string name="user_name">User Name</string>
     <string name="add_remove_friend">Add Friend</string>
     <string name="add_skill">Add Skill</string>
-    <string name="user_description">User Description</string>
+    <string name="user_description">User contact information </string>
     <string name="user_inventory">User Inventory</string>
     <string name="block_user">Block User</string>
     <string name="make_trade">Start Trade</string>

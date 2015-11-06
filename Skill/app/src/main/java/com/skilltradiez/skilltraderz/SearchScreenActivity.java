@@ -43,8 +43,6 @@ public class SearchScreenActivity extends ActionBarActivity {
     private Spinner categorySpinner;
 
     private ListView searchResultsList;
-    private ArrayAdapter<Skill> skillViewAdapter;
-    private ArrayAdapter<User> userViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +53,6 @@ public class SearchScreenActivity extends ActionBarActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        //searchViewAdapter = new ArrayAdapter<Skill>(this, R.id.search_list, skills);
-        //searchResultsList.setAdapter(searchViewAdapter);
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
