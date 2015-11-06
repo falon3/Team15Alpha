@@ -45,6 +45,8 @@ public class UserDatabase {
         elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/");
         // Via SD Card(Local)
         local = new Local();
+
+        currentUser = local.getLocalData().getCurrentUser();
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
@@ -53,6 +55,7 @@ public class UserDatabase {
 
         User u = new User(username);
         users.add(u);
+        // You wouldn't be creating a user if you already had one
         currentUser = u;
         getChangeList().add(u.getFriendsList());
         try {
