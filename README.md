@@ -7,13 +7,14 @@ Addressing Feedback From Part 3:
 
 ================================Still Needs To Be Changed==================================
 Part 4 requirements:
-   1. Code Base of Prototype: have a code base (done), demonstrate something tangible (video)
-   2. Code Documentation: brief introductory comment for each source file (Cole was doing it right), 
+   1. Code Base of Prototype: have a code base:https://github.com/CMPUT301F15T15/Team15Alpha
+   2. , demonstrate something tangible (video)
+   3. Code Documentation: brief introductory comment for each source file (Cole was doing it right), 
                           Javadoc interface documentation for your use cases and basic command classes and their public                                methods (at least). Deliver the compiled Javadoc documentation to your source repository.
-   3. Test Cases: Junit tests for all use cases (complete implementation not yet necessary) (oops)
-   4. Object-Oriented Design: update UML (Smells MVC-ish?) (done for now?)
-   5. Release Planning: plan use case/stories for part 5 (done?)
-   6. Reuse Statement: third party libraries(Should be in wiki)
+   4. Test Cases: Junit tests for all use cases (complete implementation not yet necessary) (oops)
+   5. Object-Oriented Design: update UML (Smells MVC-ish?) (done for now?)
+   6. Release Planning: plan use case/stories for part 5 (done?)
+   7. Reuse Statement: third party libraries(Should be in wiki)
 =======================================End Of Changes======================================
 
 ### Please press Ctrl-Alt-L on every file you changed to format it before you commit!
