@@ -53,5 +53,5 @@ public class EditSkillActivity extends ActionBarActivity {
     public void addSkill(){
 
     }
-
+    //@todo make caracter limit of skill name and skill description
 }

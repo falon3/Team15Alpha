@@ -108,15 +108,12 @@ public class MainActivity extends ActionBarActivity {
     }
     private static User new_guy = null;
     public void newUser(View view){
+
         final Context context = getApplicationContext();
-        if(newUserName.getText().toString() == ""){
-            //@todo toast! "You need a name"
+        if(newUserName.getText().toString().isEmpty()){
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
         }else {
-            //Toast.makeText(context, "Hello " + newUserName.getText().toString(), Toast.LENGTH_SHORT).show();
             final String username = newUserName.getText().toString();
-
-
             new Thread() {
                 public void run() {
                     try {
@@ -137,18 +134,6 @@ public class MainActivity extends ActionBarActivity {
 
             //@todo email if needed
         }
-
-        /*try {
-            if(newUserName.getText().toString() == ""){
-                //@todo toast! "You need a name"
-                //Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-            }else {
-                userDB.createUser(newUserName.getText().toString());
-                //@todo email if needed
-            }
-        } catch (UserAlreadyExistsException e) {
-            //@todo that don't work toast or etc
-        }*/
     }
 
     /**
