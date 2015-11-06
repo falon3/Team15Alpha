@@ -26,37 +26,56 @@ import android.widget.TextView;
 
 public class SkillDescriptionActivity extends ActionBarActivity {
 
-    private Button addSkill;
+    private Skill currentSkill;
+    private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
+
+    private Boolean hasSkill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_description);
+
+        // Pass in a Skill with intent.putExtra("skill", skillObj);
+        currentSkill = (Skill) getIntent().getSerializableExtra("skill");
+
+        addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
+        skillDescription = (TextView) findViewById(R.id.skill_description);
+        skillTitle = (TextView) findViewById(R.id.skillTitle);
+
+        setSkillTitle(currentSkill.getName());
+        setSkillDescription(currentSkill.getDescription());
+
+        User user = MainActivity.userDB.getCurrentUser();
+        Inventory inv = user.getInventory();
+
+        hasSkill = inv.hasSkill(currentSkill);
+        if (hasSkill)
+            addRemoveSkill.setText("Remove Skill");
+        // It's initially set to "Add Skill"
     }
 
     @Override
     public void onStart(){
         super.onStart();
-
-        addSkill = (Button) findViewById(R.id.add_remove_skill);
-        skillTitle = (TextView) findViewById(R.id.skillTitle);
-        skillDescription = (TextView) findViewById(R.id.skill_description);
     }
 
     /**
      * @ TODO:
      */
-    public void setSkillTitle(){
+    public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
+        skillTitle.setText(text);
     }
 
     /**
      * @ TODO:
      */
-    public void setSkillDescription(){
-        //skillDecription = description of the skill we're looking at
+    public void setSkillDescription(String text){
+        //skillDescription = description of the skill we're looking at
+        skillDescription.setText(text);
     }
 
     /**
@@ -65,6 +84,12 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     public void addRemoveSkill(){
         //notify the user that the skill has been added to their profile or trade request depending
         //on what context we're given ie: trade request vs skill search
+        if (hasSkill) {
+            addRemoveSkill.setText("Add Skill");
+        } else {
+            addRemoveSkill.setText("Remove Skill");
+        }
+        hasSkill = !hasSkill;
     }
 
 }
