@@ -43,10 +43,11 @@ class ChangeList {
         for (Notification note : notifications) {
             try {
                 // Perform needed changes
-                note.commit(userDB);
+                if (note.hasChanged())
+                    note.commit(userDB);
             } catch (Exception e2) {
                 // Continue
-                //TODO
+                //TODO Catch
             }
         }
     }
