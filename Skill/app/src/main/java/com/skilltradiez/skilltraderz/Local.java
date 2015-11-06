@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 
 /**
@@ -36,7 +37,7 @@ public class Local {
     LocalPersistentObject save_object;
     private static final String SAVE_FILE = "/sdcard/save_file.sav";
 
-    public Local() {
+    Local() {
         try {
             save_object = readFromFile();
         } catch (IOException e) {
@@ -51,8 +52,24 @@ public class Local {
         return save_object;
     }
 
+    public void saveToFile(User me, List<User> friends, List<Skill> skillz,
+                           List<Trade> trades, List<Notification> notifications) {
+        save_object.setCurrentUser(me);
+        save_object.setUsers(friends);
+        save_object.setSkillz(skillz);
+        save_object.setTrades(trades);
+        save_object.setNotifications(notifications);
+
+        try {
+            saveToFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("this died in Local");
+        }
+    }
+
     // method to save LocalPersistentObject to local file
-    public void saveToFile() throws IOException {
+    private void saveToFile() throws IOException {
         FileOutputStream fop = null;
         File file = new File(SAVE_FILE);
 
