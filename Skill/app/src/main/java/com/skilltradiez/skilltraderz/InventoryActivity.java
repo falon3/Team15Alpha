@@ -80,13 +80,6 @@ public class InventoryActivity extends ActionBarActivity {
     private void loadSkillz() {
         Inventory inv = currentUser.getInventory();
         skillz = inv.cloneSkillz(MainActivity.userDB);
-
-        //TEST
-        //skillz.add(new Skill(MainActivity.userDB, "Drain Runner"+ID.generateRandomID(), "Not for the faint of heart"));
-        //skillz.add(new Skill(MainActivity.userDB, "Parkour"+ID.generateRandomID(), "Active"));
-        //TODO: Make skill inits work and then,
-        //TODO test(I know it works) and after,
-        //TODO: Remove the tests
     }
 
     /**

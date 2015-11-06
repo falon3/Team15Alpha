@@ -19,6 +19,7 @@
 package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * ~~DESCRIPTION:
@@ -119,7 +120,7 @@ import java.io.IOException;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill extends Notification {
+public class Skill extends Notification implements Serializable{
 
     private String name;
     private String category;
