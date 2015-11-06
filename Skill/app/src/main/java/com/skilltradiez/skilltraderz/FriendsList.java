@@ -27,19 +27,15 @@ import java.util.List;
  */
 public class FriendsList implements Notification {
     private ID owner;
-    private List<ID> friendsList,
-            outgoingFriendRequests,
-            incomingFriendRequests,
-            acceptedFriendRequests,
-            blockedUsers;
+    private List<ID> friendsList;
+    private List<ID> newFriends;
+    private List<ID> oldFriends;
 
     FriendsList(ID owner_id) {
         owner = owner_id;
         friendsList = new ArrayList<ID>();
-        outgoingFriendRequests = new ArrayList<ID>();
-        incomingFriendRequests = new ArrayList<ID>();
-        acceptedFriendRequests = new ArrayList<ID>();
-        blockedUsers = new ArrayList<ID>();
+        newFriends = new ArrayList<ID>();
+        oldFriends = new ArrayList<ID>();
     }
 
     /**
@@ -59,115 +55,19 @@ public class FriendsList implements Notification {
     }
 
     /**
-     * Initiates a friend request with another user.
-     *
-     * @param other_guy The user to initiate the request with.
-     * @throws IllegalArgumentException if the user is already a confirmed friend, or is blocked.
-     */
-    public void requestAddFriend(User other_guy) {
-        if (friendsList.contains(other_guy.getUserID())) {
-            throw new IllegalArgumentException("User is already a friend, cannot send request.");
-        }
-        if (blockedUsers.contains(other_guy.getUserID())) {
-            throw new IllegalArgumentException("User is blocked, cannot send request.");
-        }
-        outgoingFriendRequests.add(other_guy.getUserID());
-        // TODO send request over the network to the other user
-    }
-
-    /**
-     * Confirms a potential friend request initiated by another user.
-     *
-     * @param other_guy the user who initiated the friend request.
-     * @throws IllegalArgumentException if the request doesn't exist.
-     */
-    public void confirmIncomingFriendRequest(User other_guy) {
-        int idx = incomingFriendRequests.indexOf(other_guy.getUserID());
-        if (idx == -1) {
-            throw new IllegalArgumentException("Cannot confirm friend request, request doesn't exist");
-        }
-        ID id = incomingFriendRequests.remove(idx);
-        friendsList.add(id);
-        // TODO send confirmation to the other user
-    }
-
-    /**
-     * Confirms a friend request that has been accepted by the other user.
-     *
-     * @param other_guy the user the request was sent to.
-     * @throws IllegalArgumentException if the request doesn't exist.
-     */
-    public void confirmOutgoingFriendRequest(User other_guy) {
-        int idx = outgoingFriendRequests.indexOf(other_guy.getUserID());
-        if (idx == -1) {
-            throw new IllegalArgumentException("Cannot confirm friend request, request doesn't exist");
-        }
-        ID id = outgoingFriendRequests.remove(idx);
-        friendsList.add(id);
-    }
-
-    /**
-     * Denies a friend request that was initiated by another user.
-     *
-     * @param other_guy the person who has not even been given a chance.
-     */
-    public void denyFriendRequest(User other_guy) {
-        incomingFriendRequests.remove(other_guy.getUserID());
-    }
-
-    /**
-     * Gets a friend by index into the friend list. The indices are probably arbitrary.
-     * This shouldn't be used. Use getFriends instead.
-     */
-    @Deprecated
-    public ID getFriend(Integer index) {
-        return friendsList.get(index);
-    }
-
-    /**
      * Remove a friend from this friend list.
      *
      * @param terrible_person the user to remove.
      */
     public void removeFriend(User terrible_person) {
         friendsList.remove(terrible_person.getUserID());
-        // TODO remove the friend from the other user's friend list as well
-
+        oldFriends.add(terrible_person.getUserID());
     }
 
-    public void addFriend(ID great_person) {
-        friendsList.add(great_person);
-        // Great Person should already have you on their list
-    }
-
-    /**
-     * Block a user and remove them as a friend (if applicable).
-     *
-     * @param worst_person
-     */
-    public void blockUser(User worst_person) {
-        removeFriend(worst_person);
-        blockedUsers.add(worst_person.getUserID());
-    }
-
-    /**
-     * Indicates if another user initiated a friend request with this user.
-     *
-     * @param that_guy the user that initiated the request.
-     * @return a boolean indicating whether the request exists.
-     */
-    public Boolean hasIncomingFriendRequest(User that_guy) {
-        return outgoingFriendRequests.contains(that_guy.getUserID());
-    }
-
-    /**
-     * Indicates if there exists a pending friend request sent to another user by this one.
-     *
-     * @param that_guy the user that the request was sent to.
-     * @return a boolean indicating whether the request exists.
-     */
-    public Boolean hasOutgoingFriendRequest(User that_guy) {
-        return outgoingFriendRequests.contains(that_guy.getUserID());
+    public void addFriend(User great_person) {
+        if (hasFriend(great_person)) return;
+        friendsList.add(great_person.getUserID());
+        newFriends.add(great_person.getUserID());
     }
 
     /**
@@ -176,22 +76,33 @@ public class FriendsList implements Notification {
      * @param that_guy the user to check
      * @return a boolean indicating if they are a friend
      */
-    public Boolean hasFriend(User that_guy) {
+    public boolean hasFriend(User that_guy) {
         return friendsList.contains(that_guy.getUserID());
     }
 
     public void commit(UserDatabase userDB) {
-        User newFriend;
-        //TODO Commit Via Internet
-        for (ID id:acceptedFriendRequests) {
-            newFriend = userDB.getAccountByUserID(id);
-            newFriend.getFriendsList().addFriend(owner);
+        for (ID id : newFriends) {
+            User newFriend = userDB.getAccountByUserID(id);
+            newFriend.getFriendsList().addFriend(userDB.getAccountByUserID(owner));
             try {
                 userDB.getElastic().addDocument("user", newFriend.getUserID().toString(), newFriend);
             } catch (IOException e) {
-
+                // try again later
+                return;
             }
         }
-        //TODO And Commit Locally
+        newFriends.clear();
+        
+        for (ID id : oldFriends) {
+            User deadFriend = userDB.getAccountByUserID(id);
+            deadFriend.getFriendsList().removeFriend(userDB.getAccountByUserID(owner));
+            try {
+                userDB.getElastic().addDocument("user", deadFriend.getUserID().toString(), deadFriend);
+            } catch (IOException e) {
+                // try again later
+                return;
+            }
+        }
+        oldFriends.clear();
     }
 }

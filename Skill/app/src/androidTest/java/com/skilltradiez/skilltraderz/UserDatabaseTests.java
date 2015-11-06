@@ -99,7 +99,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
                     user2 = db.createUser("Username2");
 
             TradeList tl = user1.getTradeList();
-            tl.createTrade(user1, user2, new ArrayList<Skill>());
+            tl.createTrade(db, user1, user2, new ArrayList<Skill>());
 
             // The new database should contain all the previous changes
             db = new UserDatabase();
@@ -107,7 +107,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             user2 = db.getAccountByUsername("Username2");
 
             tl = user1.getTradeList();
-            assertEquals(tl.getMostRecentTrade().getActor2(), user2);
+            assertEquals(tl.getMostRecentTrade(db).getActor2(), user2);
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }
@@ -128,7 +128,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             user2 = db.getAccountByUsername("Username2");
 
             fl = user1.getFriendsList();
-            assertEquals(fl.getFriend(2), user2.getUserID());
+            assertEquals(fl.getFriends().get(0), user2.getUserID());
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }

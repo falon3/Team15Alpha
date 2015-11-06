@@ -28,6 +28,10 @@ public class Profile implements Notification {
     private String username = "";
     private String email = "";
 
+    Profile(String username) {
+        setUsername(username);
+    }
+
     public String getLocation() {
         return location;
     }
@@ -38,15 +42,14 @@ public class Profile implements Notification {
         this.location = location;
     }
 
-    Profile(String username) {
-        setUsername(username);
-    }
-
     public String getUsername() {
         return this.username;
     }
 
     public void setUsername(String name) throws IllegalArgumentException {
+        //TODO URL LIMITATIONS
+        //TODO: I JUST LEARNED THE HARD WAY THAT YOU CAN'T HAVE SPACES
+        //TODO: I IMAGINE THERE ARE OTHER SPECIAL CHARS THAT WILL CAUSE ISSUES
         if (name.length() > 50)
             throw new IllegalArgumentException();
         this.username = name;

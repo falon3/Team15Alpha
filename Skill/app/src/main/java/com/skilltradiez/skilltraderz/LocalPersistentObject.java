@@ -23,9 +23,11 @@ import java.util.List;
  * Created by Falon3 on 2015-11-04.
  */
 public class LocalPersistentObject {
-    private User currentUser;
-    private List<User> users;
-    private List<Notification> notifications;
+    private User currentUser; // Profile, Inventory, Friendslist
+    private List<User> users; // Friends Profiles, Inventories
+    private List<Skill> skillz; // Skillz that are found in the User and Friend's Inventories
+    private List<Trade> trades; // User's Trade History
+    private List<Notification> notifications; // Skill changes, Trade Changes
 
     public User getCurrentUser() {
         return currentUser;
@@ -43,6 +45,22 @@ public class LocalPersistentObject {
         this.users = users;
     }
 
+    public List<Skill> getSkillz() {
+        return skillz;
+    }
+
+    public void setSkillz(List<Skill> skillz) {
+        this.skillz = skillz;
+    }
+
+    public List<Trade> getTrades() {
+        return trades;
+    }
+
+    public void setTrades(List<Trade> trades) {
+        this.trades = trades;
+    }
+
     public List<Notification> getNotifications() {
         return notifications;
     }
@@ -50,6 +68,4 @@ public class LocalPersistentObject {
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
     }
-
-
 }

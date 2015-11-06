@@ -40,18 +40,14 @@ class ChangeList {
      * - If the commit is successful, then we remove the Notification
      */
     public void push(UserDatabase userDB) {
-        List<Notification> finishedNotes = new ArrayList<Notification>();
         for (Notification note : notifications) {
             try {
                 // Perform needed changes
                 note.commit(userDB);
-                finishedNotes.add(note);
             } catch (Exception e2) {
                 // Continue
                 //TODO
             }
         }
-        for (Notification done : finishedNotes)
-            notifications.remove(done);
     }
 }
