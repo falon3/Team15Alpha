@@ -49,6 +49,9 @@ public class UserDatabase {
         LocalPersistentObject lpo = local.getLocalData();
         if (lpo != null) {
             currentUser = lpo.getCurrentUser();
+            users.addAll(lpo.getUsers());
+            skillz.addAll(lpo.getSkillz());
+            trades.addAll(lpo.getTrades());
         } else {
             currentUser = null;
         }
@@ -65,7 +68,8 @@ public class UserDatabase {
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
-            e.printStackTrace();
+            // No internet, no registration
+            throw new RuntimeException();
         }
         return u;
     }
@@ -96,7 +100,6 @@ public class UserDatabase {
         toBePushed.push(this);
         // TODO: Saves locally and pushes changes if connected to the internet
         local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
-        //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
     }
 
     public ChangeList getChangeList() {
