@@ -154,6 +154,7 @@ public class Skill extends Notification {
 
     public void setName(String name) {
         this.name = name;
+        notifyDB();
     }
 
     //Traditional getter and setter methods for the private attribute getCategory
@@ -163,6 +164,7 @@ public class Skill extends Notification {
 
     public void setCategory(String category) {
         this.category = category;
+        notifyDB();
     }
 
     //Traditional getter and setter methods for the private attribute image
@@ -172,6 +174,7 @@ public class Skill extends Notification {
 
     public void setImage(Image image) {
         this.image = image;
+        notifyDB();
     }
 
     //DELETION of an image method. Replaces the image with a newly instantiated NullImage
@@ -187,6 +190,7 @@ public class Skill extends Notification {
 
     public void setDescription(String description) {
         this.description = description;
+        notifyDB();
     }
 
     //"Traditional" getter and setter methods for the private boolean attribute visible
@@ -198,6 +202,7 @@ public class Skill extends Notification {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+        notifyDB();
     }
 
     public ID getSkillID() {
