@@ -80,10 +80,10 @@ public class Trade extends Notification {
     }
 
     public boolean commit(UserDatabase userDB) {
-        if (half1.readChanged())
+        if (half1.hasChanged())
             if (!half1.commit(userDB))
                 return false;
-        if (half2.readChanged())
+        if (half2.hasChanged())
             if (!half2.commit(userDB))
                 return false;
         return true;

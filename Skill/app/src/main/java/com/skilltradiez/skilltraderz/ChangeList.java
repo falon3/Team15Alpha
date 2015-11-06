@@ -43,7 +43,7 @@ class ChangeList {
         for (Notification note : notifications) {
             try {
                 // Perform needed changes
-                if (note.readChanged())
+                if (note.hasChanged())
                     if (!note.commit(userDB))
                         note.notifyDB();
             } catch (Exception e2) {
