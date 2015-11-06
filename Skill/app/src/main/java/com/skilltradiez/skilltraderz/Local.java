@@ -40,7 +40,7 @@ public class Local {
 
     Local() {
         try {
-            save_object = readFromFile();
+            readFromFile();
         } catch (IOException e) {
             // Not Sure what this means
             e.printStackTrace();
@@ -95,12 +95,19 @@ public class Local {
         // create file if doesn't exist
         if (!file.exists()) {
             file.createNewFile();
-            save_object = new LocalPersistentObject();
         }
         fip = new FileInputStream(file);
         BufferedReader in = new BufferedReader(new InputStreamReader(fip));
         Gson gson = new Gson();
 
-        return gson.fromJson(in, LocalPersistentObject.class);
+        save_object = null;
+        try {
+            save_object = gson.fromJson(in, LocalPersistentObject.class);
+        } catch (RuntimeException e) {
+        }
+        if (save_object == null) {
+            save_object = new LocalPersistentObject();
+        }
+        return save_object;
     }
 }
