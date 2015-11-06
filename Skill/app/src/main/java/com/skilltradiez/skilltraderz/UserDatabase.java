@@ -46,6 +46,8 @@ public class UserDatabase {
         // Via SD Card(Local)
         //TODO: Get Permissions/Figure Out what's wrong with Local
         local = new Local();
+
+        currentUser = local.getLocalData().getCurrentUser();
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
@@ -54,6 +56,7 @@ public class UserDatabase {
 
         User u = new User(username);
         users.add(u);
+        // You wouldn't be creating a user if you already had one
         currentUser = u;
         getChangeList().add(u.getFriendsList());
         try {
