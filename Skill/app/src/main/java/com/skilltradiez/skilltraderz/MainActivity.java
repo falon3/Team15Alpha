@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
         SearchThread thread = new SearchThread(string);
         thread.start();*/
     }
-
+    private static User new_guy = null;
     public void newUser(View view){
 
         final Context context = getApplicationContext();
@@ -114,17 +114,23 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
         }else {
             final String username = newUserName.getText().toString();
-
-                new Thread() {
-                    public void run() {
-                        try {
-                            userDB.createUser(username);
-                        } catch (UserAlreadyExistsException e) {
-                            // Failed
-                            newUserName.setText("Username already in use");
-                        }
+            new Thread() {
+                public void run() {
+                    try {
+                        new_guy = userDB.createUser(username);
+                    } catch (UserAlreadyExistsException e) {
+                        // Failed
                     }
-                }.start();
+                }
+            }.start();
+
+            if (new_guy != null) {
+                Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
+                setContentView(R.layout.activity_main);
+            } else {
+                Toast.makeText(context, username + " Already Exists!", Toast.LENGTH_SHORT).show();
+                // Do nothing
+            }
 
             //@todo email if needed
         }
