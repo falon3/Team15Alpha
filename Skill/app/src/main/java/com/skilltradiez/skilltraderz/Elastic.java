@@ -82,7 +82,6 @@ public class Elastic {
             sb.append("}");
         }
         String uri = baseUrl + type + "/" + id + "/_update";
-        Log.d("SKILLLLZ", uri);
         Log.d("SKILLLLZ!", httpClient.post(uri, sb.toString()));
     }
 
