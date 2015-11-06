@@ -125,6 +125,7 @@ public class MainActivity extends ActionBarActivity {
                     try {
                         new_guy = userDB.createUser(username);
                         new_guy.getProfile().setEmail(newUserEmail.getText().toString());
+                        userDB.save();
                     } catch (UserAlreadyExistsException e) {
                         // Failed
                         e.printStackTrace();

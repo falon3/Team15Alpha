@@ -40,19 +40,21 @@ public class Profile extends Notification {
         if (location.length() > 50)
             throw new IllegalArgumentException();
         this.location = location;
+        notifyDB();
     }
 
     public String getUsername() {
         return this.username;
     }
 
-    public void setUsername(String name) throws IllegalArgumentException {
+    private void setUsername(String name) throws IllegalArgumentException {
         //TODO URL LIMITATIONS
         //TODO: I JUST LEARNED THE HARD WAY THAT YOU CAN'T HAVE SPACES
         //TODO: I IMAGINE THERE ARE OTHER SPECIAL CHARS THAT WILL CAUSE ISSUES
         if (name.length() > 50)
             throw new IllegalArgumentException();
         this.username = name;
+        notifyDB();
     }
 
 
@@ -64,6 +66,7 @@ public class Profile extends Notification {
         if (email.length() > 50)
             throw new IllegalArgumentException();
         this.email = email;
+        notifyDB();
     }
 
     public void deleteAvatar() {
@@ -76,6 +79,7 @@ public class Profile extends Notification {
 
     public void setAvatar(Image avatar) {
         this.avatar = avatar;
+        notifyDB();
     }
 
     public Boolean getShouldDownloadImages() {
@@ -84,12 +88,14 @@ public class Profile extends Notification {
 
     public void setShouldDownloadImages(Boolean shouldDownloadImages) {
         this.shouldDownloadImages = shouldDownloadImages;
+        notifyDB();
     }
 
     public boolean commit(UserDatabase userDB) {
         try {
             userDB.getElastic().updateDocument("user", username, this, "profile");
         } catch (IOException e) {
+            e.printStackTrace();
             //TODO Save Locally
             return false;
         }
