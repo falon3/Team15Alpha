@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    public static UserDatabase userDB = new UserDatabase();
+    public static UserDatabase userDB;
 
     //Main screen
     private Button searchButton;
@@ -63,9 +63,11 @@ public class MainActivity extends ActionBarActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if(userDB.getCurrentUser() != null){
+        userDB = new UserDatabase();
+
+        if (userDB.getCurrentUser() != null) {
             setContentView(R.layout.activity_main);
-        }else{
+        } else {
             setContentView(R.layout.first_time_user);
         }
 
@@ -86,7 +88,6 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
     }
 
     @Override
