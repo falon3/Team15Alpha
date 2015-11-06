@@ -97,12 +97,6 @@ public class MainActivity extends ActionBarActivity {
         searchDatabase = "";
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        userDB.save();
-    }
-
     /**
      * Make a thread with a string. Used to search the database for a specific user or skill.
      * @param
@@ -130,6 +124,7 @@ public class MainActivity extends ActionBarActivity {
                 public void run() {
                     try {
                         new_guy = userDB.createUser(username);
+                        new_guy.getProfile().setEmail(newUserEmail.getText().toString());
                     } catch (UserAlreadyExistsException e) {
                         // Failed
                         e.printStackTrace();
@@ -187,7 +182,7 @@ public class MainActivity extends ActionBarActivity {
     public void showProfile(View view){
 
         Intent intent = new Intent(mainContext, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile",userDB.getCurrentUser().getProfile().getUsername());
+        intent.putExtra("user_name_for_profile", userDB.getCurrentUser().getProfile().getUsername());
         startActivity(intent);
     }
 

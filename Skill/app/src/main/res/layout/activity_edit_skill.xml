@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:onClick="addSkill"
+        android:onClick="addNewSkill"
         android:text="@string/add_skill" />
 
 </RelativeLayout>
