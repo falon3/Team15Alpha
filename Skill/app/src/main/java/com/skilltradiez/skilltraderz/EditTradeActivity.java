@@ -2,6 +2,13 @@ package com.skilltradiez.skilltraderz;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /*
  *    Team15Alpha
@@ -24,10 +31,22 @@ import android.support.v7.app.ActionBarActivity;
 
 public class EditTradeActivity extends ActionBarActivity {
 
+    private TextView tradeTitle;
+    private ArrayAdapter<Skill> skillAdapter;
+    private ListView skillsInTrade;
+    private EditText tradeNotes;
+    private Button sendTrade;
+    private Button cancelTrade;
+    private Button addSkillToTrade;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
+
+        tradeTitle = (TextView) findViewById(R.id.trading_with);
+
+        skillsInTrade = (ListView)
     }
 
 
