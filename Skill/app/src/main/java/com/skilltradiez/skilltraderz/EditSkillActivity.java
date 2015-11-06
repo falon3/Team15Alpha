@@ -1,4 +1,10 @@
 package com.skilltradiez.skilltraderz;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.widget.Button;
+import android.widget.EditText;
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -17,10 +23,6 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.Button;
-import android.widget.EditText;
 
 public class EditSkillActivity extends ActionBarActivity {
 
