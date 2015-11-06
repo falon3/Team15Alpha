@@ -103,7 +103,6 @@ public class Local {
         BufferedReader in = new BufferedReader(new InputStreamReader(fip));
         Gson gson = new Gson();
 
-        save_object = null;
         try {
             Type lpo_type = new TypeToken<LocalPersistentObject>(){}.getType();
             save_object = gson.fromJson(in, lpo_type);
@@ -111,6 +110,7 @@ public class Local {
         if (save_object == null) {
             save_object = new LocalPersistentObject();
         }
+        in.close();
         return save_object;
     }
 }

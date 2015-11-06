@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -39,7 +40,8 @@ public class InventoryActivity extends ActionBarActivity {
 
     Context inventoryContext = this;
     private User currentUser;
-    private List<Skill> skillz;
+    private List<Skill> skillz;//All skillz in inventory
+    private List<Skill> foundSkillz;
 
     private Button searchButton;
     private Button startTrade;
@@ -78,7 +80,7 @@ public class InventoryActivity extends ActionBarActivity {
 
         loadSkillz();
         adapter = new ArrayAdapter<Skill>(this,
-                R.layout.list_item, skillz);
+                R.layout.list_item, foundSkillz);
 
         inventoryList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -87,6 +89,9 @@ public class InventoryActivity extends ActionBarActivity {
     private void loadSkillz() {
         Inventory inv = currentUser.getInventory();
         skillz = inv.cloneSkillz(MainActivity.userDB);
+
+        foundSkillz = new ArrayList<Skill>();
+        foundSkillz.addAll(skillz);
     }
 
     /**
@@ -109,7 +114,17 @@ public class InventoryActivity extends ActionBarActivity {
     public void searchInventory(){
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
+        String regex = searchField.getText().toString();
+        foundSkillz = new ArrayList<Skill>();
 
+        if (regex.equals("")) {
+            foundSkillz = skillz;
+        } else {
+            for (Skill s : skillz)
+                if (s.getName().contains(regex))
+                    foundSkillz.add(s);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -120,16 +135,6 @@ public class InventoryActivity extends ActionBarActivity {
     public void refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
-    }
-
-    /**
-     * Sends a query to the database with a specific user ID to get the list of skills in their
-     * inventory
-     * @ TODO:
-     */
-    public void populateInventory(){
-        //need to populate inventory list with the skills from a specific user by using the
-        // USER_INVENTORY string and calling whatever database thing that'll do it
     }
 
     /**
