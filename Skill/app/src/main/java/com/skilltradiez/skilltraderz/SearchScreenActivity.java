@@ -66,11 +66,15 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import java.util.List;
 
 /*
  *    Team15Alpha
@@ -97,20 +101,18 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     private Context searchScreenContext = this;
 
-    private User users;
-    private Skill skillz;
-    private int searchScreenType;
-
+    private List<User> users;
+    private List<Skill> skillz;
+    private int screenType;
 
     private Button searchButton;
     private EditText searchField;
-    private String searchInventory;
     private Spinner categorySpinner;
     private Bundle searchExtras;
 
-    private ArrayAdapter<Skill> searchViewSkillAdapter;
-    private ArrayAdapter<User> searchViewUserAdapter;
-    private ListView searchResultsList;
+    private ArrayAdapter<Skill> skillAdapter;
+    private ArrayAdapter<User> userAdapter;
+    private ListView resultsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,17 +120,27 @@ public class SearchScreenActivity extends ActionBarActivity {
         setContentView(R.layout.activity_search_screen);
 
         searchExtras = getIntent().getExtras();
-        searchScreenType = searchExtras.getInt("All_search");
-        searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item);
-        searchViewUserAdapter = new ArrayAdapter<User>(searchScreenContext, R.layout.list_item);
+        screenType = searchExtras.getInt("All_search");
+
+        resultsList = (ListView) findViewById(R.id.search_list);
+        skillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item, skillz);
+        userAdapter = new ArrayAdapter<User>(searchScreenContext, R.layout.list_item, users);
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-    }
 
-    @Override
-    public void onStart(){
-        super.onStart();
+        if(screenType == 0){
+            // all skills
+            resultsList.setAdapter(skillAdapter);
+        } else {
+            // all users
+            resultsList.setAdapter(userAdapter);
+
+        }
+
+
+
+
     }
 
     /**
@@ -154,14 +166,9 @@ public class SearchScreenActivity extends ActionBarActivity {
      * Populate the screen with Users or Skills based on requirements ie: search strings
      * @ TODO:
      */
-    public void populateSearchResults(){
+    public void populateListView(){
 
-        if(searchScreenType == 0){
-            //all skills
 
-        }else{
-            //all users
-        } //@todo populate with refined search
 
     }
 
