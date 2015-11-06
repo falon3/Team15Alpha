@@ -94,7 +94,9 @@ public class UserDatabase {
 
     public void save() {
         toBePushed.push(this);
-        // Saves locally and pushes changes if connected to the internet
+        // TODO: Saves locally and pushes changes if connected to the internet
+        local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
+        //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
     }
 
     public ChangeList getChangeList() {

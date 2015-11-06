@@ -33,6 +33,10 @@ class ChangeList {
         notifications.add(newNote);
     }
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
     /*
      * Pushes all notifications to the internet through the User Database
      * - If the internet is not available or it is disconnected, the Notification
