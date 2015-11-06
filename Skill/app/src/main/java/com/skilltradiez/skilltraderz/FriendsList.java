@@ -65,6 +65,10 @@ public class FriendsList extends Notification {
         notifyDB();
     }
 
+    /**
+     * Both users become each others friends.
+     * @param great_person The user to add as a friend to this user and vice versa.
+     */
     public void addFriend(User great_person) {
         if (hasFriend(great_person)) return;
         friendsList.add(great_person.getUserID());
@@ -87,7 +91,7 @@ public class FriendsList extends Notification {
             User newFriend = userDB.getAccountByUserID(id);
             newFriend.getFriendsList().addFriend(userDB.getAccountByUserID(owner));
             try {
-                userDB.getElastic().addDocument("user", newFriend.getProfile().getUsername(), newFriend);
+                userDB.getElastic().updateDocument("user", newFriend.getProfile().getUsername(), newFriend.getFriendsList(), "friendsList");
             } catch (IOException e) {
                 // try again later
                 return false;
@@ -99,7 +103,7 @@ public class FriendsList extends Notification {
             User deadFriend = userDB.getAccountByUserID(id);
             deadFriend.getFriendsList().removeFriend(userDB.getAccountByUserID(owner));
             try {
-                userDB.getElastic().addDocument("user", deadFriend.getProfile().getUsername(), deadFriend);
+                userDB.getElastic().updateDocument("user", deadFriend.getProfile().getUsername(), deadFriend.getFriendsList(), "friendsList");
             } catch (IOException e) {
                 // try again later
                 return false;
