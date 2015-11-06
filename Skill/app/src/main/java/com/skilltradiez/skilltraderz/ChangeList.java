@@ -44,7 +44,8 @@ class ChangeList {
             try {
                 // Perform needed changes
                 if (note.readChanged())
-                    note.commit(userDB);
+                    if (!note.commit(userDB))
+                        note.notifyDB();
             } catch (Exception e2) {
                 // Continue
                 //TODO Catch

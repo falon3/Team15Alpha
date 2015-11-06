@@ -86,12 +86,13 @@ public class Profile extends Notification {
         this.shouldDownloadImages = shouldDownloadImages;
     }
 
-    public void commit(UserDatabase userDB) {
+    public boolean commit(UserDatabase userDB) {
         try {
             userDB.getElastic().updateDocument("user", username, this, "profile");
         } catch (IOException e) {
             //TODO Save Locally
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 }

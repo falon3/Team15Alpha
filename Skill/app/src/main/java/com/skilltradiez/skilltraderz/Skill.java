@@ -245,7 +245,7 @@ public class Skill extends Notification {
         return result;
     }
 
-    public void commit(UserDatabase userDB) {
+    public boolean commit(UserDatabase userDB) {
         //TODO
         Elastic ela = userDB.getElastic();
         Skill prev_version;
@@ -261,5 +261,6 @@ public class Skill extends Notification {
             //TODO Save Locally
             e.printStackTrace();
         }
+        return true; //TODO FIXME XXX
     }
 }

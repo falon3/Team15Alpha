@@ -26,62 +26,32 @@ import java.util.List;
  * Created by sja2 on 10/28/15.
  */
 public class Trade extends Notification {
-    private User actor1, actor2;
-    private List<Skill> offer1, offer2;
-    private ID tradeID = ID.generateRandomID();
-    private Boolean accepted = false, active = true;
+    private ID tradeID;
+
+    public HalfTrade getHalf1() {
+        return half1;
+    }
+
+    public HalfTrade getHalf2() {
+        return half2;
+    }
+
+    private HalfTrade half1, half2;
 
     Trade(UserDatabase db, User user1, User user2) {
-        actor1 = user1;
-        actor2 = user2;
+        tradeID = ID.generateRandomID();
+        half1 = new HalfTrade(tradeID, user1.getUserID(), 1);
+        half2 = new HalfTrade(tradeID, user2.getUserID(), 2);
         db.addTrade(this);
     }
 
-    public User getActor1() {
-        return actor2;
-    }
-
-    public User getActor2() {
-        return actor2;
-    }
-
-    public ID getTradeID() {
-        return tradeID;
-    }
-
-    public void setAccepted(User other) throws InactiveTradeException {
-        if ((other.equals(actor1) || other.equals(actor2)) && active)
-            accepted = true;
-            // Give The Goods
-            // ~ Trade Initiated
-        else {
-            throw new InactiveTradeException();
+    public HalfTrade getHalfForUser(User user) {
+        if (half1.getUser().equals(user)) {
+            return half1;
+        } else if (half2.getUser().equals(user)) {
+            return half2;
         }
-    }
-
-    public Boolean isAccepted() {
-        return accepted;
-    }
-
-    public Boolean isActive() {
-        return active;
-    }
-
-    public void decline() {
-        active = false;
-        accepted = false;
-
-        // The Trade been declined
-    }
-
-    public void setOffer(User user, List<Skill> new_offer) {
-        if (user.equals(actor1)) {
-            offer1 = new_offer;
-        } else if (user.equals(actor2)) {
-            offer2 = new_offer;
-        } else {
-            throw new IllegalArgumentException("User is not involved in trade!");
-        }
+        return null;
     }
 
     @Override
@@ -91,61 +61,31 @@ public class Trade extends Notification {
 
         Trade trade = (Trade) o;
 
-        if (!getActor1().equals(trade.getActor1())) return false;
-        if (!getActor2().equals(trade.getActor2())) return false;
-        if (offer1 != null ? !offer1.equals(trade.offer1) : trade.offer1 != null) return false;
-        if (offer2 != null ? !offer2.equals(trade.offer2) : trade.offer2 != null) return false;
-        if (!getTradeID().equals(trade.getTradeID())) return false;
-        if (!accepted.equals(trade.accepted)) return false;
-        return active.equals(trade.active);
+        return !(tradeID != null ? !tradeID.equals(trade.tradeID) : trade.tradeID != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = getActor1().hashCode();
-        result = 31 * result + getActor2().hashCode();
-        result = 31 * result + (offer1 != null ? offer1.hashCode() : 0);
-        result = 31 * result + (offer2 != null ? offer2.hashCode() : 0);
-        result = 31 * result + getTradeID().hashCode();
-        result = 31 * result + accepted.hashCode();
-        result = 31 * result + active.hashCode();
-        return result;
+        return tradeID != null ? tradeID.hashCode() : 0;
     }
 
-    public List<Skill> getCurrentOffer(User user) {
-        if (user.equals(actor1)) {
-            return offer1;
-        } else if (user.equals(actor2)) {
-            return offer2;
-        }
-        return null;
+    public ID getTradeID() {
+        return tradeID;
     }
 
-    public void commit(UserDatabase userDB) {
-        //TODO
-        Elastic ela = userDB.getElastic();
-        Trade prev_version;
+    public Boolean isActive() {
+        if (half2.isAccepted() == Boolean.FALSE) return false;
+        return !(half1.isAccepted() && half2.isAccepted());
+    }
 
-        try {
-            prev_version = ela.getDocumentTrade(tradeID.toString());
-            prev_version = userDB.getTradeByID(tradeID);
-
-            //TODO make equals method
-            if (!prev_version.equals(this)) {
-                // TODO Check for new info
-
-
-                // TODO Update this object
-
-
-                // TODO Send your changes
-                ela.addDocument("trade", tradeID.getID().toString(), this);
-            }
-
-        } catch (IOException e) {
-            //TODO Save Locally
-            e.printStackTrace();
-        }
+    public boolean commit(UserDatabase userDB) {
+        if (half1.readChanged())
+            if (!half1.commit(userDB))
+                return false;
+        if (half2.readChanged())
+            if (!half2.commit(userDB))
+                return false;
+        return true;
     }
 }
