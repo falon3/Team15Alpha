@@ -36,11 +36,14 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     private User users;
     private Skill skillz;
+    private int searchScreenType;
+
 
     private Button searchButton;
     private EditText searchField;
     private String searchInventory;
     private Spinner categorySpinner;
+    private Bundle searchExtras;
 
     private ArrayAdapter<Skill> searchViewSkillAdapter;
     private ArrayAdapter<User> serachViewUserAdapter;
@@ -50,19 +53,19 @@ public class SearchScreenActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
+
+        searchExtras = getIntent().getExtras();
+        searchScreenType = searchExtras.getInt("All_search");
+        searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item);
+        searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item);
+        searchButton = (Button) findViewById(R.id.search_button);
+        searchField = (EditText) findViewById(R.id.search_bar);
+        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
     }
 
     @Override
     public void onStart(){
         super.onStart();
-
-        searchViewSkillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item);
-
-        searchButton = (Button) findViewById(R.id.search_button);
-        searchField = (EditText) findViewById(R.id.search_bar);
-
-        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-
     }
 
     /**
@@ -89,9 +92,14 @@ public class SearchScreenActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void populateSearchResults(){
-        //need to get available list of users and skills
-        // searchResultsList = change this to show this
-        // update view
+
+        if(searchScreenType == 0){
+            //all skills
+
+        }else{
+            //all users
+        } //@todo populate with refined search
+
     }
 
 }
