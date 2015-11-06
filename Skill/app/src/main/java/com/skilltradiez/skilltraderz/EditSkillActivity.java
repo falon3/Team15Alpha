@@ -2,6 +2,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +26,8 @@ import android.widget.EditText;
  */
 
 public class EditSkillActivity extends ActionBarActivity {
+
+    private Skill newSkill;
 
     private EditText skillName;
     private EditText skillDescription;
@@ -50,8 +53,12 @@ public class EditSkillActivity extends ActionBarActivity {
      * add skill to the database
      * @ TODO:
      */
-    public void addSkill(){
+    public void addNewSkill(View view){
+        String name = skillName.getText().toString();
+        String category = skillCategory.getText().toString();
+        newSkill = new Skill(MainActivity.userDB, name, category);
 
+        MainActivity.userDB.addSkill(newSkill);
     }
-    //@todo make caracter limit of skill name and skill description
+    //@todo make character limit of skill name and skill description
 }

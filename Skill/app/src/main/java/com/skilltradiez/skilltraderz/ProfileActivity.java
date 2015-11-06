@@ -32,8 +32,11 @@ import android.widget.Toast;
 
 public class ProfileActivity extends ActionBarActivity {
 
-    private User viewedUser;
-    private User viewingUser;
+    private Bundle profileExtras;
+    private String userProfileName;
+
+    private User currentUser;
+    private Boolean hasFriend;
 
     private Context profileContext = this;
 
@@ -41,18 +44,22 @@ public class ProfileActivity extends ActionBarActivity {
     private Button blockUser;
     private Button startTrade;
     private Button viewInventory;
-    private TextView userDescription;
+    private TextView userContactInfo;
+    private TextView profileTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        profileExtras = getIntent().getExtras();
+        userProfileName = profileExtras.getString("user_name_for_profile");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -60,23 +67,32 @@ public class ProfileActivity extends ActionBarActivity {
     public void onStart(){
         super.onStart();
 
-        addRemoveFriend = (Button) findViewById(R.id.add_remove_friend);
+        addRemoveFriend = (Button) findViewById(R.id.add_friend);
         blockUser = (Button) findViewById(R.id.block);
         startTrade = (Button) findViewById(R.id.maketrade);
         viewInventory = (Button) findViewById(R.id.inventory);
-        userDescription = (TextView) findViewById(R.id.user_description);
+        userContactInfo = (TextView) findViewById(R.id.user_description);
+        profileTitle = (TextView) findViewById(R.id.user_name);
+
+        populateProfile();
 
 
     }
 
     /**
-     * Get the description of the user we're looking at.
-     * @return A string of the user's description.
+     * When you click on a profile it gets data something something @todo make this sound nicer
      */
-    public String setUserDescription(){
-        //@todo need to make a description object in USER
-        //return currentUser.description();
-        return null;
+    public void populateProfile(){
+        currentUser = MainActivity.userDB.getAccountByUsername(userProfileName);
+        hasFriend = currentUser.getFriendsList().hasFriend(MainActivity.userDB.getCurrentUser());
+        new Thread() {
+            public void run() {
+                profileTitle.setText(userProfileName);
+                userContactInfo.setText(currentUser.getProfile().getEmail());
+            }
+        }.start();
+
+
     }
 
 
@@ -104,20 +120,26 @@ public class ProfileActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void addRemoveFriend(View view){
+        if(hasFriend){
+            removeFriend();
+        }else{
+            addFriend();
+        }
+        hasFriend = !hasFriend;
+    }
     /**
      * Add a user as a friend.
      */
     public void addFriend(){
-        //update the view to change the "Add friend" button to "Remove friend" button
-        //@todo should this be a controller?
-        //viewingUser.FriendsList.addFriend(@todo user id of person you are adding);
-        //viewedUser.FriendList.addFriend(@todo user if of person sending request)
-
-
-        //send a message to the user you want to befriend. Shows an alert dialog that message
-        //has been sent instead of starting a new activity. For Demo purposes
-        Toast toast = Toast.makeText(profileContext, "Added a friend", Toast.LENGTH_SHORT);
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, "Added a friend", Toast.LENGTH_SHORT);
         toast.show();
+        new Thread() {
+            public void run() {
+                addRemoveFriend.setText(R.string.remove_friend);
+            }
+        }.start();
 
     }
 
@@ -125,8 +147,14 @@ public class ProfileActivity extends ActionBarActivity {
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
-        //viewingUser.FriendList.(@todo id of person being removed);
-        //viewedUser.FriendList.acceptedFriendREquests(@todo id of person doing the removing);
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, "Removed A Friend", Toast.LENGTH_SHORT);
+        toast.show();
+        /*new Thread() {
+            public void run() {
+                addRemoveFriend.setText(R.string.add_friend);
+            }
+        }.start();*/
     }
 
     /**
