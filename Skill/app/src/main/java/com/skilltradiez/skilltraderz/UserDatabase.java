@@ -36,8 +36,16 @@ public class UserDatabase {
 
     UserDatabase() {
         users = new ArrayList<User>();
+        trades = new ArrayList<Trade>();
+        skillz = new ArrayList<Skill>();
         toBePushed = new ChangeList();
+
+        // Persistence API
+        // Via ElasticSearch(Internet)
         elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/");
+        // Via SD Card(Local)
+        //TODO: Get Permissions/Figure Out what's wrong with Local
+        //local = new Local();
     }
 
     public User createUser(String username) throws UserAlreadyExistsException {
@@ -47,6 +55,7 @@ public class UserDatabase {
         User u = new User(username);
         users.add(u);
         currentUser = u;
+        getChangeList().add(u.getFriendsList());
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
@@ -58,6 +67,7 @@ public class UserDatabase {
     public User login(String username) {
         User u = getAccountByUsername(username);
         currentUser = u;
+        getChangeList().add(u.getFriendsList());
         return u;
     }
 
@@ -76,11 +86,6 @@ public class UserDatabase {
     }
 
     public void save() {
-        try {
-            elastic.addDocument("user", currentUser.getProfile().getUsername(), currentUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         toBePushed.push(this);
         // Saves locally and pushes changes if connected to the internet
     }
@@ -101,6 +106,10 @@ public class UserDatabase {
      */
     public Local getLocal() {
         return local;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     public User getAccountByUsername(String username) {
@@ -143,5 +152,17 @@ public class UserDatabase {
             if (s.getSkillID().equals(id))
                 return s;
         return null;
+    }
+
+    public void addSkill(Skill s) {
+        skillz.add(s);
+        // New Skill
+        getChangeList().add(s);
+    }
+
+    public void addTrade(Trade t) {
+        trades.add(t);
+        // New Trade
+        getChangeList().add(t);
     }
 }

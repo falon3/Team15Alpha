@@ -26,100 +26,34 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.FriendListTests.class);
     }
 
-    public void testAddFriend() {
+    public void testAddFriend() throws UserAlreadyExistsException {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        User user1;
-        User user2;
-        try {
-            user1 = db.createUser("u");
-            user2 = db.createUser("u2");
 
-            // test adding and confirming a friend
-            user1.getFriendsList().requestAddFriend(user2);
-            assertTrue(user1.getFriendsList().hasOutgoingFriendRequest(user2));
-            assertTrue(user2.getFriendsList().hasIncomingFriendRequest(user1));
+        User user1 = db.createUser("user1");
+        User user2 = db.createUser("user2");
 
-            user2.getFriendsList().confirmIncomingFriendRequest(user1);
-            assertTrue(user1.getFriendsList().hasFriend(user2));
-            assertTrue(user2.getFriendsList().hasFriend(user1));
-        } catch (UserAlreadyExistsException e) {
-            assertTrue(false);
-        }
+        user1.getFriendsList().addFriend(user2);
+        db.save();
+        assertTrue(user1.getFriendsList().hasFriend(user2));
+        assertTrue(user2.getFriendsList().hasFriend(user1));
     }
 
-    public void testRemoveFriend() {
+    public void testRemoveFriend() throws UserAlreadyExistsException {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        User user1;
-        User user2;
-        try {
-            user1 = db.createUser("u");
-            user2 = db.createUser("u2");
 
-            user1.getFriendsList().requestAddFriend(user2);
-            assertTrue(user1.getFriendsList().hasOutgoingFriendRequest(user2));
-            assertTrue(user2.getFriendsList().hasIncomingFriendRequest(user1));
+        User user1 = db.createUser("user1");
+        User user2 = db.createUser("user2");
 
-            user2.getFriendsList().confirmIncomingFriendRequest(user1);
-            assertTrue(user1.getFriendsList().hasFriend(user2));
-            assertTrue(user2.getFriendsList().hasFriend(user1));
+        user1.getFriendsList().addFriend(user2);
+        db.save();
+        assertTrue(user1.getFriendsList().hasFriend(user2));
+        assertTrue(user2.getFriendsList().hasFriend(user1));
 
-            // test removing a friend
-            user2.getFriendsList().removeFriend(user1);
-            assertFalse(user1.getFriendsList().hasFriend(user2));
-            assertFalse(user2.getFriendsList().hasFriend(user1));
-        } catch (UserAlreadyExistsException e) {
-            assertTrue(false);
-        }
-    }
-
-    public void testBlockUser() {
-        UserDatabase db = new UserDatabase();
-        db.deleteAllData();
-        User user1;
-        User user2;
-        try {
-            user1 = db.createUser("u");
-            user2 = db.createUser("u2");
-
-            user1.getFriendsList().requestAddFriend(user2);
-            assertTrue(user1.getFriendsList().hasOutgoingFriendRequest(user2));
-            assertTrue(user2.getFriendsList().hasIncomingFriendRequest(user1));
-
-            user2.getFriendsList().confirmIncomingFriendRequest(user1);
-            assertTrue(user1.getFriendsList().hasFriend(user2));
-            assertTrue(user2.getFriendsList().hasFriend(user1));
-
-            user2.getFriendsList().blockUser(user1);
-            assertFalse(user1.getFriendsList().hasFriend(user2));
-            assertFalse(user2.getFriendsList().hasFriend(user1));
-
-            // can't send a friend request to a blocked person
-            user1.getFriendsList().requestAddFriend(user2);
-            assertFalse(user1.getFriendsList().hasOutgoingFriendRequest(user2));
-            assertFalse(user2.getFriendsList().hasIncomingFriendRequest(user1));
-        } catch (UserAlreadyExistsException e) {
-            assertTrue(false);
-        }
-    }
-
-    public void testGetFriends() {
-        UserDatabase db = new UserDatabase();
-        db.deleteAllData();
-        User user1;
-        User user2;
-        try {
-            user1 = db.createUser("u");
-            user2 = db.createUser("u2");
-
-            user1.getFriendsList().requestAddFriend(user2);
-            user2.getFriendsList().confirmIncomingFriendRequest(user1);
-
-            assertEquals(user1.getFriendsList().getFriends().get(0), user2.getUserID());
-            assertEquals(user2.getFriendsList().getFriends().get(0), user1.getUserID());
-        } catch (UserAlreadyExistsException e) {
-            assertTrue(false);
-        }
+        user1.getFriendsList().removeFriend(user2);
+        db.save();
+        assertFalse(user1.getFriendsList().hasFriend(user2));
+        assertFalse(user2.getFriendsList().hasFriend(user1));
     }
 }

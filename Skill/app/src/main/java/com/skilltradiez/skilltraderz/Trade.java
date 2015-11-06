@@ -31,9 +31,10 @@ public class Trade implements Notification {
     private ID tradeID = ID.generateRandomID();
     private Boolean accepted = false, active = true;
 
-    Trade(User user1, User user2) {
+    Trade(UserDatabase db, User user1, User user2) {
         actor1 = user1;
         actor2 = user2;
+        db.addTrade(this);
     }
 
     public User getActor1() {
@@ -128,6 +129,7 @@ public class Trade implements Notification {
 
         try {
             prev_version = ela.getDocumentTrade(tradeID.toString());
+            prev_version = userDB.getTradeByID(tradeID);
 
             //TODO make equals method
             if (!prev_version.equals(this)) {
