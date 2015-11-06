@@ -108,7 +108,7 @@ public class ProfileActivity extends ActionBarActivity {
     public void startTrade(View view){
         //check if user you are making a trade with is your friend
         //do not show start trade button
-        Intent intent = new Intent(profileContext, TradeRequestActivity.class);
+        Intent intent = new Intent(profileContext, EditTradeActivity.class);
         startActivity(intent);
     }
 
