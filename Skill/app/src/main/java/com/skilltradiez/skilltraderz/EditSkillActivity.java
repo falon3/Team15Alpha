@@ -56,9 +56,12 @@ public class EditSkillActivity extends ActionBarActivity {
     public void addNewSkill(View view){
         String name = skillName.getText().toString();
         String category = skillCategory.getText().toString();
+        String description = skillDescription.getText().toString();
         newSkill = new Skill(MainActivity.userDB, name, category);
+        newSkill.setDescription(description);
+        MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
 
-        MainActivity.userDB.addSkill(newSkill);
+        MainActivity.userDB.save();
     }
     //@todo make character limit of skill name and skill description
 }
