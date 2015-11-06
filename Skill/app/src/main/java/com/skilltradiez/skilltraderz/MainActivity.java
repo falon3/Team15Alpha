@@ -57,6 +57,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new Thread() {
+            @Override
+            public void run() {
+                userDB.deleteAllData();
+            }
+        }.start();
 
         if(userDB.getCurrentUser() != null){
             setContentView(R.layout.activity_main);
