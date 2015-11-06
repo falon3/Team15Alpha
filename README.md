@@ -13,15 +13,22 @@ Part 4 requirements:
    
    https://github.com/CMPUT301F15T15/Team15Alpha
 
+
    2. Demonstrate something tangible (video): 
+   
+   
    
    3. Code Documentation: brief introductory comment for each source file:
    
+
+
    https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File
+   
    
    Javadoc interface documentation:
 
    4. Test Cases:
+
 
    https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
    
