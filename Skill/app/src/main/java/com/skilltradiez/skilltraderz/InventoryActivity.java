@@ -1,4 +1,73 @@
 package com.skilltradiez.skilltraderz;
+/**~~DESCRIPTION:
+ * We want users to interact with our application, it just makes things a lot easier when
+ * we have a proper functioning framework that the user can mindlessly use without neeeding to worry
+ * and fret about using seemingly esoterric code. Therefore we have activities provided to us
+ * through the android studio android framework! It is glorious!
+ *
+ * This is going to be the interactive framework that is going to allow the user to interact
+ * with the inventory classes (and all of the things connected to said inventory class) in an
+ * appropriate and managable format!
+ *
+ * ~~ACCESS:
+ * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
+ * we can have this class actually be accessed technically anywhere in the application that
+ * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
+ * an instance of the "InventoryActivity" activity.
+ *
+ *
+ * ~~CONSTRUCTOR:
+ * Upon calling the method onCreate() for this activity the android studio framework will
+ * cause the android application to create an instance of this actvity and display it to the user.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: CATEGORYSPINNER:
+ *     Suppose we want to have a way to go through the various categories, this is the way we will
+ *     achieve this! This is more UI related so I'm keeping this description short and sweet.
+ *
+ * 2: SEARCHINVENTORY (ATTRIBUTE):
+ *     Wouldn't it be ideal if through the framework we could actually interact with the
+ *     inventory in a manner that does not seem overwhelming? Well that is why we implemented
+ *     this string! We will take a user given string and then search through the entire inventory
+ *     for things that match this string. UI-ish but it has relevance in the code. So I detailed it.
+ *
+ *
+ * 3: STARTTRADE:
+ *     Is it not critical to START a trade with another user? Well this is going to be how
+ *     we actually start a trade with another user! This is going to be the method that is called
+ *     when the UI is activated to cascade through a series of statements that will fully set up
+ *     the entire trading process with another user.
+ *
+ *
+ * 4: SEARCHINVENTORY (METHOD):
+ *     This is associated with the searchInventory attribute mentioned above, in this instance
+ *     we're going to take the user's inputted string (the attribute saves it) and then we will
+ *     filter through the entire inventory and obtain the results in this fashion that are
+ *     actually going to be related to this search string.
+ *
+ *
+ * 5: REFINEINVENTORYBYCATEGORY:
+ *     We'll take the input of the spinner and then associate it with the categories that our
+ *     application supports and then present to the user the inventory sorted out by a particular
+ *     category that they selected through the spinner.
+ *
+ *
+ * 6: POPULATEINVENTORY:
+ *     We want the user to be able to browse other users (or even themselves right?) where they
+ *     have an inventory. So we utilize this method to begin the entire process of obtaining
+ *     the entire inventory of a user and then we present this entire bulky thing to the user.
+ *     It's like magic.
+ *
+ * 7: SKILLDETAILS:
+ *     Suppose we have an inquisitive user who looks at the "cat bathing" skill ... yet they want
+ *     to know MORE about this particular skill, when they inqurie about this skill THIS method
+ *     is called that will represent to the user through this activity (and thus the android
+ *     framework) all of the details that are currently saved within the database that are related
+ *     to that particular skill.
+ *
+ *
+ */
+
 
 import android.content.Context;
 import android.content.Intent;
