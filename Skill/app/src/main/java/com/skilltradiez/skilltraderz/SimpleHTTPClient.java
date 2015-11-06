@@ -32,6 +32,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
+
 /**
  * A simple class for doing http things, that will probably only be useful for elastic.
  */
@@ -45,6 +47,7 @@ public class SimpleHTTPClient {
      * Does an HTTP GET to the given url and returns the response as a string.
      */
     public String get(String url) throws IOException {
+        url = URLEncoder.encode(url, "ISO-8859-1");
         HttpGet get = new HttpGet(url);
         HttpResponse response = httpClient.execute(get);
         return read(response.getEntity());
@@ -54,6 +57,7 @@ public class SimpleHTTPClient {
      * response as a string.
      */
     public String post(String url, String data) throws IOException {
+        url = URLEncoder.encode(url, "ISO-8859-1");
         HttpPost post = new HttpPost(url);
         post.setHeader("Accept", "application/json");
         post.setEntity(new StringEntity(data));
@@ -65,6 +69,7 @@ public class SimpleHTTPClient {
      * Does an HTTP DELETE on the given url and returns the response as a string.
      */
     public String delete(String url) throws IOException {
+        url = URLEncoder.encode(url, "ISO-8859-1");
         HttpDelete del = new HttpDelete(url);
         HttpResponse response = httpClient.execute(del);
         return read(response.getEntity());
