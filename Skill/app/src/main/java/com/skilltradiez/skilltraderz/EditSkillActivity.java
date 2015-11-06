@@ -1,10 +1,12 @@
 package com.skilltradiez.skilltraderz;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /*
  *    Team15Alpha
@@ -61,7 +63,10 @@ public class EditSkillActivity extends ActionBarActivity {
         newSkill = new Skill(MainActivity.userDB, name, category);
         newSkill.setDescription(description);
         MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
-
         MainActivity.userDB.save();
+
+        Context context = getApplicationContext();
+        Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
+
     }
 }
