@@ -52,6 +52,16 @@ public class ProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_profile);
         profileExtras = getIntent().getExtras();
         userProfileName = profileExtras.getString("user_name_for_profile");
+
+        addRemoveFriend = (Button) findViewById(R.id.add_friend);
+        startTrade = (Button) findViewById(R.id.maketrade);
+        viewInventory = (Button) findViewById(R.id.inventory);
+        userContactInfo = (TextView) findViewById(R.id.user_description);
+        profileTitle = (TextView) findViewById(R.id.user_name);
+
+        populateProfile();
+        profileTitle.setText(userProfileName);
+        userContactInfo.setText(currentUser.getProfile().getEmail());
     }
 
     @Override
@@ -65,16 +75,7 @@ public class ProfileActivity extends ActionBarActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        addRemoveFriend = (Button) findViewById(R.id.add_friend);
-        startTrade = (Button) findViewById(R.id.maketrade);
-        viewInventory = (Button) findViewById(R.id.inventory);
-        userContactInfo = (TextView) findViewById(R.id.user_description);
-        profileTitle = (TextView) findViewById(R.id.user_name);
-
         populateProfile();
-
-
     }
 
     /**
@@ -83,12 +84,7 @@ public class ProfileActivity extends ActionBarActivity {
     public void populateProfile(){
         currentUser = MainActivity.userDB.getAccountByUsername(userProfileName);
         hasFriend = currentUser.getFriendsList().hasFriend(MainActivity.userDB.getCurrentUser());
-        new Thread() {
-            public void run() {
-                profileTitle.setText(userProfileName);
-                userContactInfo.setText(currentUser.getProfile().getEmail());
-            }
-        }.start();
+
     }
 
 
@@ -132,15 +128,10 @@ public class ProfileActivity extends ActionBarActivity {
 
         //@todo send friend to be added to friend list
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Added a friend", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
+        addRemoveFriend.setText(R.string.remove_friend);
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                addRemoveFriend.setText(R.string.remove_friend);
-            }
-        });
     }
 
     /**
@@ -149,7 +140,7 @@ public class ProfileActivity extends ActionBarActivity {
     public void removeFriend(){
         //@todo send friend to remove from friend list
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Removed A Friend", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
         runOnUiThread(new Runnable() {
             @Override
@@ -158,6 +149,4 @@ public class ProfileActivity extends ActionBarActivity {
             }
         });
     }
-
-
 }
