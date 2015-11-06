@@ -1,22 +1,5 @@
 package com.skilltradiez.skilltraderz;
-/*
- *    Team15Alpha
- *    AppName: SkillTradiez (Subject to change)
- *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +15,8 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
+    private static UserDatabase userDB;
+
     private Button searchButton;
     private Button searchAllSkillzButton;
     private Button searchAllUsersButton;
@@ -39,14 +24,21 @@ public class MainActivity extends ActionBarActivity {
     private EditText searchField;
     private String searchDatabase;
 
+    MainActivity(){
+        userDB = new UserDatabase();
+        userDB.getLocal().;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+
     }
 
     @Override
@@ -91,6 +83,8 @@ public class MainActivity extends ActionBarActivity {
     public void beginAllSearch(View view){
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         startActivity(intent);
+        //@todo need to send the proper context to search.
+        // Browse Skills/Users/Refined search are three separate
     }
 
     /**
@@ -109,8 +103,9 @@ public class MainActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void showProfile(View view){
-        //get Personal user id to sent to the profileActivity so that we open up the right profile
+        //get user id to sent to the profileActivity so that we open up the right profile
         Intent intent = new Intent(mainContext, ProfileActivity.class);
+
         startActivity(intent);
     }
 
@@ -120,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void createNewSkill(View view){
-        //need to differentiate 'createnewskill' and 'edit skill'... maybe
+        //need to differentiate 'createnewskill' and 'edit skill'
         Intent intent = new Intent(mainContext, EditSkillActivity.class);
         startActivity(intent);
     }

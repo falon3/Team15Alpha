@@ -1,22 +1,5 @@
 package com.skilltradiez.skilltraderz;
-/*
- *    Team15Alpha
- *    AppName: SkillTradiez (Subject to change)
- *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +13,8 @@ import android.widget.Toast;
 
 public class ProfileActivity extends ActionBarActivity {
 
-    public static String USER_PROFILE = "USER_PROFILE";
+    private User viewedUser;
+    private User viewingUser;
 
     private Context profileContext = this;
 
@@ -67,15 +51,14 @@ public class ProfileActivity extends ActionBarActivity {
     }
 
     /**
-     * User description will be populated by a specific description connected to a specific user
-     * @ TODO:
+     * Get the description of the user we're looking at.
+     * @return A string of the user's description.
      */
-    public void userDescription(){
-        //will need to get the id of the user we're looking at, self or otherwise
-        //userDescription = the description that is connected to the user we're looking at
-        //update the view to show the description
-
+    public String setUserDescription(){
+        //@todo need to make a description object in USER
+        //return currentUser.description();
     }
+
 
     /**
      * Begins the inventory activity, and shows the inventory specific to the user whose profile
@@ -84,7 +67,8 @@ public class ProfileActivity extends ActionBarActivity {
      */
     public void checkInventory(View view){
         Intent intent = new Intent(profileContext, InventoryActivity.class);
-        //intent.putExtra(the id of the person we're viewing')
+        //@todo need to get the id of the user we're looking at, either self or other to send to InventoryActivity
+        //intent.putExtra(viewedUser.getUserID())
         startActivity(intent);
     }
 
@@ -102,15 +86,27 @@ public class ProfileActivity extends ActionBarActivity {
 
     /**
      * Add a user as a friend.
-     * @ TODO:
      */
-    public void addRemoveFriend(){
-        //send a message to the user you want to befriend. Shows an alert dialog that message
-        //has been sent instead of starting a new activity
+    public void addFriend(){
         //update the view to change the "Add friend" button to "Remove friend" button
+        //@todo should this be a controller?
+        //viewingUser.FriendsList.addFriend(@todo user id of person you are adding);
+        //viewedUser.FriendList.addFriend(@todo user if of person sending request)
+
+
+        //send a message to the user you want to befriend. Shows an alert dialog that message
+        //has been sent instead of starting a new activity. For Demo purposes
         Toast toast = Toast.makeText(profileContext, "Added a friend", Toast.LENGTH_SHORT);
         toast.show();
 
+    }
+
+    /**
+     * Remove friend from user's friendlist
+     */
+    public void removeFriend(){
+        //viewingUser.FriendList.(@todo id of person being removed);
+        //viewedUser.FriendList.acceptedFriendREquests(@todo id of person doing the removing);
     }
 
     /**
