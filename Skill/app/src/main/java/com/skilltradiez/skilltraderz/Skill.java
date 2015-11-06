@@ -120,7 +120,7 @@ import java.io.Serializable;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill extends Notification implements Serializable{
+public class Skill extends Notification {
 
     private String name;
     private String category;

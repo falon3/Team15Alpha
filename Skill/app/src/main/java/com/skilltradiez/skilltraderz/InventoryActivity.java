@@ -138,7 +138,7 @@ public class InventoryActivity extends ActionBarActivity {
      */
     public void skillDetails(Skill skill){
         Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);
-        intent.putExtra("Skill", skill);
+        intent.putExtra("skill_id", skill.getSkillID());
         startActivity(intent);
 
     }
