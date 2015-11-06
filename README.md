@@ -9,40 +9,24 @@ Project Part 4 - Submission date: Nov 6, 2015
 Part 4 requirements:
 
 
-   1. Code Base of Prototype: have a code base:
-   
-   https://github.com/CMPUT301F15T15/Team15Alpha
+   1. Code Base of Prototype: have a [code base](https://github.com/CMPUT301F15T15/Team15Alpha)
 
 
-   2. Demonstrate something tangible (video): 
+   2. Demonstrate something tangible [video]() 
    
    
+   3. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
    
-   3. Code Documentation: brief introductory comment for each source file:
+   Javadoc interface documentation: [Javadocs of glory](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
+
+   4. Test Cases: [All 37 complete successfully](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
    
 
+   5. Object-Oriented Design: Our [UML](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
 
-   https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File
-   
-   
-   Javadoc interface documentation:
+   6. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
 
-   4. Test Cases:
-
-
-   https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
-   
-   5. Object-Oriented Design:
-   
-   https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
-
-   6. Release Planning:
-   
-      https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning
-
-   7. Reuse Statement: 
-   
-      https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch
+   7. Reuse Statement: [ElasticSearch](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch)
 
 
 
