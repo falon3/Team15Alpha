@@ -121,6 +121,8 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
                     user2 = db.createUser("Username2");
 
             FriendsList fl = user1.getFriendsList();
+            fl.addFriend(user2);
+            db.save();
 
             // The new database should contain all the previous changes
             db = new UserDatabase();

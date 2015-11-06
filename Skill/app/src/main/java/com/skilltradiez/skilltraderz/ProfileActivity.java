@@ -76,6 +76,7 @@ public class ProfileActivity extends ActionBarActivity {
     public String setUserDescription(){
         //@todo need to make a description object in USER
         //return currentUser.description();
+        return null;
     }
 
 

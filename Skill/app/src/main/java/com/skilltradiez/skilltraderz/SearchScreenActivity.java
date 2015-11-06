@@ -56,8 +56,8 @@ public class SearchScreenActivity extends ActionBarActivity {
     public void onStart(){
         super.onStart();
 
-        searchViewAdapter = new ArrayAdapter<Skill>(this, R.id.search_list, skills);
-        searchResultsList.setAdapter(searchViewAdapter);
+        //searchViewAdapter = new ArrayAdapter<Skill>(this, R.id.search_list, skills);
+        //searchResultsList.setAdapter(searchViewAdapter);
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);

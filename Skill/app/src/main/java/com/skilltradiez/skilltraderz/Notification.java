@@ -24,9 +24,13 @@ public abstract class Notification {
         notify = true;
     }
 
-    private Boolean hasChanged() {
-        notify = !notify;
-        return !notify;
+    /**
+     * Reads the flag indicating if something has changed, and clears it.
+     */
+    public Boolean readChanged() {
+        boolean tmp = notify;
+        notify = false;
+        return tmp;
     }
 
     abstract void commit(UserDatabase userDB);
