@@ -18,12 +18,13 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Created by sja2 on 10/28/15.
  */
-public class ID {
+public class ID implements Serializable {
     private Long id;
 
     @Override

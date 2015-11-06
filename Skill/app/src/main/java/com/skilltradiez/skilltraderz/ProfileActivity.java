@@ -95,8 +95,7 @@ public class ProfileActivity extends ActionBarActivity {
      */
     public void checkInventory(View view){
         Intent intent = new Intent(profileContext, InventoryActivity.class);
-        //@todo need to get the id of the user we're looking at, either self or other to send to InventoryActivity
-        //intent.putExtra(viewedUser.getUserID())
+        intent.putExtra("user_id", currentUser.getUserID());
         startActivity(intent);
     }
 

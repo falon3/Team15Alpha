@@ -54,8 +54,7 @@ public class InventoryActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        //TODO: change to a user ID passed by intent
-        currentUser = MainActivity.userDB.getCurrentUser();
+        currentUser = MainActivity.userDB.getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
