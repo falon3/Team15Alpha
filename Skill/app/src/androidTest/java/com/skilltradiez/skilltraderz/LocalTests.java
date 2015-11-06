@@ -42,9 +42,11 @@ public class LocalTests extends ActivityInstrumentationTestCase2 {
 
         try {
             lo.saveToFile();
+            assertEquals(lo.readFromFile(), lo.getLocalData());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
