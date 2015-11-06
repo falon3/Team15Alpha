@@ -52,6 +52,7 @@ public class UserDatabase {
             users.addAll(lpo.getUsers());
             skillz.addAll(lpo.getSkillz());
             trades.addAll(lpo.getTrades());
+            getChangeList().getNotifications().addAll(lpo.getNotifications());
         } else {
             currentUser = null;
         }
@@ -194,12 +195,22 @@ public class UserDatabase {
         skillz.add(s);
         // New Skill
         getChangeList().add(s);
+        try {
+            getElastic().addDocument("skill", s.getSkillID().toString(), s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addTrade(Trade t) {
         trades.add(t);
         // New Trade
         getChangeList().add(t);
+        try {
+            getElastic().addDocument("trade", t.getTradeID().toString(), t);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setCurrentUser(User currentUser) {

@@ -57,11 +57,7 @@ public class TradeList extends Notification {
             return;
         trades.add(trade.getTradeID());
         newTrades.add(trade.getTradeID());
-        try {
-            db.getElastic().addDocument("trade", trade.getTradeID().toString(), trade);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        db.addTrade(trade);
         notifyDB();
     }
 

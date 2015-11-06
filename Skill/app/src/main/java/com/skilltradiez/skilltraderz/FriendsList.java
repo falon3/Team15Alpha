@@ -65,6 +65,10 @@ public class FriendsList extends Notification {
         notifyDB();
     }
 
+    /**
+     * Both users become each others friends.
+     * @param great_person The user to add as a friend to this user and vice versa.
+     */
     public void addFriend(User great_person) {
         if (hasFriend(great_person)) return;
         friendsList.add(great_person.getUserID());
