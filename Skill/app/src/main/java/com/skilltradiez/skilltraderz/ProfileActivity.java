@@ -124,8 +124,9 @@ public class ProfileActivity extends ActionBarActivity {
      * Add a user as a friend.
      */
     public void addFriend(){
+        MainActivity.userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
+        MainActivity.userDB.save();
 
-        //@todo send friend to be added to friend list
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
@@ -137,7 +138,9 @@ public class ProfileActivity extends ActionBarActivity {
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
-        //@todo send friend to remove from friend list
+        MainActivity.userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
+        MainActivity.userDB.save();
+
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
