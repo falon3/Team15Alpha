@@ -154,7 +154,19 @@ public class UserDatabase {
         for (Trade t : trades)
             if (t.getTradeID().equals(id))
                 return t;
-        return null;
+        return getOnlineTradeByID(id);
+    }
+
+    private Trade getOnlineTradeByID(ID id) {
+        Trade t = null;
+        try {
+            t = elastic.getDocumentTrade(id.toString());
+            if (t != null)
+                trades.add(t);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 
     public Skill getSkillByID(ID id) {
@@ -164,6 +176,17 @@ public class UserDatabase {
         return null;
     }
 
+    private Skill getOnlineSkillByID(ID id) {
+        Skill s = null;
+        try {
+            s = elastic.getDocumentSkill(id.toString());
+            if (s != null)
+                skillz.add(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
     public void addSkill(Skill s) {
         skillz.add(s);
         // New Skill
