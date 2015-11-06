@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Local {
     LocalPersistentObject save_object;
-    private static final String SAVE_FILE = "save_file.sav";
+    private static final String SAVE_FILE = "/sdcard/save_file.sav";
 
     public Local() {
         try {
