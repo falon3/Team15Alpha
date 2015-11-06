@@ -100,6 +100,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
 
             TradeList tl = user1.getTradeList();
             tl.createTrade(db, user1, user2, new ArrayList<Skill>());
+            db.save();
 
             // The new database should contain all the previous changes
             db = new UserDatabase();
@@ -107,6 +108,8 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             user2 = db.getAccountByUsername("Username2");
 
             tl = user1.getTradeList();
+            System.out.println(tl);
+            System.out.println(tl.getActiveTrades(db));
             assertEquals(tl.getMostRecentTrade(db).getHalfForUser(user2).getUser(), user2.getUserID());
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
@@ -120,8 +123,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             User user1 = db.createUser("Username1"),
                     user2 = db.createUser("Username2");
 
-            FriendsList fl = user1.getFriendsList();
-            fl.addFriend(user2);
+            user1.getFriendsList().addFriend(user2);
             db.save();
 
             // The new database should contain all the previous changes
@@ -129,8 +131,8 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             user1 = db.getAccountByUsername("Username1");
             user2 = db.getAccountByUsername("Username2");
 
-            fl = user1.getFriendsList();
-            assertEquals(fl.getFriends().get(0), user2.getUserID());
+            assertTrue(user1.getFriendsList().hasFriend(user2));
+            assertTrue(user2.getFriendsList().hasFriend(user1));
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }

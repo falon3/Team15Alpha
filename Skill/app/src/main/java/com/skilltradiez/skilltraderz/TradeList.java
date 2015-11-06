@@ -53,8 +53,15 @@ public class TradeList extends Notification {
     }
 
     public void addTrade(UserDatabase db, Trade trade) {
+        if (trades.contains(trade.getTradeID()))
+            return;
         trades.add(trade.getTradeID());
         newTrades.add(trade.getTradeID());
+        try {
+            db.getElastic().addDocument("trade", trade.getTradeID().toString(), trade);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         notifyDB();
     }
 
@@ -87,9 +94,11 @@ public class TradeList extends Notification {
         for (ID tradeId : newTrades) {
             Trade trade = userDB.getTradeByID(tradeId);
             User otherUser = userDB.getAccountByUserID(trade.getHalf2().getUser());
+            User theUser = userDB.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);
             try {
-                userDB.getElastic().addDocument("user", otherUser.getProfile().getUsername(), otherUser);
+                userDB.getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
+                userDB.getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -101,7 +110,7 @@ public class TradeList extends Notification {
         for (ID tradeId : deletedTrades) {
             //TODO how to delete ttrade
         }
-        newTrades.clear();
+        deletedTrades.clear();
         return true;
     }
 }

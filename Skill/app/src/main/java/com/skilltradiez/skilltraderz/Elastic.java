@@ -68,6 +68,7 @@ public class Elastic {
     public <T> void updateDocument(String type, String id, T data, String path) throws IOException {
         type = URLEncoder.encode(type, "ISO-8859-1");
         id = URLEncoder.encode(id, "ISO-8859-1");
+        path = "doc/" + path;
         StringBuilder sb = new StringBuilder();
         String[] paths = path.split("/");
         for (String s : paths) {
@@ -80,8 +81,9 @@ public class Elastic {
         for (String s : paths) {
             sb.append("}");
         }
-        Log.d("SKILLLLZ", sb.toString());
-        httpClient.post(baseUrl + type + "/" + id + "/_update", sb.toString());
+        String uri = baseUrl + type + "/" + id + "/_update";
+        Log.d("SKILLLLZ", uri);
+        Log.d("SKILLLLZ!", httpClient.post(uri, sb.toString()));
     }
 
     //The next three methods need to be separate because java's generics aren't real generics,
