@@ -18,10 +18,12 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.Observable;
+
 /**
  * Created by sja2 on 10/28/15.
  */
-public class User {
+public class User extends Observable {
     private Profile profile;
     private Inventory inventory;
     private FriendsList friendsList;
