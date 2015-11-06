@@ -53,6 +53,17 @@ public class ProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_profile);
         profileExtras = getIntent().getExtras();
         userProfileName = profileExtras.getString("user_name_for_profile");
+
+        addRemoveFriend = (Button) findViewById(R.id.add_friend);
+        blockUser = (Button) findViewById(R.id.block);
+        startTrade = (Button) findViewById(R.id.maketrade);
+        viewInventory = (Button) findViewById(R.id.inventory);
+        userContactInfo = (TextView) findViewById(R.id.user_description);
+        profileTitle = (TextView) findViewById(R.id.user_name);
+
+        populateProfile();
+        profileTitle.setText(userProfileName);
+        userContactInfo.setText(currentUser.getProfile().getEmail());
     }
 
     @Override
@@ -66,17 +77,6 @@ public class ProfileActivity extends ActionBarActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        addRemoveFriend = (Button) findViewById(R.id.add_friend);
-        blockUser = (Button) findViewById(R.id.block);
-        startTrade = (Button) findViewById(R.id.maketrade);
-        viewInventory = (Button) findViewById(R.id.inventory);
-        userContactInfo = (TextView) findViewById(R.id.user_description);
-        profileTitle = (TextView) findViewById(R.id.user_name);
-
-        populateProfile();
-
-
     }
 
     /**
@@ -85,14 +85,12 @@ public class ProfileActivity extends ActionBarActivity {
     public void populateProfile(){
         currentUser = MainActivity.userDB.getAccountByUsername(userProfileName);
         hasFriend = currentUser.getFriendsList().hasFriend(MainActivity.userDB.getCurrentUser());
-        new Thread() {
-            public void run() {
-                profileTitle.setText(userProfileName);
-                userContactInfo.setText(currentUser.getProfile().getEmail());
-            }
-        }.start();
-
-
+        //new Thread() {
+            //public void run() {
+                //profileTitle.setText(userProfileName);
+                //userContactInfo.setText(currentUser.getProfile().getEmail());
+          //  }
+        //}.start();
     }
 
 
@@ -133,13 +131,13 @@ public class ProfileActivity extends ActionBarActivity {
      */
     public void addFriend(){
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Added a friend", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
-        new Thread() {
-            public void run() {
+        //new Thread() {
+          //  public void run() {
                 addRemoveFriend.setText(R.string.remove_friend);
-            }
-        }.start();
+          //  }
+        //}.start();
 
     }
 
@@ -148,7 +146,7 @@ public class ProfileActivity extends ActionBarActivity {
      */
     public void removeFriend(){
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Removed A Friend", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
         /*new Thread() {
             public void run() {
@@ -176,7 +174,4 @@ public class ProfileActivity extends ActionBarActivity {
     public void checkUser(){
         //USER_ID = some function to tell us who we're looking at
     }
-
-
-
 }

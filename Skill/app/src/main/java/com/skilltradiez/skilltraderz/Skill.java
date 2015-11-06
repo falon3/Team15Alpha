@@ -143,7 +143,6 @@ public class Skill extends Notification {
         db.addSkill(this);
     }
 
-
     /**
      * METHODS
      **/
@@ -239,6 +238,12 @@ public class Skill extends Notification {
         result = 31 * result + version.hashCode();
         result = 31 * result + getSkillID().hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        //TODO Change Output?
+        return this.getName() + ": " + this.getCategory();
     }
 
     public boolean commit(UserDatabase userDB) {

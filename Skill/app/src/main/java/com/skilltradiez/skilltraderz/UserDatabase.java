@@ -83,6 +83,7 @@ public class UserDatabase {
 
     public void deleteAllData() {
         try {
+            elastic.deleteDocument("example", "");
             elastic.deleteDocument("user", "");
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
@@ -138,7 +139,7 @@ public class UserDatabase {
         //TODO Maybe this should throw an exception instead of returning null.
         User u = null;
         try {
-            System.out.println(username);
+            //System.out.println(username);
             u = elastic.getDocumentUser(username);
             if (u != null)
                 users.add(u);
@@ -196,6 +197,7 @@ public class UserDatabase {
         // New Skill
         getChangeList().add(s);
         try {
+            //TODO: Seems to be a problem for no apparent reason (Maybe the Network in UI Issue?)
             getElastic().addDocument("skill", s.getSkillID().toString(), s);
         } catch (IOException e) {
             e.printStackTrace();

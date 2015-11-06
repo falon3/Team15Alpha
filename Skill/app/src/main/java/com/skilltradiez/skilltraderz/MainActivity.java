@@ -64,6 +64,20 @@ public class MainActivity extends ActionBarActivity {
             setContentView(R.layout.first_time_user);
         }
 
+        // main
+        searchButton = (Button) findViewById(R.id.search_button);
+        searchAllSkillzButton = (Button) findViewById(R.id.browse_skillz);
+        searchAllUsersButton = (Button) findViewById(R.id.browse_users);
+        goToProfile = (Button) findViewById(R.id.go_to_profile);
+        searchField = (EditText) findViewById(R.id.search_bar);
+
+        // first_tine
+        newUserName = (EditText) findViewById(R.id.makeUserName);
+        newUserEmail = (EditText) findViewById(R.id.emailField);
+        makeNewUser = (Button) findViewById(R.id.beginApp);
+
+        searchDatabase = "";
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -83,18 +97,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        searchButton = (Button) findViewById(R.id.search_button);
-        searchAllSkillzButton = (Button) findViewById(R.id.browse_skillz);
-        searchAllUsersButton = (Button) findViewById(R.id.browse_users);
-        goToProfile = (Button) findViewById(R.id.go_to_profile);
-        searchField = (EditText) findViewById(R.id.search_bar);
-
-        newUserName = (EditText) findViewById(R.id.makeUserName);
-        newUserEmail = (EditText) findViewById(R.id.emailField);
-        makeNewUser = (Button) findViewById(R.id.beginApp);
-
-        searchDatabase = "";
     }
 
     /**
@@ -114,12 +116,13 @@ public class MainActivity extends ActionBarActivity {
      */
     private static User new_guy = null;
     public void newUser(View view){
-
         final Context context = getApplicationContext();
+        final String username;
+
         if(newUserName.getText().toString().isEmpty()){
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
         }else {
-            final String username = newUserName.getText().toString();
+            username = newUserName.getText().toString();
             Thread thread = new Thread() {
                 public void run() {
                     try {
@@ -149,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
                 // Do nothing
             }
 
-            //@todo email if needed
+            //todo email if needed
         }
     }
 
