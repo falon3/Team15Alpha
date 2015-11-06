@@ -23,6 +23,7 @@ Part 4 requirements:
    https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
    
    5. Object-Oriented Design:
+   
    https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
 
    6. Release Planning:
