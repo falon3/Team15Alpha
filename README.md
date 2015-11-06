@@ -11,11 +11,10 @@ Part 4 requirements:
    2. Demonstrate something tangible (video): 
    3. Code Documentation: brief introductory comment for each source file:
                           Javadoc interface documentation:
-   4. Test Cases: 
-       https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
+   4. Test Cases: https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
    5. Object-Oriented Design:  https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
-   6. Release Planning: plan use case/stories for part 5:
-   7. Reuse Statement: third party libraries: 
+   6. Release Planning: https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning
+   7. Reuse Statement: third party libraries:  https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch
 =======================================End Of Changes======================================
 
 ### Please press Ctrl-Alt-L on every file you changed to format it before you commit!
