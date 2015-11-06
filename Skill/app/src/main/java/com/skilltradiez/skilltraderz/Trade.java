@@ -45,6 +45,15 @@ public class Trade extends Notification {
         db.addTrade(this);
     }
 
+    public HalfTrade getOppositeHalf(User user) {
+        if (half1.getUser().equals(user.getUserID())) {
+            return half2;
+        } else if (half2.getUser().equals(user.getUserID())) {
+            return half1;
+        }
+        return null;
+    }
+
     /**
      * Gets the parts of this trade corresponding to one of the involved users.
      * @return The half corresponding to the user, or null if the user is not involved in the trade.
