@@ -144,6 +144,14 @@ public class Inventory {
         return sorted;
     }
 
+    // TODO: Check if it's the same Skill, but a different version
+    public Boolean hasSkill(Skill skill) {
+        for (ID s:skillz)
+            if (skill.getSkillID().equals(s))
+                return true;
+        return false;
+    }
+
     public ArrayList<Skill> cloneSkillz(UserDatabase userDB) {
         ArrayList<Skill> newList = new ArrayList<Skill>();
         for (ID id:skillz)
