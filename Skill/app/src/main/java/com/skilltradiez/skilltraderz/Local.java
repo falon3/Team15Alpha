@@ -1,4 +1,72 @@
 package com.skilltradiez.skilltraderz;
+/**~~DESCRIPTION:
+ * In our application it is going to be essential for local saves to be incorporated through
+ * some sort of mecahnsm, this class, the local class is going to be what we're actually
+ * going to utilize in order to achieve this end.
+ *
+ * ~~ACCESS:
+ * This is public meaning any part of this application can indeed somehow create instantiations
+ * of this object and that any part of the application can also use any methods that are
+ * associated with any of these objects at whim. Allowing flexibility and a lot of potential
+ * areas of use! GLORIOUS! :)
+ *
+ * ~~CONSTRUCTOR:
+ * This class is going to only have a single constructor that will take into itself no params
+ * but when it is instantiated it will attempt to create a save_object (attribute) which is
+ * going to be an attempted readfrom file. If this fails then we throw an exception mindyou!
+ * SAFTEY FIRST! :D
+ *
+ * ~~ATTRIBUTES/METHODS:
+ *
+ * 1: SAVE_OBJECT:
+ *     This is going to be the attribute associated with what the constructor read from the file
+ *     and this is going to allow easy and effecient caching of all of the file that we desire
+ *     to know about and interact with.
+ *
+ *
+ * 2: SAVE_FILE:
+ *     This is something set by us to set a path of where exactly we're going to be putting
+ *     together all of this locally saved data once we're at the point of saving the things.
+ *     This is hard coded.
+ *
+ * ~~MISC METHODS:
+ *     I'm going to isolate the methods here for clarity's sake, please forgive me for breaking
+ *     the regular formatting of comments.
+ *
+ * 1: SAVETOFILE:
+ *     THIS IS AN OVERLOADED METHOD! OVERLOADED METHOD! TWO VERIONS!
+ *
+ *     OVERLOAD 1:
+ *     PARAMETERS: NONE (NONE! NO PARAMETERS HERE!)
+ *     When this method is called we're going to do the very critical and obviously essential
+ *     thing of saving the current file into the local device. This when called will allow us to
+ *     do this process. SUPER CRITICAL. No point to any of this without this method.
+ *
+ *     OVERLOAD 2:
+ *     PARAMETERS: User me, List<User> friends, List<Skill> skillz List<Trade> trades,
+ *                   List<Notification> notifications
+ *     This is going to be our initial save to the storage on the device, we therefore
+ *     need to specify and send a whole bunch of parameters into the local device's storage, this
+ *     will allow the application to actually know what the heck it is putting into the local
+ *     storage on the device.
+ *
+ *
+ *
+ * 2: GETLOCALDATA:
+ *     This is going to return the ENTIRE saved object from the local device's storage and
+ *     inform the application of all of it as a LocalPersistentObject object.
+ *
+ * 3: READFROMFILE:
+ *     When we actually are going to take the storage of the application we're going to actually
+ *     be looking at the information that is currently stored within the application and then
+ *     we'll see what is going on through this method and then we'll see through this all
+ *     being returned as a LocalPersistentObject.
+ *
+ *
+ *
+ *
+ */
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -19,6 +87,8 @@ package com.skilltradiez.skilltraderz;
  */
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,6 +97,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,14 +171,14 @@ public class Local {
         BufferedReader in = new BufferedReader(new InputStreamReader(fip));
         Gson gson = new Gson();
 
-        save_object = null;
         try {
-            save_object = gson.fromJson(in, LocalPersistentObject.class);
-        } catch (RuntimeException e) {
-        }
+            Type lpo_type = new TypeToken<LocalPersistentObject>(){}.getType();
+            save_object = gson.fromJson(in, lpo_type);
+        } catch (RuntimeException e) {}
         if (save_object == null) {
             save_object = new LocalPersistentObject();
         }
+        in.close();
         return save_object;
     }
 }

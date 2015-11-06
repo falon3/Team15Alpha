@@ -1,4 +1,51 @@
 package com.skilltradiez.skilltraderz;
+
+/**DESCRIPTION:
+ * In this application we're making use of elasticsearch as our database. This class
+ * in particular is going to be dealing with everything to do with the actual HTTP internet
+ * dealings of our application and facilitates the use of elastic search in our application.
+ *
+ *
+ * ~~ACCESS:
+ * This is a public class meaning that any other part of the application can access
+ * this and create an instance of the object and any part of the application can also access
+ * and make use of any of the methods to any of the objects created within this application.
+ *
+ *
+ * ~~CONSTRUCTOR:
+ * This has a simple default constructor that takes in no parameters and creates a new
+ * DefaultHttpClient object that will be saved as an attribute in the httpClient attribute of
+ * this class.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: HTTPCLIENT:
+ *     This is going to be what is storing the object of the httpclient in this object.
+ *     This seems redundant maybe to make this but it is essential for elasticsearch to have
+ *     a unique httpclient for each of the objects it is related towards.
+ *
+ *
+ * ~~MISC METHODS:
+ * 1: GET:
+ *     Give a url as a string this method will actually retrieve a particular selection
+ *     from the database, this returns a read response of the particular entity within question.
+ *
+ *
+ * 2: POST:
+ *     Given a url, and data this will put into the elasticsearch class (assumed instantiated)
+ *     and then actually put INTO the database whatever is handed into this as data.
+ *     At this point any data has been already converted into a String of data and so
+ *     that was already handled (Thanks GSON/JSON!).
+ *
+ * 3: DELETE:
+ *     When we want to remove something from the database this method is called, this is pretty
+ *     essentiall because during the entire process of trading we will be removing A LOT of things.
+ *
+ * 4: READ:
+ *     Sometimes we just want to scan the database and return what exactly is going on at any
+ *     given particular point in time. This function will scan the database and turn it into a
+ *     readable string. Convenient!
+ *
+ */
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)

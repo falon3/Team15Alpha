@@ -1,4 +1,57 @@
 package com.skilltradiez.skilltraderz;
+
+/**~~DESCRIPTION:
+ * We have a trade list as one of the core features within our application. Users in our application
+ * are all going to (ideally) have the goal in which case they want to trade skills with one another
+ * this list is going to be THE focus of the class/object that facilitates this entire process
+ * of trading with other users!
+ *
+ *
+ * ~~CONSTRUCTORS:
+ * We have a public constructor that means that it is avaliable to all other classes/the rest
+ * of the application to be created. In particular however this will be most tied to the
+ * class of objects which is the users objects.
+ *
+ * This constructor is going to take the parameters of the userID and then it will assign
+ * the owner of this object to the id attribute and then it will assign the trades attribute
+ * with an arraylist of trade objects! The trade objects are unique dedicated objects, this
+ * trade list is what strings them together in a very gentle fashion that is easier to
+ * interact with.
+ *
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: USERID:
+ *     This is going to be a private attribute that will be a UserID object, this USerID object
+ *     is a numerical value that uniquely identfies the user and seperates them from all other
+ *     users, in a database sense this actually will act as a key! :)
+ *
+ *     WE PROVIDE THE METHODS TO:
+ *         -Nothing, this is only set during the constructor of this object.
+ *
+ *
+ * 2: TRADES:
+ *     This is going to be a list of trades, this is going to be where the entire string of
+ *     various trade singlet objects will be stringed together into a coherent whole where the
+ *     application can more easily utilize this trade list for the rest of the application
+ *     from this point onwards.
+ *
+ *     WE PROVIDE THE METHODS TO:
+ *         -delete a trade, where we delete a trade from the entire list of potential
+ *         trades associated with the user.                     --delete
+ *
+ *         -create a brand new trade in the list of the trades for this particular user
+ *         and store it in the list.                            --createTrade
+ *
+ *         -obtain the list of all of the most recently active tradeS (PLURAL) in which case
+ *         the trades will be compared based upon time.         --getActiveTrades
+ *
+ *
+ *         -obtain the list of all of the most recently active trade (SINGULAR) in which case
+ *         the trades will be compared based upon time.         --getMostRecentTrade
+ *
+ *
+ *
+ */
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)

@@ -1,5 +1,26 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * So our program is core on trades, and profiles and users. Users have profiles and there is a
+ * very clear way to make their profiles and their offers (of skills) more lucrative, exciting,
+ * cool and overall appleaing...
+ *
+ * Colorful images! We're going to actually grant the user the ability to actually go through
+ * their application and select an image (or upload a new one!) where they will be making an
+ * image class.
+ *
+ * ~~ACCESS:
+ * This is a public class and can be instantiated anywhere by any class anywhere in the application
+ *
+ * ~~CONSTRUCTORS:
+ * This class has a constructor associated with itself where it takes in a string of a particular
+ * file to open and then will process this string of the file and maintain the image in itself.
+ * Glorious.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ *     This class has no attributes or methods associated with it aside from the constructor.
+ */
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)

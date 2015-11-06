@@ -1,5 +1,69 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * We want an android framework that will support the ability for the user to interact
+ * with our application in a very logical and easy way. So we're going to create an activity
+ * that is associated with just the activities with the user. This activity is going to be
+ * associated purely with the entire trade request process that the user will need to interact with
+ * through our application.
+ *
+ * ~~ACCESS:
+ * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
+ * we can have this class actually be accessed technically anywhere in the application that
+ * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
+ * an instance of the "EditTradeActivity" object.
+ *
+ * Instead what is happening is that we are having this activity be called by the onCreate() method
+ * as is traditionally done in the android studio framework for android applications. In this
+ * instance we're going to create this activity and then we'll have an onstart() method following
+ * this which is going to make it so that we have this activate a cascade of events that are all
+ * interelated with the main primary goal of allowing us to have a screen where we edit the
+ * trading activity!
+ *
+ *~~CONSTRUCTOR:
+ * Upon calling the method onCreate() for this activity the android studio framework will
+ * cause the android application to create an instance of this actvity and display it to the user.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: ACCEPTTRADE:
+ *     This is going to be the method called when the user interacts with the UI where the user
+ *     actually is going to accept a trade that is presented to them. When this is hit
+ *     a series of steps will be activated in which the trade will actually be accepted by the user.
+ *
+ *
+ *  2: DELETEREQUEST:
+ *      When the user actually wants to DELETE a request they can interact with the UI and then
+ *      this method will be called. This will outright remove the request of trading from the
+ *      user's application permanently. Fabulous.
+ *
+ * 3: COUNTEROFFER:
+ *     Suppose a user isn't happy with what they currently are seeing/offering for a particular
+ *     trade in our application, interacting with the UI will allow us to have a counteroffer
+ *     method called (this method) that will allow the user to edit their trade agreement in
+ *     the application in a glorious and beautiful fashion!
+ *     MAJESTIC! AS! HECK!
+ *
+ * 4: SETTRADEDETAILS:
+ *     When a user interacts with their application, it is stupidly essential to give the user
+ *     the DETAILS of a particular trade that they are performing on. This method is called when
+ *     the user interacts with the UI in a fashion that allows the user to view the details
+ *     of a given trade.
+ *
+ *
+ * 5: SETTRADENOTES:
+ *     This is going to obtain the trade notes from the user and then will present them to the
+ *     user of the application once the application framework is prompted to actually go
+ *     through these series of steps!
+ *
+ *
+ * 6: SETTRADETITLE:
+ *     This is going to be more "UI related" but it also has the effect that we now have some
+ *     sort of special unique identifier (aside from ID) that the user can relate to when they are
+ *     dealing with the entire trade process. This gives the user that power to set the
+ *     title of the trade! GLORIOUS!
+ *
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +73,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /*
  *    Team15Alpha
@@ -36,16 +102,18 @@ public class TradeRequestActivity extends ActionBarActivity {
     private Button acceptRequest;
     private Button deleteRequest;
     private Button counterOffer;
-    private String tradeTitle;
+    private TextView tradeTitle;
     private TextView tradeDescription;
     private ListView skillsInTrade;
-
+    private Trade trade;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_request);
+        Bundle extras = getIntent().getExtras();
+        trade = MainActivity.userDB.getTradeByID((ID) extras.get("trade_id"));
     }
 
     @Override
@@ -57,7 +125,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         counterOffer = (Button) findViewById(R.id.counterTrade);
         tradeDescription = (TextView) findViewById(R.id.trade_description);
         skillsInTrade = (ListView) findViewById(R.id.skillListInTrade);
-        tradeTitle = "";
+        tradeTitle = (TextView) findViewById(R.id.trading_with);
 
 
     }
@@ -71,6 +139,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         //Add the trade to your history
         Toast toast = Toast.makeText(tradeContext, "Accepted a Trade", Toast.LENGTH_SHORT);
         toast.show();
+        trade.getHalfForUser(MainActivity.userDB.getCurrentUser()).setAccepted(true);
     }
 
     /**
@@ -81,6 +150,7 @@ public class TradeRequestActivity extends ActionBarActivity {
         // alert dialogue for making sure that you want to delete the request. Confirmation.
         Toast toast = Toast.makeText(tradeContext, "Deleted a Request", Toast.LENGTH_SHORT);
         toast.show();
+        //TODO the model doesn't support this yet.
     }
 
     /**
@@ -89,12 +159,15 @@ public class TradeRequestActivity extends ActionBarActivity {
      */
     public void counterOffer(View view){
         Intent intent = new Intent(tradeContext, EditTradeActivity.class);
+        intent.putExtra("trade_id", trade.getTradeID());
         startActivity(intent);
-        //need to probably put an intent.putextra with ... info
+        //TODO
+        intent.getExtras().get("counter_offer");
     }
 
     /**
      * Set the details of the trade offer.
+     * View
      * @ TODO:
      */
     public void setTradeDetails(){
@@ -104,6 +177,7 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Set the notes of the trade as given by the trade requester
+     * View
      * @ TODO:
      */
     public void setTradeNotes(){
@@ -113,10 +187,14 @@ public class TradeRequestActivity extends ActionBarActivity {
 
     /**
      * Who you're trading with
+     * View
      * @ TODO:
      */
     public void setTradeTitle(){
         //tradeTitle = who you're trading with
+        UserDatabase db = MainActivity.userDB;
+        User otherUser = db.getAccountByUserID(trade.getOppositeHalf(db.getCurrentUser()).getUser());
+        tradeTitle.setText(otherUser.getProfile().getUsername());
     }
 
 }

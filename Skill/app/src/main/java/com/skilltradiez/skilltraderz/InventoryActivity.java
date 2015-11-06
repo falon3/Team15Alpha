@@ -1,16 +1,87 @@
 package com.skilltradiez.skilltraderz;
+/**~~DESCRIPTION:
+ * We want users to interact with our application, it just makes things a lot easier when
+ * we have a proper functioning framework that the user can mindlessly use without neeeding to worry
+ * and fret about using seemingly esoterric code. Therefore we have activities provided to us
+ * through the android studio android framework! It is glorious!
+ *
+ * This is going to be the interactive framework that is going to allow the user to interact
+ * with the inventory classes (and all of the things connected to said inventory class) in an
+ * appropriate and managable format!
+ *
+ * ~~ACCESS:
+ * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
+ * we can have this class actually be accessed technically anywhere in the application that
+ * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
+ * an instance of the "InventoryActivity" activity.
+ *
+ *
+ * ~~CONSTRUCTOR:
+ * Upon calling the method onCreate() for this activity the android studio framework will
+ * cause the android application to create an instance of this actvity and display it to the user.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: CATEGORYSPINNER:
+ *     Suppose we want to have a way to go through the various categories, this is the way we will
+ *     achieve this! This is more UI related so I'm keeping this description short and sweet.
+ *
+ * 2: SEARCHINVENTORY (ATTRIBUTE):
+ *     Wouldn't it be ideal if through the framework we could actually interact with the
+ *     inventory in a manner that does not seem overwhelming? Well that is why we implemented
+ *     this string! We will take a user given string and then search through the entire inventory
+ *     for things that match this string. UI-ish but it has relevance in the code. So I detailed it.
+ *
+ *
+ * 3: STARTTRADE:
+ *     Is it not critical to START a trade with another user? Well this is going to be how
+ *     we actually start a trade with another user! This is going to be the method that is called
+ *     when the UI is activated to cascade through a series of statements that will fully set up
+ *     the entire trading process with another user.
+ *
+ *
+ * 4: SEARCHINVENTORY (METHOD):
+ *     This is associated with the searchInventory attribute mentioned above, in this instance
+ *     we're going to take the user's inputted string (the attribute saves it) and then we will
+ *     filter through the entire inventory and obtain the results in this fashion that are
+ *     actually going to be related to this search string.
+ *
+ *
+ * 5: REFINEINVENTORYBYCATEGORY:
+ *     We'll take the input of the spinner and then associate it with the categories that our
+ *     application supports and then present to the user the inventory sorted out by a particular
+ *     category that they selected through the spinner.
+ *
+ *
+ * 6: POPULATEINVENTORY:
+ *     We want the user to be able to browse other users (or even themselves right?) where they
+ *     have an inventory. So we utilize this method to begin the entire process of obtaining
+ *     the entire inventory of a user and then we present this entire bulky thing to the user.
+ *     It's like magic.
+ *
+ * 7: SKILLDETAILS:
+ *     Suppose we have an inquisitive user who looks at the "cat bathing" skill ... yet they want
+ *     to know MORE about this particular skill, when they inqurie about this skill THIS method
+ *     is called that will represent to the user through this activity (and thus the android
+ *     framework) all of the details that are currently saved within the database that are related
+ *     to that particular skill.
+ *
+ *
+ */
+
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -38,7 +109,8 @@ public class InventoryActivity extends ActionBarActivity {
 
     Context inventoryContext = this;
     private User currentUser;
-    private List<Skill> skillz;
+    private List<Skill> skillz;//All skillz in inventory
+    private List<Skill> foundSkillz;
 
     private Button searchButton;
     private Button startTrade;
@@ -53,14 +125,20 @@ public class InventoryActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        //TODO: change to a user ID passed by intent
-        currentUser = MainActivity.userDB.getCurrentUser();
+        currentUser = MainActivity.userDB.getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         startTrade = (Button) findViewById(R.id.maketrade);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         inventoryList = (ListView) findViewById(R.id.search_list);
+
+        inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                Skill skill = (Skill) adapter.getItemAtPosition(position);
+                skillDetails(skill);
+            }
+        });
 
         searchInventory = "";
     }
@@ -71,7 +149,7 @@ public class InventoryActivity extends ActionBarActivity {
 
         loadSkillz();
         adapter = new ArrayAdapter<Skill>(this,
-                R.layout.list_item, skillz);
+                R.layout.list_item, foundSkillz);
 
         inventoryList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -81,12 +159,8 @@ public class InventoryActivity extends ActionBarActivity {
         Inventory inv = currentUser.getInventory();
         skillz = inv.cloneSkillz(MainActivity.userDB);
 
-        //TEST
-        //skillz.add(new Skill(MainActivity.userDB, "Drain Runner"+ID.generateRandomID(), "Not for the faint of heart"));
-        //skillz.add(new Skill(MainActivity.userDB, "Parkour"+ID.generateRandomID(), "Active"));
-        //TODO: Make skill inits work and then,
-        //TODO test(I know it works) and after,
-        //TODO: Remove the tests
+        foundSkillz = new ArrayList<Skill>();
+        foundSkillz.addAll(skillz);
     }
 
     /**
@@ -97,7 +171,7 @@ public class InventoryActivity extends ActionBarActivity {
     public void startTrade(View view){
         //need to check that you are friends with this person
         //then un-grey out the 'make trade' button
-        Intent intent = new Intent(inventoryContext, TradeRequestActivity.class);
+        Intent intent = new Intent(inventoryContext, EditTradeActivity.class);
         startActivity(intent);
     }
 
@@ -109,7 +183,17 @@ public class InventoryActivity extends ActionBarActivity {
     public void searchInventory(){
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
+        String regex = searchField.getText().toString();
+        foundSkillz = new ArrayList<Skill>();
 
+        if (regex.equals("")) {
+            foundSkillz = skillz;
+        } else {
+            for (Skill s : skillz)
+                if (s.getName().contains(regex))
+                    foundSkillz.add(s);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -123,21 +207,12 @@ public class InventoryActivity extends ActionBarActivity {
     }
 
     /**
-     * Sends a query to the database with a specific user ID to get the list of skills in their
-     * inventory
-     * @ TODO:
+     * onClick for a chosen skill. Will bring a Skill Description activity
+     * @param skill
      */
-    public void populateInventory(){
-        //need to populate inventory list with the skills from a specific user by using the
-        // USER_INVENTORY string and calling whatever database thing that'll do it
-    }
-
-    /**
-     * onClick for a chosen skill. Will being a Skill Description activity
-     * @param view
-     */
-    public void skillDetails(View view){
-        Intent intent = new Intent(inventoryContext, TradeRequestActivity.class);
+    public void skillDetails(Skill skill){
+        Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);
+        intent.putExtra("skill_id", skill.getSkillID());
         startActivity(intent);
 
     }

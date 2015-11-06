@@ -1,10 +1,92 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * Our application is based off of the notion of facilitating the entire process of one user
+ * being able to offer another user a skill. They make a trade from one user to another user
+ * through our application.
+ *
+ * That being said, how possibly could the ability to edit a skill (THE thing offered during trades)
+ * not be one of our core functionalities?!
+ *
+ * This class will be all about editing the skills that users offer, storing relevant values into
+ * a swath of attributes and then giving other classes the methods to interact with this!
+ *
+ * ~~ACCESS:
+ * This class is a public class, meaning that any other part of the application (class, etc) has
+ * complete access to this class and it's functions once it is instantiated into an object. For
+ * the ability to edit skills, this allows the ability to actually edit skills to be pervasive
+ * throughout our entire application. Meaning that this is not locked down to one single class.
+ * Flexibility is critical.
+ *
+ * However this is likely a large misnomer of the word "class" , as this is actually an activity
+ * (more UI related) as well as utilizing the android framework to make all of our classes
+ * come to life.
+ *
+ *
+ * ~~CONSTRUCTOR:
+ * As is typical with android activities used in applications, this activity once invoked will
+ * be made with the onCreate() method followed by anything present in the onStart() method.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: SKILLNAME:
+ *     This is going to be extremely relevant on this part of the application, when we have the
+ *     users actually go around trying to trade their skills is it not considered critical to have
+ *     some sort of label for it? I mean in an idealistic world we could always just assign the
+ *     name an arbitrary value that blank and let users read descriptions (as to not be swayed
+ *     by potentially flawed name choices!)... but alas we do not live in such a world filled with
+ *     boundless memes.
+ *
+ *     WE PROVIDE THE METHODS TO:
+ *         Nothing. This is created during the onStart() method.
+ *
+ * 2: SKILLDESCRIPTION:
+ *     This is going to be the ever importaint location where users may stroke their ego.
+ *     "Oh I may be a dog trainer but I truly won 1337 poodle olympics, and I can cut a poodles
+ *     hair into all sorts of shapes and da'aling it is just absolutely gaaawgeous."-- or something
+ *     absolutely mortifying like this.
+ *
+ *     Pretty much without this we couldn't let people uniquely identify their skill. Why would
+ *     I want Big Bertha's cat grooming business over that of the lovely Anastasia? The differences
+ *     in their description. But keep in mind we don't actually have a verification method so
+ *     I am certain if one wanted they could say they are offering the skill of flying people
+ *     to the moon on a baboon while singing a tune about a forlorn swoon.
+ *
+ *     WE PROVIDE THE METHODS TO:
+ *         Nothing. This is, similar to above, created during the onStart() method.
+ *
+ * 3: SKILLCATEGORY:
+ *     We can all pretend we don't like our categories, we can go onto (some random webpage)
+ *     and I am confident in my claim that I can somehow offend someone by saying a tomato
+ *     is a fruit. "BUT NO IT IS A VEGETABLE!!!1!!1!1!". ALAS-- we are using categories to help
+ *     us define general types for users to interact with.
+ *
+ *     Allow me to demonstrate through example:
+ *     CATEGORY: Cats
+ *     Skill 1 (from random user 1): Cat bathing (Very daring.)
+ *     Skill 2: Cat petting (Very loving.)
+ *     Skill 3: Cat grooming (Much wow.)
+ *     Skill 4: Teaching a cat how to duel with light sabers because I am really REALLY hyped
+ *     for a particular movie coming out soon. Lightsabers. Cats. Nothing could go wrong.
+ *
+ *     So this example hopefully demonstrates that given a "cat" CATegory (oh my, how punny) we
+ *     will actually be able to let users pin point a finer granularity in their searches.
+ *
+ *     WE PROVIDE THE METHODS TO:
+ *         Nothing. This is created during the onStart() method.
+ *
+ *
+ *
+ *
+ *
+ */
+
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /*
  *    Team15Alpha
@@ -61,7 +143,10 @@ public class EditSkillActivity extends ActionBarActivity {
         newSkill = new Skill(MainActivity.userDB, name, category);
         newSkill.setDescription(description);
         MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
-
         MainActivity.userDB.save();
+
+        Context context = getApplicationContext();
+        Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
+
     }
 }

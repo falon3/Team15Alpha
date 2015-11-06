@@ -1,5 +1,46 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * We want an android framework that will support the ability for the user to interact
+ * with our application in a very logical and easy way. So we're going to create an activity
+ * that is associated with just the activities with the user. This activity is going to be
+ * associated purely with the entire skill description process that the user will need to interact
+ * with through our application.
+ *
+ * ~~ACCESS:
+ * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
+ * we can have this class actually be accessed technically anywhere in the application that
+ * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
+ * an instance of the "EditTradeActivity" object.
+ *
+ * Instead what is happening is that we are having this activity be called by the onCreate() method
+ * as is traditionally done in the android studio framework for android applications. In this
+ * instance we're going to create this activity and then we'll have an onstart() method following
+ * this which is going to make it so that we have this activate a cascade of events that are all
+ * interelated with the main primary goal of allowing us to have a screen where we edit the
+ * trading activity!
+ *
+ *~~CONSTRUCTOR:
+ * Upon calling the method onCreate() for this activity the android studio framework will
+ * cause the android application to create an instance of this actvity and display it to the user.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: SETSKILLTITLE:
+ *     This is more of a UI element but this will allow us to actually set the value of the title
+ *     for this particular skill description for the particular application.
+ * 2: SETSKILLDESCRIPTION:
+ *     Suppose we want to have the user modify the skill description, through the UI this
+ *     method will be invoked that will allow the user to actually set their skill description
+ *     for the rest of the application.
+ *
+ * 3: ADDREMOVESKILL:
+ *     This is going to be the entire process of adding or removing a skill from a skill description
+ *     when we actually have the user interact with the UI to call this method that will
+ *     allow them to add or remove a damn skill.
+ *
+ */
+
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Button;
@@ -26,37 +67,55 @@ import android.widget.TextView;
 
 public class SkillDescriptionActivity extends ActionBarActivity {
 
-    private Button addSkill;
+    private Skill currentSkill;
+    private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
+
+    private Boolean hasSkill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_description);
+
+        currentSkill = MainActivity.userDB.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+
+        addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
+        skillDescription = (TextView) findViewById(R.id.skill_description);
+        skillTitle = (TextView) findViewById(R.id.skillTitle);
+
+        setSkillTitle(currentSkill.getName());
+        setSkillDescription(currentSkill.getDescription());
+
+        User user = MainActivity.userDB.getCurrentUser();
+        Inventory inv = user.getInventory();
+
+        hasSkill = inv.hasSkill(currentSkill);
+        if (hasSkill)
+            addRemoveSkill.setText("Remove Skill");
+        // It's initially set to "Add Skill"
     }
 
     @Override
     public void onStart(){
         super.onStart();
-
-        addSkill = (Button) findViewById(R.id.add_remove_skill);
-        skillTitle = (TextView) findViewById(R.id.skillTitle);
-        skillDescription = (TextView) findViewById(R.id.skill_description);
     }
 
     /**
      * @ TODO:
      */
-    public void setSkillTitle(){
+    public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
+        skillTitle.setText(text);
     }
 
     /**
      * @ TODO:
      */
-    public void setSkillDescription(){
-        //skillDecription = description of the skill we're looking at
+    public void setSkillDescription(String text){
+        //skillDescription = description of the skill we're looking at
+        skillDescription.setText(text);
     }
 
     /**
@@ -65,6 +124,12 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     public void addRemoveSkill(){
         //notify the user that the skill has been added to their profile or trade request depending
         //on what context we're given ie: trade request vs skill search
+        if (hasSkill) {
+            addRemoveSkill.setText("Add Skill");
+        } else {
+            addRemoveSkill.setText("Remove Skill");
+        }
+        hasSkill = !hasSkill;
     }
 
 }

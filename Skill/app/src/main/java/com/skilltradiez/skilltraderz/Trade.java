@@ -1,5 +1,66 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * Trades are the core element of our application. Without the ability to create new trade
+ * objects this application would become absolutely pointless. Trades are how the users interact
+ * with one another and are the main driving and drawing appeal for the users to actually
+ * USE our application.
+ *
+ * A trade object will possess attrbutes relating two users together as actors (actor1 and actor2)
+ * and then will have a list of skills which are being offered for each user, and a boolean that
+ * will maintain whether or not the trade is actually being accepted or not by the users!
+ * As well as if it is already completed (and fully accepted) or not.
+ *
+ * In terms of the methods avaliable here, we have the various methods in which we will have the
+ * ability to obtain the current actors in the trade (object of trade), get offers, set (new counter
+ * offers) offers, set if accepted or declined or if it is even still active or not!
+ *
+ * CONSTRUCTOR:
+ * This object is constructed from the songle constructor which is going to take in two user
+ * objects, a user1 and a user 2. This constructor will assign the actor1 and actor2 attributes
+ * in order to have a firm basis to have the entire trade change over!
+ *
+ * ATTRIBUTES/METHODS:
+ * 1: actor1/actor2:
+ *     These are going to be the two users that are actually trading. These attributes
+ *     are going to keep a record of the two users which allows us to maintain integrity
+ *     of who is going on and doing/trading what. This also allows us to pick apart what users
+ *     can offer in a trade for skills, and other things associated with the users.
+ *
+ *     WE PROVIDE METHODS TO:
+ *         -obtain the "first" actor        --getActor1
+ *         -obtain the "second" actor       --geActor2
+ *
+ *  2: offer1/offer2:
+ *      These are going to be the two offers that each of the users made, the entire trade is based
+ *      upon these offers being made and modified to each user's liking and in which case we will
+ *      actually have the offers between the two users being maintained and allow the modifications
+ *      there. :)
+ *         -get the offer (passed ANY user)     --getCurrentOffer
+ *         -set a counteroffer                  --setCounterOffer
+ *
+ *
+ *  3: accepted/active:
+ *      These are two boolean values that maintain if the current trade is still active or
+ *      not as well as if the user finishes or declines a trade then they will have this value
+ *      modified.
+ *
+ *      WE PROVIDE THE METHODS TO:
+ *          -Get if there is an active trade        --isActive
+ *          -Get if the trade is accepted or not    --isAccepted
+ *          -Decline the trade                      --decline
+ *          -Set if trade is accepted               --setAccepted
+ *          -
+ *
+ *~~MISC METHODS:
+ * 1: COMMIT:
+ *      So when we actually have one of these objects, since it is so critical and SO core
+ *      to the application we're going to actually need to update the database itself with
+ *      the object!
+ *
+ *
+ */
+
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -43,6 +104,15 @@ public class Trade extends Notification {
         half1 = new HalfTrade(tradeID, user1.getUserID(), 1);
         half2 = new HalfTrade(tradeID, user2.getUserID(), 2);
         db.addTrade(this);
+    }
+
+    public HalfTrade getOppositeHalf(User user) {
+        if (half1.getUser().equals(user.getUserID())) {
+            return half2;
+        } else if (half2.getUser().equals(user.getUserID())) {
+            return half1;
+        }
+        return null;
     }
 
     /**
