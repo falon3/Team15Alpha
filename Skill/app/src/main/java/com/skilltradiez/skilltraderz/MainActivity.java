@@ -108,19 +108,25 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void newUser(View view){
-        Context context = getApplicationContext();
 
-        try {
-            if(newUserName.getText().toString() == ""){
-                //@todo toast! "You need a name"
-                //Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-            }else {
-                userDB.createUser(newUserName.getText().toString());
-                setContentView(R.layout.activity_main);
-                //@todo email if needed
-            }
-        } catch (UserAlreadyExistsException e) {
-            //@todo that don't work toast or etc
+        final Context context = getApplicationContext();
+        if(newUserName.getText().toString().isEmpty()){
+            Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
+        }else {
+            final String username = newUserName.getText().toString();
+
+                new Thread() {
+                    public void run() {
+                        try {
+                            userDB.createUser(username);
+                        } catch (UserAlreadyExistsException e) {
+                            // Failed
+                            newUserName.setText("Username already in use");
+                        }
+                    }
+                }.start();
+
+            //@todo email if needed
         }
     }
 

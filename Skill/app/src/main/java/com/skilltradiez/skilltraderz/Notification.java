@@ -27,7 +27,7 @@ public abstract class Notification {
     /**
      * Reads the flag indicating if something has changed, and clears it.
      */
-    public boolean readChanged() {
+    public boolean hasChanged() {
         boolean tmp = notify;
         notify = false;
         return tmp;
