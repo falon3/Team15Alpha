@@ -1,5 +1,89 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * We want an android framework that will support the ability for the user to interact
+ * with our application in a very logical and easy way. So we're going to create an activity
+ * that is associated with just the activities with the user. This activity is going to be
+ * associated purely with the profile process that the user will need to interact
+ * with through our application.
+ *
+ * ~~ACCESS:
+ * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
+ * we can have this class actually be accessed technically anywhere in the application that
+ * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
+ * an instance of the "EditTradeActivity" object.
+ *
+ * Instead what is happening is that we are having this activity be called by the onCreate() method
+ * as is traditionally done in the android studio framework for android applications. In this
+ * instance we're going to create this activity and then we'll have an onstart() method following
+ * this which is going to make it so that we have this activate a cascade of events that are all
+ * interelated with the main primary goal of allowing us to have a screen where we edit the
+ * trading activity!
+ *
+ *~~CONSTRUCTOR:
+ * Upon calling the method onCreate() for this activity the android studio framework will
+ * cause the android application to create an instance of this actvity and display it to the user.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: VIEWEDUSER:
+ *     Suppose we view a user, we want to keep track of this, and so we are going to store
+ *     this as a very basic User object class. This is assigned early on in the creation
+ *     of this activity.
+ *
+ *
+ * 2: VIEWINGUSER:
+ *     When we are currently viewing a user we will maintain a record of that user and this is
+ *     going to be stored as a User attribute where we maintain the user that we're currently
+ *     ordering the UI to actually make us look at.
+ *
+ * 3: SETUSERDESCRIPTION:
+ *     This is the method that will be called when the user interacts with the UI in order
+ *     to change their description of the user. This will activate a series of statements
+ *     that will grant the ability for the user to modify their user description.
+ *
+ * 4: CHECKINVENTORY:
+ *     This is going to be the UI method called that when the user wants to check the inventory
+ *     of another user they will then have the inventory of the other user appear on their screen.
+ *     And then we have things update and modify themselves and change around.
+ *
+ * 5: STARTTRADE:
+ *     This is the method called when the user clicks in the userinterface for the goal of starting
+ *     a trade with the other user. This is going to invoke a cascade of methods that will
+ *     then initiate a trade request.
+ *
+ *
+ * 6: ADDFRIEND:
+ *     This is going to be the method called when the user is on another user's profile
+ *     and they want to add them as a friend and then this will make a series of functional
+ *     calls where the user who's profile we're currently on is going to be udpdated on the
+ *     friends list with a friend request.
+ *
+ *     Of course until this is accepted you are NOT the other user's friend.
+ *     Mean girls pls.
+ *
+ *  7:REMOVEFRIEND:
+ *      This is how we interact with the other user's profile to actualyl remove the user from
+ *      our friendslist. This is going to be located on the profile of an ALREADY ADDED/FRIENDED
+ *      user and then we will have it so that the friendlists are updated with the mutual
+ *      removal of each user from eachothers friends lists.
+ *
+ *
+ *  8: BLOCKUNBLOCKEDUSER:
+ *      This is going to be a mutual method where we have the ability to both
+ *      block and unblock a particular user. This is going to update our block lists and when
+ *      the user is already blocked we have this method UNblock the user and when the user is NOT YET
+ *      blocked and we click this we then block the user.
+ *
+ *
+ *
+ *  9: CHECKUSER:
+ *     This is going to return the ID of the user that we're looking at. Simple as that, allowing
+ *     us to see just who this particular user is!
+ *
+ *
+ *
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
