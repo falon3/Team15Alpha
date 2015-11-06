@@ -12,7 +12,7 @@ Part 4 requirements:
    1. Code Base of Prototype: have a [code base](https://github.com/CMPUT301F15T15/Team15Alpha)
 
 
-   2. Demonstrate something tangible [video]() 
+   2. Demonstrate something tangible [video](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
    
    
    3. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
