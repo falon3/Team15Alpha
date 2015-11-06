@@ -158,9 +158,9 @@ public class MainActivity extends ActionBarActivity {
     public void beginAllSearch(View view){
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         if(view.getId() == R.id.browse_skillz){
-            intent.putExtra("All_skills", 0);
+            intent.putExtra("All_search", 0);
         } else {
-            intent.putExtra("All_users", 1);
+            intent.putExtra("All_search", 1);
         }
         startActivity(intent);
     }
@@ -180,7 +180,6 @@ public class MainActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void showProfile(View view){
-
         Intent intent = new Intent(mainContext, ProfileActivity.class);
         intent.putExtra("user_name_for_profile", userDB.getCurrentUser().getProfile().getUsername());
         startActivity(intent);
