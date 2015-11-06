@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,9 +30,15 @@ public class LocalPersistentObject {
     private List<Trade> trades; // User's Trade History
     private List<Notification> notifications; // Skill changes, Trade Changes
 
-    public User getCurrentUser() {
-        return currentUser;
+    LocalPersistentObject() {
+        currentUser = null;
+        users = new ArrayList<User>();
+        skillz = new ArrayList<Skill>();
+        trades = new ArrayList<Trade>();
+        notifications = new ArrayList<Notification>();
     }
+
+    public User getCurrentUser () { return currentUser;}
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
