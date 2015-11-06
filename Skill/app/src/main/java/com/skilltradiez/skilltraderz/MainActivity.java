@@ -10,6 +10,9 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import javax.microedition.khronos.egl.EGLDisplay;
 
 /*
  *    Team15Alpha
@@ -34,8 +37,9 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    private static UserDatabase userDB;
+    private static UserDatabase userDB = new UserDatabase();
 
+    //Main screen
     private Button searchButton;
     private Button searchAllSkillzButton;
     private Button searchAllUsersButton;
@@ -43,16 +47,21 @@ public class MainActivity extends ActionBarActivity {
     private EditText searchField;
     private String searchDatabase;
 
-    MainActivity(){
-        userDB = new UserDatabase();
-        userDB.getLocal();
-    }
+    //First time user screen
+    private EditText newUserName;
+    private EditText newUserEmail;
+    private Button makeNewUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //setContentView(R.layout.activity_main);
+
+        if(userDB.getCurrentUser() != null){
+            setContentView(R.layout.activity_main);
+        }else{
+            setContentView(R.layout.first_time_user);
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -80,6 +89,10 @@ public class MainActivity extends ActionBarActivity {
         goToProfile = (Button) findViewById(R.id.go_to_profile);
         searchField = (EditText) findViewById(R.id.search_bar);
 
+        newUserName = (EditText) findViewById(R.id.makeUserName);
+        newUserEmail = (EditText) findViewById(R.id.emailField);
+        makeNewUser = (Button) findViewById(R.id.beginApp);
+
         searchDatabase = "";
     }
 
@@ -92,6 +105,30 @@ public class MainActivity extends ActionBarActivity {
         Like in the lab Get a string and search
         SearchThread thread = new SearchThread(string);
         thread.start();*/
+    }
+
+    public void newUser(View view){
+        Context context = getApplicationContext();
+        if(newUserName.getText().toString() == ""){
+            //@todo toast! "You need a name"
+            Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Hello " + newUserName.getText().toString(), Toast.LENGTH_SHORT).show();
+            setContentView(R.layout.activity_main);
+            //@todo email if needed
+        }
+
+        /*try {
+            if(newUserName.getText().toString() == ""){
+                //@todo toast! "You need a name"
+                //Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
+            }else {
+                userDB.createUser(newUserName.getText().toString());
+                //@todo email if needed
+            }
+        } catch (UserAlreadyExistsException e) {
+            //@todo that don't work toast or etc
+        }*/
     }
 
     /**
