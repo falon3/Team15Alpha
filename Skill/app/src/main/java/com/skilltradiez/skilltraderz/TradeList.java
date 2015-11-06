@@ -26,7 +26,7 @@ import java.util.List;
  * Created by sja2 on 10/28/15.
  */
 
-public class TradeList {
+public class TradeList extends Notification {
     private ID owner;
     private List<ID> trades;
 
@@ -43,14 +43,6 @@ public class TradeList {
         Trade t = new Trade(userDB, user1, user2);
         t.setOffer(user1, offer);
         trades.add(t.getTradeID());
-
-        // TODO commit trade to database/local
-        try {
-            userDB.getElastic().addDocument("trade", t.getTradeID().toString(), t);
-        } catch (IOException e) {
-            // TODO: Push Locally
-            e.printStackTrace();
-        }
 
         return t;
     }
@@ -79,5 +71,10 @@ public class TradeList {
 
     public void delete(Trade trade) {
         trades.remove(trade);
+    }
+
+    @Override
+    public void commit(UserDatabase userDB) {
+
     }
 }

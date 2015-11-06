@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * FriendsList manages confirmed, pending and blocked friends for a single user.
  */
-public class FriendsList implements Notification {
+public class FriendsList extends Notification {
     private ID owner;
     private List<ID> friendsList;
     private List<ID> newFriends;
@@ -62,12 +62,14 @@ public class FriendsList implements Notification {
     public void removeFriend(User terrible_person) {
         friendsList.remove(terrible_person.getUserID());
         oldFriends.add(terrible_person.getUserID());
+        notifyDB();
     }
 
     public void addFriend(User great_person) {
         if (hasFriend(great_person)) return;
         friendsList.add(great_person.getUserID());
         newFriends.add(great_person.getUserID());
+        notifyDB();
     }
 
     /**

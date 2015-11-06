@@ -119,7 +119,7 @@ import java.io.IOException;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill implements Notification {
+public class Skill extends Notification {
 
     private String name;
     private String category;
@@ -253,7 +253,6 @@ public class Skill implements Notification {
         try {
             prev_version = ela.getDocumentSkill(skillID.getID() + "_" + version);
 
-            //TODO make equals method
             if (!prev_version.equals(this)) {
                 version = version + 1;
                 ela.addDocument("skill", skillID.getID() + "_" + version, this);
