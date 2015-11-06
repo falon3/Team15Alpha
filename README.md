@@ -5,11 +5,11 @@ Project Part 4 - Nov 6, 2015
 Addressing Feedback From Part 3:
   1. All feedback was positive (GREAT!)
 
-================================Still Needs To Be Changed==================================
+================================Relevant To Part 4 Of Our Project==================================
 Part 4 requirements:
    1. Code Base of Prototype: have a code base:https://github.com/CMPUT301F15T15/Team15Alpha
    2. Demonstrate something tangible (video): 
-   3. Code Documentation: brief introductory comment for each source file:
+   3. Code Documentation: brief introductory comment for each source file: https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File
                           Javadoc interface documentation:
    4. Test Cases: https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz
    5. Object-Oriented Design:  https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
@@ -17,7 +17,6 @@ Part 4 requirements:
    7. Reuse Statement: third party libraries:  https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch
 =======================================End Of Changes======================================
 
-### Please press Ctrl-Alt-L on every file you changed to format it before you commit!
 
 # License 
 ####   __SkillTradiez__ -- _The lost adventures_
