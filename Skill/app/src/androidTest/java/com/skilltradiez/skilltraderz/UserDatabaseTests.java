@@ -107,7 +107,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             user2 = db.getAccountByUsername("Username2");
 
             tl = user1.getTradeList();
-            assertEquals(tl.getMostRecentTrade(db).getActor2(), user2);
+            assertEquals(tl.getMostRecentTrade(db).getHalfForUser(user2).getUser(), user2.getUserID());
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }

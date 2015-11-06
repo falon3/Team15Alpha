@@ -69,7 +69,7 @@ public class Local {
     }
 
     // method to save LocalPersistentObject to local file
-    private void saveToFile() throws IOException {
+    public void saveToFile() throws IOException {
         FileOutputStream fop = null;
         File file = new File(SAVE_FILE);
 

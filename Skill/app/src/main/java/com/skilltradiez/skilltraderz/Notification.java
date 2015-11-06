@@ -19,7 +19,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public abstract class Notification {
-    private Boolean notify = false;
+    private boolean notify = false;
     public void notifyDB() {
         notify = true;
     }
@@ -27,11 +27,11 @@ public abstract class Notification {
     /**
      * Reads the flag indicating if something has changed, and clears it.
      */
-    public Boolean readChanged() {
+    public boolean readChanged() {
         boolean tmp = notify;
         notify = false;
         return tmp;
     }
 
-    abstract void commit(UserDatabase userDB);
+    abstract boolean commit(UserDatabase userDB);
 }
