@@ -1,5 +1,65 @@
 package com.skilltradiez.skilltraderz;
 
+/**~~DESCRIPTION:
+ * We want an android framework that will support the ability for the user to interact
+ * with our application in a very logical and easy way. So we're going to create an activity
+ * that is associated with just the activities with the user. This activity is going to be
+ * associated purely with the entire skill description process that the user will need to interact
+ * with through our application.
+ *
+ * ~~ACCESS:
+ * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
+ * we can have this class actually be accessed technically anywhere in the application that
+ * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
+ * an instance of the "EditTradeActivity" object.
+ *
+ * Instead what is happening is that we are having this activity be called by the onCreate() method
+ * as is traditionally done in the android studio framework for android applications. In this
+ * instance we're going to create this activity and then we'll have an onstart() method following
+ * this which is going to make it so that we have this activate a cascade of events that are all
+ * interelated with the main primary goal of allowing us to have a screen where we edit the
+ * trading activity!
+ *
+ *~~CONSTRUCTOR:
+ * Upon calling the method onCreate() for this activity the android studio framework will
+ * cause the android application to create an instance of this actvity and display it to the user.
+ *
+ * ~~ATTRIBUTES/METHODS:
+ * 1: MAKESEARCHTHREAD:
+ *     This is going to grant the user the ability to make a search thread for searching
+ *     through various things through our application such as profiles, friends, skills,
+ *     inventories.
+ *
+ * 2: NEWUSER:
+ *     This is going to be how we actually add a new user to our application and our application
+ *     database. Without this UI element and method tied to the UI we would no doubt have
+ *     a complete and utter failure of this application.
+ *
+ *
+ * 3: BEGINALLSEARCH:
+ *     This is going to be how we're going to actually begin all of the potential searches
+ *     within this application. We let it begin a potential search options from this UI option
+ *     which invokes this UI method.
+ *
+ * 4: BEGINREFINEDSEARCH:
+ *     Suppose the user of the application wants a furhter refined search with more speficic options
+ *     that are tied to the search process. This is going to be the method called and then we will
+ *     provide all of the search options to the various users.
+ *
+ * 5: SHOWPROFILE
+ *     This is going to be the method called when the user clicks on the UI where we will
+ *     successfully have all of the profile of what they clicked on through this method.
+ *
+ * 6: CREATENEWSKILL:
+ *     Suppose we have the user wanting to create a new skill for our application. This is going
+ *     to be the method that is called through the UI when the UI is clicked that will prompt
+ *     for the entire cascade of what is going to be produced through the entire cascaded process.
+ *
+ *
+ *
+ *
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
