@@ -26,8 +26,11 @@ Part 4 requirements:
    https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML
 
    6. Release Planning:
+   
       https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning
+
    7. Reuse Statement: 
+   
       https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch
 
 
