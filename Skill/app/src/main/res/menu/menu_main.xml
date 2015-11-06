@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skillz="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        skillz:showAsAction="always" />
+    <item
+        android:id="@+id/list"
+        android:title="list"
+        skillz:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/test"
+        android:title="test"
+        skillz:showAsAction="ifRoom" />
+
+</menu>
