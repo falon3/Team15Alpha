@@ -32,8 +32,8 @@ import android.widget.Toast;
 
 public class ProfileActivity extends ActionBarActivity {
 
-    private User viewedUser;
-    private User viewingUser;
+    private Bundle profileExtras;
+    private String userProfileName;
 
     private Context profileContext = this;
 
@@ -42,6 +42,7 @@ public class ProfileActivity extends ActionBarActivity {
     private Button startTrade;
     private Button viewInventory;
     private TextView userDescription;
+    private TextView userNameOnProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,9 @@ public class ProfileActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+        profileExtras = getIntent().getExtras();
+        userProfileName = profileExtras.getString("user_name_for_profile");
+        System.out.println(userProfileName);
         return true;
     }
 
@@ -65,18 +69,19 @@ public class ProfileActivity extends ActionBarActivity {
         startTrade = (Button) findViewById(R.id.maketrade);
         viewInventory = (Button) findViewById(R.id.inventory);
         userDescription = (TextView) findViewById(R.id.user_description);
+        userNameOnProfile = (TextView) findViewById(R.id.user_name);
+
+        populateProfile();
 
 
     }
 
     /**
-     * Get the description of the user we're looking at.
-     * @return A string of the user's description.
+     * When you click on a profile it gets data something something @todo make this sound nicer
      */
-    public String setUserDescription(){
-        //@todo need to make a description object in USER
-        //return currentUser.description();
-        return null;
+    public void populateProfile(){
+        userNameOnProfile.setText("Hi User");
+
     }
 
 

@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    private static UserDatabase userDB = new UserDatabase();
+    public static UserDatabase userDB = new UserDatabase();
 
     //Main screen
     private Button searchButton;
@@ -96,6 +96,12 @@ public class MainActivity extends ActionBarActivity {
         searchDatabase = "";
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        userDB.save();
+    }
+
     /**
      * Make a thread with a string. Used to search the database for a specific user or skill.
      * @param
@@ -106,6 +112,11 @@ public class MainActivity extends ActionBarActivity {
         SearchThread thread = new SearchThread(string);
         thread.start();*/
     }
+
+    /**
+     * Create a new user when you first open up the app.
+     *
+     */
     private static User new_guy = null;
     public void newUser(View view){
 
@@ -164,19 +175,18 @@ public class MainActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void showProfile(View view){
-        //get user id to sent to the profileActivity so that we open up the right profile
-        Intent intent = new Intent(mainContext, ProfileActivity.class);
 
+        Intent intent = new Intent(mainContext, ProfileActivity.class);
+        intent.putExtra("user_name_for_profile",userDB.getCurrentUser().getProfile().getUsername());
         startActivity(intent);
     }
 
     /**
      * Sends user to the EditSkill activity to make a new skill
      * @param view
-     * @ TODO:
      */
     public void createNewSkill(View view){
-        //need to differentiate 'createnewskill' and 'edit skill'
+        //@todo need to differentiate 'createnewskill' and 'edit exisiting skill'???????
         Intent intent = new Intent(mainContext, EditSkillActivity.class);
         startActivity(intent);
     }
