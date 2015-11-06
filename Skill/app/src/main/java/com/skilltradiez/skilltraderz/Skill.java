@@ -132,15 +132,6 @@ public class Skill extends Notification {
     /**
      * CONSTRUCTORS
      **/
-    Skill(UserDatabase db, String skill_name) {
-        setName(skill_name);
-        setCategory("Misc.");
-        setVisible(true);//Default is visible
-        setDescription("");//Empty String
-        setImage(new NullImage());
-
-        db.addSkill(this);
-    }
 
     Skill(UserDatabase db, String skill_name, String category) {
         setName(skill_name);
@@ -259,8 +250,15 @@ public class Skill extends Notification {
             }
         } catch (IOException e) {
             //TODO Save Locally
+            userDB.getLocal().getLocalData().getNotifications().add(this);
+            try {
+                userDB.getLocal().saveToFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
+            return false;
         }
-        return true; //TODO FIXME XXX
+        return true;
     }
 }

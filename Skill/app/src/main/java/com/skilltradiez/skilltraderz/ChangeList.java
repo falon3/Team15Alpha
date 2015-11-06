@@ -24,13 +24,17 @@ import java.util.List;
 
 class ChangeList {
     private List<Notification> notifications;
+    private List<Notification> newNotifications;
+    boolean lock;
 
     ChangeList() {
         notifications = new ArrayList<Notification>();
+        newNotifications = new ArrayList<Notification>();
     }
 
     public void add(Notification newNote) {
-        notifications.add(newNote);
+        if (lock) newNotifications.add(newNote);
+        else notifications.add(newNote);
     }
 
     public List<Notification> getNotifications() {
@@ -44,6 +48,7 @@ class ChangeList {
      * - If the commit is successful, then we remove the Notification
      */
     public void push(UserDatabase userDB) {
+        lock = true;
         for (Notification note : notifications) {
             try {
                 // Perform needed changes
@@ -55,5 +60,8 @@ class ChangeList {
                 //TODO Catch
             }
         }
+        lock = false;
+        notifications.addAll(newNotifications);
+        newNotifications.clear();
     }
 }

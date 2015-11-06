@@ -123,7 +123,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User joel = db.createUser("Joel");
 
             List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
-            skillz1.add(new Skill(db, "...YEP"));
+            skillz1.add(new Skill(db, "...YEP", "FOO"));
 
             TradeList tl = bob.getTradeList();
             tl.createTrade(db, bob, joel, skillz2);
@@ -154,7 +154,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User joel = db.createUser("Joel");
 
             List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
-            skillz1.add(new Skill(db, "...YEP"));
+            skillz1.add(new Skill(db, "...YEP", "BAR"));
 
             TradeList tl = bob.getTradeList();
 
