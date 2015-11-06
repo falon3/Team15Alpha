@@ -119,7 +119,7 @@ public class SearchScreenActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
 
-        searchExtras = getIntent().getExtras();
+   /*     searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt("All_search");
 
         resultsList = (ListView) findViewById(R.id.search_list);
@@ -136,7 +136,7 @@ public class SearchScreenActivity extends ActionBarActivity {
             // all users
             resultsList.setAdapter(userAdapter);
 
-        }
+        }*/
 
 
 

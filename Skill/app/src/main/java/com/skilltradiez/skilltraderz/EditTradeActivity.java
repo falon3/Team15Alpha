@@ -36,13 +36,17 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -83,6 +87,29 @@ public class EditTradeActivity extends ActionBarActivity {
         tradeTitle = (TextView) findViewById(R.id.trading_with);
 
         //skillsInTrade = (ListView) findViewById(R.id.skill);
+    }
+
+    public void addSkillToTrade(View view){
+
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Doesn't work yet whoops!", Toast.LENGTH_SHORT).show();
+        /*Intent intent = new Intent(EditTradeActivity.this, InventoryActivity.class);
+        startActivity(intent);*/
+    }
+
+    public void deleteRequest(View view){
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
+        /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
+        startActivity(intent);*/
+    }
+
+    public void sendTrade(View view){
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
+        /*ntent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
+        startActivity(intent);*/
+
     }
 
 
