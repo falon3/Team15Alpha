@@ -40,7 +40,7 @@ public class TradeList {
     }
 
     public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer) {
-        Trade t = new Trade(user1, user2);
+        Trade t = new Trade(userDB, user1, user2);
         t.setOffer(user1, offer);
         trades.add(t.getTradeID());
 

@@ -128,7 +128,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             user2 = db.getAccountByUsername("Username2");
 
             fl = user1.getFriendsList();
-            assertEquals(fl.getFriend(2), user2.getUserID());
+            assertEquals(fl.getFriends().get(0), user2.getUserID());
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }

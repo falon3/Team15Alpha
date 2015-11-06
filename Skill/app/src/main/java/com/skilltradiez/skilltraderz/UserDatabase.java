@@ -55,6 +55,7 @@ public class UserDatabase {
         User u = new User(username);
         users.add(u);
         currentUser = u;
+        getChangeList().add(u.getFriendsList());
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
@@ -66,6 +67,7 @@ public class UserDatabase {
     public User login(String username) {
         User u = getAccountByUsername(username);
         currentUser = u;
+        getChangeList().add(u.getFriendsList());
         return u;
     }
 
@@ -84,11 +86,6 @@ public class UserDatabase {
     }
 
     public void save() {
-        try {
-            elastic.addDocument("user", currentUser.getProfile().getUsername(), currentUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         toBePushed.push(this);
         // Saves locally and pushes changes if connected to the internet
     }
