@@ -41,7 +41,6 @@ public class ProfileActivity extends ActionBarActivity {
     private Context profileContext = this;
 
     private Button addRemoveFriend;
-    private Button blockUser;
     private Button startTrade;
     private Button viewInventory;
     private TextView userContactInfo;
@@ -55,7 +54,6 @@ public class ProfileActivity extends ActionBarActivity {
         userProfileName = profileExtras.getString("user_name_for_profile");
 
         addRemoveFriend = (Button) findViewById(R.id.add_friend);
-        blockUser = (Button) findViewById(R.id.block);
         startTrade = (Button) findViewById(R.id.maketrade);
         viewInventory = (Button) findViewById(R.id.inventory);
         userContactInfo = (TextView) findViewById(R.id.user_description);
@@ -77,6 +75,7 @@ public class ProfileActivity extends ActionBarActivity {
     @Override
     public void onStart(){
         super.onStart();
+        populateProfile();
     }
 
     /**
@@ -85,12 +84,7 @@ public class ProfileActivity extends ActionBarActivity {
     public void populateProfile(){
         currentUser = MainActivity.userDB.getAccountByUsername(userProfileName);
         hasFriend = currentUser.getFriendsList().hasFriend(MainActivity.userDB.getCurrentUser());
-        //new Thread() {
-            //public void run() {
-                //profileTitle.setText(userProfileName);
-                //userContactInfo.setText(currentUser.getProfile().getEmail());
-          //  }
-        //}.start();
+
     }
 
 
@@ -126,18 +120,17 @@ public class ProfileActivity extends ActionBarActivity {
         }
         hasFriend = !hasFriend;
     }
+
     /**
      * Add a user as a friend.
      */
     public void addFriend(){
+
+        //@todo send friend to be added to friend list
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
-        //new Thread() {
-          //  public void run() {
-                addRemoveFriend.setText(R.string.remove_friend);
-          //  }
-        //}.start();
+        addRemoveFriend.setText(R.string.remove_friend);
 
     }
 
@@ -145,33 +138,15 @@ public class ProfileActivity extends ActionBarActivity {
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
+        //@todo send friend to remove from friend list
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
-        /*new Thread() {
+        runOnUiThread(new Runnable() {
+            @Override
             public void run() {
                 addRemoveFriend.setText(R.string.add_friend);
             }
-        }.start();*/
-    }
-
-    /**
-     * Blocks a user. This user will be added to a list of users that are not able to view your
-     * profile and inventory.
-     * @ TODO:
-     */
-    public void blockUnblockUser(){
-        //User will be notified with first an "are you sure" dialog and then a confirmation
-        // update view to change the "Block user" button to "Unblock User"
-        Toast toast = Toast.makeText(profileContext, "blocked a user", Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    /**
-     * Check the user that we are looking at and change the USER_ID to match.
-     * @ TODO:
-     */
-    public void checkUser(){
-        //USER_ID = some function to tell us who we're looking at
+        });
     }
 }
