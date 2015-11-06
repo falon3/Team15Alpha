@@ -130,8 +130,8 @@ public class ProfileActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
-        addRemoveFriend.setText(R.string.remove_friend);
 
+        addRemoveFriend.setText(R.string.remove_friend);
     }
 
     /**
@@ -142,11 +142,7 @@ public class ProfileActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                addRemoveFriend.setText(R.string.add_friend);
-            }
-        });
+
+        addRemoveFriend.setText(R.string.add_friend);
     }
 }
