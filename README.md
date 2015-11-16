@@ -1,9 +1,12 @@
 # Team15Alpha
 ####Project Deliverables 
-Project Part 4 - Submission date: Nov 6, 2015
+Project Part 5 - DUE NOVEMBER 30th! 
 
-## Addressing Feedback From Part 3:
-  1. All feedback was positive (GREAT!)
+## Addressing Feedback From Part 4:
+  1. Create JUnit Tests for UI
+  2. Implement exception handling as much as possible.
+  
+  3. Implement more use cases
 
 ## Relevant To Part 4 Of Our Project
 Part 4 requirements:
@@ -12,7 +15,7 @@ Part 4 requirements:
    1. Code Base of Prototype: have a [code base](https://github.com/CMPUT301F15T15/Team15Alpha)
 
 
-   2. Demonstrate something tangible [video]() 
+   2. Demonstrate something tangible [video](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
    
    
    3. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
