@@ -143,6 +143,7 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     }
 
+
     /**
      * Take a string and refine the list of Users/Skills
      * @ TODO:

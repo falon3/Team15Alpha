@@ -116,6 +116,8 @@ public class MainActivity extends ActionBarActivity {
     private Button makeNewUser;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +127,7 @@ public class MainActivity extends ActionBarActivity {
         StrictMode.setThreadPolicy(policy);
 
         userDB = new UserDatabase();
+
 
         if (userDB.getCurrentUser() != null) {
             setContentView(R.layout.activity_main);
@@ -261,4 +264,7 @@ public class MainActivity extends ActionBarActivity {
         userDB.deleteAllData();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
+
+
+
 }
