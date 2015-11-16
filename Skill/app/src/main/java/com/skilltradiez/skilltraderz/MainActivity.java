@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
     private Context mainContext = this;
 
     public static UserDatabase userDB;
-    public static Boolean connected;
+    //public static Boolean connected;
 
     //Main screen
     private Button searchButton;
@@ -141,8 +141,7 @@ public class MainActivity extends ActionBarActivity {
         searchAllUsersButton = (Button) findViewById(R.id.browse_users);
         goToProfile = (Button) findViewById(R.id.go_to_profile);
         searchField = (EditText) findViewById(R.id.search_bar);
-        // find out if connectivity
-        connected = isConnected();
+
 
         // first_time
         newUserName = (EditText) findViewById(R.id.makeUserName);
