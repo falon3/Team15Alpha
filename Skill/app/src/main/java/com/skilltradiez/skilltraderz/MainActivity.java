@@ -62,6 +62,8 @@ package com.skilltradiez.skilltraderz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
@@ -101,6 +103,7 @@ public class MainActivity extends ActionBarActivity {
     private Context mainContext = this;
 
     public static UserDatabase userDB;
+    //public static Boolean connected;
 
     //Main screen
     private Button searchButton;
@@ -142,7 +145,8 @@ public class MainActivity extends ActionBarActivity {
         goToProfile = (Button) findViewById(R.id.go_to_profile);
         searchField = (EditText) findViewById(R.id.search_bar);
 
-        // first_tine
+
+        // first_time
         newUserName = (EditText) findViewById(R.id.makeUserName);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
@@ -152,7 +156,6 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
         userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
     }
 
@@ -265,6 +268,18 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
 
+<<<<<<< HEAD
 
 
+=======
+    /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed
+       source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
+       returns true if connectivity is available*/
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+>>>>>>> upstream/master
 }
