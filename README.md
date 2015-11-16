@@ -1,6 +1,6 @@
 # Team15Alpha
 ####Project Deliverables 
-Project Part 4 - Submission date: Nov 6, 2015
+Project Part 5 - DUE NOVEMBER 30th! 
 
 ## Addressing Feedback From Part 4:
   1. Create JUnit Tests for UI
