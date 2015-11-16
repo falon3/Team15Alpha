@@ -2,8 +2,11 @@
 ####Project Deliverables 
 Project Part 4 - Submission date: Nov 6, 2015
 
-## Addressing Feedback From Part 3:
-  1. All feedback was positive (GREAT!)
+## Addressing Feedback From Part 4:
+  1. Create JUnit Tests for UI
+  2. Implement exception handling as much as possible.
+  
+  3. Implement more use cases
 
 ## Relevant To Part 4 Of Our Project
 Part 4 requirements:
