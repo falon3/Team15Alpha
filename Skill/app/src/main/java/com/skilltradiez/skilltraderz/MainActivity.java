@@ -268,10 +268,10 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
 
-<<<<<<< HEAD
 
 
-=======
+
+
     /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed
        source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
        returns true if connectivity is available*/
@@ -281,5 +281,5 @@ public class MainActivity extends ActionBarActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
->>>>>>> upstream/master
+
 }
