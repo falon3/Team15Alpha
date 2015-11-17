@@ -117,14 +117,16 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by sja2 on 10/28/15.
  */
 public class UserDatabase {
     private User currentUser;
-    private List<User> users;
+    private Set<User> users;
     private List<Trade> trades;
     private List<Skill> skillz;
     private ChangeList toBePushed;
@@ -132,7 +134,7 @@ public class UserDatabase {
     private Local local;
 
     UserDatabase() {
-        users = new ArrayList<User>();
+        users = new HashSet<User>();
         trades = new ArrayList<Trade>();
         skillz = new ArrayList<Skill>();
         toBePushed = new ChangeList();
@@ -189,9 +191,19 @@ public class UserDatabase {
         }
     }
 
-    public void pullUsers() {
-        for (int i = 0; i < users.size(); i++) {
-            users.set(i, getOnlineAccountByUsername(users.get(i).getProfile().getUsername()));
+    /**
+     * Downloads all online data into a local cache
+     */
+    public void refresh() {
+        try {
+            List<User> onlineUsers = elastic.getAllUsers();
+            for (User u : onlineUsers) {
+                if (u.equals(currentUser)) continue;
+                users.remove(u);
+                users.add(u);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -318,5 +330,9 @@ public class UserDatabase {
         getChangeList().add(currentUser.getFriendsList());
         getChangeList().add(currentUser.getTradeList());
         getChangeList().add(currentUser.getProfile());
+    }
+
+    public Set<User> getUsers() {
+        return users;
     }
 }

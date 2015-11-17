@@ -232,6 +232,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -294,8 +295,13 @@ public class Elastic {
 
     public List<User> getAllUsers() throws IOException {
         String resp = httpClient.get(baseUrl + "user/_search?size=9999999");
-        Type getResponseType = new TypeToken<SearchResponse<User>>() { }.getType();
-        return ((SearchResponse<User>)gson.fromJson(resp, getResponseType)).getHits();
+        Type getResponseType = new TypeToken<UserSearchResponse>() { }.getType();
+        UserSearchResponse searchResponse = gson.fromJson(resp, getResponseType);
+        List<User> hitsT = new ArrayList<User>();
+        for (UserSearchResponse.Hit hit : searchResponse.hits.hits) {
+            hitsT.add(hit._source);
+        }
+        return hitsT;
     }
 
     //The next three methods need to be separate because java's generics aren't real generics,

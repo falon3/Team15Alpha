@@ -33,6 +33,7 @@
         </activity>
         <activity
             android:name=".SearchScreenActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             android:label="@string/title_activity_search_screen" >
         </activity>
         <activity
