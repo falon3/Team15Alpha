@@ -168,6 +168,13 @@ public class SearchScreenActivity extends ActionBarActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
+        users.clear();
+        Set<User> onlineUsers = MainActivity.userDB.getUsers();
+        for (User u : onlineUsers) {
+            if (u.getProfile().getUsername().contains(searchField.getText().toString()))
+                users.add(u);
+        }
+        userAdapter.notifyDataSetChanged();
     }
 
     public void clickOnUser(User u) {
