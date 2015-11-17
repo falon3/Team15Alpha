@@ -6,24 +6,26 @@ import java.util.List;
 /**
  * Created by nweninge on 11/6/15.
  */
-public class SearchResponse<T> {
+public class UserSearchResponse {
+    private int took;
+    private boolean timed_out;
     private Shards _shards;
     class Shards {
         int total;
         int sucessful;
         int failed;
     }
-    private Hits hits;
+    public Hits hits;
     class Hits {
         int total;
-        ArrayList<GetResponse<T>> hits;
+        float max_score;
+        List<Hit> hits;
     }
-
-    public List<T> getHits() {
-        List<T> hitsT = new ArrayList<T>();
-        for (GetResponse<T> hit : hits.hits) {
-            hitsT.add(hit._source);
-        }
-        return hitsT;
+    class Hit {
+        String _index;
+        String _type;
+        String _id;
+        float _score;
+        User _source;
     }
 }

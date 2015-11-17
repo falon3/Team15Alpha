@@ -88,6 +88,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -95,9 +96,9 @@ import java.util.List;
  */
 public class LocalPersistentObject {
     private User currentUser; // Profile, Inventory, Friendslist
-    private List<User> users; // Friends Profiles, Inventories
-    private List<Skill> skillz; // Skillz that are found in the User and Friend's Inventories
-    private List<Trade> trades; // User's Trade History
+    private Collection<User> users; // Friends Profiles, Inventories
+    private Collection<Skill> skillz; // Skillz that are found in the User and Friend's Inventories
+    private Collection<Trade> trades; // User's Trade History
     private List<Notification> notifications; // Skill changes, Trade Changes
 
     LocalPersistentObject() {
@@ -114,31 +115,31 @@ public class LocalPersistentObject {
         this.currentUser = currentUser;
     }
 
-    public List<User> getUsers() {
+    public Collection<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Collection<User> users) {
         this.users = users;
     }
 
-    public List<Skill> getSkillz() {
+    public Collection<Skill> getSkillz() {
         return skillz;
     }
 
-    public void setSkillz(List<Skill> skillz) {
+    public void setSkillz(Collection<Skill> skillz) {
         this.skillz = skillz;
     }
 
-    public List<Trade> getTrades() {
+    public Collection<Trade> getTrades() {
         return trades;
     }
 
-    public void setTrades(List<Trade> trades) {
+    public void setTrades(Collection<Trade> trades) {
         this.trades = trades;
     }
 
-    public List<Notification> getNotifications() {
+    public Collection<Notification> getNotifications() {
         return notifications;
     }
 
