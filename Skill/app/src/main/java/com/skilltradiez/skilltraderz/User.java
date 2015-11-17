@@ -160,4 +160,8 @@ public class User extends Observable {
         return id != null ? id.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return profile.getUsername();
+    }
 }

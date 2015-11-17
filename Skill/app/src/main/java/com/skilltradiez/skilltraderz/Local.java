@@ -99,6 +99,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -124,8 +125,8 @@ public class Local {
         return save_object;
     }
 
-    public void saveToFile(User me, List<User> friends, List<Skill> skillz,
-                           List<Trade> trades, List<Notification> notifications) {
+    public void saveToFile(User me, Collection<User> friends, Collection<Skill> skillz,
+                           Collection<Trade> trades, List<Notification> notifications) {
         save_object.setCurrentUser(me);
         save_object.setUsers(friends);
         save_object.setSkillz(skillz);

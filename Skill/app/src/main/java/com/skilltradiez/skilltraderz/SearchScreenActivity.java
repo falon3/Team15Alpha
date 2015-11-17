@@ -64,6 +64,7 @@ package com.skilltradiez.skilltraderz;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -74,7 +75,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /*
  *    Team15Alpha
@@ -119,7 +124,10 @@ public class SearchScreenActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
 
-   /*     searchExtras = getIntent().getExtras();
+        users = new ArrayList<User>();
+        skillz = new ArrayList<Skill>();
+
+        searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt("All_search");
 
         resultsList = (ListView) findViewById(R.id.search_list);
@@ -129,28 +137,43 @@ public class SearchScreenActivity extends ActionBarActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
-        if(screenType == 0){
+        resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User user = (User)parent.getItemAtPosition(position);
+                clickOnUser(user);
+            }
+        });
+
+        if (screenType == 0) {
             // all skills
             resultsList.setAdapter(skillAdapter);
         } else {
             // all users
             resultsList.setAdapter(userAdapter);
 
-        }*/
+        }
+        MainActivity.userDB.refresh();
 
-
-
-
+        users.clear();
+        users.addAll(MainActivity.userDB.getUsers());
+        userAdapter.notifyDataSetChanged();
     }
 
     /**
      * Take a string and refine the list of Users/Skills
      * @ TODO:
      */
-    public void refineSearch(){
+    public void refineSearch(View v){
         //get whatever is in searchField
         //apply it to the list of results
         //update view
+    }
+
+    public void clickOnUser(User u) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("user_name_for_profile", u.getProfile().getUsername());
+        startActivity(intent);
     }
 
     /**
@@ -168,8 +191,5 @@ public class SearchScreenActivity extends ActionBarActivity {
      */
     public void populateListView(){
 
-
-
     }
-
 }
