@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Created by Stephen on 2015-11-07.
  */
+/*
 public class SkillListAdapter extends ArrayAdapter<Skill> {
     private final Activity context;
     private final List<Skill> skillz;
@@ -41,7 +42,7 @@ public class SkillListAdapter extends ArrayAdapter<Skill> {
         // or a better If Drawable has been set by constructor
         imageView.setImageResource(here.getImage());
         return rowView;*/
-
+/*
 
         Skill skill = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
@@ -73,3 +74,4 @@ public class SkillListAdapter extends ArrayAdapter<Skill> {
         ImageView img;
     }
 }
+*/
