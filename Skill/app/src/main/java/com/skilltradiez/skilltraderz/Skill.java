@@ -118,6 +118,8 @@
  */
 package com.skilltradiez.skilltraderz;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -220,11 +222,11 @@ import java.io.Serializable;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill extends Notification {
+public class Skill extends Notification implements Stringeable {
 
     private String name;
     private String category;
-    private Image image;
+    private int image;
     private boolean visible;
     private String description;
     private Integer version = 0;
@@ -239,7 +241,7 @@ public class Skill extends Notification {
         setCategory(category);
         setVisible(true);//Default is visible
         setDescription("");//Empty String
-        setImage(new NullImage());
+        setImage(new NullImage().getInt());
 
         //TODO this probably shouldn't add itself to the database.
         db.addSkill(this);
@@ -269,11 +271,11 @@ public class Skill extends Notification {
     }
 
     //Traditional getter and setter methods for the private attribute image
-    public Image getImage() {
-        return image;
+    public int getImage() {
+        return image;//Drawable.createFromInputStream(URL, null);
     }
 
-    public void setImage(Image image) {
+    public void setImage(int image) {
         this.image = image;
         notifyDB();
     }
@@ -281,7 +283,7 @@ public class Skill extends Notification {
     //DELETION of an image method. Replaces the image with a newly instantiated NullImage
     //object within this line.
     public void deleteImage() {
-        setImage(new NullImage());
+        setImage(new NullImage().getInt());
     }
 
     //Traditional getter and setter methods for the private attribute description.
@@ -321,7 +323,7 @@ public class Skill extends Notification {
         if (!getName().equals(skill.getName())) return false;
         if (getCategory() != null ? !getCategory().equals(skill.getCategory()) : skill.getCategory() != null)
             return false;
-        if (getImage() != null ? !getImage().equals(skill.getImage()) : skill.getImage() != null)
+        if (getImage() == skill.getImage())
             return false;
         if (getDescription() != null ? !getDescription().equals(skill.getDescription()) : skill.getDescription() != null)
             return false;
@@ -334,7 +336,7 @@ public class Skill extends Notification {
     public int hashCode() {
         int result = getName().hashCode();
         result = 31 * result + (getCategory() != null ? getCategory().hashCode() : 0);
-        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + getImage();
         result = 31 * result + (isVisible() ? 1 : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         result = 31 * result + version.hashCode();

@@ -54,8 +54,8 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class NullImage extends Image {
-    NullImage() {
-        super("default_image.tiff");
+public class NullImage {
+    public int getInt() {
+        return R.id.user_icon;
     }
 }

@@ -110,7 +110,7 @@ import java.util.Observable;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class User extends Observable {
+public class User extends Observable implements Stringeable {
     private Profile profile;
     private Inventory inventory;
     private FriendsList friendsList;
@@ -163,5 +163,18 @@ public class User extends Observable {
     @Override
     public String toString() {
         return profile.getUsername();
+    }
+
+    public String getName() {
+        return profile.getUsername();
+    }
+
+    public String getDescription() {
+        return profile.getLocation();
+    }
+
+    public int getImage() {
+        //TODO Decide how images work
+        return profile.getAvatar().hashCode();
     }
 }
