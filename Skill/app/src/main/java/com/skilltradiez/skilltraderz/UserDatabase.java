@@ -212,6 +212,7 @@ public class UserDatabase {
         }
     }
 
+
     public void save() {
         toBePushed.push(this);
         // TODO: Saves locally and pushes changes if connected to the internet

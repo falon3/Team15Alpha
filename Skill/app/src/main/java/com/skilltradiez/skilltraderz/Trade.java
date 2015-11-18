@@ -99,6 +99,8 @@ public class Trade extends Notification {
 
     private HalfTrade half1, half2;
 
+
+
     Trade(UserDatabase db, User user1, User user2) {
         tradeID = ID.generateRandomID();
         half1 = new HalfTrade(tradeID, user1.getUserID(), 1);
