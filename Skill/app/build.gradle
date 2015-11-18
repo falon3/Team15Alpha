@@ -10,6 +10,9 @@ android {
         targetSdkVersion 18
         versionCode 1
         versionName "1.0"
+
+        //added for espresso
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -24,10 +27,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile 'junit:junit:4.12'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:18.0.0'
-    compile "com.google.code.gson:gson:2.3"
-
-
+    compile 'com.google.code.gson:gson:2.3'
+    //Had to add these in order to use espresso
+    androidTestCompile 'com.android.support:support-annotations:18.0.1'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
 }

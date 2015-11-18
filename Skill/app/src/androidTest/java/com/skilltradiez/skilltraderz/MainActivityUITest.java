@@ -1,14 +1,22 @@
 package com.skilltradiez.skilltraderz;
 
 import android.app.Activity;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
+import android.test.suitebuilder.annotation.LargeTest;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.support.test.InstrumentationRegistry;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Created by Cole on 2015-11-17.
@@ -19,6 +27,14 @@ public class MainActivityUITest extends ActivityInstrumentationTestCase2 {
     private EditText mTopEditText;
     private EditText mBottomEditText;
     private Button onlyButtonHere;
+    private String STRING_TO_BE_TYPED = "Stringy stringy string string string!";
+
+
+
+    public MainActivityUITest() {
+        super(MainActivity.class);
+    }
+
 
     //Initial constructor
     //Obtains all user interface elements and assigns them to a variable that I will manipulate
@@ -83,6 +99,11 @@ public class MainActivityUITest extends ActivityInstrumentationTestCase2 {
     public void testOnlyButton(){
 
     }
+
+    public void testChangeText(){
+        //onView(withId(mBottomEditText)).perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
+    }
+
 
 
 
