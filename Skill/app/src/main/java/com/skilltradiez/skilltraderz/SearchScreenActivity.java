@@ -102,10 +102,6 @@ import java.util.Set;
 
 public class SearchScreenActivity extends ActionBarActivity {
 
-    //@todo what context are we getting things from? private int searchContext?
-
-    private Context searchScreenContext = this;
-
     private List<User> users;
     private List<Skill> skillz;
     private int screenType;
@@ -131,8 +127,8 @@ public class SearchScreenActivity extends ActionBarActivity {
         screenType = searchExtras.getInt("All_search");
 
         resultsList = (ListView) findViewById(R.id.search_list);
-        skillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item, skillz);
-        userAdapter = new ArrayAdapter<User>(searchScreenContext, R.layout.list_item, users);
+        skillAdapter = new ArrayAdapter<Skill>(this, R.layout.list_item, skillz);
+        userAdapter = new ArrayAdapter<User>(this, R.layout.list_item, users);
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
@@ -164,7 +160,6 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     /**
      * Take a string and refine the list of Users/Skills
-     * @ TODO:
      */
     public void refineSearch(View v){
         //get whatever is in searchField
@@ -202,13 +197,5 @@ public class SearchScreenActivity extends ActionBarActivity {
     public void changeCategory(){
         //inflate the category spinner
         //refine the search results
-    }
-
-    /**
-     * Populate the screen with Users or Skills based on requirements ie: search strings
-     * @ TODO:
-     */
-    public void populateListView(){
-
     }
 }

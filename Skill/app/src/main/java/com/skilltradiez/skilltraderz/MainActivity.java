@@ -211,8 +211,6 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(context, username + " Already Exists!", Toast.LENGTH_SHORT).show();
                 // Do nothing
             }
-
-            //todo email if needed
         }
     }
 
@@ -243,7 +241,6 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Take user to their own profile when "Your Profile" button is pressed
      * @param view
-     * @ TODO:
      */
     public void showProfile(View view){
         Intent intent = new Intent(mainContext, ProfileActivity.class);
