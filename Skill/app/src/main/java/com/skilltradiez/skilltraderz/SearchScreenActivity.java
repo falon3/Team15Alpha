@@ -144,20 +144,22 @@ public class SearchScreenActivity extends ActionBarActivity {
                 clickOnUser(user);
             }
         });
+        MainActivity.userDB.refresh();
 
         if (screenType == 0) {
             // all skills
             resultsList.setAdapter(skillAdapter);
+            skillz.clear();
+            skillz.addAll(MainActivity.userDB.getSkills());
+            skillAdapter.notifyDataSetChanged();
         } else {
             // all users
             resultsList.setAdapter(userAdapter);
-
+            users.clear();
+            users.addAll(MainActivity.userDB.getUsers());
+            userAdapter.notifyDataSetChanged();
         }
-        MainActivity.userDB.refresh();
 
-        users.clear();
-        users.addAll(MainActivity.userDB.getUsers());
-        userAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -168,13 +170,23 @@ public class SearchScreenActivity extends ActionBarActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
-        users.clear();
-        Set<User> onlineUsers = MainActivity.userDB.getUsers();
-        for (User u : onlineUsers) {
-            if (u.getProfile().getUsername().contains(searchField.getText().toString()))
-                users.add(u);
+        if (screenType == 0) {
+            // all skills
+            skillz.clear();
+            Set<Skill> skills = MainActivity.userDB.getSkills();
+            for (Skill s : skills) {
+                skills.add(s);
+            }
+            skillAdapter.notifyDataSetChanged();
+        } else { // Search users
+            users.clear();
+            Set<User> onlineUsers = MainActivity.userDB.getUsers();
+            for (User u : onlineUsers) {
+                if (u.getProfile().getUsername().contains(searchField.getText().toString()))
+                    users.add(u);
+            }
+            userAdapter.notifyDataSetChanged();
         }
-        userAdapter.notifyDataSetChanged();
     }
 
     public void clickOnUser(User u) {
