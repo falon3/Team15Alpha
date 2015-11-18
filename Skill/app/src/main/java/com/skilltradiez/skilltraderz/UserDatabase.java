@@ -128,7 +128,7 @@ public class UserDatabase {
     private User currentUser;
     private Set<User> users;
     private List<Trade> trades;
-    private List<Skill> skillz;
+    private Set<Skill> skillz;
     private ChangeList toBePushed;
     private Elastic elastic;
     private Local local;
@@ -136,7 +136,7 @@ public class UserDatabase {
     UserDatabase() {
         users = new HashSet<User>();
         trades = new ArrayList<Trade>();
-        skillz = new ArrayList<Skill>();
+        skillz = new HashSet<Skill>();
         toBePushed = new ChangeList();
 
         // Persistence API
@@ -201,6 +201,11 @@ public class UserDatabase {
                 if (u.equals(currentUser)) continue;
                 users.remove(u);
                 users.add(u);
+            }
+            List<Skill> skills = elastic.getAllSkills();
+            for (Skill s : skills) {
+                skillz.remove(s);
+                skillz.add(s);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -333,5 +338,9 @@ public class UserDatabase {
 
     public Set<User> getUsers() {
         return users;
+    }
+
+    public Set<Skill> getSkills() {
+        return skillz;
     }
 }

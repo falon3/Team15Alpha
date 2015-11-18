@@ -304,6 +304,18 @@ public class Elastic {
         return hitsT;
     }
 
+    public List<Skill> getAllSkills() throws IOException {
+        String resp = httpClient.get(baseUrl + "skill/_search?size=9999999");
+        Type getResponseType = new TypeToken<SkillSearchResponse>() { }.getType();
+        SkillSearchResponse searchResponse = gson.fromJson(resp, getResponseType);
+        List<Skill> hitsT = new ArrayList<Skill>();
+        for (SkillSearchResponse.Hit hit : searchResponse.hits.hits) {
+            if (hit._source.isVisible())
+                hitsT.add(hit._source);
+        }
+        return hitsT;
+    }
+
     //The next three methods need to be separate because java's generics aren't real generics,
     //they are actually fake. But anyways, they get different types of documents from the database.
     public User getDocumentUser(String id) throws IOException {
