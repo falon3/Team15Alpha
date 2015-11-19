@@ -7,7 +7,7 @@
     <string name="title_activity_search_screen">SearchScreenActivity</string>
     <string name="title_activity_edit_skill">EditSkill</string>
     <string name="title_activity_edit_trade">EditTradeActivity</string>
-    <string name="search_field_text">Search Skill or User</string>
+    <string name="search_field_text">Search Query</string>
     <string name="search_button">Search</string>
     <string name="browse_skillz">Browse Skillz</string>
     <string name="browse_users">Browse Users</string>
