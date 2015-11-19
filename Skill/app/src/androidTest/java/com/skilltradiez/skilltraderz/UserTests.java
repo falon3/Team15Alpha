@@ -22,7 +22,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class UserTests extends ActivityInstrumentationTestCase2 {
     public UserTests() {
-        super(com.skilltradiez.skilltraderz.UserTests.class);
+        super(com.skilltradiez.skilltraderz.User.class);
     }
 
     public void testGetProfile() {

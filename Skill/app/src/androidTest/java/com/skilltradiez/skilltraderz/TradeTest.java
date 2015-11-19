@@ -26,7 +26,7 @@ import java.util.List;
 
 public class TradeTest extends ActivityInstrumentationTestCase2 {
     public TradeTest() {
-        super(com.skilltradiez.skilltraderz.TradeTest.class);
+        super(com.skilltradiez.skilltraderz.Trade.class);
     }
 
     public void testInitTrade() {

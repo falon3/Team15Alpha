@@ -175,7 +175,6 @@ public class InventoryActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-
     /**
      * Search through a user's inventory with a textual query to refine the number of items that
      * are shown
