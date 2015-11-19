@@ -74,5 +74,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/friend_List"
+        android:id="@+id/friend_list_button"
+        android:background="@drawable/button_with_border"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/maketrade"
+        android:layout_alignEnd="@+id/user_name" />
+
 
 </RelativeLayout>
