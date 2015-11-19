@@ -136,8 +136,13 @@ public class SearchScreenActivity extends ActionBarActivity {
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user = (User)parent.getItemAtPosition(position);
-                clickOnUser(user);
+                if (screenType == 0) {
+                    Skill skill = (Skill) parent.getItemAtPosition(position);
+                    clickOnSkill(skill);
+                } else {
+                    User user = (User) parent.getItemAtPosition(position);
+                    clickOnUser(user);
+                }
             }
         });
         MainActivity.userDB.refresh();
@@ -168,6 +173,7 @@ public class SearchScreenActivity extends ActionBarActivity {
         //update view
         if (screenType == 0) {
             // all skills
+            // TODO search
             skillz.clear();
             Set<Skill> skills = MainActivity.userDB.getSkills();
             for (Skill s : skills) {
@@ -188,6 +194,12 @@ public class SearchScreenActivity extends ActionBarActivity {
     public void clickOnUser(User u) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("user_name_for_profile", u.getProfile().getUsername());
+        startActivity(intent);
+    }
+
+    public void clickOnSkill(Skill s) {
+        Intent intent = new Intent(this, SkillDescriptionActivity.class);
+        intent.putExtra("skill_id", s.getSkillID());
         startActivity(intent);
     }
 

@@ -335,6 +335,7 @@ public class UserDatabase {
         getChangeList().add(currentUser.getFriendsList());
         getChangeList().add(currentUser.getTradeList());
         getChangeList().add(currentUser.getProfile());
+        getChangeList().add(currentUser.getInventory());
     }
 
     public Set<User> getUsers() {
