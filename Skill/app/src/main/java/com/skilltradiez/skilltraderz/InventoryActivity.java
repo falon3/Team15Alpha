@@ -178,7 +178,6 @@ public class InventoryActivity extends ActionBarActivity {
     /**
      * Search through a user's inventory with a textual query to refine the number of items that
      * are shown
-     * @ TODO:
      */
     public void searchInventory(View v){
         //searchfield = what you're searching for
