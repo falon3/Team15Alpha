@@ -30,7 +30,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testSetVisibility() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar");
+        Skill skill = new Skill(db, "foo", "bar", "desc");
         skill.setVisible(false);
         assertFalse(skill.isVisible());
     }
@@ -38,7 +38,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testSetDescription() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar");
+        Skill skill = new Skill(db, "foo", "bar", "desc");
         skill.setDescription("DESCRIBE'D!!!");
         assertEquals(skill.getDescription(), "DESCRIBE'D!!!");
     }
@@ -46,7 +46,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testAttachPicture() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar");
+        Skill skill = new Skill(db, "foo", "bar", "desc");
         Image img = new Image("foo.tiff");
         //image should be null initially
         assertTrue(skill.getImage() instanceof NullImage);
@@ -58,7 +58,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testRetakePicture() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar");
+        Skill skill = new Skill(db, "foo", "bar", "desc");
         Image img = new Image("foo.tiff");
         Image img2 = new Image("foo.bmp");
         //test setting image
@@ -72,7 +72,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testDeletePicture() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar");
+        Skill skill = new Skill(db, "foo", "bar", "desc");
         Image img = new Image("foo.tiff");
         //test setting image
         skill.setImage(img);

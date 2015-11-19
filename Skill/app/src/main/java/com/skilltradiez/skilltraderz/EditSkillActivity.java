@@ -140,8 +140,7 @@ public class EditSkillActivity extends ActionBarActivity {
         String name = skillName.getText().toString();
         String category = skillCategory.getText().toString();
         String description = skillDescription.getText().toString();
-        newSkill = new Skill(MainActivity.userDB, name, category);
-        newSkill.setDescription(description);
+        newSkill = new Skill(MainActivity.userDB, name, category, description);
         MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
         MainActivity.userDB.save();
 
