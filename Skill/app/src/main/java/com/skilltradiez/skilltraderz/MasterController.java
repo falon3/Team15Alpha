@@ -1,6 +1,8 @@
 package com.skilltradiez.skilltraderz;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Activities should ideally never need to interact with the model directly.
@@ -27,10 +29,30 @@ public class MasterController {
     }
 
 
+    //If we probe for the USER that is currently on the app... returns the USER object of that user.
+    //NOT just the name. USER object.
+    public static User getCurrentUser(){
+        return userDB.getCurrentUser();
+    }
+
     //Do they have THIS friend in particular.
-    public static boolean currentUserHasFriend(User currentUser,){
+    public static boolean currentUserHasFriend(User currentUser){
         return currentUser.getFriendsList().hasFriend(userDB.getCurrentUser());
     }
+
+    public static void refreshDB(){
+        userDB.refresh();
+    }
+
+
+    public static void addANewFriend(User currentUser){
+        userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
+    }
+
+    public static void removeThisFriend(User currentUser){
+        userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
+    }
+
 
     //Give the current username from the database.
     public static String getCurrentUserUsername(){
@@ -49,7 +71,7 @@ public class MasterController {
     }
 
 
-    //I hate this.
+    //I hate this. Deletes ALL data from the database.
     public static void crazyDatabaseDelection(){
         userDB.deleteAllData();
     }
@@ -89,6 +111,55 @@ public class MasterController {
         save();
     }
 
+
+
+
+
+    /** SKILLZ RELATED FUNCTIONS **/
+
+    //Clear the current List<Skill> of skillz!
+    public static void clearSkillzList(List<Skill> skillz){
+        skillz.clear();
+    }
+
+    //Obtain from the user database all of the current skills!
+    public static Set<Skill> getAllSkillz(){
+        return userDB.getSkills();
+    }
+
+    public static Set<User> getAllUserz(){
+        return userDB.getUsers();
+    }
+
+
+
+    /** SkillDescriptionActivity methods **/
+
+    public static Skill getSkillByID(ID identifier){
+
+        return userDB.getSkillByID(identifier);
+    }
+
+
+    public static void removeCurrentSkill(Skill currentSkill){
+        userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
+    }
+
+    public static void addCurrentskill(Skill currentSkill){
+        userDB.getCurrentUser().getInventory().add(currentSkill);
+    }
+
+    /** TradeRequestActivity methods **/
+
+    //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
+    public static Trade getCurrentTradeByID(ID identifier){
+        return userDB.getTradeByID(identifier);
+    }
+
+    //ACCEPT THE TRADE
+    public static void acceptTheCurrentTrade(Trade trade){
+        trade.getHalfForUser(userDB.getCurrentUser()).setAccepted(true);
+    }
 
 
 }

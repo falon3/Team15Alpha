@@ -115,10 +115,15 @@ public class SearchScreenActivity extends ActionBarActivity {
     private ArrayAdapter<User> userAdapter;
     private ListView resultsList;
 
+    //Mastercontroller
+    private MasterController masterController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
+
+        masterController = new MasterController();
 
         users = new ArrayList<User>();
         skillz = new ArrayList<Skill>();
@@ -145,19 +150,21 @@ public class SearchScreenActivity extends ActionBarActivity {
                 }
             }
         });
-        MainActivity.userDB.refresh();
+
+        //Refresh the database :D
+        masterController.refreshDB();
 
         if (screenType == 0) {
             // all skills
             resultsList.setAdapter(skillAdapter);
             skillz.clear();
-            skillz.addAll(MainActivity.userDB.getSkills());
+            skillz.addAll(masterController.getAllSkillz());
             skillAdapter.notifyDataSetChanged();
         } else {
             // all users
             resultsList.setAdapter(userAdapter);
             users.clear();
-            users.addAll(MainActivity.userDB.getUsers());
+            users.addAll(masterController.getAllUserz());
             userAdapter.notifyDataSetChanged();
         }
 
@@ -173,8 +180,8 @@ public class SearchScreenActivity extends ActionBarActivity {
         String search = searchField.getText().toString();
         if (screenType == 0) {
             // search skills
-            skillz.clear();
-            Set<Skill> skills = MainActivity.userDB.getSkills();
+            masterController.clearSkillzList(skillz);
+            Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills) {
                 System.out.println(s);
                 if (s.toString().contains(search))
@@ -183,7 +190,7 @@ public class SearchScreenActivity extends ActionBarActivity {
             skillAdapter.notifyDataSetChanged();
         } else { // Search users
             users.clear();
-            Set<User> onlineUsers = MainActivity.userDB.getUsers();
+            Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers) {
                 if (u.getProfile().getUsername().contains(search))
                     users.add(u);
