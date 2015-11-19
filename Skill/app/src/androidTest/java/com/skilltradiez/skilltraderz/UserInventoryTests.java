@@ -26,7 +26,7 @@ import java.util.List;
 
 public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
     public UserInventoryTests() {
-        super(com.skilltradiez.skilltraderz.UserInventoryTests.class);
+        super(com.skilltradiez.skilltraderz.Inventory.class);
     }
 
     public void testAddSkill() {
