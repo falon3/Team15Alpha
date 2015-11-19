@@ -212,7 +212,6 @@ public class UserDatabase {
         }
     }
 
-
     public void save() {
         toBePushed.push(this);
         // TODO: Saves locally and pushes changes if connected to the internet
@@ -335,6 +334,7 @@ public class UserDatabase {
         getChangeList().add(currentUser.getFriendsList());
         getChangeList().add(currentUser.getTradeList());
         getChangeList().add(currentUser.getProfile());
+        getChangeList().add(currentUser.getInventory());
     }
 
     public Set<User> getUsers() {

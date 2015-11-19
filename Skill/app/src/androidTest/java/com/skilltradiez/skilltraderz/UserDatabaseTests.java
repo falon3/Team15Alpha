@@ -26,7 +26,7 @@ import java.util.List;
 
 public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     public UserDatabaseTests() {
-        super(com.skilltradiez.skilltraderz.UserDatabaseTests.class);
+        super(com.skilltradiez.skilltraderz.UserDatabase.class);
     }
 
     public void testCreateAccount() {

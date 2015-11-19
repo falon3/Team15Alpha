@@ -29,7 +29,7 @@ import java.io.IOException;
  * Created by Falon3 on 2015-11-05.
  */
 public class LocalTests extends ActivityInstrumentationTestCase2 {
-    public LocalTests() {super(com.skilltradiez.skilltraderz.LocalTests.class); }
+    public LocalTests() {super(com.skilltradiez.skilltraderz.Local.class); }
 
     public void testAddLocal() {
         Local lo = new Local();

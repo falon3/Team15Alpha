@@ -80,7 +80,9 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -136,12 +138,30 @@ public class EditSkillActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void addNewSkill(View view){
-        //@todo make character limit of skill name and skill description
+        //@todo make character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
+        Context context1 = this;
+
+        if (name.length() > 40) {
+            // this makes a pop-up alert with a dismiss button.
+            // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
+            AlertDialog.Builder alert = new AlertDialog.Builder(context1);
+            alert.setMessage("Skill name too long!\n must be 40 characters or less\n");
+            alert.setCancelable(true);
+            alert.setPositiveButton("retry",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog toolong_alert = alert.create();
+            toolong_alert.show();
+            return;
+        }
+
         String category = skillCategory.getText().toString();
         String description = skillDescription.getText().toString();
-        newSkill = new Skill(MainActivity.userDB, name, category);
-        newSkill.setDescription(description);
+        newSkill = new Skill(MainActivity.userDB, name, category, description);
         MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
         MainActivity.userDB.save();
 

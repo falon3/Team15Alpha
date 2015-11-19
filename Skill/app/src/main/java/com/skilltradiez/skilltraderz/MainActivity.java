@@ -60,7 +60,9 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -74,6 +76,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGLDisplay;
@@ -118,9 +121,6 @@ public class MainActivity extends ActionBarActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,7 +130,6 @@ public class MainActivity extends ActionBarActivity {
         StrictMode.setThreadPolicy(policy);
 
         userDB = new UserDatabase();
-
 
         if (userDB.getCurrentUser() != null) {
             setContentView(R.layout.activity_main);
@@ -144,7 +143,6 @@ public class MainActivity extends ActionBarActivity {
         searchAllUsersButton = (Button) findViewById(R.id.browse_users);
         goToProfile = (Button) findViewById(R.id.go_to_profile);
         searchField = (EditText) findViewById(R.id.search_bar);
-
 
         // first_time
         newUserName = (EditText) findViewById(R.id.makeUserName);
@@ -204,6 +202,24 @@ public class MainActivity extends ActionBarActivity {
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
             }
+              catch (IllegalArgumentException e) {
+                  Context context_exception = this;
+                  // this makes a pop-up alert with a dismiss button.
+                  // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
+                  AlertDialog.Builder alert = new AlertDialog.Builder(context_exception);
+                  alert.setMessage("UserName too long!\n");
+                  alert.setCancelable(true);
+                  alert.setPositiveButton("retry",
+                          new DialogInterface.OnClickListener() {
+                              public void onClick(DialogInterface dialog, int id) {
+                                  dialog.cancel();
+                                  }
+                          });
+                  AlertDialog tooBig_alert = alert.create();
+                  tooBig_alert.show();
+                  return;
+
+              }
             new_guy.getProfile().setEmail(newUserEmail.getText().toString());
             userDB.save();
 
@@ -265,9 +281,26 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
 
+    public EditText getNameField() {
+        return newUserName;
+    }
 
+    public EditText getEmailField() {
+        return newUserEmail;
+    }
 
+    public Button getLoginButton() {
+        return makeNewUser;
+    }
 
+    public void clearFields() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                newUserName.setText("");
+                newUserEmail.setText("");
+            }
+        });
+    }
 
     /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed
        source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
@@ -278,5 +311,4 @@ public class MainActivity extends ActionBarActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
 }

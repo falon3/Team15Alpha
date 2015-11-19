@@ -136,8 +136,13 @@ public class SearchScreenActivity extends ActionBarActivity {
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user = (User)parent.getItemAtPosition(position);
-                clickOnUser(user);
+                if (screenType == 0) {
+                    Skill skill = (Skill) parent.getItemAtPosition(position);
+                    clickOnSkill(skill);
+                } else {
+                    User user = (User) parent.getItemAtPosition(position);
+                    clickOnUser(user);
+                }
             }
         });
         MainActivity.userDB.refresh();
@@ -158,7 +163,6 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     }
 
-
     /**
      * Take a string and refine the list of Users/Skills
      */
@@ -166,19 +170,22 @@ public class SearchScreenActivity extends ActionBarActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
+        String search = searchField.getText().toString();
         if (screenType == 0) {
-            // all skills
+            // search skills
             skillz.clear();
             Set<Skill> skills = MainActivity.userDB.getSkills();
             for (Skill s : skills) {
-                skills.add(s);
+                System.out.println(s);
+                if (s.toString().contains(search))
+                    skillz.add(s);
             }
             skillAdapter.notifyDataSetChanged();
         } else { // Search users
             users.clear();
             Set<User> onlineUsers = MainActivity.userDB.getUsers();
             for (User u : onlineUsers) {
-                if (u.getProfile().getUsername().contains(searchField.getText().toString()))
+                if (u.getProfile().getUsername().contains(search))
                     users.add(u);
             }
             userAdapter.notifyDataSetChanged();
@@ -188,6 +195,12 @@ public class SearchScreenActivity extends ActionBarActivity {
     public void clickOnUser(User u) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("user_name_for_profile", u.getProfile().getUsername());
+        startActivity(intent);
+    }
+
+    public void clickOnSkill(Skill s) {
+        Intent intent = new Intent(this, SkillDescriptionActivity.class);
+        intent.putExtra("skill_id", s.getSkillID());
         startActivity(intent);
     }
 
