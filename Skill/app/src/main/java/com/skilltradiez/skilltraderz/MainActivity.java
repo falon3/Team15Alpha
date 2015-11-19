@@ -60,7 +60,9 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -201,6 +203,24 @@ public class MainActivity extends ActionBarActivity {
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
             }
+              catch (IllegalArgumentException e) {
+                  Context context_exception = this;
+                  // this makes a pop-up alert with a dismiss button.
+                  // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
+                  AlertDialog.Builder alert = new AlertDialog.Builder(context_exception);
+                  alert.setMessage("UserName too long!\n");
+                  alert.setCancelable(true);
+                  alert.setPositiveButton("retry",
+                          new DialogInterface.OnClickListener() {
+                              public void onClick(DialogInterface dialog, int id) {
+                                  dialog.cancel();
+                                  }
+                          });
+                  AlertDialog tooBig_alert = alert.create();
+                  tooBig_alert.show();
+                  return;
+
+              }
             new_guy.getProfile().setEmail(newUserEmail.getText().toString());
             userDB.save();
 
