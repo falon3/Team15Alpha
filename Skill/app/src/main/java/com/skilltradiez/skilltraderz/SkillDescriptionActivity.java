@@ -127,10 +127,10 @@ public class SkillDescriptionActivity extends ActionBarActivity {
         //on what context we're given ie: trade request vs skill search
         if (hasSkill) {
             addRemoveSkill.setText("Add Skill");
-            MainActivity.userDB.getCurrentUser().getInventory().add(currentSkill);
+            MainActivity.userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
         } else {
             addRemoveSkill.setText("Remove Skill");
-            MainActivity.userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
+            MainActivity.userDB.getCurrentUser().getInventory().add(currentSkill);
         }
         hasSkill = !hasSkill;
         MainActivity.userDB.save();
