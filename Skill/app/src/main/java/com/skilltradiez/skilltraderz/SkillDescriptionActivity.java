@@ -43,6 +43,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -121,15 +122,18 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     /**
      * Adds or removes a skill from a user's list or trade request
      */
-    public void addRemoveSkill(){
+    public void addRemoveSkill(View v){
         //notify the user that the skill has been added to their profile or trade request depending
         //on what context we're given ie: trade request vs skill search
         if (hasSkill) {
             addRemoveSkill.setText("Add Skill");
+            MainActivity.userDB.getCurrentUser().getInventory().add(currentSkill);
         } else {
             addRemoveSkill.setText("Remove Skill");
+            MainActivity.userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
         }
         hasSkill = !hasSkill;
+        MainActivity.userDB.save();
     }
 
 }
