@@ -184,7 +184,8 @@ public class InventoryActivity extends ActionBarActivity {
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
         String regex = searchField.getText().toString(); // not a regex
-        foundSkillz = currentUser.getInventory().findByName(MainActivity.userDB, regex);
+        foundSkillz.clear();
+        foundSkillz.addAll(currentUser.getInventory().findByName(MainActivity.userDB, regex));
         adapter.notifyDataSetChanged();
     }
 
