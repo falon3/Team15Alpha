@@ -198,7 +198,7 @@ public class UserDatabase {
         try {
             List<User> onlineUsers = elastic.getAllUsers();
             for (User u : onlineUsers) {
-                if (u.equals(currentUser)) continue;
+                if (u.equals(currentUser)) setCurrentUser(u);
                 users.remove(u);
                 users.add(u);
             }
