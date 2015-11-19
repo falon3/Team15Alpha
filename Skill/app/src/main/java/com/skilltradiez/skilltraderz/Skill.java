@@ -268,8 +268,6 @@ public class Skill extends Notification {
         notifyDB();
     }
 
-
-
     //Traditional getter and setter methods for the private attribute image
     public Image getImage() {
         return image;
