@@ -129,11 +129,15 @@ public class ProfileActivity extends ActionBarActivity {
     private Button viewInventory;
     private TextView userContactInfo;
     private TextView profileTitle;
+    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+
+        masterController = new MasterController();
         profileExtras = getIntent().getExtras();
         userProfileName = profileExtras.getString("user_name_for_profile");
 
@@ -147,14 +151,14 @@ public class ProfileActivity extends ActionBarActivity {
         profileTitle.setText(userProfileName);
         userContactInfo.setText(currentUser.getProfile().getEmail());
 
-        if (MainActivity.userDB.getCurrentUser().getFriendsList().hasFriend(currentUser)) {
+        if (masterController.getUserDB().getCurrentUser().getFriendsList().hasFriend(currentUser)) {
             addRemoveFriend.setText(R.string.remove_friend);
         } else {
             addRemoveFriend.setText(R.string.add_friend);
         }
 
         // you can't be friends with yourself, go get some real friends
-        if (MainActivity.userDB.getCurrentUser().equals(currentUser)) {
+        if (masterController.getUserDB().getCurrentUser().equals(currentUser)) {
             addRemoveFriend.setEnabled(false);
         }
     }
@@ -177,10 +181,12 @@ public class ProfileActivity extends ActionBarActivity {
      * When you click on a profile it gets data something something @todo make this sound nicer
      */
     public void populateProfile(){
-        currentUser = MainActivity.userDB.getAccountByUsername(userProfileName);
-        hasFriend = currentUser.getFriendsList().hasFriend(MainActivity.userDB.getCurrentUser());
+        currentUser = masterController.getUserByName(userProfileName);
+        hasFriend = masterController.currentUserHasFriend(currentUser);
+
 
     }
+
 
 
     /**

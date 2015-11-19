@@ -105,7 +105,8 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    public static UserDatabase userDB;
+    /** HERE IT IS! COMMENTEDOUT !!!! **/
+    //public static UserDatabase userDB;
     //public static Boolean connected;
 
     //Main screen
@@ -121,17 +122,24 @@ public class MainActivity extends ActionBarActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
+
+
+    private static MasterController masterController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        masterController = new MasterController();
+        masterController.initDB();
 
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        userDB = new UserDatabase();
 
-        if (userDB.getCurrentUser() != null) {
+
+        if (masterController.getCurrentUserUsername() != null) {
             setContentView(R.layout.activity_main);
         } else {
             setContentView(R.layout.first_time_user);
@@ -154,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
+        masterController.initializeArrayListForSkills();
     }
 
     @Override
@@ -197,31 +205,33 @@ public class MainActivity extends ActionBarActivity {
         }else {
             username = newUserName.getText().toString();
 
-            try {
+
+            new_guy = masterController.createNewUser(username,newUserEmail.getText().toString());
+
+/*            try {
                 new_guy = userDB.createUser(username);
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
             }
-              catch (IllegalArgumentException e) {
-                  Context context_exception = this;
-                  // this makes a pop-up alert with a dismiss button.
-                  // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
-                  AlertDialog.Builder alert = new AlertDialog.Builder(context_exception);
-                  alert.setMessage("UserName too long!\n");
-                  alert.setCancelable(true);
-                  alert.setPositiveButton("retry",
-                          new DialogInterface.OnClickListener() {
-                              public void onClick(DialogInterface dialog, int id) {
-                                  dialog.cancel();
-                                  }
-                          });
-                  AlertDialog tooBig_alert = alert.create();
-                  tooBig_alert.show();
-                  return;
+            catch (IllegalArgumentException e) {
+                Context context_exception = this;
+                // this makes a pop-up alert with a dismiss button.
+                // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
+                AlertDialog.Builder alert = new AlertDialog.Builder(context_exception);
+                alert.setMessage("UserName too long!\n");
+                alert.setCancelable(true);
+                alert.setPositiveButton("retry",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog tooBig_alert = alert.create();
+                tooBig_alert.show();
+                return;
 
-              }
-            new_guy.getProfile().setEmail(newUserEmail.getText().toString());
-            userDB.save();
+            }*/
+
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
@@ -263,7 +273,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void showProfile(View view){
         Intent intent = new Intent(mainContext, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile", userDB.getCurrentUser().getProfile().getUsername());
+        intent.putExtra("user_name_for_profile", masterController.getCurrentUserUsername());
         startActivity(intent);
     }
 
@@ -277,9 +287,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void deleteDatabase(View view) {
-        userDB.deleteAllData();
+        masterController.crazyDatabaseDelection();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
+
+
+
+    /**MASTER CONTROLLER **/
+    public static MasterController getMasterController() {
+        return masterController;
+    }
+
 
     public EditText getNameField() {
         return newUserName;
@@ -301,6 +319,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
     }
+
 
     /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed
        source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
