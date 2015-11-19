@@ -74,6 +74,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGLDisplay;
@@ -118,7 +119,6 @@ public class MainActivity extends ActionBarActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +141,6 @@ public class MainActivity extends ActionBarActivity {
         searchAllUsersButton = (Button) findViewById(R.id.browse_users);
         goToProfile = (Button) findViewById(R.id.go_to_profile);
         searchField = (EditText) findViewById(R.id.search_bar);
-
 
         // first_time
         newUserName = (EditText) findViewById(R.id.makeUserName);
@@ -260,6 +259,27 @@ public class MainActivity extends ActionBarActivity {
     public void deleteDatabase(View view) {
         userDB.deleteAllData();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
+    }
+
+    public EditText getNameField() {
+        return newUserName;
+    }
+
+    public EditText getEmailField() {
+        return newUserEmail;
+    }
+
+    public Button getLoginButton() {
+        return makeNewUser;
+    }
+
+    public void clearFields() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                newUserName.setText("");
+                newUserEmail.setText("");
+            }
+        });
     }
 
     /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed

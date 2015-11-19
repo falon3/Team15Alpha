@@ -24,7 +24,7 @@ import android.test.ActivityInstrumentationTestCase2;
 public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public ProfileTests() {
-        super(com.skilltradiez.skilltraderz.ProfileTests.class);
+        super(com.skilltradiez.skilltraderz.Profile.class);
     }
     // tests for ConfigureProfileDetails
 
