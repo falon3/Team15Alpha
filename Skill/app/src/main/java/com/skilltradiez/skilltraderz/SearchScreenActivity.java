@@ -171,20 +171,22 @@ public class SearchScreenActivity extends ActionBarActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
+        String search = searchField.getText().toString();
         if (screenType == 0) {
-            // all skills
-            // TODO search
+            // search skills
             skillz.clear();
             Set<Skill> skills = MainActivity.userDB.getSkills();
             for (Skill s : skills) {
-                skills.add(s);
+                System.out.println(s);
+                if (s.toString().contains(search))
+                    skillz.add(s);
             }
             skillAdapter.notifyDataSetChanged();
         } else { // Search users
             users.clear();
             Set<User> onlineUsers = MainActivity.userDB.getUsers();
             for (User u : onlineUsers) {
-                if (u.getProfile().getUsername().contains(searchField.getText().toString()))
+                if (u.getProfile().getUsername().contains(search))
                     users.add(u);
             }
             userAdapter.notifyDataSetChanged();
