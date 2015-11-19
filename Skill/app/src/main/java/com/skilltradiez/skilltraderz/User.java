@@ -119,7 +119,7 @@ public class User extends Observable {
 
     User(String username) {
         profile = new Profile(username);
-        inventory = new Inventory(); // Empty
+        inventory = new Inventory(id); // Empty
         friendsList = new FriendsList(id); // Empty
         tradeList = new TradeList(id); // Empty
     }
