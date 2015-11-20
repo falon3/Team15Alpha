@@ -72,6 +72,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
+    private MasterController masterController;
 
     private Boolean hasSkill;
 
@@ -79,8 +80,9 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_description);
+        masterController = new MasterController();
 
-        currentSkill = MainActivity.userDB.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+        currentSkill = masterController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
 
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);
@@ -89,7 +91,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
         setSkillTitle(currentSkill.getName());
         setSkillDescription(currentSkill.getDescription());
 
-        User user = MainActivity.userDB.getCurrentUser();
+        User user = masterController.getCurrentUser();
         Inventory inv = user.getInventory();
 
         hasSkill = inv.hasSkill(currentSkill);
@@ -126,14 +128,19 @@ public class SkillDescriptionActivity extends ActionBarActivity {
         //notify the user that the skill has been added to their profile or trade request depending
         //on what context we're given ie: trade request vs skill search
         if (hasSkill) {
+            //Set text to the OPPOSITE of what is happening.
             addRemoveSkill.setText("Add Skill");
-            MainActivity.userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
+            //Evoke controller to REMOVE skill.
+            masterController.removeCurrentSkill(currentSkill);
+
         } else {
+            //Set text yet again to the OPPPOSITE of what the function is.
             addRemoveSkill.setText("Remove Skill");
-            MainActivity.userDB.getCurrentUser().getInventory().add(currentSkill);
+
+            masterController.addCurrentskill(currentSkill);
         }
         hasSkill = !hasSkill;
-        MainActivity.userDB.save();
+        masterController.save();
     }
 
 }

@@ -119,13 +119,17 @@ public class InventoryActivity extends ActionBarActivity {
     private Spinner categorySpinner;
     private ListView inventoryList;
     private ArrayAdapter<Skill> adapter;
+    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        currentUser = MainActivity.userDB.getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
+        masterController = new MasterController();
+
+
+        currentUser = masterController.getUserDB().getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
@@ -157,7 +161,7 @@ public class InventoryActivity extends ActionBarActivity {
 
     private void loadSkillz() {
         Inventory inv = currentUser.getInventory();
-        skillz = inv.cloneSkillz(MainActivity.userDB);
+        skillz = inv.cloneSkillz(masterController.getUserDB());
 
         foundSkillz = new ArrayList<Skill>();
         foundSkillz.addAll(skillz);
@@ -183,8 +187,9 @@ public class InventoryActivity extends ActionBarActivity {
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
         String regex = searchField.getText().toString(); // not a regex
+
         foundSkillz.clear();
-        foundSkillz.addAll(currentUser.getInventory().findByName(MainActivity.userDB, regex));
+        foundSkillz.addAll(currentUser.getInventory().findByName(masterController.getUserDB(), regex));
         adapter.notifyDataSetChanged();
     }
 

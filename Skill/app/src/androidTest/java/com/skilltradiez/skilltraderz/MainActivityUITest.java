@@ -54,8 +54,8 @@ public class MainActivityUITest extends ActivityInstrumentationTestCase2 {
         getInstrumentation().waitForIdleSync();
 
         // Make sure the tweet was actually saved
-        assertEquals("So Lonely", activity.userDB.getCurrentUser().getProfile().getUsername());
-        assertEquals("lonely@person.sad", activity.userDB.getCurrentUser().getProfile().getEmail());
+        assertEquals("So Lonely", activity.getMasterController().getCurrentUserUsername());
+        assertEquals("lonely@person.sad", activity.getMasterController().getCurrentUserEmail());
 
         activity.finish();
     }
