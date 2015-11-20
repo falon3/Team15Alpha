@@ -1,5 +1,7 @@
 package com.skilltradiez.skilltraderz;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,39 +22,40 @@ public class MasterController {
     public MasterController(){
     }
 
+    /** DATABASE RELATED **/
+    //Initialize the database.
     public void initDB(){
-        userDB = new UserDatabase();
+        this.userDB = new UserDatabase();
     }
 
+    //Return the database object!
     public static UserDatabase getUserDB(){
         return userDB;
     }
 
 
-    //If we probe for the USER that is currently on the app... returns the USER object of that user.
-    //NOT just the name. USER object.
-    public static User getCurrentUser(){
-        return userDB.getCurrentUser();
-    }
-
-    //Do they have THIS friend in particular.
-    public static boolean currentUserHasFriend(User currentUser){
-        return currentUser.getFriendsList().hasFriend(userDB.getCurrentUser());
-    }
-
+    //Refresh the database!
     public static void refreshDB(){
         userDB.refresh();
     }
 
 
-    public static void addANewFriend(User currentUser){
-        userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
+
+    //I hate this. Deletes ALL data from the database.
+    public static void crazyDatabaseDelection(){
+        userDB.deleteAllData();
     }
 
-    public static void removeThisFriend(User currentUser){
-        userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
+    public static void save(){
+        userDB.save();
     }
 
+    /** USER RELATED **/
+    //If we probe for the USER that is currently on the app... returns the USER object of that user.
+    //NOT just the name. USER object.
+    public static User getCurrentUser(){
+        return userDB.getCurrentUser();
+    }
 
     //Give the current username from the database.
     public static String getCurrentUserUsername(){
@@ -71,10 +74,24 @@ public class MasterController {
     }
 
 
-    //I hate this. Deletes ALL data from the database.
-    public static void crazyDatabaseDelection(){
-        userDB.deleteAllData();
+
+    /**FRIEND RELATED **/
+    //Do they have THIS friend in particular.
+    public static boolean currentUserHasFriend(User currentUser){
+        return currentUser.getFriendsList().hasFriend(userDB.getCurrentUser());
     }
+
+
+    public static void addANewFriend(User currentUser){
+        userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
+    }
+
+    public static void removeThisFriend(User currentUser){
+        userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
+    }
+
+
+
 
 
 
@@ -102,14 +119,6 @@ public class MasterController {
         return new_guy;
     }
 
-    public static void save(){
-        userDB.save();
-    }
-
-    public void makeNewSkill(String name, String category, String description){
-        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description));
-        save();
-    }
 
 
 
@@ -129,6 +138,11 @@ public class MasterController {
 
     public static Set<User> getAllUserz(){
         return userDB.getUsers();
+    }
+
+    public void makeNewSkill(String name, String category, String description){
+        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description));
+        save();
     }
 
 
