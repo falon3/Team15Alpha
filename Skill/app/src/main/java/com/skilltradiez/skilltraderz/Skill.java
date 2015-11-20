@@ -234,11 +234,11 @@ public class Skill extends Notification {
      * CONSTRUCTORS
      **/
 
-    Skill(UserDatabase db, String skill_name, String category) {
+    Skill(UserDatabase db, String skill_name, String category, String description) {
         setName(skill_name);
         setCategory(category);
         setVisible(true);//Default is visible
-        setDescription("");//Empty String
+        setDescription(description);//Empty String
         setImage(new NullImage());
 
         //TODO this probably shouldn't add itself to the database.
