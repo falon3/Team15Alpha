@@ -160,12 +160,14 @@ public class SearchScreenActivity extends ActionBarActivity {
             skillz.clear();
             skillz.addAll(masterController.getAllSkillz());
             skillAdapter.notifyDataSetChanged();
+            setTitle("Search Skillz");
         } else {
             // all users
             resultsList.setAdapter(userAdapter);
             users.clear();
             users.addAll(masterController.getAllUserz());
             userAdapter.notifyDataSetChanged();
+            setTitle("Search Users");
         }
 
     }

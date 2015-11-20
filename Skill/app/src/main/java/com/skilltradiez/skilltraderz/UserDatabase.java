@@ -197,12 +197,13 @@ public class UserDatabase {
 
     /**
      * Downloads all online data into a local cache
+     * TODO: save must be done before this or we might lose data
      */
     public void refresh() {
         try {
             List<User> onlineUsers = elastic.getAllUsers();
             for (User u : onlineUsers) {
-                if (u.equals(currentUser)) continue;
+                if (u.equals(currentUser)) setCurrentUser(u);
                 users.remove(u);
                 users.add(u);
             }
@@ -216,6 +217,9 @@ public class UserDatabase {
         }
     }
 
+    /**
+     * TODO saving should merge, not overwrite.
+     */
     public void save() {
         toBePushed.push(this);
         // TODO: Saves locally and pushes changes if connected to the internet

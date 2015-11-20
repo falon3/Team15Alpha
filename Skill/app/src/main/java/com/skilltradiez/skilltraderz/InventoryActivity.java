@@ -182,13 +182,14 @@ public class InventoryActivity extends ActionBarActivity {
     /**
      * Search through a user's inventory with a textual query to refine the number of items that
      * are shown
-     * @ TODO:
      */
     public void searchInventory(View v){
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
         String regex = searchField.getText().toString(); // not a regex
-        foundSkillz = currentUser.getInventory().findByName(masterController.getUserDB(), regex);
+
+        foundSkillz.clear();
+        foundSkillz.addAll(currentUser.getInventory().findByName(masterController.getUserDB(), regex));
         adapter.notifyDataSetChanged();
     }
 
