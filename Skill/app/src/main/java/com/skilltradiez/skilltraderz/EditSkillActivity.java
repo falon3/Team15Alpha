@@ -117,11 +117,14 @@ public class EditSkillActivity extends ActionBarActivity {
     private EditText skillDescription;
     private EditText skillCategory;
     private Button addSkillToDB;
+    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_skill);
+
+        masterController = new MasterController();
     }
 
     public void onStart(){
@@ -161,10 +164,13 @@ public class EditSkillActivity extends ActionBarActivity {
 
         String category = skillCategory.getText().toString();
         String description = skillDescription.getText().toString();
-        newSkill = new Skill(MainActivity.userDB, name, category, description);
-        MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
-        MainActivity.userDB.save();
 
+        //Make a new skill through the controller.
+        masterController.makeNewSkill(name, category, description);
+
+
+
+        //Toasty
         Context context = getApplicationContext();
         Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
 
