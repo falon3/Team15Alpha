@@ -191,6 +191,10 @@ public class UserDatabase {
         }
     }
 
+    public boolean isLoggedIn() {
+        return currentUser != null;
+    }
+
     /**
      * Downloads all online data into a local cache
      */

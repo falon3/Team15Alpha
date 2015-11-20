@@ -59,8 +59,11 @@ public class MasterController {
 
     //Give the current username from the database.
     public static String getCurrentUserUsername(){
-
         return userDB.getCurrentUser().getProfile().getUsername();
+    }
+
+    public static boolean isLoggedIn() {
+        return userDB.isLoggedIn();
     }
 
 

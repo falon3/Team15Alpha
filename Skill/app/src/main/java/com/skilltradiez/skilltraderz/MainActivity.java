@@ -139,7 +139,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-        if (masterController.getCurrentUserUsername() != null) {
+        if (masterController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
         } else {
             setContentView(R.layout.first_time_user);
