@@ -146,11 +146,19 @@ public class SearchScreenActivity extends ActionBarActivity {
                 }
             }
         });
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadItems();
+        resultsList.setAdapter(searchAdapter);
+        searchAdapter.notifyDataSetChanged();
+    }
+
+    public void loadItems() {
         //Refresh the database :D
         masterController.refreshDB();
-
-        resultsList.setAdapter(searchAdapter);
         items.clear();
         refineSearch(null); // search for nothing initially
 
