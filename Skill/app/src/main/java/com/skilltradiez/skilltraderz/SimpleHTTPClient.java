@@ -98,6 +98,7 @@ public class SimpleHTTPClient {
         HttpResponse response = httpClient.execute(get);
         return read(response.getEntity());
     }
+
     /**
      * Does an HTTP POST to the given url, with the given data (JSON string) and returns the
      * response as a string.
@@ -123,9 +124,8 @@ public class SimpleHTTPClient {
         BufferedReader br = new BufferedReader(new InputStreamReader(entity.getContent()));
         StringBuilder sb = new StringBuilder();
         String line;
-        while((line = br.readLine()) != null) {
+        while((line = br.readLine()) != null)
             sb.append(line);
-        }
         return sb.toString();
     }
 }

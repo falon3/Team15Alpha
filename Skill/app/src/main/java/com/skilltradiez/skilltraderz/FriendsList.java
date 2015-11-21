@@ -193,8 +193,9 @@ public class FriendsList extends Notification {
     }
 
     public boolean commit(UserDatabase userDB) {
+        User newFriend, deadFriend;
         for (ID id : newFriends) {
-            User newFriend = userDB.getAccountByUserID(id);
+            newFriend = userDB.getAccountByUserID(id);
             newFriend.getFriendsList().addFriend(userDB.getAccountByUserID(owner));
             try {
                 userDB.getElastic().updateDocument("user", newFriend.getProfile().getUsername(), newFriend.getFriendsList(), "friendsList");
@@ -206,7 +207,7 @@ public class FriendsList extends Notification {
         newFriends.clear();
         
         for (ID id : oldFriends) {
-            User deadFriend = userDB.getAccountByUserID(id);
+            deadFriend = userDB.getAccountByUserID(id);
             deadFriend.getFriendsList().removeFriend(userDB.getAccountByUserID(owner));
             try {
                 userDB.getElastic().updateDocument("user", deadFriend.getProfile().getUsername(), deadFriend.getFriendsList(), "friendsList");

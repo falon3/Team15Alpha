@@ -221,7 +221,6 @@ import java.io.Serializable;
  * -Set the description         --setDescription
  */
 public class Skill extends Notification {
-
     private String name;
     private String category;
     private Image image;
@@ -231,9 +230,8 @@ public class Skill extends Notification {
     private ID skillID = ID.generateRandomID();
 
     /**
-     * CONSTRUCTORS
+     * CONSTRUCTOR
      **/
-
     Skill(UserDatabase db, String skill_name, String category, String description) {
         setName(skill_name);
         setCategory(category);
@@ -350,7 +348,6 @@ public class Skill extends Notification {
         Skill skill = (Skill) o;
 
         return !(skillID != null ? !skillID.equals(skill.skillID) : skill.skillID != null);
-
     }
 
     @Override
