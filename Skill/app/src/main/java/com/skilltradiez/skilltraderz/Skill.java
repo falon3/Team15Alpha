@@ -329,9 +329,30 @@ public class Skill extends Stringeable {
         //4. if no owners then remove from elastic
         Elastic ela = userDB.getElastic();
         Skill prev_version;
+        ID owner = userDB.getCurrentUser().getUserID();
 
         try {
-            prev_version = ela.getDocumentSkill(skillID);
+            prev_version = ela.getDocumentSkill(skillID.toString());
+
+            if (prev_version.isOwner(owner) && !hasOwners()){
+                //if removed skill from inventory and no other owners had skill
+                userDB.deleteDocumentSkill(skillID.toString());
+
+            }else if (prev_version.isOwner(owner) && !isOwner(owner)){
+                //if removed skill from inventory and other owners had skill
+                prev_version.removeOwner(owner);
+                ela.addDocument("skill", skillID.toString(), prev_version);
+
+            }else if (prev_version.isOwner(owner) && prev_version.getNumOwners()==1){
+                // if only one owner so update skill
+                ela.addDocument("skill", skillID.toString(), this);
+
+            } else if (prev_version.isOwner(owner) && prev_version.getNumOwners()>1){
+                if (hasChanged()){
+
+                }
+            }
+
 
             /*if (!prev_version.equals(this)) {
                 version = version + 1;
@@ -350,6 +371,10 @@ public class Skill extends Stringeable {
         }
         return true;
     }
+    public int getNumOwners(){
+        return owners.size();
+    }
+
     public void addOwner(ID owner){
         owners.add(owner);
     }
