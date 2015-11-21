@@ -148,8 +148,11 @@ public class InventoryActivity extends ActionBarActivity {
         super.onStart();
 
         loadSkillz();
-        adapter = new ArrayAdapter<Skill>(this,
-                R.layout.list_item, foundSkillz);
+        // Old Boring/Non-Image Way
+        //adapter = new ArrayAdapter<Skill>(this,
+        //        R.layout.list_item, foundSkillz);
+        // Should Work
+        //adapter = new ListAdapter(this, foundSkillz);
 
         inventoryList.setAdapter(adapter);
         adapter.notifyDataSetChanged();

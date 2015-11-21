@@ -42,7 +42,6 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
         imageView.setImageResource(here.getImage());
         return rowView;*/
 
-
         Stringeable item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag

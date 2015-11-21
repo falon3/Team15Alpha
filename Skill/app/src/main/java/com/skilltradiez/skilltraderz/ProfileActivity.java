@@ -146,6 +146,17 @@ public class ProfileActivity extends ActionBarActivity {
         populateProfile();
         profileTitle.setText(userProfileName);
         userContactInfo.setText(currentUser.getProfile().getEmail());
+
+        if (MainActivity.userDB.getCurrentUser().getFriendsList().hasFriend(currentUser)) {
+            addRemoveFriend.setText(R.string.remove_friend);
+        } else {
+            addRemoveFriend.setText(R.string.add_friend);
+        }
+
+        // you can't be friends with yourself, go get some real friends
+        if (MainActivity.userDB.getCurrentUser().equals(currentUser)) {
+            addRemoveFriend.setEnabled(false);
+        }
     }
 
     @Override

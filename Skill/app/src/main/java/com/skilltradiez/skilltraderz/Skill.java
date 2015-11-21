@@ -222,8 +222,7 @@ import java.io.Serializable;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill extends Notification implements Stringeable {
-
+public class Skill extends Stringeable {
     private String name;
     private String category;
     private int image;
@@ -233,9 +232,8 @@ public class Skill extends Notification implements Stringeable {
     private ID skillID = ID.generateRandomID();
 
     /**
-     * CONSTRUCTORS
+     * CONSTRUCTOR
      **/
-
     Skill(UserDatabase db, String skill_name, String category) {
         setName(skill_name);
         setCategory(category);
@@ -329,7 +327,6 @@ public class Skill extends Notification implements Stringeable {
             return false;
         if (!version.equals(skill.version)) return false;
         return getSkillID().equals(skill.getSkillID());
-
     }
 
     @Override

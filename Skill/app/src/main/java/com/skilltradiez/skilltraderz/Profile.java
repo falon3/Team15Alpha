@@ -125,11 +125,10 @@ import java.io.IOException;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class Profile extends Notification {
-
+public class Profile extends Stringeable {
     private String location = "";
     private Boolean shouldDownloadImages = true;
-    private Image avatar;
+    private int avatar;
     private String username = "";
     private String email = "";
 
@@ -159,7 +158,6 @@ public class Profile extends Notification {
         notifyDB();
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -172,14 +170,14 @@ public class Profile extends Notification {
     }
 
     public void deleteAvatar() {
-        avatar = new NullImage();
+        avatar = new NullImage().getInt();
     }
 
-    public Image getAvatar() {
+    public int getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Image avatar) {
+    public void setAvatar(int avatar) {
         this.avatar = avatar;
         notifyDB();
     }
@@ -202,5 +200,18 @@ public class Profile extends Notification {
             return false;
         }
         return true;
+    }
+
+    public String getName() {
+        return getUsername();
+    }
+
+    public String getDescription() {
+        return getLocation();
+    }
+
+    public int getImage() {
+        //TODO Decide how images work
+        return getAvatar();
     }
 }
