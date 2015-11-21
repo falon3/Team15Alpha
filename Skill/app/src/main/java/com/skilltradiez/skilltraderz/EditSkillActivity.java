@@ -136,10 +136,9 @@ public class EditSkillActivity extends ActionBarActivity {
 
     /**
      * add skill to the database
-     * @ TODO:
      */
     public void addNewSkill(View view){
-        //@todo make character limit of skill name set to 40 characters
+        //Character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
         Context context1 = this;
 

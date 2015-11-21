@@ -120,6 +120,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * ~~DESCRIPTION:
@@ -226,14 +227,16 @@ public class Skill extends Notification {
     private Image image;
     private boolean visible;
     private String description;
-    private Integer version = 0;
     private ID skillID = ID.generateRandomID();
+    private ArrayList<ID> owners;
 
     /**
      * CONSTRUCTOR
      **/
     Skill(UserDatabase db, String skill_name, String category, String description) {
         setName(skill_name);
+        owners = new ArrayList<ID>();
+        owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
         setVisible(true);//Default is visible
         setDescription(description);//Empty String
@@ -316,16 +319,20 @@ public class Skill extends Notification {
 
     public boolean commit(UserDatabase userDB) {
         //TODO
+        //1. multiple owners so make a new skill if changed
+        //2. only one owner so just update the skill
+        //3. if visibility changes AND more than one owner then make new skill
+        //4. if no owners then remove from elastic
         Elastic ela = userDB.getElastic();
         Skill prev_version;
 
         try {
-            prev_version = ela.getDocumentSkill(skillID.getID() + "_" + version);
+            prev_version = ela.getDocumentSkill(skillID);
 
-            if (!prev_version.equals(this)) {
+            /*if (!prev_version.equals(this)) {
                 version = version + 1;
                 ela.addDocument("skill", skillID.getID() + "_" + version, this);
-            }
+            }*/
         } catch (IOException e) {
             //TODO Save Locally
             userDB.getLocal().getLocalData().getNotifications().add(this);
@@ -338,6 +345,21 @@ public class Skill extends Notification {
             return false;
         }
         return true;
+    }
+    public void addOwner(ID owner){
+        owners.add(owner);
+    }
+
+    public void removeOwner(ID owner){
+        owners.remove(owner);
+    }
+
+    public boolean isOwner(ID owner){
+        return owners.contains(owner);
+    }
+
+    public boolean hasOwners(){
+        return !owners.isEmpty();
     }
 
     @Override
