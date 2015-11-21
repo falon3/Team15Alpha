@@ -118,6 +118,8 @@
  */
 package com.skilltradiez.skilltraderz;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -220,10 +222,10 @@ import java.io.Serializable;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill extends Notification {
+public class Skill extends Stringeable {
     private String name;
     private String category;
-    private Image image;
+    private int image;
     private boolean visible;
     private String description;
     private Integer version = 0;
@@ -237,7 +239,7 @@ public class Skill extends Notification {
         setCategory(category);
         setVisible(isVisible);
         setDescription(description);
-        setImage(image);
+        setImage(image.getInt());
 
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
@@ -269,11 +271,11 @@ public class Skill extends Notification {
     }
 
     //Traditional getter and setter methods for the private attribute image
-    public Image getImage() {
-        return image;
+    public int getImage() {
+        return image;//Drawable.createFromInputStream(URL, null);
     }
 
-    public void setImage(Image image) {
+    public void setImage(int image) {
         this.image = image;
         notifyDB();
     }
@@ -281,7 +283,7 @@ public class Skill extends Notification {
     //DELETION of an image method. Replaces the image with a newly instantiated NullImage
     //object within this line.
     public void deleteImage() {
-        setImage(new NullImage());
+        setImage(new NullImage().getInt());
     }
 
     //Traditional getter and setter methods for the private attribute description.

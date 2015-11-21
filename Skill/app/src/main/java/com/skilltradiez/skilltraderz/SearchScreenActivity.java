@@ -101,8 +101,6 @@ import java.util.Set;
  */
 
 public class SearchScreenActivity extends ActionBarActivity {
-    private List<User> users;
-    private List<Skill> skillz;
     private int screenType;
 
     private Button searchButton;
@@ -110,8 +108,9 @@ public class SearchScreenActivity extends ActionBarActivity {
     private Spinner categorySpinner;
     private Bundle searchExtras;
 
-    private ArrayAdapter<Skill> skillAdapter;
-    private ArrayAdapter<User> userAdapter;
+    private ListAdapter searchAdapter;
+    private List<Stringeable> items;
+
     private ListView resultsList;
 
     //Mastercontroller
@@ -124,15 +123,13 @@ public class SearchScreenActivity extends ActionBarActivity {
 
         masterController = new MasterController();
 
-        users = new ArrayList<User>();
-        skillz = new ArrayList<Skill>();
-
+        items = new ArrayList<Stringeable>();
         searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt("All_search");
 
         resultsList = (ListView) findViewById(R.id.search_list);
-        skillAdapter = new ArrayAdapter<Skill>(this, R.layout.list_item, skillz);
-        userAdapter = new ArrayAdapter<User>(this, R.layout.list_item, users);
+        searchAdapter = new ListAdapter(this, items);
+
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
@@ -144,7 +141,7 @@ public class SearchScreenActivity extends ActionBarActivity {
                     Skill skill = (Skill) parent.getItemAtPosition(position);
                     clickOnSkill(skill);
                 } else {
-                    User user = (User) parent.getItemAtPosition(position);
+                    Profile user = (Profile) parent.getItemAtPosition(position);
                     clickOnUser(user);
                 }
             }
@@ -152,15 +149,16 @@ public class SearchScreenActivity extends ActionBarActivity {
 
         //Refresh the database :D
         masterController.refreshDB();
-        refineSearch(null);
+
+        resultsList.setAdapter(searchAdapter);
+        items.clear();
+        refineSearch(null); // search for nothing initially
 
         if (screenType == 0) {
             // all skills
-            resultsList.setAdapter(skillAdapter);
             setTitle("Search Skillz");
         } else {
             // all users
-            resultsList.setAdapter(userAdapter);
             setTitle("Search Users");
         }
     }
@@ -173,29 +171,26 @@ public class SearchScreenActivity extends ActionBarActivity {
         //apply it to the list of results
         //update view
         String search = searchField.getText().toString();
+        items.clear();
         if (screenType == 0) {
             // search skills
-            masterController.clearSkillzList(skillz); //TODO you can just skillz.clear()
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
                 if (s.toString().contains(search) &&
-                        (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s))) {
-                    skillz.add(s);
-                }
-            skillAdapter.notifyDataSetChanged();
+                        (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s)))
+                    items.add(s);
         } else { // Search users
-            users.clear();
             Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers)
                 if (u.getProfile().getUsername().contains(search))
-                    users.add(u);
-            userAdapter.notifyDataSetChanged();
+                    items.add(u.getProfile());
         }
+        searchAdapter.notifyDataSetChanged();
     }
 
-    public void clickOnUser(User u) {
+    public void clickOnUser(Profile u) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile", u.getProfile().getUsername());
+        intent.putExtra("user_name_for_profile", u.getUsername());
         startActivity(intent);
     }
 
