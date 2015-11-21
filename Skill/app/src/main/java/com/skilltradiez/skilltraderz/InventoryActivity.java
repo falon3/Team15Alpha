@@ -110,7 +110,7 @@ public class InventoryActivity extends ActionBarActivity {
     Context inventoryContext = this;
     private User currentUser;
     private List<Skill> skillz;//All skillz in inventory
-    private List<Skill> foundSkillz;
+    private List<Stringeable> foundSkillz;
 
     private Button searchButton;
     private Button startTrade;
@@ -118,7 +118,7 @@ public class InventoryActivity extends ActionBarActivity {
     private String searchInventory;
     private Spinner categorySpinner;
     private ListView inventoryList;
-    private ArrayAdapter<Skill> adapter;
+    private ArrayAdapter<Stringeable> adapter;
     private MasterController masterController;
 
     @Override
@@ -129,7 +129,7 @@ public class InventoryActivity extends ActionBarActivity {
         masterController = new MasterController();
 
         //TODO ...or just .getCurrentUser()
-        currentUser = masterController.getUserDB().getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
+        currentUser = masterController.getUserByID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
@@ -156,7 +156,7 @@ public class InventoryActivity extends ActionBarActivity {
         //adapter = new ArrayAdapter<Skill>(this,
         //        R.layout.list_item, foundSkillz);
         // Should Work
-        //adapter = new ListAdapter(this, foundSkillz);
+        adapter = new ListAdapter(this, foundSkillz);
 
         inventoryList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -166,7 +166,7 @@ public class InventoryActivity extends ActionBarActivity {
         Inventory inv = currentUser.getInventory();
         skillz = inv.cloneSkillz(masterController.getUserDB());
 
-        foundSkillz = new ArrayList<Skill>();
+        foundSkillz = new ArrayList<Stringeable>();
         foundSkillz.addAll(skillz);
     }
 

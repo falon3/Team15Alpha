@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,11 +50,11 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.list_item, parent, false);
-            /*viewHolder.name = (TextView) view.findViewById(R.id.name);
+            viewHolder.name = (TextView) view.findViewById(R.id.name);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
 
-            viewHolder.img = view.findViewById(R.id.img);
-            view.setTag(viewHolder);*/
+            //viewHolder.img = view.findViewById(R.id.img);
+            view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
