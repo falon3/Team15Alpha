@@ -232,14 +232,16 @@ public class Skill extends Notification {
     /**
      * CONSTRUCTOR
      **/
-    Skill(UserDatabase db, String skill_name, String category, String description) {
+    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, Image image) {
         setName(skill_name);
         setCategory(category);
-        setVisible(true);//Default is visible
-        setDescription(description);//Empty String
-        setImage(new NullImage());
+        setVisible(isVisible);
+        setDescription(description);
+        setImage(image);
 
         //TODO this probably shouldn't add itself to the database.
+        //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
+        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
         db.addSkill(this);
     }
 
@@ -311,7 +313,7 @@ public class Skill extends Notification {
     @Override
     public String toString() {
         //TODO Change Output?
-        return this.getName() + ": " + this.getCategory();
+        return this.getName() + ": " + this.getCategory() + (isVisible() ? "" : " (Invisible)");
     }
 
     public boolean commit(UserDatabase userDB) {

@@ -164,7 +164,7 @@ public class InventoryActivity extends ActionBarActivity {
         skillz = inv.cloneSkillz(masterController.getUserDB());
 
         foundSkillz = new ArrayList<Skill>();
-        foundSkillz.addAll(skillz);
+        searchInventory(null);
     }
 
     /**

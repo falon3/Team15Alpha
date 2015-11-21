@@ -152,20 +152,15 @@ public class SearchScreenActivity extends ActionBarActivity {
 
         //Refresh the database :D
         masterController.refreshDB();
+        refineSearch(null);
 
         if (screenType == 0) {
             // all skills
             resultsList.setAdapter(skillAdapter);
-            skillz.clear();
-            skillz.addAll(masterController.getAllSkillz());
-            skillAdapter.notifyDataSetChanged();
             setTitle("Search Skillz");
         } else {
             // all users
             resultsList.setAdapter(userAdapter);
-            users.clear();
-            users.addAll(masterController.getAllUserz());
-            userAdapter.notifyDataSetChanged();
             setTitle("Search Users");
         }
     }
@@ -180,11 +175,13 @@ public class SearchScreenActivity extends ActionBarActivity {
         String search = searchField.getText().toString();
         if (screenType == 0) {
             // search skills
-            masterController.clearSkillzList(skillz);
+            masterController.clearSkillzList(skillz); //TODO you can just skillz.clear()
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
-                if (s.toString().contains(search))
+                if (s.toString().contains(search) &&
+                        (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s))) {
                     skillz.add(s);
+                }
             skillAdapter.notifyDataSetChanged();
         } else { // Search users
             users.clear();
