@@ -278,7 +278,6 @@ public class Inventory extends Notification {
         return sorted;
     }
 
-    // TODO: Check if it's the same Skill, but a different version
     public Boolean hasSkill(Skill skill) {
         for (ID s:skillz)
             if (skill.getSkillID().equals(s))

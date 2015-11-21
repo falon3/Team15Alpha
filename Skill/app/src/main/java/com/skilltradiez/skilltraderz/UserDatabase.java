@@ -191,6 +191,29 @@ public class UserDatabase {
         }
     }
 
+    public void deleteDocumentUser(String userID) {
+        try {
+            elastic.deleteDocument("user", userID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteDocumentSkill(String skillID) {
+        try {
+            elastic.deleteDocument("skill", skillID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteDocumentTrade(String tradeID) {
+        try {
+            elastic.deleteDocument("trade", tradeID);
+            e.printStackTrace();
+        }
+    }
+
     public boolean isLoggedIn() {
         return currentUser != null;
     }
