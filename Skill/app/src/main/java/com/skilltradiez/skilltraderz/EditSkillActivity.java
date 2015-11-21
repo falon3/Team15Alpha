@@ -127,7 +127,32 @@ public class EditSkillActivity extends ActionBarActivity {
         masterController = new MasterController();
     }
 
+    public EditText getSkillName() {
+        return skillName;
+    }
+
+    public EditText getSkillDescription() {
+        return skillDescription;
+    }
+
+    public EditText getSkillCategory() {
+        return skillCategory;
+    }
+
+    public Button getAddSkillToDB() {
+        return addSkillToDB;
+    }
+
+    public CheckBox getVisible() {
+        return visible;
+    }
+
+    public MasterController getMasterController() {
+        return masterController;
+    }
+
     public void onStart(){
+        //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.
         super.onStart();
         skillName = (EditText) findViewById(R.id.new_skill_name);
         skillDescription = (EditText) findViewById(R.id.new_skill_description);
