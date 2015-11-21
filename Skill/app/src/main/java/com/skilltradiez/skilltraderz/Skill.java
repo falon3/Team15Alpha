@@ -119,6 +119,7 @@
 package com.skilltradiez.skilltraderz;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -250,6 +251,21 @@ public class Skill extends Stringeable {
         db.addSkill(this);
     }
 
+    Skill(UserDatabase db, Skill skill) {
+        setName(skill.getName());
+        owners = new ArrayList<ID>();
+        owners.add(db.getCurrentUser().getUserID());
+        setCategory(skill.getCategory());
+        setVisible(skill.isVisible());
+        setDescription(skill.getDescription());
+        setImage(skill.getImage());
+
+        //TODO this probably shouldn't add itself to the database.
+        //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
+        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
+        db.addSkill(this);
+    }
+
     /**
      * METHODS
      **/
@@ -287,6 +303,7 @@ public class Skill extends Stringeable {
     //object within this line.
     public void deleteImage() {
         setImage(new NullImage().getInt());
+        notifyDB();
     }
 
     //Traditional getter and setter methods for the private attribute description.
@@ -322,11 +339,6 @@ public class Skill extends Stringeable {
     }
 
     public boolean commit(UserDatabase userDB) {
-        //TODO
-        //1. multiple owners so make a new skill if changed
-        //2. only one owner so just update the skill
-        //3. if visibility changes AND more than one owner then make new skill
-        //4. if no owners then remove from elastic
         Elastic ela = userDB.getElastic();
         Skill prev_version;
         ID owner = userDB.getCurrentUser().getUserID();
@@ -336,30 +348,27 @@ public class Skill extends Stringeable {
 
             if (prev_version.isOwner(owner) && !hasOwners()){
                 //if removed skill from inventory and no other owners had skill
+                Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
                 userDB.deleteDocumentSkill(skillID.toString());
 
             }else if (prev_version.isOwner(owner) && !isOwner(owner)){
                 //if removed skill from inventory and other owners had skill
-                prev_version.removeOwner(owner);
+                prev_version.owners.remove(owner);
                 ela.addDocument("skill", skillID.toString(), prev_version);
 
             }else if (prev_version.isOwner(owner) && prev_version.getNumOwners()==1){
                 // if only one owner so update skill
                 ela.addDocument("skill", skillID.toString(), this);
 
-            } else if (prev_version.isOwner(owner) && prev_version.getNumOwners()>1){
-                if (hasChanged()){
-
-                }
+            } else if (prev_version.isOwner(owner) && prev_version.getNumOwners()>1) {
+                //if other users had and it was now updated then make new skill and remove self from old one
+                Skill new_version = new Skill(userDB, this);
+                prev_version.owners.remove(owner);
+                ela.addDocument("skill", skillID.toString(), prev_version);
+                ela.addDocument("skill", new_version.getSkillID().toString(), new_version);
+                // TODO: 2015-11-21 need to test to make sure new version is put in the inventory and the old version removed
             }
-
-
-            /*if (!prev_version.equals(this)) {
-                version = version + 1;
-                ela.addDocument("skill", skillID.getID() + "_" + version, this);
-            }*/
         } catch (IOException e) {
-            //TODO Save Locally
             userDB.getLocal().getLocalData().getNotifications().add(this);
             try {
                 userDB.getLocal().saveToFile();
@@ -377,10 +386,12 @@ public class Skill extends Stringeable {
 
     public void addOwner(ID owner){
         owners.add(owner);
+        notifyDB();
     }
 
     public void removeOwner(ID owner){
         owners.remove(owner);
+        notifyDB();
     }
 
     public boolean isOwner(ID owner){

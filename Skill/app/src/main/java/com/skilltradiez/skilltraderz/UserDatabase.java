@@ -210,7 +210,6 @@ public class UserDatabase {
     public void deleteDocumentTrade(String tradeID) {
         try {
             elastic.deleteDocument("trade", tradeID);
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

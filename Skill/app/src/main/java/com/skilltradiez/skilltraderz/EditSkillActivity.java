@@ -195,7 +195,6 @@ public class EditSkillActivity extends ActionBarActivity {
         masterController.save();
 
 
-
         //Toasty
         Context context = getApplicationContext();
         Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();

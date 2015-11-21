@@ -135,7 +135,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
             //Set text yet again to the OPPOSITE of what the function is.
             addRemoveSkill.setText("Remove Skill");
             //Evoke controller to ADD skill.
-            masterController.addCurrentskill(currentSkill);
+            masterController.addCurrentSkill(currentSkill);
         }
         hasSkill = !hasSkill;
         masterController.save();
