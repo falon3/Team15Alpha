@@ -104,7 +104,6 @@ class ChangeList {
             } catch (Exception e2) {
                 // if exception then also fails to commit
                 note.notifyDB();
-
             }
         }
         lock = false;

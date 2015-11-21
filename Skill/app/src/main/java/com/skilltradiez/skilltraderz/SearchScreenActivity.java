@@ -146,10 +146,6 @@ public class SearchScreenActivity extends ActionBarActivity {
                 }
             }
         });
-
-        loadItems();
-        resultsList.setAdapter(searchAdapter);
-        searchAdapter.notifyDataSetChanged();
     }
 
     @Override
