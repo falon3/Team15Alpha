@@ -67,6 +67,10 @@ public class MasterController {
         return getUserDB().getAccountByUsername(userProfileName);
     }
 
+    public static User getUserByID(ID userID){
+        return getUserDB().getAccountByUserID(userID);
+    }
+
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
     public static boolean currentUserHasFriend(User currentUser){
