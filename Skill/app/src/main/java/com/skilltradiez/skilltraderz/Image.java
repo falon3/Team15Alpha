@@ -40,6 +40,9 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Image {
+    //TODO Everything, needs to override equals as well.
+    public Image() {}
+    public Image(String filename) {}
     public int getInt() {
         return 0;
     }

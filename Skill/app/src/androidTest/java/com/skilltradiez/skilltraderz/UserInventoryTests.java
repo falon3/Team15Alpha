@@ -83,7 +83,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         Image dog = new Image("dog chasing it's tail");
         Skill held_skill = inv.get(db, 0);
         held_skill.setDescription("I jumped and then got really tired");
-        held_skill.setImage(dog);
+        held_skill.setImage(dog.getInt());
         held_skill.setVisible(false);
         assertTrue(dog.equals(held_skill.getImage()));
         assertTrue(held_skill.getDescription().equals("I jumped and then got really tired"));
