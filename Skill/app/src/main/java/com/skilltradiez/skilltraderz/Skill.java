@@ -234,11 +234,11 @@ public class Skill extends Stringeable {
     /**
      * CONSTRUCTOR
      **/
-    Skill(UserDatabase db, String skill_name, String category) {
+    Skill(UserDatabase db, String skill_name, String category, String description) {
         setName(skill_name);
         setCategory(category);
         setVisible(true);//Default is visible
-        setDescription("");//Empty String
+        setDescription(description);//Empty String
         setImage(new NullImage().getInt());
 
         //TODO this probably shouldn't add itself to the database.
@@ -311,37 +311,6 @@ public class Skill extends Stringeable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Skill skill = (Skill) o;
-
-        if (isVisible() != skill.isVisible()) return false;
-        if (!getName().equals(skill.getName())) return false;
-        if (getCategory() != null ? !getCategory().equals(skill.getCategory()) : skill.getCategory() != null)
-            return false;
-        if (getImage() == skill.getImage())
-            return false;
-        if (getDescription() != null ? !getDescription().equals(skill.getDescription()) : skill.getDescription() != null)
-            return false;
-        if (!version.equals(skill.version)) return false;
-        return getSkillID().equals(skill.getSkillID());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + (getCategory() != null ? getCategory().hashCode() : 0);
-        result = 31 * result + getImage();
-        result = 31 * result + (isVisible() ? 1 : 0);
-        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
-        result = 31 * result + version.hashCode();
-        result = 31 * result + getSkillID().hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         //TODO Change Output?
         return this.getName() + ": " + this.getCategory();
@@ -371,5 +340,20 @@ public class Skill extends Stringeable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Skill skill = (Skill) o;
+
+        return !(skillID != null ? !skillID.equals(skill.skillID) : skill.skillID != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return skillID != null ? skillID.hashCode() : 0;
     }
 }

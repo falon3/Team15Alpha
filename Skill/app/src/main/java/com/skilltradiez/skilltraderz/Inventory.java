@@ -149,6 +149,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -158,11 +159,13 @@ import java.util.List;
 /**
  * An inventory contains the the skills held by a user.
  */
-public class Inventory {
+public class Inventory extends Notification {
     private ArrayList<ID> skillz;
+    private ID user;
 
-    public Inventory() {
+    public Inventory(ID user) {
         skillz = new ArrayList<ID>();
+        this.user = user;
     }
 
     /**
@@ -192,6 +195,7 @@ public class Inventory {
     public Boolean add(Skill new_skill) {
         if (skillz.contains(new_skill.getSkillID())) return false;
         skillz.add(new_skill.getSkillID());
+        notifyDB();
         return true;
     }
 
@@ -202,6 +206,7 @@ public class Inventory {
      */
     public void remove(ID skill) {
         skillz.remove(skill);
+        notifyDB();
     }
 
     /**
@@ -222,9 +227,7 @@ public class Inventory {
         Skill temp;
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
-            if (temp.getName().contains(name)) {
-                matching.add(temp);
-            }
+            if (temp.getName().contains(name)) matching.add(temp);
         }
         return matching;
     }
@@ -240,9 +243,7 @@ public class Inventory {
         Skill temp;
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
-            if (temp.getCategory().contains(category)) {
-                matching.add(temp);
-            }
+            if (temp.getCategory().contains(category)) matching.add(temp);
         }
         return matching;
     }
@@ -288,5 +289,18 @@ public class Inventory {
         for (ID id:skillz)
             newList.add(userDB.getSkillByID(id));
         return newList;
+    }
+
+    @Override
+    boolean commit(UserDatabase userDB) {
+        System.out.println("Inventory commit!");
+        try {
+            userDB.getElastic().updateDocument("user", userDB.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO Save Locally
+            return false;
+        }
+        return true;
     }
 }

@@ -60,7 +60,9 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -74,6 +76,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGLDisplay;
@@ -102,9 +105,6 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    public static UserDatabase userDB;
-    //public static Boolean connected;
-
     //Main screen
     private Button searchButton;
     private Button searchAllSkillzButton;
@@ -118,18 +118,21 @@ public class MainActivity extends ActionBarActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
+    private static MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        masterController = new MasterController();
+        masterController.initDB();
+
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        //TODO: Find out what was meant by "HACK"
 
-        userDB = new UserDatabase();
-
-        if (userDB.getCurrentUser() != null) {
+        if (masterController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
         } else {
             setContentView(R.layout.first_time_user);
@@ -142,7 +145,6 @@ public class MainActivity extends ActionBarActivity {
         goToProfile = (Button) findViewById(R.id.go_to_profile);
         searchField = (EditText) findViewById(R.id.search_bar);
 
-
         // first_time
         newUserName = (EditText) findViewById(R.id.makeUserName);
         newUserEmail = (EditText) findViewById(R.id.emailField);
@@ -153,7 +155,7 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
+        masterController.initializeArrayListForSkills();
     }
 
     @Override
@@ -180,6 +182,7 @@ public class MainActivity extends ActionBarActivity {
         Like in the lab Get a string and search
         SearchThread thread = new SearchThread(string);
         thread.start();*/
+        //TODO: Use this or remove this
     }
 
     /**
@@ -196,13 +199,33 @@ public class MainActivity extends ActionBarActivity {
         }else {
             username = newUserName.getText().toString();
 
-            try {
+            //Used for error checking
+            // If null, then it failed
+            new_guy = masterController.createNewUser(username,newUserEmail.getText().toString());
+
+/*            try {
                 new_guy = userDB.createUser(username);
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
             }
-            new_guy.getProfile().setEmail(newUserEmail.getText().toString());
-            userDB.save();
+            catch (IllegalArgumentException e) {
+                Context context_exception = this;
+                // this makes a pop-up alert with a dismiss button.
+                // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
+                AlertDialog.Builder alert = new AlertDialog.Builder(context_exception);
+                alert.setMessage("UserName too long!\n");
+                alert.setCancelable(true);
+                alert.setPositiveButton("retry",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog tooBig_alert = alert.create();
+                tooBig_alert.show();
+                return;
+
+            }*/
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
@@ -211,8 +234,6 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(context, username + " Already Exists!", Toast.LENGTH_SHORT).show();
                 // Do nothing
             }
-
-            //todo email if needed
         }
     }
 
@@ -243,11 +264,10 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Take user to their own profile when "Your Profile" button is pressed
      * @param view
-     * @ TODO:
      */
     public void showProfile(View view){
         Intent intent = new Intent(mainContext, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile", userDB.getCurrentUser().getProfile().getUsername());
+        intent.putExtra("user_name_for_profile", masterController.getCurrentUserUsername());
         startActivity(intent);
     }
 
@@ -261,8 +281,34 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void deleteDatabase(View view) {
-        userDB.deleteAllData();
+        masterController.crazyDatabaseDeletion();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
+    }
+
+    /**MASTER CONTROLLER **/
+    public static MasterController getMasterController() {
+        return masterController;
+    }
+
+    public EditText getNameField() {
+        return newUserName;
+    }
+
+    public EditText getEmailField() {
+        return newUserEmail;
+    }
+
+    public Button getLoginButton() {
+        return makeNewUser;
+    }
+
+    public void clearFields() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                newUserName.setText("");
+                newUserEmail.setText("");
+            }
+        });
     }
 
     /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed

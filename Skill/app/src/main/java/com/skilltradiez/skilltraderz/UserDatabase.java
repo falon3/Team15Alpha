@@ -128,7 +128,7 @@ public class UserDatabase {
     private User currentUser;
     private Set<User> users;
     private List<Trade> trades;
-    private List<Skill> skillz;
+    private Set<Skill> skillz;
     private ChangeList toBePushed;
     private Elastic elastic;
     private Local local;
@@ -136,7 +136,7 @@ public class UserDatabase {
     UserDatabase() {
         users = new HashSet<User>();
         trades = new ArrayList<Trade>();
-        skillz = new ArrayList<Skill>();
+        skillz = new HashSet<Skill>();
         toBePushed = new ChangeList();
 
         // Persistence API
@@ -191,22 +191,35 @@ public class UserDatabase {
         }
     }
 
+    public boolean isLoggedIn() {
+        return currentUser != null;
+    }
+
     /**
      * Downloads all online data into a local cache
+     * TODO: save must be done before this or we might lose data
      */
     public void refresh() {
         try {
             List<User> onlineUsers = elastic.getAllUsers();
             for (User u : onlineUsers) {
-                if (u.equals(currentUser)) continue;
+                if (u.equals(currentUser)) setCurrentUser(u);
                 users.remove(u);
                 users.add(u);
+            }
+            List<Skill> skills = elastic.getAllSkills();
+            for (Skill s : skills) {
+                skillz.remove(s);
+                skillz.add(s);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * TODO saving should merge, not overwrite.
+     */
     public void save() {
         toBePushed.push(this);
         // TODO: Saves locally and pushes changes if connected to the internet
@@ -236,11 +249,9 @@ public class UserDatabase {
     }
 
     public User getAccountByUsername(String username) {
-        for (User u : users) {
-            if (u.getProfile().getUsername().equals(username)) {
+        for (User u : users)
+            if (u.getProfile().getUsername().equals(username))
                 return u;
-            }
-        }
         return getOnlineAccountByUsername(username);
     }
 
@@ -250,8 +261,7 @@ public class UserDatabase {
         try {
             //System.out.println(username);
             u = elastic.getDocumentUser(username);
-            if (u != null)
-                users.add(u);
+            if (u != null) users.add(u);
         } catch (IOException e) {
         }
         return u;
@@ -294,8 +304,7 @@ public class UserDatabase {
         Skill s = null;
         try {
             s = elastic.getDocumentSkill(id.toString());
-            if (s != null)
-                skillz.add(s);
+            if (s != null) skillz.add(s);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -329,9 +338,14 @@ public class UserDatabase {
         getChangeList().add(currentUser.getFriendsList());
         getChangeList().add(currentUser.getTradeList());
         getChangeList().add(currentUser.getProfile());
+        getChangeList().add(currentUser.getInventory());
     }
 
     public Set<User> getUsers() {
         return users;
+    }
+
+    public Set<Skill> getSkills() {
+        return skillz;
     }
 }

@@ -43,6 +43,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -66,11 +67,11 @@ import android.widget.TextView;
  */
 
 public class SkillDescriptionActivity extends ActionBarActivity {
-
     private Skill currentSkill;
     private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
+    private MasterController masterController;
 
     private Boolean hasSkill;
 
@@ -78,8 +79,9 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_description);
+        masterController = new MasterController();
 
-        currentSkill = MainActivity.userDB.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+        currentSkill = masterController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
 
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);
@@ -88,7 +90,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
         setSkillTitle(currentSkill.getName());
         setSkillDescription(currentSkill.getDescription());
 
-        User user = MainActivity.userDB.getCurrentUser();
+        User user = masterController.getCurrentUser();
         Inventory inv = user.getInventory();
 
         hasSkill = inv.hasSkill(currentSkill);
@@ -103,7 +105,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     }
 
     /**
-     * @ TODO:
+     * @ TODO:?
      */
     public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
@@ -111,7 +113,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     }
 
     /**
-     * @ TODO:
+     * @ TODO:?
      */
     public void setSkillDescription(String text){
         //skillDescription = description of the skill we're looking at
@@ -121,15 +123,22 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     /**
      * Adds or removes a skill from a user's list or trade request
      */
-    public void addRemoveSkill(){
+    public void addRemoveSkill(View v){
         //notify the user that the skill has been added to their profile or trade request depending
         //on what context we're given ie: trade request vs skill search
         if (hasSkill) {
+            //Set text to the OPPOSITE of what is happening.
             addRemoveSkill.setText("Add Skill");
+            //Evoke controller to REMOVE skill.
+            masterController.removeCurrentSkill(currentSkill);
         } else {
+            //Set text yet again to the OPPOSITE of what the function is.
             addRemoveSkill.setText("Remove Skill");
+            //Evoke controller to ADD skill.
+            masterController.addCurrentskill(currentSkill);
         }
         hasSkill = !hasSkill;
+        masterController.save();
     }
 
 }

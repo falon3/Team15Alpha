@@ -80,7 +80,9 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -108,18 +110,19 @@ import android.widget.Toast;
  */
 
 public class EditSkillActivity extends ActionBarActivity {
-
     private Skill newSkill;
-
     private EditText skillName;
     private EditText skillDescription;
     private EditText skillCategory;
     private Button addSkillToDB;
+    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_skill);
+
+        masterController = new MasterController();
     }
 
     public void onStart(){
@@ -136,15 +139,36 @@ public class EditSkillActivity extends ActionBarActivity {
      * @ TODO:
      */
     public void addNewSkill(View view){
-        //@todo make character limit of skill name and skill description
+        //@todo make character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
+        Context context1 = this;
+
+        if (name.length() > 40) {
+            // this makes a pop-up alert with a dismiss button.
+            // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
+            AlertDialog.Builder alert = new AlertDialog.Builder(context1);
+            alert.setMessage("Skill name too long!\n must be 40 characters or less\n");
+            alert.setCancelable(true);
+            alert.setPositiveButton("retry",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog toolong_alert = alert.create();
+            toolong_alert.show();
+            return;
+        }
+
         String category = skillCategory.getText().toString();
         String description = skillDescription.getText().toString();
-        newSkill = new Skill(MainActivity.userDB, name, category);
-        newSkill.setDescription(description);
-        MainActivity.userDB.getCurrentUser().getInventory().add(newSkill);
-        MainActivity.userDB.save();
 
+        //Make a new skill through the controller.
+        masterController.makeNewSkill(name, category, description);
+
+
+
+        //Toasty
         Context context = getApplicationContext();
         Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
 

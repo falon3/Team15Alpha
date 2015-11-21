@@ -102,8 +102,9 @@ class ChangeList {
                     if (!note.commit(userDB))
                         note.notifyDB();
             } catch (Exception e2) {
-                // Continue
-                //TODO Catch
+                // if exception then also fails to commit
+                note.notifyDB();
+
             }
         }
         lock = false;

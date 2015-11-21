@@ -96,7 +96,6 @@ import org.w3c.dom.Text;
  */
 
 public class TradeRequestActivity extends ActionBarActivity {
-
     private Context tradeContext = this;
 
     private Button acceptRequest;
@@ -106,14 +105,19 @@ public class TradeRequestActivity extends ActionBarActivity {
     private TextView tradeDescription;
     private ListView skillsInTrade;
     private Trade trade;
-
+    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_request);
+        //Initiate master controller object here.
+
+        masterController = new MasterController();
+
         Bundle extras = getIntent().getExtras();
-        trade = MainActivity.userDB.getTradeByID((ID) extras.get("trade_id"));
+        //Use the ID of the trade to get the trade OBJECT and assign it to trade variable.
+        trade = masterController.getCurrentTradeByID((ID) extras.get("trade_id"));
     }
 
     @Override
@@ -126,8 +130,6 @@ public class TradeRequestActivity extends ActionBarActivity {
         tradeDescription = (TextView) findViewById(R.id.trade_description);
         skillsInTrade = (ListView) findViewById(R.id.skillListInTrade);
         tradeTitle = (TextView) findViewById(R.id.trading_with);
-
-
     }
 
     /**
@@ -139,7 +141,10 @@ public class TradeRequestActivity extends ActionBarActivity {
         //Add the trade to your history
         Toast toast = Toast.makeText(tradeContext, "Accepted a Trade", Toast.LENGTH_SHORT);
         toast.show();
-        trade.getHalfForUser(MainActivity.userDB.getCurrentUser()).setAccepted(true);
+
+        //Evoke the masterController to set the trade to be ACCEPTED == TRUE.
+        masterController.acceptTheCurrentTrade(trade);
+
     }
 
     /**
@@ -161,14 +166,14 @@ public class TradeRequestActivity extends ActionBarActivity {
         Intent intent = new Intent(tradeContext, EditTradeActivity.class);
         intent.putExtra("trade_id", trade.getTradeID());
         startActivity(intent);
-        //TODO
+        //TODO: Shouldn't we set the Extra?
         intent.getExtras().get("counter_offer");
     }
 
     /**
      * Set the details of the trade offer.
      * View
-     * @ TODO:
+     * @ TODO: setTrade Details?
      */
     public void setTradeDetails(){
         //need a list of skills relevant to the trade and then populate the view
@@ -178,7 +183,7 @@ public class TradeRequestActivity extends ActionBarActivity {
     /**
      * Set the notes of the trade as given by the trade requester
      * View
-     * @ TODO:
+     * @ TODO: Trade Notes?
      */
     public void setTradeNotes(){
         //need to get the notes from the requester to populate this field
@@ -192,9 +197,8 @@ public class TradeRequestActivity extends ActionBarActivity {
      */
     public void setTradeTitle(){
         //tradeTitle = who you're trading with
-        UserDatabase db = MainActivity.userDB;
+        UserDatabase db = masterController.getUserDB();
         User otherUser = db.getAccountByUserID(trade.getOppositeHalf(db.getCurrentUser()).getUser());
         tradeTitle.setText(otherUser.getProfile().getUsername());
     }
-
 }

@@ -49,18 +49,19 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.list_item, parent, false);
-            viewHolder.name = (TextView) view.findViewById(R.id.name);
+            /*viewHolder.name = (TextView) view.findViewById(R.id.name);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
 
             viewHolder.img = view.findViewById(R.id.img);
-            view.setTag(viewHolder);
+            view.setTag(viewHolder);*/
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         // Populate the data into the template view using the data object
         viewHolder.name.setText(item.getName());
         viewHolder.desc.setText(item.getDescription());
-        //viewHolder.img.setImageResource(item.getImage());
+        //TODO IMAGES
+        // viewHolder.img.setImageResource(item.getImage());
         //viewHolder.img.setBackground(item.getImage());
         // Return the completed view to render on screen
         return view;

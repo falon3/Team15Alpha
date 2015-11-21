@@ -119,13 +119,17 @@ public class InventoryActivity extends ActionBarActivity {
     private Spinner categorySpinner;
     private ListView inventoryList;
     private ArrayAdapter<Skill> adapter;
+    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        currentUser = MainActivity.userDB.getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
+        masterController = new MasterController();
+
+        //TODO ...or just .getCurrentUser()
+        currentUser = masterController.getUserDB().getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
@@ -160,7 +164,7 @@ public class InventoryActivity extends ActionBarActivity {
 
     private void loadSkillz() {
         Inventory inv = currentUser.getInventory();
-        skillz = inv.cloneSkillz(MainActivity.userDB);
+        skillz = inv.cloneSkillz(masterController.getUserDB());
 
         foundSkillz = new ArrayList<Skill>();
         foundSkillz.addAll(skillz);
@@ -181,32 +185,27 @@ public class InventoryActivity extends ActionBarActivity {
     /**
      * Search through a user's inventory with a textual query to refine the number of items that
      * are shown
-     * @ TODO:
      */
-    public void searchInventory(){
+    public void searchInventory(View v){
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
-        String regex = searchField.getText().toString();
-        foundSkillz = new ArrayList<Skill>();
+        String regex = searchField.getText().toString(); // not a regex
 
-        if (regex.equals("")) {
-            foundSkillz = skillz;
-        } else {
-            for (Skill s : skillz)
-                if (s.getName().contains(regex))
-                    foundSkillz.add(s);
-        }
+        foundSkillz.clear();
+        foundSkillz.addAll(currentUser.getInventory().findByName(masterController.getUserDB(), regex));
         adapter.notifyDataSetChanged();
     }
 
     /**
      * Refine the number of skills that are shown on screen based on the category that each skill
      * belongs to
-     * @ TODO:
+     * @ TODO: CATEGORIES
      */
     public void refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
+        //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
+        //TODO: Categories are subject to change
     }
 
     /**
@@ -217,6 +216,5 @@ public class InventoryActivity extends ActionBarActivity {
         Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);
         intent.putExtra("skill_id", skill.getSkillID());
         startActivity(intent);
-
     }
 }

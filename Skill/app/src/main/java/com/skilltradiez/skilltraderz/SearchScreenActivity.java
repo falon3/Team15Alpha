@@ -101,11 +101,6 @@ import java.util.Set;
  */
 
 public class SearchScreenActivity extends ActionBarActivity {
-
-    //@todo what context are we getting things from? private int searchContext?
-
-    private Context searchScreenContext = this;
-
     private List<User> users;
     private List<Skill> skillz;
     private int screenType;
@@ -119,10 +114,15 @@ public class SearchScreenActivity extends ActionBarActivity {
     private ArrayAdapter<User> userAdapter;
     private ListView resultsList;
 
+    //Mastercontroller
+    private MasterController masterController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
+
+        masterController = new MasterController();
 
         users = new ArrayList<User>();
         skillz = new ArrayList<Skill>();
@@ -131,8 +131,8 @@ public class SearchScreenActivity extends ActionBarActivity {
         screenType = searchExtras.getInt("All_search");
 
         resultsList = (ListView) findViewById(R.id.search_list);
-        skillAdapter = new ArrayAdapter<Skill>(searchScreenContext, R.layout.list_item, skillz);
-        userAdapter = new ArrayAdapter<User>(searchScreenContext, R.layout.list_item, users);
+        skillAdapter = new ArrayAdapter<Skill>(this, R.layout.list_item, skillz);
+        userAdapter = new ArrayAdapter<User>(this, R.layout.list_item, users);
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
@@ -140,41 +140,60 @@ public class SearchScreenActivity extends ActionBarActivity {
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user = (User)parent.getItemAtPosition(position);
-                clickOnUser(user);
+                if (screenType == 0) {
+                    Skill skill = (Skill) parent.getItemAtPosition(position);
+                    clickOnSkill(skill);
+                } else {
+                    User user = (User) parent.getItemAtPosition(position);
+                    clickOnUser(user);
+                }
             }
         });
+
+        //Refresh the database :D
+        masterController.refreshDB();
 
         if (screenType == 0) {
             // all skills
             resultsList.setAdapter(skillAdapter);
+            skillz.clear();
+            skillz.addAll(masterController.getAllSkillz());
+            skillAdapter.notifyDataSetChanged();
+            setTitle("Search Skillz");
         } else {
             // all users
             resultsList.setAdapter(userAdapter);
-
+            users.clear();
+            users.addAll(masterController.getAllUserz());
+            userAdapter.notifyDataSetChanged();
+            setTitle("Search Users");
         }
-        MainActivity.userDB.refresh();
-
-        users.clear();
-        users.addAll(MainActivity.userDB.getUsers());
-        userAdapter.notifyDataSetChanged();
     }
 
     /**
      * Take a string and refine the list of Users/Skills
-     * @ TODO:
      */
     public void refineSearch(View v){
         //get whatever is in searchField
         //apply it to the list of results
         //update view
-        users.clear();
-        Set<User> onlineUsers = MainActivity.userDB.getUsers();
-        for (User u : onlineUsers) {
-            if (u.getProfile().getUsername().contains(searchField.getText().toString()))
-                users.add(u);
+        String search = searchField.getText().toString();
+        if (screenType == 0) {
+            // search skills
+            masterController.clearSkillzList(skillz);
+            Set<Skill> skills = masterController.getAllSkillz();
+            for (Skill s : skills)
+                if (s.toString().contains(search))
+                    skillz.add(s);
+            skillAdapter.notifyDataSetChanged();
+        } else { // Search users
+            users.clear();
+            Set<User> onlineUsers = masterController.getAllUserz();
+            for (User u : onlineUsers)
+                if (u.getProfile().getUsername().contains(search))
+                    users.add(u);
+            userAdapter.notifyDataSetChanged();
         }
-        userAdapter.notifyDataSetChanged();
     }
 
     public void clickOnUser(User u) {
@@ -183,20 +202,18 @@ public class SearchScreenActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void clickOnSkill(Skill s) {
+        Intent intent = new Intent(this, SkillDescriptionActivity.class);
+        intent.putExtra("skill_id", s.getSkillID());
+        startActivity(intent);
+    }
+
     /**
      * Change category. Yes I know this is a bad comment I'll come back to it.
-     * @ TODO:
+     * @ TODO: CHANGE CATEGORY?
      */
     public void changeCategory(){
         //inflate the category spinner
         //refine the search results
-    }
-
-    /**
-     * Populate the screen with Users or Skills based on requirements ie: search strings
-     * @ TODO:
-     */
-    public void populateListView(){
-
     }
 }

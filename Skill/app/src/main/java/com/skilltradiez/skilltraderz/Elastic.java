@@ -298,9 +298,19 @@ public class Elastic {
         Type getResponseType = new TypeToken<UserSearchResponse>() { }.getType();
         UserSearchResponse searchResponse = gson.fromJson(resp, getResponseType);
         List<User> hitsT = new ArrayList<User>();
-        for (UserSearchResponse.Hit hit : searchResponse.hits.hits) {
+        for (UserSearchResponse.Hit hit : searchResponse.hits.hits)
             hitsT.add(hit._source);
-        }
+        return hitsT;
+    }
+
+    public List<Skill> getAllSkills() throws IOException {
+        String resp = httpClient.get(baseUrl + "skill/_search?size=9999999");
+        Type getResponseType = new TypeToken<SkillSearchResponse>() { }.getType();
+        SkillSearchResponse searchResponse = gson.fromJson(resp, getResponseType);
+        List<Skill> hitsT = new ArrayList<Skill>();
+        for (SkillSearchResponse.Hit hit : searchResponse.hits.hits)
+            if (hit._source.isVisible())
+                hitsT.add(hit._source);
         return hitsT;
     }
 
