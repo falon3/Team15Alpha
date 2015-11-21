@@ -117,16 +117,16 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         assertNull(user.getProfile().getAvatar());
 
         //test setting avatar
-        user.getProfile().setAvatar(avatar);
+        user.getProfile().setAvatar(avatar.getInt());
         assertEquals(user.getProfile().getAvatar(), avatar);
 
         //test changing avatar
-        user.getProfile().setAvatar(avatar2);
+        user.getProfile().setAvatar(avatar2.getInt());
         assertEquals(user.getProfile().getAvatar(), avatar2);
 
         //test deleting avatar
         user.getProfile().deleteAvatar();
-        assertTrue(user.getProfile().getAvatar() instanceof NullImage);
+        assertTrue(user.getProfile().getAvatar() == new NullImage().getInt());
 
     }
 
