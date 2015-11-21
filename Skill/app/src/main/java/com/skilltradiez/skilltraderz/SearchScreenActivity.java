@@ -100,7 +100,7 @@ import java.util.Set;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class SearchScreenActivity extends ActionBarActivity {
+public class SearchScreenActivity extends GeneralMenuActivity {
     private List<User> users;
     private List<Skill> skillz;
     private int screenType;

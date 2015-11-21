@@ -60,9 +60,7 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -70,17 +68,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import javax.microedition.khronos.egl.EGLDisplay;
-import java.util.ArrayList;
 
 /*
  *    Team15Alpha
@@ -101,7 +94,7 @@ import java.util.ArrayList;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends GeneralMenuActivity {
 
     private Context mainContext = this;
 
@@ -161,7 +154,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.main_ham, menu);
         return true;
     }
 

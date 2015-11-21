@@ -83,6 +83,7 @@ package com.skilltradiez.skilltraderz;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -116,6 +117,7 @@ public class EditSkillActivity extends ActionBarActivity {
     private EditText skillCategory;
     private Button addSkillToDB;
     private MasterController masterController;
+    private Context edSkillContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,13 +143,14 @@ public class EditSkillActivity extends ActionBarActivity {
     public void addNewSkill(View view){
         //@todo make character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
-        Context context1 = this;
+        String category = skillCategory.getText().toString();
+        String description = skillDescription.getText().toString();
 
-        if (name.length() > 40) {
+        if (name.length() == 0 || description.length() == 0 || category.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
             // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
-            AlertDialog.Builder alert = new AlertDialog.Builder(context1);
-            alert.setMessage("Skill name too long!\n must be 40 characters or less\n");
+            AlertDialog.Builder alert = new AlertDialog.Builder(edSkillContext);
+            alert.setMessage("Please make sure all fields are filled!\n");
             alert.setCancelable(true);
             alert.setPositiveButton("retry",
                     new DialogInterface.OnClickListener() {
@@ -160,17 +163,16 @@ public class EditSkillActivity extends ActionBarActivity {
             return;
         }
 
-        String category = skillCategory.getText().toString();
-        String description = skillDescription.getText().toString();
-
         //Make a new skill through the controller.
         masterController.makeNewSkill(name, category, description);
-
-
 
         //Toasty
         Context context = getApplicationContext();
         Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
+
+        skillName.setText("");
+        skillDescription.setText("");
+        skillCategory.setText("");
 
     }
 }
