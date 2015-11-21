@@ -111,6 +111,7 @@ public class MasterController {
     /** SKILLZ RELATED FUNCTIONS **/
 
     //Clear the current List<Skill> of skillz!
+    // this seems unnecessary
     public static void clearSkillzList(List<Skill> skillz){
         skillz.clear();
     }
@@ -124,8 +125,8 @@ public class MasterController {
         return userDB.getUsers();
     }
 
-    public void makeNewSkill(String name, String category, String description){
-        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description));
+    public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
+        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description, isVisible, image));
         save();
     }
 

@@ -164,16 +164,13 @@ public class SearchScreenActivity extends ActionBarActivity {
         //Refresh the database :D
         masterController.refreshDB();
         items.clear();
+        refineSearch(null); // search for nothing initially
 
         if (screenType == 0) {
             // all skills
-            items.addAll(masterController.getAllSkillz());
             setTitle("Search Skillz");
         } else {
             // all users
-            Set<User> users = masterController.getAllUserz();
-            for (User u:users)
-                items.add(u.getProfile());
             setTitle("Search Users");
         }
     }
@@ -191,7 +188,8 @@ public class SearchScreenActivity extends ActionBarActivity {
             // search skills
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
-                if (s.toString().contains(search))
+                if (s.toString().contains(search) &&
+                        (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s)))
                     items.add(s);
         } else { // Search users
             Set<User> onlineUsers = masterController.getAllUserz();

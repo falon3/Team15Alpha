@@ -156,6 +156,8 @@ public class InventoryActivity extends ActionBarActivity {
 
         inventoryList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        searchInventory(null);
     }
 
     private void loadSkillz() {
@@ -163,7 +165,6 @@ public class InventoryActivity extends ActionBarActivity {
         skillz = inv.cloneSkillz(masterController.getUserDB());
 
         foundSkillz = new ArrayList<Stringeable>();
-        foundSkillz.addAll(skillz);
     }
 
     /**
