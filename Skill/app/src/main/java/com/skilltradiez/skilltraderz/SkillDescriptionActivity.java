@@ -67,7 +67,6 @@ import android.widget.TextView;
  */
 
 public class SkillDescriptionActivity extends ActionBarActivity {
-
     private Skill currentSkill;
     private Button addRemoveSkill;
     private TextView skillTitle;
@@ -106,7 +105,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     }
 
     /**
-     * @ TODO:
+     * @ TODO:?
      */
     public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
@@ -114,7 +113,7 @@ public class SkillDescriptionActivity extends ActionBarActivity {
     }
 
     /**
-     * @ TODO:
+     * @ TODO:?
      */
     public void setSkillDescription(String text){
         //skillDescription = description of the skill we're looking at
@@ -132,11 +131,10 @@ public class SkillDescriptionActivity extends ActionBarActivity {
             addRemoveSkill.setText("Add Skill");
             //Evoke controller to REMOVE skill.
             masterController.removeCurrentSkill(currentSkill);
-
         } else {
-            //Set text yet again to the OPPPOSITE of what the function is.
+            //Set text yet again to the OPPOSITE of what the function is.
             addRemoveSkill.setText("Remove Skill");
-
+            //Evoke controller to ADD skill.
             masterController.addCurrentskill(currentSkill);
         }
         hasSkill = !hasSkill;

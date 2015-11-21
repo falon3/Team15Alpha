@@ -101,7 +101,6 @@ import java.util.Set;
  */
 
 public class SearchScreenActivity extends ActionBarActivity {
-
     private List<User> users;
     private List<Skill> skillz;
     private int screenType;
@@ -169,7 +168,6 @@ public class SearchScreenActivity extends ActionBarActivity {
             userAdapter.notifyDataSetChanged();
             setTitle("Search Users");
         }
-
     }
 
     /**
@@ -184,19 +182,16 @@ public class SearchScreenActivity extends ActionBarActivity {
             // search skills
             masterController.clearSkillzList(skillz);
             Set<Skill> skills = masterController.getAllSkillz();
-            for (Skill s : skills) {
-                System.out.println(s);
+            for (Skill s : skills)
                 if (s.toString().contains(search))
                     skillz.add(s);
-            }
             skillAdapter.notifyDataSetChanged();
         } else { // Search users
             users.clear();
             Set<User> onlineUsers = masterController.getAllUserz();
-            for (User u : onlineUsers) {
+            for (User u : onlineUsers)
                 if (u.getProfile().getUsername().contains(search))
                     users.add(u);
-            }
             userAdapter.notifyDataSetChanged();
         }
     }
@@ -215,7 +210,7 @@ public class SearchScreenActivity extends ActionBarActivity {
 
     /**
      * Change category. Yes I know this is a bad comment I'll come back to it.
-     * @ TODO:
+     * @ TODO: CHANGE CATEGORY?
      */
     public void changeCategory(){
         //inflate the category spinner

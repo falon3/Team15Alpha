@@ -147,9 +147,7 @@ public class Local {
         File file = new File(SAVE_FILE);
 
         // create file if doesn't exist
-        if (!file.exists()) {
-            file.createNewFile();
-        }
+        if (!file.exists()) file.createNewFile();
         fop = new FileOutputStream(file);
         BufferedWriter output = new BufferedWriter(new OutputStreamWriter(fop));
         Gson gson = new Gson();
@@ -165,9 +163,7 @@ public class Local {
         File file = new File(SAVE_FILE);
 
         // create file if doesn't exist
-        if (!file.exists()) {
-            file.createNewFile();
-        }
+        if (!file.exists()) file.createNewFile();
         fip = new FileInputStream(file);
         BufferedReader in = new BufferedReader(new InputStreamReader(fip));
         Gson gson = new Gson();

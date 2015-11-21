@@ -157,7 +157,7 @@ public class TradeList extends Notification {
         }
         newTrades.clear();
         for (ID tradeId : deletedTrades) {
-            //TODO how to delete ttrade
+            //TODO Delete trade
         }
         deletedTrades.clear();
         return true;

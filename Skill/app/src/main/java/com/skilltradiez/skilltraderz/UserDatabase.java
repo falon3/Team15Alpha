@@ -249,11 +249,9 @@ public class UserDatabase {
     }
 
     public User getAccountByUsername(String username) {
-        for (User u : users) {
-            if (u.getProfile().getUsername().equals(username)) {
+        for (User u : users)
+            if (u.getProfile().getUsername().equals(username))
                 return u;
-            }
-        }
         return getOnlineAccountByUsername(username);
     }
 
@@ -263,8 +261,7 @@ public class UserDatabase {
         try {
             //System.out.println(username);
             u = elastic.getDocumentUser(username);
-            if (u != null)
-                users.add(u);
+            if (u != null) users.add(u);
         } catch (IOException e) {
         }
         return u;
@@ -307,8 +304,7 @@ public class UserDatabase {
         Skill s = null;
         try {
             s = elastic.getDocumentSkill(id.toString());
-            if (s != null)
-                skillz.add(s);
+            if (s != null) skillz.add(s);
         } catch (IOException e) {
             e.printStackTrace();
         }

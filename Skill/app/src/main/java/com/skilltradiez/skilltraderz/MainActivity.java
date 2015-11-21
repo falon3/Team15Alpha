@@ -105,10 +105,6 @@ public class MainActivity extends ActionBarActivity {
 
     private Context mainContext = this;
 
-    /** HERE IT IS! COMMENTEDOUT !!!! **/
-    //public static UserDatabase userDB;
-    //public static Boolean connected;
-
     //Main screen
     private Button searchButton;
     private Button searchAllSkillzButton;
@@ -122,8 +118,6 @@ public class MainActivity extends ActionBarActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
-
-
     private static MasterController masterController;
 
     @Override
@@ -136,8 +130,7 @@ public class MainActivity extends ActionBarActivity {
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-
+        //TODO: Find out what was meant by "HACK"
 
         if (masterController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
@@ -189,6 +182,7 @@ public class MainActivity extends ActionBarActivity {
         Like in the lab Get a string and search
         SearchThread thread = new SearchThread(string);
         thread.start();*/
+        //TODO: Use this or remove this
     }
 
     /**
@@ -205,7 +199,8 @@ public class MainActivity extends ActionBarActivity {
         }else {
             username = newUserName.getText().toString();
 
-
+            //Used for error checking
+            // If null, then it failed
             new_guy = masterController.createNewUser(username,newUserEmail.getText().toString());
 
 /*            try {
@@ -231,7 +226,6 @@ public class MainActivity extends ActionBarActivity {
                 return;
 
             }*/
-
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
@@ -287,17 +281,14 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void deleteDatabase(View view) {
-        masterController.crazyDatabaseDelection();
+        masterController.crazyDatabaseDeletion();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
-
-
 
     /**MASTER CONTROLLER **/
     public static MasterController getMasterController() {
         return masterController;
     }
-
 
     public EditText getNameField() {
         return newUserName;
@@ -319,7 +310,6 @@ public class MainActivity extends ActionBarActivity {
             }
         });
     }
-
 
     /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed
        source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android

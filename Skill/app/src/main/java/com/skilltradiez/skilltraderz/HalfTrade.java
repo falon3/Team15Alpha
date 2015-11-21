@@ -156,9 +156,8 @@ public class HalfTrade extends Notification {
 
     public void setOffer(List<Skill> offer) {
         List<ID> ids = new ArrayList<ID>();
-        for (Skill skill : offer) {
+        for (Skill skill : offer)
             ids.add(skill.getSkillID());
-        }
         this.offer = ids;
         notifyDB();
     }

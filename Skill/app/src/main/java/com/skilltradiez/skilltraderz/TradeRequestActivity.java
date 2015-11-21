@@ -96,7 +96,6 @@ import org.w3c.dom.Text;
  */
 
 public class TradeRequestActivity extends ActionBarActivity {
-
     private Context tradeContext = this;
 
     private Button acceptRequest;
@@ -107,7 +106,6 @@ public class TradeRequestActivity extends ActionBarActivity {
     private ListView skillsInTrade;
     private Trade trade;
     private MasterController masterController;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,8 +130,6 @@ public class TradeRequestActivity extends ActionBarActivity {
         tradeDescription = (TextView) findViewById(R.id.trade_description);
         skillsInTrade = (ListView) findViewById(R.id.skillListInTrade);
         tradeTitle = (TextView) findViewById(R.id.trading_with);
-
-
     }
 
     /**
@@ -170,14 +166,14 @@ public class TradeRequestActivity extends ActionBarActivity {
         Intent intent = new Intent(tradeContext, EditTradeActivity.class);
         intent.putExtra("trade_id", trade.getTradeID());
         startActivity(intent);
-        //TODO
+        //TODO: Shouldn't we set the Extra?
         intent.getExtras().get("counter_offer");
     }
 
     /**
      * Set the details of the trade offer.
      * View
-     * @ TODO:
+     * @ TODO: setTrade Details?
      */
     public void setTradeDetails(){
         //need a list of skills relevant to the trade and then populate the view
@@ -187,7 +183,7 @@ public class TradeRequestActivity extends ActionBarActivity {
     /**
      * Set the notes of the trade as given by the trade requester
      * View
-     * @ TODO:
+     * @ TODO: Trade Notes?
      */
     public void setTradeNotes(){
         //need to get the notes from the requester to populate this field
@@ -205,5 +201,4 @@ public class TradeRequestActivity extends ActionBarActivity {
         User otherUser = db.getAccountByUserID(trade.getOppositeHalf(db.getCurrentUser()).getUser());
         tradeTitle.setText(otherUser.getProfile().getUsername());
     }
-
 }
