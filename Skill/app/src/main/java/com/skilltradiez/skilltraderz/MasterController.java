@@ -15,12 +15,7 @@ import java.util.Set;
  * --Sovereign, mass effect
  */
 public class MasterController {
-
     private static UserDatabase userDB;
-
-    //Constructor for this. EMPTY.
-    public MasterController(){
-    }
 
     /** DATABASE RELATED **/
     //Initialize the database.
@@ -33,16 +28,13 @@ public class MasterController {
         return userDB;
     }
 
-
     //Refresh the database!
     public static void refreshDB(){
         userDB.refresh();
     }
 
-
-
     //I hate this. Deletes ALL data from the database.
-    public static void crazyDatabaseDelection(){
+    public static void crazyDatabaseDeletion(){
         userDB.deleteAllData();
     }
 
@@ -62,28 +54,24 @@ public class MasterController {
         return userDB.getCurrentUser().getProfile().getUsername();
     }
 
+    public static String getCurrentUserEmail(){
+        return userDB.getCurrentUser().getProfile().getEmail();
+    }
+
     public static boolean isLoggedIn() {
         return userDB.isLoggedIn();
     }
-
 
     //Given a profile name... can we please return THE PROFILE OBJECT?! (Yes. Yes we can.)
     public static User getUserByName(String userProfileName){
         return getUserDB().getAccountByUsername(userProfileName);
     }
 
-    public static String getCurrentUserEmail(){
-        return userDB.getCurrentUser().getProfile().getEmail();
-    }
-
-
-
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
     public static boolean currentUserHasFriend(User currentUser){
         return currentUser.getFriendsList().hasFriend(userDB.getCurrentUser());
     }
-
 
     public static void addANewFriend(User currentUser){
         userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
@@ -93,18 +81,12 @@ public class MasterController {
         userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
     }
 
-
-
-
-
-
     //When called upon, will create a brand new arraylist of skills associated with that user
     //Primarily used when there is a new user that was not previously detected.
     public static void initializeArrayListForSkills(){
         userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
 
     }
-
 
     //When we have a new user... we call upon the controller here to interact with the database
     //in order to create a brand new user. Returns this brand new user!
@@ -121,11 +103,6 @@ public class MasterController {
 
         return new_guy;
     }
-
-
-
-
-
 
     /** SKILLZ RELATED FUNCTIONS **/
 
@@ -148,15 +125,11 @@ public class MasterController {
         save();
     }
 
-
-
     /** SkillDescriptionActivity methods **/
 
     public static Skill getSkillByID(ID identifier){
-
         return userDB.getSkillByID(identifier);
     }
-
 
     public static void removeCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
@@ -177,6 +150,4 @@ public class MasterController {
     public static void acceptTheCurrentTrade(Trade trade){
         trade.getHalfForUser(userDB.getCurrentUser()).setAccepted(true);
     }
-
-
 }

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Stephen on 2015-11-07.
  */
-/*
+
 public class SkillListAdapter extends ArrayAdapter<Skill> {
     private final Activity context;
     private final List<Skill> skillz;
@@ -42,7 +42,6 @@ public class SkillListAdapter extends ArrayAdapter<Skill> {
         // or a better If Drawable has been set by constructor
         imageView.setImageResource(here.getImage());
         return rowView;*/
-/*
 
         Skill skill = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
@@ -51,18 +50,19 @@ public class SkillListAdapter extends ArrayAdapter<Skill> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.list_item, parent, false);
-            viewHolder.name = (TextView) view.findViewById(R.id.name);
+            /*viewHolder.name = (TextView) view.findViewById(R.id.name);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
 
             viewHolder.img = (ImageView) view.findViewById(R.id.img);
-            view.setTag(viewHolder);
+            view.setTag(viewHolder);*/
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         // Populate the data into the template view using the data object
         viewHolder.name.setText(skill.getName());
         viewHolder.desc.setText(skill.getDescription());
-        viewHolder.img.setImageResource(skill.getImage());
+        //TODO IMAGES
+        //viewHolder.img.setImageResource(skill.getImage());
         // Return the completed view to render on screen
         return view;
     }
@@ -74,4 +74,3 @@ public class SkillListAdapter extends ArrayAdapter<Skill> {
         ImageView img;
     }
 }
-*/

@@ -88,15 +88,6 @@ import java.util.List;
  */
 public class Trade extends Notification {
     private ID tradeID;
-
-    public HalfTrade getHalf1() {
-        return half1;
-    }
-
-    public HalfTrade getHalf2() {
-        return half2;
-    }
-
     private HalfTrade half1, half2;
 
     Trade(UserDatabase db, User user1, User user2) {
@@ -104,6 +95,14 @@ public class Trade extends Notification {
         half1 = new HalfTrade(tradeID, user1.getUserID(), 1);
         half2 = new HalfTrade(tradeID, user2.getUserID(), 2);
         db.addTrade(this);
+    }
+
+    public HalfTrade getHalf1() {
+        return half1;
+    }
+
+    public HalfTrade getHalf2() {
+        return half2;
     }
 
     public HalfTrade getOppositeHalf(User user) {

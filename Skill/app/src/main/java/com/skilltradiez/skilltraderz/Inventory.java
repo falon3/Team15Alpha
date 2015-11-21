@@ -227,9 +227,7 @@ public class Inventory extends Notification {
         Skill temp;
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
-            if (temp.getName().contains(name)) {
-                matching.add(temp);
-            }
+            if (temp.getName().contains(name)) matching.add(temp);
         }
         return matching;
     }
@@ -245,9 +243,7 @@ public class Inventory extends Notification {
         Skill temp;
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
-            if (temp.getCategory().contains(category)) {
-                matching.add(temp);
-            }
+            if (temp.getCategory().contains(category)) matching.add(temp);
         }
         return matching;
     }

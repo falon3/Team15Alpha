@@ -115,7 +115,6 @@ import android.widget.Toast;
  */
 
 public class ProfileActivity extends ActionBarActivity {
-
     private Bundle profileExtras;
     private String userProfileName;
 
@@ -135,7 +134,6 @@ public class ProfileActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
 
         masterController = new MasterController();
         profileExtras = getIntent().getExtras();
@@ -159,17 +157,15 @@ public class ProfileActivity extends ActionBarActivity {
             hasFriend = false;
         }
 
-        // you can't be friends with yourself, go get some real friends
-        if (masterController.getUserDB().getCurrentUser().equals(currentUser)) {
+        // You can't be friends with yourself, go get some real friends
+        if (masterController.getUserDB().getCurrentUser().equals(currentUser))
             addRemoveFriend.setEnabled(false);
-        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -182,14 +178,10 @@ public class ProfileActivity extends ActionBarActivity {
     /**
      * When you click on a profile it gets data something something @todo make this sound nicer
      */
-    public void populateProfile(){
+    public void populateProfile() {
         currentUser = masterController.getUserByName(userProfileName);
         hasFriend = masterController.currentUserHasFriend(currentUser);
-
-
     }
-
-
 
     /**
      * Begins the inventory activity, and shows the inventory specific to the user whose profile
@@ -248,7 +240,6 @@ public class ProfileActivity extends ActionBarActivity {
         masterController.removeThisFriend(currentUser);
 
         masterController.save();
-
 
         //Toasties!!!!!!
         Context context = getApplicationContext();

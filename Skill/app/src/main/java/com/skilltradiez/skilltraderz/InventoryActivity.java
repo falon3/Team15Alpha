@@ -128,7 +128,7 @@ public class InventoryActivity extends ActionBarActivity {
 
         masterController = new MasterController();
 
-
+        //TODO ...or just .getCurrentUser()
         currentUser = masterController.getUserDB().getAccountByUserID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);
@@ -196,11 +196,13 @@ public class InventoryActivity extends ActionBarActivity {
     /**
      * Refine the number of skills that are shown on screen based on the category that each skill
      * belongs to
-     * @ TODO:
+     * @ TODO: CATEGORIES
      */
     public void refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
+        //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
+        //TODO: Categories are subject to change
     }
 
     /**
@@ -211,6 +213,5 @@ public class InventoryActivity extends ActionBarActivity {
         Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);
         intent.putExtra("skill_id", skill.getSkillID());
         startActivity(intent);
-
     }
 }

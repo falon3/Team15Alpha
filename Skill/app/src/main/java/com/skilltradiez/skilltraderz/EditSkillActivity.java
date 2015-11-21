@@ -110,9 +110,7 @@ import android.widget.Toast;
  */
 
 public class EditSkillActivity extends ActionBarActivity {
-
     private Skill newSkill;
-
     private EditText skillName;
     private EditText skillDescription;
     private EditText skillCategory;

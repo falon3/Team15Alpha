@@ -126,7 +126,6 @@ import java.io.IOException;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Profile extends Notification {
-
     private String location = "";
     private Boolean shouldDownloadImages = true;
     private Image avatar;
@@ -158,7 +157,6 @@ public class Profile extends Notification {
         this.username = name;
         notifyDB();
     }
-
 
     public String getEmail() {
         return email;

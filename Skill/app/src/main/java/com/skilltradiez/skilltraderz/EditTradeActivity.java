@@ -70,7 +70,6 @@ import org.w3c.dom.Text;
  */
 
 public class EditTradeActivity extends ActionBarActivity {
-
     private TextView tradeTitle;
     private ArrayAdapter<Skill> skillAdapter;
     private ListView skillsInTrade;
@@ -90,7 +89,6 @@ public class EditTradeActivity extends ActionBarActivity {
     }
 
     public void addSkillToTrade(View view){
-
         Context context = getApplicationContext();
         Toast.makeText(context, "Doesn't work yet whoops!", Toast.LENGTH_SHORT).show();
         /*Intent intent = new Intent(EditTradeActivity.this, InventoryActivity.class);
@@ -107,11 +105,8 @@ public class EditTradeActivity extends ActionBarActivity {
     public void sendTrade(View view){
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
-        /*ntent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
+        /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
         startActivity(intent);*/
 
     }
-
-
-
 }
