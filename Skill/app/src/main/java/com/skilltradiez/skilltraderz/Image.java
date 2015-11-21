@@ -40,7 +40,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Image {
-    Image(String file) {
-
+    public int getInt() {
+        return 0;
     }
 }
