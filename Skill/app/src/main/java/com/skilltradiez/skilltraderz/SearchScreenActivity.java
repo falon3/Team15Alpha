@@ -147,10 +147,22 @@ public class SearchScreenActivity extends ActionBarActivity {
             }
         });
 
+        loadItems();
+        resultsList.setAdapter(searchAdapter);
+        searchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadItems();
+        resultsList.setAdapter(searchAdapter);
+        searchAdapter.notifyDataSetChanged();
+    }
+
+    public void loadItems() {
         //Refresh the database :D
         masterController.refreshDB();
-
-        resultsList.setAdapter(searchAdapter);
         items.clear();
 
         if (screenType == 0) {
@@ -164,7 +176,6 @@ public class SearchScreenActivity extends ActionBarActivity {
                 items.add(u.getProfile());
             setTitle("Search Users");
         }
-        searchAdapter.notifyDataSetChanged();
     }
 
     /**
