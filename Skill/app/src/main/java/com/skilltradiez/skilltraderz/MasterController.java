@@ -138,10 +138,12 @@ public class MasterController {
 
     public static void removeCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
+        currentSkill.removeOwner(userDB.getCurrentUser().getUserID());
     }
 
-    public static void addCurrentskill(Skill currentSkill){
+    public static void addCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().add(currentSkill);
+        currentSkill.addOwner(userDB.getCurrentUser().getUserID());
     }
 
     /** TradeRequestActivity methods **/

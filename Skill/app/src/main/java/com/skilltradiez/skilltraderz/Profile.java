@@ -171,6 +171,7 @@ public class Profile extends Stringeable {
 
     public void deleteAvatar() {
         avatar = new NullImage().getInt();
+        notifyDB();
     }
 
     public int getAvatar() {
