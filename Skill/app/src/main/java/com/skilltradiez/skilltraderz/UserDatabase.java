@@ -207,6 +207,7 @@ public class UserDatabase {
                 users.remove(u);
                 users.add(u);
             }
+            //TODO CATCH IOExceptions
             List<Skill> skills = elastic.getAllSkills();
             for (Skill s : skills) {
                 skillz.remove(s);

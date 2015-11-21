@@ -118,6 +118,8 @@
  */
 package com.skilltradiez.skilltraderz;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -221,10 +223,10 @@ import java.util.ArrayList;
  * -Get the description         --getDescription
  * -Set the description         --setDescription
  */
-public class Skill extends Notification {
+public class Skill extends Stringeable {
     private String name;
     private String category;
-    private Image image;
+    private int image;
     private boolean visible;
     private String description;
     private ID skillID = ID.generateRandomID();
@@ -233,16 +235,18 @@ public class Skill extends Notification {
     /**
      * CONSTRUCTOR
      **/
-    Skill(UserDatabase db, String skill_name, String category, String description) {
+    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, Image image) {
         setName(skill_name);
         owners = new ArrayList<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
-        setVisible(true);//Default is visible
-        setDescription(description);//Empty String
-        setImage(new NullImage());
+        setVisible(isVisible);
+        setDescription(description);
+        setImage(image.getInt());
 
         //TODO this probably shouldn't add itself to the database.
+        //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
+        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
         db.addSkill(this);
     }
 
@@ -270,11 +274,11 @@ public class Skill extends Notification {
     }
 
     //Traditional getter and setter methods for the private attribute image
-    public Image getImage() {
-        return image;
+    public int getImage() {
+        return image;//Drawable.createFromInputStream(URL, null);
     }
 
-    public void setImage(Image image) {
+    public void setImage(int image) {
         this.image = image;
         notifyDB();
     }
@@ -282,7 +286,7 @@ public class Skill extends Notification {
     //DELETION of an image method. Replaces the image with a newly instantiated NullImage
     //object within this line.
     public void deleteImage() {
-        setImage(new NullImage());
+        setImage(new NullImage().getInt());
     }
 
     //Traditional getter and setter methods for the private attribute description.
@@ -314,7 +318,7 @@ public class Skill extends Notification {
     @Override
     public String toString() {
         //TODO Change Output?
-        return this.getName() + ": " + this.getCategory();
+        return this.getName() + ": " + this.getCategory() + (isVisible() ? "" : " (Invisible)");
     }
 
     public boolean commit(UserDatabase userDB) {

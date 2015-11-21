@@ -39,7 +39,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
 
         // Testing adding a skill to inventory
         inv.add(skill);
@@ -57,7 +57,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
         inv.add(skill);
 
         // Testing removing a skill from inventory
@@ -76,7 +76,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
         inv.add(skill);
 
         // Testing modifying a skill in inventory
@@ -100,8 +100,8 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
-        Skill skill2 = new Skill(db, "Skill Naem", "dategory", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill2 = new Skill(db, "Skill Naem", "dategory", "desc", true, new NullImage());
         ArrayList<Skill> list1 = new ArrayList<Skill>();
 
         list1.add(skill);
@@ -123,8 +123,8 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
-        Skill skill2 = new Skill(db, "Skil Naem", "dategory", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill2 = new Skill(db, "Skil Naem", "dategory", "desc", true, new NullImage());
         ArrayList<Skill> list1 = new ArrayList<Skill>();
         ArrayList<Skill> list2 = new ArrayList<Skill>();
 
