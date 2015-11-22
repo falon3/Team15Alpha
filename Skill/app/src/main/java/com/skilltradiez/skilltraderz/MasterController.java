@@ -85,18 +85,10 @@ public class MasterController {
         userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
     }
 
-    //When called upon, will create a brand new arraylist of skills associated with that user
-    //Primarily used when there is a new user that was not previously detected.
-    public void initializeArrayListForSkills(){
-        userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
-
-    }
-
     //When we have a new user... we call upon the controller here to interact with the database
     //in order to create a brand new user. Returns this brand new user!
     public User createNewUser(String usernameGiven, String emailGiven){
         User new_guy = null;
-
         try {
             new_guy = userDB.createUser(usernameGiven);
         } catch (UserAlreadyExistsException e) {
@@ -124,6 +116,8 @@ public class MasterController {
     public Set<User> getAllUserz(){
         return userDB.getUsers();
     }
+
+    public Set<Trade> getAllTradez() {return userDB.getTrades();}
 
     public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
         userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description, isVisible, image));
