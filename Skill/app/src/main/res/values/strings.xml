@@ -93,4 +93,18 @@
         <item>Physical</item>
         <item>Stealth and Pranks</item>
     </string-array>
+
+    <!-- Categories (Users) -->
+    <string-array name="friends_All">
+        <item>All</item>
+        <item>Friends</item>
+        <item>Non-Friends</item>
+    </string-array>
+
+    <!-- Categories (Trades) -->
+    <string-array name="trades_All">
+        <item>All</item>
+        <item>Active</item>
+        <item>Inactive</item>
+    </string-array>
 </resources>
