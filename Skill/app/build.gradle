@@ -10,6 +10,7 @@ android {
         targetSdkVersion 18
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -28,6 +29,7 @@ dependencies {
     androidTestCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:18.0.0'
     compile "com.google.code.gson:gson:2.3"
+
     androidTestCompile 'com.android.support:support-annotations:18.0.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
