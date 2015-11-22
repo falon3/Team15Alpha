@@ -1,5 +1,6 @@
 package com.skilltradiez.skilltraderz;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,19 +35,23 @@ public class EspressoTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<MainActivity>(
             MainActivity.class);
 
+    @Before
+    public void deleteDatabase(){
+        new MasterController().crazyDatabaseDeletion();
+    }
+
+    @After
+    public void deleteDatabaseAgain() {
+        new MasterController().crazyDatabaseDeletion();
+    }
+
     @Test
-    public void testTheTest() {
+    public void testCreateUser() {
         onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
         onView(withId(R.id.beginApp)).perform(click());
         onView(withId(R.id.go_to_profile)).perform(click());
         onView(withId(R.id.user_name)).check(matches(withText("Elyse")));
-    }
-
-    @Before
-    public void deleteDatabase(){
-        new MasterController().crazyDatabaseDeletion();
-        new MasterController().initDB();
     }
     /*@Test
     public void changeText_sameActivity() {
