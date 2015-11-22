@@ -128,15 +128,25 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refineSearch(v);
+            }
+        });
+
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (screenType == 0) {
                     Skill skill = (Skill) parent.getItemAtPosition(position);
                     clickOnSkill(skill);
-                } else {
+                } else if (screenType == 1) {
                     Profile user = (Profile) parent.getItemAtPosition(position);
                     clickOnUser(user);
+                } else if (screenType == 2) {
+                    Trade trade = (Trade) parent.getItemAtPosition(position);
+                    clickOnTrade(trade);
                 }
             }
         });
@@ -159,9 +169,12 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         if (screenType == 0) {
             // all skills
             setTitle("Search Skillz");
-        } else {
+        } else if (screenType == 1) {
             // all users
             setTitle("Search Users");
+        } else if (screenType == 2) {
+            // all trades
+            setTitle("Trade History");
         }
     }
 
@@ -181,11 +194,16 @@ public class SearchScreenActivity extends GeneralMenuActivity {
                 if (s.toString().contains(search) &&
                         (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s)))
                     items.add(s);
-        } else { // Search users
+        } else if (screenType == 1) { // Search users
             Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers)
                 if (u.getProfile().getUsername().contains(search))
                     items.add(u.getProfile());
+        } else if (screenType == 2) { // Trade History
+            Set<Trade> trades = masterController.getAllTradez();
+            for (Trade t : trades)
+                if (t.toString().contains(search) && t.getHalfForUser(masterController.getCurrentUser()) != null)
+                    items.add(t);
         }
         searchAdapter.notifyDataSetChanged();
     }
@@ -199,6 +217,12 @@ public class SearchScreenActivity extends GeneralMenuActivity {
     public void clickOnSkill(Skill s) {
         Intent intent = new Intent(this, SkillDescriptionActivity.class);
         intent.putExtra("skill_id", s.getSkillID());
+        startActivity(intent);
+    }
+
+    public void clickOnTrade(Trade t) {
+        Intent intent = new Intent(this, TradeRequestActivity.class);
+        intent.putExtra("trade_id", t.getTradeID());
         startActivity(intent);
     }
 

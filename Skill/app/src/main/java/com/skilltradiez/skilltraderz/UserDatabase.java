@@ -89,10 +89,6 @@ package com.skilltradiez.skilltraderz;
  *      WE PROVIDE THE METHODS TO:
  *          -save the information to the databae --save
  *
- *
- *
- *
- *
  */
 
 
@@ -129,7 +125,7 @@ import java.util.Set;
 public class UserDatabase {
     private User currentUser;
     private Set<User> users;
-    private List<Trade> trades;
+    private Set<Trade> trades;
     private Set<Skill> skillz;
     private ChangeList toBePushed;
     private Elastic elastic;
@@ -137,7 +133,7 @@ public class UserDatabase {
 
     UserDatabase() {
         users = new HashSet<User>();
-        trades = new ArrayList<Trade>();
+        trades = new HashSet<Trade>();
         skillz = new HashSet<Skill>();
         toBePushed = new ChangeList();
 
@@ -150,10 +146,8 @@ public class UserDatabase {
         LocalPersistentObject lpo = local.getLocalData();
         if (lpo != null) {
             if (lpo.getCurrentUser() != null) {
-                Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
                 setCurrentUser(lpo.getCurrentUser());
             } else {
-                Log.d("ggggggggeeeeeeeeeetttt", "HEEEEEERRRRRRRR");
                 currentUser = null;
             }
             users.addAll(lpo.getUsers());
@@ -398,5 +392,9 @@ public class UserDatabase {
 
     public Set<Skill> getSkills() {
         return skillz;
+    }
+
+    public Set<Trade> getTrades() {
+        return trades;
     }
 }
