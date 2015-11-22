@@ -252,6 +252,7 @@ public final class CDatabaseController implements CControllerInterface{
 
 
 
+
     /**Adding a skill **/
 
 
@@ -287,6 +288,7 @@ public final class CDatabaseController implements CControllerInterface{
         MasterController.getUserDB().getChangeList().add(currentUser.getInventory());
     }
      */
+
 
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/

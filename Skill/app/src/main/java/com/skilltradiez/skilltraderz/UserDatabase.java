@@ -190,6 +190,23 @@ public class UserDatabase {
 
 
 
+
+
+
+    public void addSkill(Skill s) {
+        skillz.add(s);
+        // New Skill
+        getChangeList().add(s);
+        try {
+            //TODO: Seems to be a problem for no apparent reason (Maybe the Network in UI Issue?)
+            getElastic().addDocument("skill", s.getSkillID().toString(), s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
         getChangeList().add(currentUser.getFriendsList());
