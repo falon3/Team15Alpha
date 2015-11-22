@@ -133,6 +133,12 @@ public class InventoryActivity extends GeneralMenuActivity {
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         inventoryList = (ListView) findViewById(R.id.results_list);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_All, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                 Skill skill = (Skill) adapter.getItemAtPosition(position);
@@ -154,6 +160,8 @@ public class InventoryActivity extends GeneralMenuActivity {
         adapter.notifyDataSetChanged();
 
         searchInventory(null);
+
+
     }
 
     private void loadSkillz() {
@@ -204,7 +212,7 @@ public class InventoryActivity extends GeneralMenuActivity {
         //refine skill list based on the category
         //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
         //TODO: Categories are subject to change
-        String category = "PUT SOMETHING HERE";
+        String category = categorySpinner.getSelectedItem().toString();
         if (category.equals("All"))
             return currentUser.getInventory().cloneSkillz(masterController.getUserDB());
         return currentUser.getInventory().findByCategory(masterController.getUserDB(), category);
