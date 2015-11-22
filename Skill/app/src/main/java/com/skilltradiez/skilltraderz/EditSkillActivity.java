@@ -79,14 +79,14 @@ package com.skilltradiez.skilltraderz;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 /*
@@ -112,7 +112,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
     private Skill newSkill;
     private EditText skillName;
     private EditText skillDescription;
-    private EditText skillCategory;
+    private Spinner skillCategory;
     private Button addSkillToDB;
     private CheckBox visible;
     private Context edSkillContext = this;
@@ -132,6 +132,19 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_skill);
+
+        skillName = (EditText) findViewById(R.id.new_skill_name);
+        skillDescription = (EditText) findViewById(R.id.new_skill_description);
+        addSkillToDB = (Button) findViewById(R.id.add_skill_to_database);
+        skillCategory = (Spinner) findViewById(R.id.category_spinner);
+        visible = (CheckBox) findViewById(R.id.is_visible);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        skillCategory.setAdapter(adapter);
+
     }
 
     public EditText getSkillName() {
@@ -142,7 +155,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
         return skillDescription;
     }
 
-    public EditText getSkillCategory() {
+    public Spinner getSkillCategory() {
         return skillCategory;
     }
 
@@ -159,11 +172,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
     public void onStart(){
         //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.
         super.onStart();
-        skillName = (EditText) findViewById(R.id.new_skill_name);
-        skillDescription = (EditText) findViewById(R.id.new_skill_description);
-        skillCategory = (EditText) findViewById(R.id.new_category);
-        addSkillToDB = (Button) findViewById(R.id.add_skill_to_database);
-        visible = (CheckBox) findViewById(R.id.is_visible);
+
 
         //@todo: get extras as provided from the skilldescription activity and set the skill name to the extras
         // We need to be able to edit an existing skill
@@ -184,11 +193,11 @@ public class EditSkillActivity extends GeneralMenuActivity {
     public void addNewSkill(View view){
         //Character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
-        String category = skillCategory.getText().toString();
         String description = skillDescription.getText().toString();
-        boolean is_visible = visible.isChecked();
+        boolean isVisible;
+        isVisible = visible.isChecked();
 
-        if (name.length() == 0 || description.length() == 0 || category.length() == 0) {
+        if (name.length() == 0 || description.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
             // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
             AlertDialog.Builder alert = new AlertDialog.Builder(edSkillContext);
@@ -206,7 +215,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
         }
 
         //Make a new skill through the controller.
-        masterController.makeNewSkill(name, category, description, is_visible, new NullImage());
+        masterController.makeNewSkill(name, skillCategory.getSelectedItem().toString(), description, isVisible, new NullImage());
         masterController.save();
 
         //Toasty
@@ -215,7 +224,6 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         skillName.setText("");
         skillDescription.setText("");
-        skillCategory.setText("");
 
     }
 }

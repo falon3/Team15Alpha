@@ -66,7 +66,7 @@
     <string name="is_visible">Visible</string>
 
     <!-- Categories -->
-    <string-array name="category_spinner">
+    <string-array name="category_spinner_strings">
         <item>Creative</item>
         <item>Communication</item>
         <item>Electronics and Computers</item>

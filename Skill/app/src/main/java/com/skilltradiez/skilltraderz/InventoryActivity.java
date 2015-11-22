@@ -134,6 +134,12 @@ public class InventoryActivity extends GeneralMenuActivity {
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         inventoryList = (ListView) findViewById(R.id.search_list);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                 Skill skill = (Skill) adapter.getItemAtPosition(position);
@@ -155,6 +161,8 @@ public class InventoryActivity extends GeneralMenuActivity {
         adapter.notifyDataSetChanged();
 
         searchInventory(null);
+
+
     }
 
     private void loadSkillz() {
