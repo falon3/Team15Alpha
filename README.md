@@ -3,23 +3,27 @@
 Project Part 5 - DUE NOVEMBER 30th! 
 
 ## Addressing Feedback From Part 4:
-  1. Create JUnit Tests for UI
+  1. [Create JUnit Tests for UI](https://github.com/evhill/Team15Alpha/blob/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz/EspressoTest.java)
   2. Implement exception handling as much as possible.
+    *We did as much as we could 
   
   3. Implement more use cases
-    ####Cases Completed (13/32):
+    ####Cases Completed (16/32 as per the number of use cases we had before additional ones were required):
      * Create User
      * Add Skillz
      * Remove Skillz
      * Examine Skillz
      * Change Skill Visibility
      * Search For Skillz By Textual Query
+     * Search Skills by category
      * Add Friend
      * Remove Friend
      * Set contact info
      * Browse Friends Profile
+     * Browse Friends Offline (may need to wait to time out)
+     * Inventory Changes Offline (may need to wait to time out)
      * Browse Friends Inventory
-     * Filter Friends Inventory By Text
+     * Filter Friends Inventory By Text and Category
      * Initiate Trade with Friend
 
 ## Relevant To Part 4 Of Our Project
