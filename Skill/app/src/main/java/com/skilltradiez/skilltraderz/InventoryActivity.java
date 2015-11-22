@@ -207,10 +207,10 @@ public class InventoryActivity extends GeneralMenuActivity {
         //refine skill list based on the category
         //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
         //TODO: Categories are subject to change
-        String category = "PUT SOMETHING HERE";
+        String category = categorySpinner.getSelectedItem().toString();
 
         foundSkillz.clear();
-        foundSkillz.addAll(currentUser.getInventory().findByCategory(userDB, category));
+        foundSkillz.addAll(currentUser.getInventory().findByCategory(masterController.getUserDB(), category));
         adapter.notifyDataSetChanged();
     }
 
