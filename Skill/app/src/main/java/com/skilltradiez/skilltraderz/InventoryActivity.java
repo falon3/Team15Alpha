@@ -131,7 +131,7 @@ public class InventoryActivity extends GeneralMenuActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
         startTrade = (Button) findViewById(R.id.maketrade);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-        inventoryList = (ListView) findViewById(R.id.inventory_list);
+        inventoryList = (ListView) findViewById(R.id.results_list);
 
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
