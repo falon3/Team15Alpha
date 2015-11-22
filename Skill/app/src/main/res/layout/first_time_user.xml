@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="@string/make_a_user_name"
-        android:id="@+id/makeUserName"
+        android:id="@+id/usernameField"
         android:maxLength="15"
         android:layout_above="@+id/emailField"
         android:layout_alignStart="@+id/emailField"
