@@ -183,4 +183,9 @@ public class Local {
         in.close();
         return save_object;
     }
+
+    public void deleteFile() throws IOException {
+        File file = new File(SAVE_FILE);
+        file.delete();
+    }
 }
