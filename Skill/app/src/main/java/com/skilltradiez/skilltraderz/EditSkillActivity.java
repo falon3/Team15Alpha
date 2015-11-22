@@ -139,9 +139,11 @@ public class EditSkillActivity extends GeneralMenuActivity {
         skillCategory = (Spinner) findViewById(R.id.category_spinner);
         visible = (CheckBox) findViewById(R.id.is_visible);
 
+        //Android Developers
+        // http://developer.android.com/guide/topics/ui/controls/spinner.html
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
-
+        
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
 

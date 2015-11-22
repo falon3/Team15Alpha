@@ -79,4 +79,18 @@
         <item>Stealth and Pranks</item>
     </string-array>
 
+    <!-- Categories All -->
+    <string-array name="category_All">
+        <item>All</item>
+        <item>Creative</item>
+        <item>Communication</item>
+        <item>Electronics and Computers</item>
+        <item>Household</item>
+        <item>Math and Science</item>
+        <item>Building and Fixing</item>
+        <item>Miscellaneous</item>
+        <item>Parenting</item>
+        <item>Physical</item>
+        <item>Stealth and Pranks</item>
+    </string-array>
 </resources>

@@ -134,7 +134,7 @@ public class InventoryActivity extends GeneralMenuActivity {
         inventoryList = (ListView) findViewById(R.id.inventory_list);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
+                R.array.category_All, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
