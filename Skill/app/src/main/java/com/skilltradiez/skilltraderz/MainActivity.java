@@ -102,7 +102,6 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends ActionBarActivity {
-
     private Context mainContext = this;
 
     //Main screen

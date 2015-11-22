@@ -191,6 +191,18 @@ public class UserDatabase {
         }
     }
 
+    public void deleteDocumentUser(User user) {
+        deleteDocumentUser(user.getUserID().toString());
+    }
+
+    public void deleteDocumentSkill(Skill skill) {
+        deleteDocumentSkill(skill.getSkillID().toString());
+    }
+
+    public void deleteDocumentTrade(Trade trade) {
+        deleteDocumentTrade(trade.getTradeID().toString());
+    }
+
     public void deleteDocumentUser(String userID) {
         try {
             elastic.deleteDocument("user", userID);
@@ -210,7 +222,6 @@ public class UserDatabase {
     public void deleteDocumentTrade(String tradeID) {
         try {
             elastic.deleteDocument("trade", tradeID);
-
         }catch (IOException e){
             e.printStackTrace();
         }
