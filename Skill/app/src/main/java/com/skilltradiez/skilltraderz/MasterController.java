@@ -24,77 +24,77 @@ public class MasterController {
     }
 
     //Return the database object!
-    public static UserDatabase getUserDB(){
+    public UserDatabase getUserDB(){
         return userDB;
     }
 
     //Refresh the database!
-    public static void refreshDB(){
+    public void refreshDB(){
         userDB.refresh();
     }
 
     //I hate this. Deletes ALL data from the database.
-    public static void crazyDatabaseDeletion(){
+    public void crazyDatabaseDeletion(){
         userDB.deleteAllData();
     }
 
-    public static void save(){
+    public void save(){
         userDB.save();
     }
 
     /** USER RELATED **/
     //If we probe for the USER that is currently on the app... returns the USER object of that user.
     //NOT just the name. USER object.
-    public static User getCurrentUser(){
+    public User getCurrentUser(){
         return userDB.getCurrentUser();
     }
 
     //Give the current username from the database.
-    public static String getCurrentUserUsername(){
+    public String getCurrentUserUsername(){
         return userDB.getCurrentUser().getProfile().getUsername();
     }
 
-    public static String getCurrentUserEmail(){
+    public String getCurrentUserEmail(){
         return userDB.getCurrentUser().getProfile().getEmail();
     }
 
-    public static boolean isLoggedIn() {
+    public boolean isLoggedIn() {
         return userDB.isLoggedIn();
     }
 
     //Given a profile name... can we please return THE PROFILE OBJECT?! (Yes. Yes we can.)
-    public static User getUserByName(String userProfileName){
+    public User getUserByName(String userProfileName){
         return getUserDB().getAccountByUsername(userProfileName);
     }
 
-    public static User getUserByID(ID userID){
+    public User getUserByID(ID userID){
         return getUserDB().getAccountByUserID(userID);
     }
 
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
-    public static boolean currentUserHasFriend(User currentUser){
+    public boolean currentUserHasFriend(User currentUser){
         return currentUser.getFriendsList().hasFriend(userDB.getCurrentUser());
     }
 
-    public static void addANewFriend(User currentUser){
+    public void addANewFriend(User currentUser){
         userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
     }
 
-    public static void removeThisFriend(User currentUser){
+    public void removeThisFriend(User currentUser){
         userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
     }
 
     //When called upon, will create a brand new arraylist of skills associated with that user
     //Primarily used when there is a new user that was not previously detected.
-    public static void initializeArrayListForSkills(){
+    public void initializeArrayListForSkills(){
         userDB.getLocal().getLocalData().setSkillz(new ArrayList<Skill>());
 
     }
 
     //When we have a new user... we call upon the controller here to interact with the database
     //in order to create a brand new user. Returns this brand new user!
-    public static User createNewUser(String usernameGiven, String emailGiven){
+    public User createNewUser(String usernameGiven, String emailGiven){
         User new_guy = null;
 
         try {
@@ -112,16 +112,16 @@ public class MasterController {
 
     //Clear the current List<Skill> of skillz!
     // this seems unnecessary
-    public static void clearSkillzList(List<Skill> skillz){
+    public void clearSkillzList(List<Skill> skillz){
         skillz.clear();
     }
 
     //Obtain from the user database all of the current skills!
-    public static Set<Skill> getAllSkillz(){
+    public Set<Skill> getAllSkillz(){
         return userDB.getSkills();
     }
 
-    public static Set<User> getAllUserz(){
+    public Set<User> getAllUserz(){
         return userDB.getUsers();
     }
 
@@ -132,16 +132,16 @@ public class MasterController {
 
     /** SkillDescriptionActivity methods **/
 
-    public static Skill getSkillByID(ID identifier){
+    public Skill getSkillByID(ID identifier){
         return userDB.getSkillByID(identifier);
     }
 
-    public static void removeCurrentSkill(Skill currentSkill){
+    public void removeCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
         currentSkill.removeOwner(userDB.getCurrentUser().getUserID());
     }
 
-    public static void addCurrentSkill(Skill currentSkill){
+    public void addCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().add(currentSkill);
         currentSkill.addOwner(userDB.getCurrentUser().getUserID());
     }
@@ -149,12 +149,12 @@ public class MasterController {
     /** TradeRequestActivity methods **/
 
     //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
-    public static Trade getCurrentTradeByID(ID identifier){
+    public Trade getCurrentTradeByID(ID identifier){
         return userDB.getTradeByID(identifier);
     }
 
     //ACCEPT THE TRADE
-    public static void acceptTheCurrentTrade(Trade trade){
+    public void acceptTheCurrentTrade(Trade trade){
         trade.getHalfForUser(userDB.getCurrentUser()).setAccepted(true);
     }
 }

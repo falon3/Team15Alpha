@@ -95,7 +95,6 @@ import android.widget.Toast;
  */
 
 public class MainActivity extends GeneralMenuActivity {
-
     private Context mainContext = this;
 
     //Main screen

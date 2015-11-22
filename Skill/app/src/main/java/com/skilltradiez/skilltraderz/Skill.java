@@ -346,21 +346,22 @@ public class Skill extends Stringeable {
         try {
             prev_version = ela.getDocumentSkill(skillID.toString());
 
-            if (prev_version.isOwner(owner) && !hasOwners()){
+            if (prev_version.isOwner(owner) && !hasOwners()) {
                 //if removed skill from inventory and no other owners had skill
                 Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
+                userDB.getSkills().remove(prev_version);
                 userDB.deleteDocumentSkill(skillID.toString());
 
-            }else if (prev_version.isOwner(owner) && !isOwner(owner)){
+            } else if (prev_version.isOwner(owner) && !isOwner(owner)) {
                 //if removed skill from inventory and other owners had skill
                 prev_version.owners.remove(owner);
                 ela.addDocument("skill", skillID.toString(), prev_version);
 
-            }else if (prev_version.isOwner(owner) && prev_version.getNumOwners()==1){
+            } else if (prev_version.isOwner(owner) && prev_version.getNumOwners() == 1) {
                 // if only one owner so update skill
                 ela.addDocument("skill", skillID.toString(), this);
 
-            } else if (prev_version.isOwner(owner) && prev_version.getNumOwners()>1) {
+            } else if (prev_version.isOwner(owner) && prev_version.getNumOwners() > 1) {
                 //if other users had and it was now updated then make new skill and remove self from old one
                 Skill new_version = new Skill(userDB, this);
                 prev_version.owners.remove(owner);
@@ -380,25 +381,26 @@ public class Skill extends Stringeable {
         }
         return true;
     }
-    public int getNumOwners(){
+
+    public int getNumOwners() {
         return owners.size();
     }
 
-    public void addOwner(ID owner){
+    public void addOwner(ID owner) {
         owners.add(owner);
         notifyDB();
     }
 
-    public void removeOwner(ID owner){
+    public void removeOwner(ID owner) {
         owners.remove(owner);
         notifyDB();
     }
 
-    public boolean isOwner(ID owner){
+    public boolean isOwner(ID owner) {
         return owners.contains(owner);
     }
 
-    public boolean hasOwners(){
+    public boolean hasOwners() {
         return !owners.isEmpty();
     }
 
