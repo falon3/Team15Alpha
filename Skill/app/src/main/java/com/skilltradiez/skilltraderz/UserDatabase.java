@@ -194,6 +194,7 @@ public class UserDatabase {
             elastic.deleteDocument("user", "");
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
+            local.deleteFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
