@@ -7,6 +7,20 @@ Project Part 5 - DUE NOVEMBER 30th!
   2. Implement exception handling as much as possible.
   
   3. Implement more use cases
+    ####Cases Completed:
+     * Create User
+     * Add Skillz
+     * Remove Skillz
+     * Examine Skillz
+     * Change Skill Visibility
+     * Search For Skillz By Textual Query
+     * Add Friend
+     * Remove Friend
+     * Set contact info
+     * Browse Friends Profile
+     * Browse Friends Inventory
+     * Filter Friends Inventory By Text
+     * Initiate Trade with Friend
 
 ## Relevant To Part 4 Of Our Project
 Part 4 requirements:
