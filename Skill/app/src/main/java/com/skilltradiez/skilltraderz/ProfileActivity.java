@@ -114,7 +114,7 @@ import android.widget.Toast;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class ProfileActivity extends ActionBarActivity {
+public class ProfileActivity extends GeneralMenuActivity {
     private Bundle profileExtras;
     private String userProfileName;
 
@@ -128,7 +128,6 @@ public class ProfileActivity extends ActionBarActivity {
     private Button viewInventory;
     private TextView userContactInfo;
     private TextView profileTitle;
-    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

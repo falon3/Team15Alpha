@@ -115,9 +115,6 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
     private ListView resultsList;
 
-    //Mastercontroller
-    private MasterController masterController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

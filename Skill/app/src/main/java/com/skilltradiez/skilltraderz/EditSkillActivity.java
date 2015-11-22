@@ -74,10 +74,6 @@ package com.skilltradiez.skilltraderz;
  *     WE PROVIDE THE METHODS TO:
  *         Nothing. This is created during the onStart() method.
  *
- *
- *
- *
- *
  */
 
 import android.app.AlertDialog;
@@ -111,7 +107,7 @@ import android.widget.Toast;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class EditSkillActivity extends ActionBarActivity {
+public class EditSkillActivity extends GeneralMenuActivity {
     private Skill newSkill;
     private EditText skillName;
     private EditText skillDescription;
@@ -149,9 +145,7 @@ public class EditSkillActivity extends ActionBarActivity {
         return visible;
     }
 
-    public MasterController getMasterController() {
-        return masterController;
-    }
+
 
     public void onStart(){
         //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.

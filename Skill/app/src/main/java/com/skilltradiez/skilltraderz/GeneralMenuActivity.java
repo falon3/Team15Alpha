@@ -13,6 +13,8 @@ public class GeneralMenuActivity extends ActionBarActivity {
 
     private Context generalContext = this;
 
+    public MasterController masterController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,10 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 return true;
         }
         return true;
+    }
+
+    public MasterController getMasterController() {
+        return masterController;
     }
 
 

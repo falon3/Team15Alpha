@@ -111,8 +111,6 @@ public class MainActivity extends GeneralMenuActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
-    private static MasterController masterController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -276,11 +274,6 @@ public class MainActivity extends GeneralMenuActivity {
     public void deleteDatabase(View view) {
         masterController.crazyDatabaseDeletion();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
-    }
-
-    /**MASTER CONTROLLER **/
-    public static MasterController getMasterController() {
-        return masterController;
     }
 
     public EditText getNameField() {

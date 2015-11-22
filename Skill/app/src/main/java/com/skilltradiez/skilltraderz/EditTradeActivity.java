@@ -69,7 +69,7 @@ import org.w3c.dom.Text;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class EditTradeActivity extends ActionBarActivity {
+public class EditTradeActivity extends GeneralMenuActivity {
     private TextView tradeTitle;
     private ArrayAdapter<Skill> skillAdapter;
     private ListView skillsInTrade;
