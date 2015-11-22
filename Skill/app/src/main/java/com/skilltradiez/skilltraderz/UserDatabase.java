@@ -149,12 +149,17 @@ public class UserDatabase {
 
         LocalPersistentObject lpo = local.getLocalData();
         if (lpo != null) {
-            currentUser = lpo.getCurrentUser();
+            if (lpo.getCurrentUser() != null) {
+                Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
+                setCurrentUser(lpo.getCurrentUser());
+            } else {
+                Log.d("ggggggggeeeeeeeeeetttt", "HEEEEEERRRRRRRR");
+                currentUser = null;
+            }
             users.addAll(lpo.getUsers());
             skillz.addAll(lpo.getSkillz());
             trades.addAll(lpo.getTrades());
-            getChangeList().getNotifications().addAll(lpo.getNotifications());
-            Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
+            //getChangeList().getNotifications().addAll(lpo.getNotifications());
         } else {
             currentUser = null;
         }
@@ -189,6 +194,11 @@ public class UserDatabase {
             elastic.deleteDocument("user", "");
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
+            local.deleteFile();
+            currentUser = null;
+            users.clear();
+            skillz.clear();
+            trades.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -263,7 +273,8 @@ public class UserDatabase {
     public void save() {
         toBePushed.push(this);
         // TODO: Saves locally and pushes changes if connected to the internet
-        local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
+        //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
+        local.saveToFile(currentUser, users, skillz, trades);
     }
 
     public ChangeList getChangeList() {

@@ -145,7 +145,7 @@ public class MainActivity extends GeneralMenuActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        masterController.initializeArrayListForSkills();
+        //masterController.initializeArrayListForSkills();
     }
 
     @Override
@@ -192,6 +192,7 @@ public class MainActivity extends GeneralMenuActivity {
             //Used for error checking
             // If null, then it failed
             new_guy = masterController.createNewUser(username,newUserEmail.getText().toString());
+            masterController.save();
 
 /*            try {
                 new_guy = userDB.createUser(username);

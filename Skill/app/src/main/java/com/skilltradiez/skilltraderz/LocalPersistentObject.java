@@ -99,14 +99,14 @@ public class LocalPersistentObject {
     private Collection<User> users; // Friends Profiles, Inventories
     private Collection<Skill> skillz; // Skillz that are found in the User and Friend's Inventories
     private Collection<Trade> trades; // User's Trade History
-    private List<Notification> notifications; // Skill changes, Trade Changes
+    //private List<Notification> notifications; // Skill changes, Trade Changes
 
     LocalPersistentObject() {
         currentUser = null;
         users = new ArrayList<User>();
         skillz = new ArrayList<Skill>();
         trades = new ArrayList<Trade>();
-        notifications = new ArrayList<Notification>();
+        //notifications = new ArrayList<Notification>();
     }
 
     public User getCurrentUser () { return currentUser;}
@@ -139,11 +139,11 @@ public class LocalPersistentObject {
         this.trades = trades;
     }
 
-    public Collection<Notification> getNotifications() {
-        return notifications;
-    }
+    //public Collection<Notification> getNotifications() {
+        //return notifications;
+    //}
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
+    //public void setNotifications(List<Notification> notifications) {
+        //this.notifications = notifications;
+    //}
 }
