@@ -160,8 +160,6 @@ public class InventoryActivity extends GeneralMenuActivity {
         adapter.notifyDataSetChanged();
 
         searchInventory(null);
-
-
     }
 
     private void loadSkillz() {

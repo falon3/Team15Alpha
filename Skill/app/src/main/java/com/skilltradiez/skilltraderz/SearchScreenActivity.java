@@ -67,6 +67,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -127,6 +128,19 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+
+        ArrayAdapter<CharSequence> adapter;
+
+        if (screenType == 0) {
+            adapter = ArrayAdapter.createFromResource(this, R.array.category_All, android.R.layout.simple_spinner_item);
+        } else if (screenType == 1) {
+            adapter = ArrayAdapter.createFromResource(this, R.array.friends_All, android.R.layout.simple_spinner_item);
+        } else {
+            adapter = ArrayAdapter.createFromResource(this, R.array.trades_All, android.R.layout.simple_spinner_item);
+        }
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
