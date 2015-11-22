@@ -54,9 +54,7 @@ public final class MasterController implements CControllerInterface{
         return userDB.getCurrentUser().getProfile().getEmail();
     }
 
-    public boolean isLoggedIn() {
-        return userDB.isLoggedIn();
-    }
+
 
     //Given a profile name... can we please return THE PROFILE OBJECT?! (Yes. Yes we can.)
     public User getUserByName(String userProfileName){

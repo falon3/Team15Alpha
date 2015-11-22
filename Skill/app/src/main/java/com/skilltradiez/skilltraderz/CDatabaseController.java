@@ -147,4 +147,19 @@ public final class CDatabaseController implements CControllerInterface{
     }
 
 
+
+    //Login functionality
+    public static User login(String username) {
+        User u = MasterController.getUserDB().getAccountByUsername(username);
+        MasterController.getUserDB().setCurrentUser(u);
+        return u;
+    }
+
+
+
+    public static boolean isLoggedIn() {
+        User currentUser = MasterController.getUserDB().getCurrentUser();
+        return currentUser != null;
+    }
+
 }

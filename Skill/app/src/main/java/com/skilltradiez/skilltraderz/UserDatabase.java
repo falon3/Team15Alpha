@@ -176,11 +176,7 @@ public class UserDatabase {
         return u;
     }*/
 
-    public User login(String username) {
-        User u = getAccountByUsername(username);
-        setCurrentUser(u);
-        return u;
-    }
+
 
 
     public void setCurrentUserToNull(){
@@ -225,9 +221,7 @@ public class UserDatabase {
         }
     }
 
-    public boolean isLoggedIn() {
-        return currentUser != null;
-    }
+
 
 
 

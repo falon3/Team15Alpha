@@ -120,7 +120,7 @@ public class MainActivity extends GeneralMenuActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if (masterController.isLoggedIn()) {
+        if (CDatabaseController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
         } else {
             setContentView(R.layout.first_time_user);
@@ -189,7 +189,7 @@ public class MainActivity extends GeneralMenuActivity {
 
             //Used for error checking
             // If null, then it failed
-            new_guy = CDatabaseController.createNewUser(username,newUserEmail.getText().toString());
+            new_guy = CDatabaseController.createNewUser(username, newUserEmail.getText().toString());
             CDatabaseController.save();
 
 /*            try {
