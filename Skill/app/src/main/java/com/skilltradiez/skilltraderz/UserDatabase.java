@@ -193,6 +193,11 @@ public class UserDatabase {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of db1f9e5... moved add skill from db model to controller
     public void addSkill(Skill s) {
         skillz.add(s);
         // New Skill

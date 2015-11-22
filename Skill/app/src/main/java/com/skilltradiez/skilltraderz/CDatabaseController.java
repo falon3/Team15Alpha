@@ -251,6 +251,7 @@ public final class CDatabaseController implements CControllerInterface{
     }
 
 
+<<<<<<< HEAD
 
 
     /**Adding a skill **/
@@ -291,6 +292,8 @@ public final class CDatabaseController implements CControllerInterface{
 
 
 
+=======
+>>>>>>> parent of db1f9e5... moved add skill from db model to controller
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
         deleteDocumentUser(user.getUserID().toString());
