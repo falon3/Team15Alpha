@@ -11,6 +11,7 @@ public class SearchScreenUITests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.SearchScreenActivity.class);
     }
 
+    //TODO SearchScreen Tests
     public void testStart() throws Exception {
         Activity activity = getActivity();
         activity.finish();
