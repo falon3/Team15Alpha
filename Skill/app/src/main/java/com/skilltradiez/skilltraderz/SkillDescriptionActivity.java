@@ -41,6 +41,8 @@ package com.skilltradiez.skilltraderz;
  */
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -71,7 +73,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
-
+    private Context skillDescripContext = this;
     private Boolean hasSkill;
 
     @Override
@@ -138,6 +140,12 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         }
         hasSkill = !hasSkill;
         masterController.save();
+    }
+
+    public void editSkill(View view){
+        Intent intent = new Intent(skillDescripContext, EditSkillActivity.class);
+        intent.getExtras(currentSkill.getName().toString(),);
+        startActivity(intent);
     }
 
 }
