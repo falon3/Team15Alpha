@@ -249,6 +249,28 @@ public final class CDatabaseController implements CControllerInterface{
     }
 
 
+
+    /**Adding a skill **/
+
+
+    public static void addSkill(Skill s) {
+        Set<Skill> skillz = MasterController.getUserDB().getSkills();
+        ChangeList changeList = MasterController.getUserDB().getChangeList();
+        Elastic elastic = MasterController.getUserDB().getElastic();
+
+
+        skillz.add(s);
+        // New Skill
+        changeList.add(s);
+        try {
+            //TODO: Seems to be a problem for no apparent reason (Maybe the Network in UI Issue?)
+            elastic.addDocument("skill", s.getSkillID().toString(), s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
         deleteDocumentUser(user.getUserID().toString());
