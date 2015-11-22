@@ -59,6 +59,7 @@
     <string name="skill_title">Skill Title</string>
     <string name="skill_description">Skill Description</string>
     <string name="add_skill">Add Skill</string>
+    <string name="edit_skill">Edit</string>
     <string name="new_skill_name">What do you want to name your skill?</string>
     <string name="new_skill_description">Describe your new skill</string>
     <string name="new_skill_category">What category of skill is your new skill</string>

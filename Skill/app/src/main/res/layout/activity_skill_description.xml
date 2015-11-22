@@ -28,8 +28,8 @@
         android:layout_below="@+id/skillTitle"
         android:layout_marginTop="28dp"
         android:background="@drawable/button_with_border"
-        android:text="@string/skill_description"
         android:inputType="textMultiLine"
+        android:text="@string/skill_description"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
@@ -42,9 +42,20 @@
         android:layout_below="@+id/skill_description"
         android:layout_marginTop="25dp"
         android:background="@drawable/button_with_border"
+        android:onClick="addRemoveSkill"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:text="@string/add_skill"
-        android:onClick="addRemoveSkill"/>
+        android:text="@string/add_skill" />
+
+    <Button
+        android:id="@+id/edit_skill"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/button_with_border"
+        android:text="@string/edit_skill"
+        android:onClick="editSkill"/>
 
 </RelativeLayout>

@@ -116,12 +116,18 @@ public class EditSkillActivity extends GeneralMenuActivity {
     private Button addSkillToDB;
     private CheckBox visible;
     private Context edSkillContext = this;
+    private Bundle editSkillExtras;
+
+    private String editName;
+    private String editDescription;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        editSkillExtras = getIntent().getExtras();
         masterController = new MasterController();
 
         super.onCreate(savedInstanceState);
@@ -158,6 +164,18 @@ public class EditSkillActivity extends GeneralMenuActivity {
         skillCategory = (EditText) findViewById(R.id.new_category);
         addSkillToDB = (Button) findViewById(R.id.add_skill_to_database);
         visible = (CheckBox) findViewById(R.id.is_visible);
+
+        //@todo: get extras as provided from the skilldescription activity and set the skill name to the extras
+        // We need to be able to edit an existing skill
+        if(editSkillExtras != null){
+            editName = editSkillExtras.getString("skillName");
+            editDescription = editSkillExtras.getString("skillDescription");
+            skillName.setText("editName");
+            skillDescription.setText("editDescription");
+        }
+
+        //@todo: change the "add skill" button to "Save changes" button if you're editing an existing skill
+        //@todo: make sure that you have actually made changes and then set. if no change just return to inventory
     }
 
     /**

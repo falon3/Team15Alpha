@@ -45,6 +45,7 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 return true;
             case R.id.My_Inventory:
                 intent = new Intent(generalContext, ProfileActivity.class);
+                intent.putExtra("user_name_for_profile", masterController.getCurrentUserUsername());
                 startActivity(intent);
                 return true;
             case R.id.Create_Skill:
