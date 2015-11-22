@@ -191,9 +191,14 @@ public class InventoryActivity extends GeneralMenuActivity {
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
         String regex = searchField.getText().toString(); // not a regex
+        List<Skill> categorySkillz = refineInventoryByCategory(),
+                nameSkillz = currentUser.getInventory().findByName(masterController.getUserDB(), regex);
 
         foundSkillz.clear();
-        foundSkillz.addAll(currentUser.getInventory().findByName(masterController.getUserDB(), regex));
+        for (Skill s:nameSkillz)
+            if (categorySkillz.contains(s))
+                foundSkillz.add(s);
+
         adapter.notifyDataSetChanged();
     }
 
@@ -202,16 +207,15 @@ public class InventoryActivity extends GeneralMenuActivity {
      * belongs to
      * @ TODO: CATEGORIES
      */
-    public void refineInventoryByCategory(){
+    public List<Skill> refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
         //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
         //TODO: Categories are subject to change
         String category = categorySpinner.getSelectedItem().toString();
-
-        foundSkillz.clear();
-        foundSkillz.addAll(currentUser.getInventory().findByCategory(masterController.getUserDB(), category));
-        adapter.notifyDataSetChanged();
+        if (category.equals("All"))
+            return currentUser.getInventory().cloneSkillz(masterController.getUserDB());
+        return currentUser.getInventory().findByCategory(masterController.getUserDB(), category);
     }
 
     /**
