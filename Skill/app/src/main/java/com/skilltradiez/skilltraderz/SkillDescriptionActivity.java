@@ -105,17 +105,11 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         super.onStart();
     }
 
-    /**
-     * @ TODO:?
-     */
     public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
         skillTitle.setText(text);
     }
 
-    /**
-     * @ TODO:?
-     */
     public void setSkillDescription(String text){
         //skillDescription = description of the skill we're looking at
         skillDescription.setText(text);

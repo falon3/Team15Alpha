@@ -175,7 +175,9 @@ public class ProfileActivity extends GeneralMenuActivity {
     }
 
     /**
-     * When you click on a profile it gets data something something @todo make this sound nicer
+     * When you click on a profile it gets the profile data and displays
+     * the correct button in corner of whether can "add" or "remove" friend depending if you have
+     * added them already or not.
      */
     public void populateProfile() {
         currentUser = masterController.getUserByName(userProfileName);

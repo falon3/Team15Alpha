@@ -148,7 +148,6 @@ public class TradeRequestActivity extends GeneralMenuActivity {
 
     /**
      * Delete a request.
-     * @ TODO:
      */
     public void deleteRequest(){
         // alert dialogue for making sure that you want to delete the request. Confirmation.
