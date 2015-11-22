@@ -131,7 +131,13 @@ public class InventoryActivity extends GeneralMenuActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
         startTrade = (Button) findViewById(R.id.maketrade);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-        inventoryList = (ListView) findViewById(R.id.inventory_list);
+        inventoryList = (ListView) findViewById(R.id.results_list);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_All, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
 
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
@@ -154,6 +160,8 @@ public class InventoryActivity extends GeneralMenuActivity {
         adapter.notifyDataSetChanged();
 
         searchInventory(null);
+
+
     }
 
     private void loadSkillz() {
@@ -183,9 +191,14 @@ public class InventoryActivity extends GeneralMenuActivity {
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
         String regex = searchField.getText().toString(); // not a regex
+        List<Skill> categorySkillz = refineInventoryByCategory(),
+                nameSkillz = currentUser.getInventory().findByName(masterController.getUserDB(), regex);
 
         foundSkillz.clear();
-        foundSkillz.addAll(currentUser.getInventory().findByName(masterController.getUserDB(), regex));
+        for (Skill s:nameSkillz)
+            if (categorySkillz.contains(s))
+                foundSkillz.add(s);
+
         adapter.notifyDataSetChanged();
     }
 
@@ -194,11 +207,15 @@ public class InventoryActivity extends GeneralMenuActivity {
      * belongs to
      * @ TODO: CATEGORIES
      */
-    public void refineInventoryByCategory(){
+    public List<Skill> refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
         //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
         //TODO: Categories are subject to change
+        String category = categorySpinner.getSelectedItem().toString();
+        if (category.equals("All"))
+            return currentUser.getInventory().cloneSkillz(masterController.getUserDB());
+        return currentUser.getInventory().findByCategory(masterController.getUserDB(), category);
     }
 
     /**

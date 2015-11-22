@@ -21,7 +21,7 @@
         android:textColor="#057777" />
 
     <ListView
-        android:id="@+id/inventory_list"
+        android:id="@+id/results_list"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
         android:layout_alignParentStart="true"
@@ -33,7 +33,7 @@
         android:id="@+id/maketrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/inventory_list"
+        android:layout_alignEnd="@+id/results_list"
         android:layout_alignTop="@+id/inventoryTitle"
         android:background="@drawable/button_with_border"
         android:paddingLeft="5dp"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/inventory_list"
+        android:layout_below="@+id/results_list"
         android:layout_marginTop="28dp"
         android:layout_toStartOf="@+id/maketrade"
         android:layout_weight="0.75"
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/search_bar"
-        android:layout_alignEnd="@+id/inventory_list"
+        android:layout_alignEnd="@+id/results_list"
         android:layout_alignTop="@+id/search_bar"
         android:background="@drawable/button_with_border"
         android:paddingLeft="25dp"
@@ -69,12 +69,11 @@
         android:onClick="searchInventory"/>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown" />
 
 </RelativeLayout>
