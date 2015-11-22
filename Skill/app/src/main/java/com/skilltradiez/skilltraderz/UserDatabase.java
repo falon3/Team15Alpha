@@ -195,6 +195,10 @@ public class UserDatabase {
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
             local.deleteFile();
+            currentUser = null;
+            users.clear();
+            skillz.clear();
+            trades.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
