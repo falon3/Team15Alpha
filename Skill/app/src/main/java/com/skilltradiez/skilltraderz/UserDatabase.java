@@ -146,7 +146,7 @@ public class UserDatabase {
         LocalPersistentObject lpo = local.getLocalData();
         if (lpo != null) {
             if (lpo.getCurrentUser() != null) {
-                CDatabaseController.setCurrentUser(lpo.getCurrentUser());
+                MasterController.getUserDB().setCurrentUser(lpo.getCurrentUser());
             } else {
                 currentUser = null;
             }
@@ -159,13 +159,6 @@ public class UserDatabase {
         }
     }
 
-    public static void setCurrentUser(User currentUserFunctionInput) {
-        User currentUser = currentUserFunctionInput;
-        MasterController.getUserDB().getChangeList().add(currentUser.getFriendsList());
-        MasterController.getUserDB().getChangeList().add(currentUser.getTradeList());
-        MasterController.getUserDB().getChangeList().add(currentUser.getProfile());
-        MasterController.getUserDB().getChangeList().add(currentUser.getInventory());
-    }
 
     /** Model here only has the simple getter/setter methods that allow the controller to function
      * without some insane level of complexity.
@@ -192,5 +185,17 @@ public class UserDatabase {
     public Set<Trade> getTrades() { return trades;}
 
     public void setCurrentUserVal(User currentUserFromFn) { this.currentUser = currentUserFromFn;}
+
+
+
+
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        getChangeList().add(currentUser.getFriendsList());
+        getChangeList().add(currentUser.getTradeList());
+        getChangeList().add(currentUser.getProfile());
+        getChangeList().add(currentUser.getInventory());
+    }
 
 }

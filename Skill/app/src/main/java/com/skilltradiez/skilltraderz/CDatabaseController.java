@@ -27,7 +27,7 @@ public final class CDatabaseController implements CControllerInterface{
         try {
             List<User> onlineUsers = elastic.getAllUsers();
             for (User u : onlineUsers) {
-                if (u.equals(currentUser)) CDatabaseController.setCurrentUser(u);
+                if (u.equals(currentUser)) MasterController.getUserDB().setCurrentUser(u);
                 users.remove(u);
                 users.add(u);
             }
@@ -146,7 +146,7 @@ public final class CDatabaseController implements CControllerInterface{
         User u = new User(username);
         users.add(u);
         // You wouldn't be creating a user if you already had one
-        CDatabaseController.setCurrentUser(u);
+        MasterController.getUserDB().setCurrentUser(u);
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
@@ -161,7 +161,7 @@ public final class CDatabaseController implements CControllerInterface{
     //Login functionality
     public static User login(String username) {
         User u = getAccountByUsername(username);
-        CDatabaseController.setCurrentUser(u);
+        MasterController.getUserDB().setCurrentUser(u);
         return u;
     }
 
@@ -276,8 +276,9 @@ public final class CDatabaseController implements CControllerInterface{
     /** Setting the current user **/
 
 
-    public static void setCurrentUser(User currentUserFunctionInput) {
-        Log.d("string1", "string");
+    /** Null exception here....
+     public static void setCurrentUser(User currentUserFunctionInput) {
+        Log.d("YourTag", "YourOutput");
         User currentUser = currentUserFunctionInput;
         MasterController.getUserDB().setCurrentUserVal(currentUser);
         MasterController.getUserDB().getChangeList().add(currentUser.getFriendsList());
@@ -285,6 +286,8 @@ public final class CDatabaseController implements CControllerInterface{
         MasterController.getUserDB().getChangeList().add(currentUser.getProfile());
         MasterController.getUserDB().getChangeList().add(currentUser.getInventory());
     }
+     */
+
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
