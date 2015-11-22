@@ -7,7 +7,7 @@ Project Part 5 - DUE NOVEMBER 30th!
   2. Implement exception handling as much as possible.
   
   3. Implement more use cases
-    ####Cases Completed:
+    ####Cases Completed (13/32):
      * Create User
      * Add Skillz
      * Remove Skillz
