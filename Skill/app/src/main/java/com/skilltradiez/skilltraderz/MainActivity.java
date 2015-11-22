@@ -120,7 +120,6 @@ public class MainActivity extends GeneralMenuActivity {
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        //TODO: Find out what was meant by "HACK"
 
         if (masterController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
