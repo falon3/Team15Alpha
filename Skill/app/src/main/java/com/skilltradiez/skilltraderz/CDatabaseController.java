@@ -124,6 +124,14 @@ public final class CDatabaseController implements CControllerInterface{
     }
 
 
+    public static User getAccountByUserID(ID id) {
+        Set<User> users = MasterController.getUserDB().getUsers();
+        for (User u : users)
+            if (u.getUserID().equals(id))
+                return u;
+        return null;
+    }
+
 
     //Moved create user functionality to this new area
     public static User createUser(String username) throws UserAlreadyExistsException {

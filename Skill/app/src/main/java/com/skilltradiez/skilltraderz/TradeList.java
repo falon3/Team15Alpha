@@ -142,12 +142,12 @@ public class TradeList extends Notification {
     public boolean commit(UserDatabase userDB) {
         for (ID tradeId : newTrades) {
             Trade trade = userDB.getTradeByID(tradeId);
-            User otherUser = userDB.getAccountByUserID(trade.getHalf2().getUser());
-            User theUser = userDB.getAccountByUserID(getOwnerID());
+            User otherUser = CDatabaseController.getAccountByUserID(trade.getHalf2().getUser());
+            User theUser = CDatabaseController.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);
             try {
-                userDB.getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
-                userDB.getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
+                MasterController.getUserDB().getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
+                MasterController.getUserDB().getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;

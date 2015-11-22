@@ -244,7 +244,7 @@ public class Inventory extends Notification {
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
             if (temp.getCategory().contains(category) &&
-                    (temp.isVisible() || userDB.getAccountByUserID(user).getInventory().hasSkill(temp)))
+                    (temp.isVisible() || CDatabaseController.getAccountByUserID(user).getInventory().hasSkill(temp)))
                 matching.add(temp);
         }
         return matching;
@@ -296,7 +296,7 @@ public class Inventory extends Notification {
     boolean commit(UserDatabase userDB) {
         System.out.println("Inventory commit!");
         try {
-            userDB.getElastic().updateDocument("user", userDB.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
+            userDB.getElastic().updateDocument("user", CDatabaseController.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
         } catch (IOException e) {
             e.printStackTrace();
             return false;

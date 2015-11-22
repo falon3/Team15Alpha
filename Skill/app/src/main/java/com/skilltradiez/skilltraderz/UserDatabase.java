@@ -178,16 +178,22 @@ public class UserDatabase {
 
     public User getCurrentUser() { return currentUser; }
 
-
-
-
-
-    public User getAccountByUserID(ID id) {
-        for (User u : users)
-            if (u.getUserID().equals(id))
-                return u;
-        return null;
+    public Set<User> getUsers() {
+        return users;
     }
+
+    public Set<Skill> getSkills() {
+        return skillz;
+    }
+
+    public Set<Trade> getTrades() {
+        return trades;
+    }
+
+
+
+
+
 
     public Trade getTradeByID(ID id) {
         for (Trade t : trades)
@@ -247,15 +253,4 @@ public class UserDatabase {
         getChangeList().add(currentUser.getInventory());
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public Set<Skill> getSkills() {
-        return skillz;
-    }
-
-    public Set<Trade> getTrades() {
-        return trades;
-    }
 }

@@ -62,7 +62,7 @@ public final class MasterController implements CControllerInterface{
     }
 
     public User getUserByID(ID userID){
-        return getUserDB().getAccountByUserID(userID);
+        return CDatabaseController.getAccountByUserID(userID);
     }
 
     /**FRIEND RELATED **/
