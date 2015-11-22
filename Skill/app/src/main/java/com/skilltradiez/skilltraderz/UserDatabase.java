@@ -195,42 +195,7 @@ public class UserDatabase {
 
 
 
-    public Trade getTradeByID(ID id) {
-        for (Trade t : trades)
-            if (t.getTradeID().equals(id))
-                return t;
-        return getOnlineTradeByID(id);
-    }
 
-    private Trade getOnlineTradeByID(ID id) {
-        Trade t = null;
-        try {
-            t = elastic.getDocumentTrade(id.toString());
-            if (t != null)
-                trades.add(t);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return t;
-    }
-
-    public Skill getSkillByID(ID id) {
-        for (Skill s : skillz)
-            if (s.getSkillID().equals(id))
-                return s;
-        return getOnlineSkillByID(id);
-    }
-
-    private Skill getOnlineSkillByID(ID id) {
-        Skill s = null;
-        try {
-            s = elastic.getDocumentSkill(id.toString());
-            if (s != null) skillz.add(s);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return s;
-    }
     public void addSkill(Skill s) {
         skillz.add(s);
         // New Skill

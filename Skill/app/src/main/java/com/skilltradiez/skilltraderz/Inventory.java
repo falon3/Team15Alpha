@@ -176,7 +176,7 @@ public class Inventory extends Notification {
      */
     public Skill get(UserDatabase userDB, Integer index) {
         if (index < skillz.size())
-            return userDB.getSkillByID(skillz.get(index));
+            return CDatabaseController.getSkillByID(skillz.get(index));
         return null;
     }
 
@@ -226,7 +226,7 @@ public class Inventory extends Notification {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         Skill temp;
         for (ID s : skillz) {
-            temp = userDB.getSkillByID(s);
+            temp = CDatabaseController.getSkillByID(s);
             if (temp.getName().contains(name) && temp.isVisible()) matching.add(temp);
         }
         return matching;
@@ -242,7 +242,7 @@ public class Inventory extends Notification {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         Skill temp;
         for (ID s : skillz) {
-            temp = userDB.getSkillByID(s);
+            temp = CDatabaseController.getSkillByID(s);
             if (temp.getCategory().contains(category) &&
                     (temp.isVisible() || CDatabaseController.getAccountByUserID(user).getInventory().hasSkill(temp)))
                 matching.add(temp);
@@ -288,7 +288,7 @@ public class Inventory extends Notification {
     public ArrayList<Skill> cloneSkillz(UserDatabase userDB) {
         ArrayList<Skill> newList = new ArrayList<Skill>();
         for (ID id:skillz)
-            newList.add(userDB.getSkillByID(id));
+            newList.add(CDatabaseController.getSkillByID(id));
         return newList;
     }
 

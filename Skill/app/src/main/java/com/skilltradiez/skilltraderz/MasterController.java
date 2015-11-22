@@ -107,9 +107,7 @@ public final class MasterController implements CControllerInterface{
 
     /** SkillDescriptionActivity methods **/
 
-    public Skill getSkillByID(ID identifier){
-        return userDB.getSkillByID(identifier);
-    }
+
 
     public void removeCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
@@ -125,7 +123,7 @@ public final class MasterController implements CControllerInterface{
 
     //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
     public Trade getCurrentTradeByID(ID identifier){
-        return userDB.getTradeByID(identifier);
+        return CDatabaseController.getTradeByID(identifier);
     }
 
     //ACCEPT THE TRADE

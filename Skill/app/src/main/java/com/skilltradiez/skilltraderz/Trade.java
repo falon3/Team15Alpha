@@ -186,9 +186,9 @@ public class Trade extends Stringeable {
 
         // Skill Names: Might be a bit much
         for (ID skillID:half1.getOffer())
-            string += msCont.getSkillByID(skillID).getName() + " ";
+            string += CDatabaseController.getSkillByID(skillID).getName() + " ";
         for (ID skillID:half2.getOffer())
-            string += msCont.getSkillByID(skillID).getName() + " ";
+            string += CDatabaseController.getSkillByID(skillID).getName() + " ";
 
         return string;
     }

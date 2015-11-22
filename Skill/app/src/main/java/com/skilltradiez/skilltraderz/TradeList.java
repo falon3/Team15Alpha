@@ -119,7 +119,7 @@ public class TradeList extends Notification {
         Trade trade;
 
         for (ID t : trades) {
-            trade = userDB.getTradeByID(t);
+            trade = CDatabaseController.getTradeByID(t);
             if (trade.isActive())
                 activeTrades.add(trade);
         }
@@ -135,13 +135,13 @@ public class TradeList extends Notification {
 
     public Trade getMostRecentTrade(UserDatabase userDB) {
         if (trades.isEmpty()) return null;
-        return userDB.getTradeByID(trades.get(trades.size()-1));
+        return CDatabaseController.getTradeByID(trades.get(trades.size()-1));
     }
 
     @Override
     public boolean commit(UserDatabase userDB) {
         for (ID tradeId : newTrades) {
-            Trade trade = userDB.getTradeByID(tradeId);
+            Trade trade = CDatabaseController.getTradeByID(tradeId);
             User otherUser = CDatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User theUser = CDatabaseController.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);

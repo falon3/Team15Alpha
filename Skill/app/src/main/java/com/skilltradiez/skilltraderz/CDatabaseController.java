@@ -195,6 +195,60 @@ public final class CDatabaseController implements CControllerInterface{
     }
 
 
+
+
+
+    /** Get by ID functions
+     * Each public method is paired with a private method that goes in depth.
+     * **/
+
+    public static Trade getTradeByID(ID id) {
+        Set<Trade> trades = MasterController.getUserDB().getTrades();
+        for (Trade t : trades)
+            if (t.getTradeID().equals(id))
+                return t;
+        return getOnlineTradeByID(id);
+    }
+
+    //Associated with above function.
+    private static Trade getOnlineTradeByID(ID id) {
+        Set<Trade> trades = MasterController.getUserDB().getTrades();
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        Trade t = null;
+        try {
+            t = elastic.getDocumentTrade(id.toString());
+            if (t != null)
+                trades.add(t);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+
+
+
+    public static Skill getSkillByID(ID id) {
+        Set<Skill> skillz = MasterController.getUserDB().getSkills();
+        for (Skill s : skillz)
+            if (s.getSkillID().equals(id))
+                return s;
+        return getOnlineSkillByID(id);
+    }
+
+    private static Skill getOnlineSkillByID(ID id) {
+        Set<Skill> skillz = MasterController.getUserDB().getSkills();
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        Skill s = null;
+        try {
+            s = elastic.getDocumentSkill(id.toString());
+            if (s != null) skillz.add(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
+
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
         deleteDocumentUser(user.getUserID().toString());
