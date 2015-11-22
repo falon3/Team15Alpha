@@ -86,7 +86,7 @@ import java.util.List;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class Trade extends Notification {
+public class Trade extends Stringeable {
     private ID tradeID;
     private HalfTrade half1, half2;
 
@@ -163,5 +163,33 @@ public class Trade extends Notification {
             if (!half2.commit(userDB))
                 return false;
         return true;
+    }
+
+    public String getName() {
+        //TITLE
+        return "TRADE: "+half1.getUser()+" -> "+half2.toString();
+    }
+
+    public String getDescription() {
+        // SUBTITLE
+        return "I should REALLY find the user's names";
+    }
+
+    public int getImage() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        MasterController msCont = new MasterController();
+        String string = half1.getUser().toString() + " " + half2.getUser().toString() + " ";
+
+        // Skill Names: Might be a bit much
+        for (ID skillID:half1.getOffer())
+            string += msCont.getSkillByID(skillID).getName() + " ";
+        for (ID skillID:half2.getOffer())
+            string += msCont.getSkillByID(skillID).getName() + " ";
+
+        return string;
     }
 }
