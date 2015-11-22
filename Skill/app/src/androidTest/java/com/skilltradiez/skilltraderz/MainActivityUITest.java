@@ -21,6 +21,7 @@ public class MainActivityUITest extends ActivityInstrumentationTestCase2 {
 
     public void testStart() throws Exception {
         Activity activity = getActivity();
+        activity.finish();
     }
 
     public void testLogin() throws Exception {

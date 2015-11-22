@@ -16,6 +16,7 @@ public class SkillDescriptionUITest extends ActivityInstrumentationTestCase2 {
 
     public void testStart() throws Exception {
         SkillDescriptionActivity activity = (SkillDescriptionActivity)getActivity();
+        activity.finish();
     }
 
     public void testAddRemoveSkill() throws Exception {
