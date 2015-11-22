@@ -370,7 +370,7 @@ public class Skill extends Stringeable {
                 // TODO: 2015-11-21 need to test to make sure new version is put in the inventory and the old version removed
             }
         } catch (IOException e) {
-            userDB.getLocal().getLocalData().getNotifications().add(this);
+            //userDB.getLocal().getLocalData().getNotifications().add(this);
             try {
                 userDB.getLocal().saveToFile();
             } catch (IOException e1) {
