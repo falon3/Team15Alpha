@@ -206,9 +206,8 @@ public class InventoryActivity extends GeneralMenuActivity {
         //TODO: Categories are subject to change
         String category = "PUT SOMETHING HERE";
         if (category.equals("All"))
-            return 
-
-        return currentUser.getInventory().findByCategory(masterController.getUserDB(), category));
+            return currentUser.getInventory().cloneSkillz(masterController.getUserDB());
+        return currentUser.getInventory().findByCategory(masterController.getUserDB(), category);
     }
 
     /**
