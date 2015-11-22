@@ -13,11 +13,13 @@
     <style name="AppTheme.SkillActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:titleTextStyle">@style/AppTheme.TitleTextStyle</item>
         <item name="android:background">@color/mainSkillAppColor</item>
+        <item name="android:icon">@drawable/sz_circle</item>
     </style>
 
     <!-- Action Bar Text Style -->
     <style name="AppTheme.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/tealTextColor</item>
+        <item name="android:icon">@drawable/sz_circle</item>
     </style>
 
     <!-- Overflow Menu Text Style -->
