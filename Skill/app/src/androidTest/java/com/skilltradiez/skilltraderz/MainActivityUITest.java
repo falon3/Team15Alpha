@@ -24,8 +24,6 @@ public class MainActivityUITest extends ActivityInstrumentationTestCase2 {
         activity.finish();
     }
 
-    //Three tests below testing layout position of each UI element
-    //Are they where we expect them to be or not?
     public void testLogin() throws Exception {
         // When you call getActivity() android will start up the app and the activity
         Activity myActivity = getActivity();

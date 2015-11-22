@@ -142,6 +142,10 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         masterController.save();
     }
 
+    public Button getAddRemoveSkill(){
+        return addRemoveSkill;
+    }
+
     public void editSkill(View view){
         Intent intent = new Intent(skillDescripContext, EditSkillActivity.class);
         //intent.getExtras(currentSkill.getName().toString(),);
