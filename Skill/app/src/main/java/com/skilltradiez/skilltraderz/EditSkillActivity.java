@@ -74,15 +74,12 @@ package com.skilltradiez.skilltraderz;
  *     WE PROVIDE THE METHODS TO:
  *         Nothing. This is created during the onStart() method.
  *
- *
- *
- *
- *
  */
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -110,7 +107,7 @@ import android.widget.Toast;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class EditSkillActivity extends ActionBarActivity {
+public class EditSkillActivity extends GeneralMenuActivity {
     private Skill newSkill;
     private EditText skillName;
     private EditText skillDescription;
@@ -118,6 +115,7 @@ public class EditSkillActivity extends ActionBarActivity {
     private Button addSkillToDB;
     private CheckBox visible;
     private MasterController masterController;
+    private Context edSkillContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,9 +145,7 @@ public class EditSkillActivity extends ActionBarActivity {
         return visible;
     }
 
-    public MasterController getMasterController() {
-        return masterController;
-    }
+
 
     public void onStart(){
         //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.
@@ -167,13 +163,15 @@ public class EditSkillActivity extends ActionBarActivity {
     public void addNewSkill(View view){
         //Character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
-        Context context1 = this;
+        String category = skillCategory.getText().toString();
+        String description = skillDescription.getText().toString();
+        boolean is_visible = visible.isChecked();
 
-        if (name.length() > 40) {
+        if (name.length() == 0 || description.length() == 0 || category.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
             // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
-            AlertDialog.Builder alert = new AlertDialog.Builder(context1);
-            alert.setMessage("Skill name too long!\n must be 40 characters or less\n");
+            AlertDialog.Builder alert = new AlertDialog.Builder(edSkillContext);
+            alert.setMessage("Please make sure all fields are filled!\n");
             alert.setCancelable(true);
             alert.setPositiveButton("retry",
                     new DialogInterface.OnClickListener() {
@@ -186,18 +184,17 @@ public class EditSkillActivity extends ActionBarActivity {
             return;
         }
 
-        String category = skillCategory.getText().toString();
-        String description = skillDescription.getText().toString();
-        boolean is_visible = visible.isChecked();
-
         //Make a new skill through the controller.
         masterController.makeNewSkill(name, category, description, is_visible, new NullImage());
         masterController.save();
 
-
         //Toasty
         Context context = getApplicationContext();
         Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
+
+        skillName.setText("");
+        skillDescription.setText("");
+        skillCategory.setText("");
 
     }
 }

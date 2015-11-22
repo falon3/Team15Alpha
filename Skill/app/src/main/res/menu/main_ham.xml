@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skillz="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/All_Users"
+        android:title="@string/browse_users"
+        skillz:showAsAction="never" />
+    <item
+        android:id="@+id/All_Skillz"
+        android:title="@string/browse_skillz"
+        skillz:showAsAction="never" />
+    <item
+        android:id="@+id/My_Friends"
+        android:title="@string/your_friends"
+        skillz:showAsAction="never" />
+    <item
+        android:id="@+id/My_Inventory"
+        android:title="@string/your_inventory"
+        skillz:showAsAction="never" />
+    <item
+        android:id="@+id/Create_Skill"
+        android:title="@string/create_skill_menu"
+        skillz:showAsAction="never" />
+
+</menu>

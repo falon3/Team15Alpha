@@ -100,7 +100,9 @@ import java.util.Set;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class SearchScreenActivity extends ActionBarActivity {
+public class SearchScreenActivity extends GeneralMenuActivity {
+    private List<User> users;
+    private List<Skill> skillz;
     private int screenType;
 
     private Button searchButton;
@@ -112,9 +114,6 @@ public class SearchScreenActivity extends ActionBarActivity {
     private List<Stringeable> items;
 
     private ListView resultsList;
-
-    //Mastercontroller
-    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -115,6 +115,8 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -152,6 +154,7 @@ public class UserDatabase {
             skillz.addAll(lpo.getSkillz());
             trades.addAll(lpo.getTrades());
             getChangeList().getNotifications().addAll(lpo.getNotifications());
+            Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
         } else {
             currentUser = null;
         }
