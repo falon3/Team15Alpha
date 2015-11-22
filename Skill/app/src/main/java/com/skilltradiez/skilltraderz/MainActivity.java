@@ -67,7 +67,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -120,7 +119,6 @@ public class MainActivity extends GeneralMenuActivity {
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        //TODO: Find out what was meant by "HACK"
 
         if (masterController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
@@ -136,7 +134,7 @@ public class MainActivity extends GeneralMenuActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
 
         // first_time
-        newUserName = (EditText) findViewById(R.id.makeUserName);
+        newUserName = (EditText) findViewById(R.id.usernameField);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
 
