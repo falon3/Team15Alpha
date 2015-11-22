@@ -72,7 +72,6 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -132,7 +131,7 @@ public class InventoryActivity extends GeneralMenuActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
         startTrade = (Button) findViewById(R.id.maketrade);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-        inventoryList = (ListView) findViewById(R.id.search_list);
+        inventoryList = (ListView) findViewById(R.id.inventory_list);
 
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {

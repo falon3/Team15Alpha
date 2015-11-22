@@ -63,21 +63,16 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -126,7 +121,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt("All_search");
 
-        resultsList = (ListView) findViewById(R.id.search_list);
+        resultsList = (ListView) findViewById(R.id.inventory_list);
         searchAdapter = new ListAdapter(this, items);
 
         searchButton = (Button) findViewById(R.id.search_button);
