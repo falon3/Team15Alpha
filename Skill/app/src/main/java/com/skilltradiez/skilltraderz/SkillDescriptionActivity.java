@@ -140,4 +140,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         masterController.save();
     }
 
+    public Button getAddRemoveSkill(){
+        return addRemoveSkill;
+    }
 }
