@@ -121,7 +121,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt("All_search");
 
-        resultsList = (ListView) findViewById(R.id.inventory_list);
+        resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
 
         searchButton = (Button) findViewById(R.id.search_button);
