@@ -16,6 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:hint="@string/new_skill_name"
+        android:maxLength="40"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#057777" />
 

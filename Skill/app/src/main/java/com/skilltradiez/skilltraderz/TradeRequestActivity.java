@@ -95,7 +95,7 @@ import org.w3c.dom.Text;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class TradeRequestActivity extends ActionBarActivity {
+public class TradeRequestActivity extends GeneralMenuActivity {
     private Context tradeContext = this;
 
     private Button acceptRequest;
@@ -105,7 +105,6 @@ public class TradeRequestActivity extends ActionBarActivity {
     private TextView tradeDescription;
     private ListView skillsInTrade;
     private Trade trade;
-    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

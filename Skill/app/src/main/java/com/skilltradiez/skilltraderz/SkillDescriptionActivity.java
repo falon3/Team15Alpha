@@ -66,12 +66,11 @@ import android.widget.TextView;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class SkillDescriptionActivity extends ActionBarActivity {
+public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Skill currentSkill;
     private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
-    private MasterController masterController;
 
     private Boolean hasSkill;
 

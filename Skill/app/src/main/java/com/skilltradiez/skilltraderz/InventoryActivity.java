@@ -103,7 +103,7 @@ import java.util.List;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class InventoryActivity extends ActionBarActivity {
+public class InventoryActivity extends GeneralMenuActivity {
 
     public static String USER_INVENTORY = "USER_INVENTORY";
 
@@ -119,7 +119,6 @@ public class InventoryActivity extends ActionBarActivity {
     private Spinner categorySpinner;
     private ListView inventoryList;
     private ArrayAdapter<Stringeable> adapter;
-    private MasterController masterController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

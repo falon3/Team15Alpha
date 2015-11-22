@@ -1,47 +1,81 @@
 <resources>
+    <!-- App name and Activity titles -->
     <string name="app_name">Skill Traderz</string>
     <string name="action_settings">Action Settings</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_search_results">SearchResults</string>
-    <string name="title_activity_trade_request">TradeRequest</string>
     <string name="title_activity_search_screen">SearchScreenActivity</string>
-    <string name="title_activity_edit_skill">EditSkill</string>
     <string name="title_activity_edit_trade">EditTradeActivity</string>
+
+    <!-- String relating to the main hambuger menu -->
+    <string name="title_activity_general_menu">GeneralMenuActivity</string>
+
+    <!-- String relating to the First Time User layout -->
+    <string name="make_a_user_name">Make a user name</string>
+    <string name="what_is_your_email">What is your email?</string>
+    <string name="welcome_to_app">Welcome to Skill Traderz!</string>
+    <string name="begin_app">Begin!</string>
+
+    <!-- String related to the Main Screen -->
+    <string name="title_activity_main">MainActivity</string>
     <string name="search_field_text">Search Query</string>
     <string name="search_button">Search</string>
     <string name="browse_skillz">Browse Skillz</string>
     <string name="browse_users">Browse Users</string>
-    <string name="your_profile">Profile</string>
+    <string name="your_profile">My Profile</string>
+    <string name="your_inventory">My Inventory</string>
+    <string name="your_friends">My Friendz</string>
+    <string name="create_skill_menu">Create Skill</string>
+    <string name="add_a_new_skill">Add a New Skill</string>
+
+    <!-- Strings related to the Trade Request screen -->
+    <string name="title_activity_trade_request">TradeRequest</string>
+    <string name="trade_notes">Trade notes from trading partner</string>
     <string name="trading_with_xyz">Trading With XYZ</string>
     <string name="offering">Offer:</string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="user_name">User Name</string>
-    <string name="add_friend">Add Friend</string>
-    <string name="remove_friend">Remove Friend</string>
-    <string name="friend_List">Friends</string>
-    <string name="add_skill">Add Skill</string>
-    <string name="user_description">User contact information</string>
-    <string name="user_inventory">User Inventory</string>
-    <string name="block_user">Block User</string>
-    <string name="make_trade">Start Trade</string>
-    <string name="title_activity_inventory">InventoryActivity</string>
-    <string name="refine_search">Refine Search</string>
-    <string name="trade_notes">Trade notes from trading partner</string>
     <string name="accept_trade">Accept Trade</string>
     <string name="send_trade">Send Trade</string>
     <string name="counter_trade">Counter Offer</string>
     <string name="delete_trade">Delete Request</string>
     <string name="note_for_trade">Describe your request!</string>
+
+    <!-- String related to the Profile layout -->
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="user_name">User Name</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="remove_friend">Remove Friend</string>
+    <string name="friend_List">Friends</string>
+    <string name="user_description">User contact information</string>
+    <string name="user_inventory">User Inventory</string>
+    <string name="make_trade">Start Trade</string>
+
+    <!-- Strings related to the Inventory layout -->
+    <string name="title_activity_inventory">InventoryActivity</string>
+    <string name="refine_search">Refine Search</string>
+
+
+    <!-- String related to making or editing a skill -->
+    <string name="title_activity_edit_skill">EditSkill</string>
     <string name="title_activity_skill_description">SkillDescription</string>
     <string name="skill_title">Skill Title</string>
     <string name="skill_description">Skill Description</string>
-    <string name="add_a_new_skill">Add a New Skill</string>
+    <string name="add_skill">Add Skill</string>
     <string name="new_skill_name">What do you want to name your skill?</string>
     <string name="new_skill_description">Describe your new skill</string>
     <string name="new_skill_category">What category of skill is your new skill</string>
-    <string name="make_a_user_name">Make a user name</string>
-    <string name="what_is_your_email">What is your email?</string>
-    <string name="welcome_to_app">Welcome to Skill Traderz!</string>
-    <string name="begin_app">Begin!</string>
     <string name="is_visible">Visible</string>
+
+    <!-- Categories -->
+    <string-array name="category_spinner">
+        <item>Creative</item>
+        <item>Communication</item>
+        <item>Electronics and Computers</item>
+        <item>Household</item>
+        <item>Math and Science</item>
+        <item>Building and Fixing</item>
+        <item>Miscellaneous</item>
+        <item>Parenting</item>
+        <item>Physical</item>
+        <item>Stealth and Pranks</item>
+    </string-array>
+
 </resources>

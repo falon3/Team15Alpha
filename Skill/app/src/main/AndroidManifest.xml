@@ -6,7 +6,7 @@
         android:minSdkVersion="18"
         android:targetSdkVersion="18" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -14,15 +14,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@android:color/transparent"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:logo="@android:color/transparent"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label=""
             android:theme="@style/AppTheme" >
-            <intent-filter>
+            <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,32 +31,36 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile" >
+            android:label="" >
         </activity>
         <activity
             android:name=".SearchScreenActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            android:label="@string/title_activity_search_screen" >
+            android:label=""
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".InventoryActivity"
-            android:label="@string/title_activity_inventory" >
+            android:label="" >
         </activity>
         <activity
             android:name=".TradeRequestActivity"
-            android:label="@string/title_activity_trade_request" >
+            android:label="" >
         </activity>
         <activity
             android:name=".SkillDescriptionActivity"
-            android:label="@string/title_activity_skill_description" >
+            android:label="" >
         </activity>
         <activity
             android:name=".EditTradeActivity"
-            android:label="@string/title_activity_edit_trade" >
+            android:label="" >
         </activity>
         <activity
             android:name=".EditSkillActivity"
-            android:label="@string/title_activity_edit_skill" >
+            android:label="" >
+        </activity>
+        <activity
+            android:name=".GeneralMenuActivity"
+            android:theme="@android:style/Theme.NoDisplay" >
         </activity>
     </application>
 
