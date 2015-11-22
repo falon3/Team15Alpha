@@ -177,9 +177,7 @@ public class Local {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
-        if (save_object == null) {
-            save_object = new LocalPersistentObject();
-        }
+        if (save_object == null) save_object = new LocalPersistentObject();
         in.close();
         return save_object;
     }

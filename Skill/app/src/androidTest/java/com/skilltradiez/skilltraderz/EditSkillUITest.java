@@ -17,6 +17,7 @@ public class EditSkillUITest  extends ActivityInstrumentationTestCase2 {
 
     public void testStart() throws Exception {
          EditSkillActivity activity = (EditSkillActivity)getActivity();
+        activity.finish();
     }
 
     public void testCreateSkill() throws Exception {
