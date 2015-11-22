@@ -126,12 +126,13 @@ public class Local {
     }
 
     public void saveToFile(User me, Collection<User> friends, Collection<Skill> skillz,
-                           Collection<Trade> trades, List<Notification> notifications) {
+                           Collection<Trade> trades) {
+        //Collection<Trade> trades, List<Notification> notifications) {
         save_object.setCurrentUser(me);
         save_object.setUsers(friends);
         save_object.setSkillz(skillz);
         save_object.setTrades(trades);
-        save_object.setNotifications(notifications);
+        //save_object.setNotifications(notifications);
 
         try {
             saveToFile();
@@ -171,8 +172,12 @@ public class Local {
         try {
             Type lpo_type = new TypeToken<LocalPersistentObject>(){}.getType();
             save_object = gson.fromJson(in, lpo_type);
-        } catch (RuntimeException e) {}
-        if (save_object == null) save_object = new LocalPersistentObject();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        if (save_object == null) {
+            save_object = new LocalPersistentObject();
+        }
         in.close();
         return save_object;
     }
