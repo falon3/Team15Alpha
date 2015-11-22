@@ -14,33 +14,29 @@ import java.util.Set;
  * Assuming direct control.
  * --Sovereign, mass effect
  */
-public class MasterController {
+public final class MasterController implements CControllerInterface{
     private static UserDatabase userDB;
+    private static CDatabaseController databaseController;
 
     /** DATABASE RELATED **/
-    //Initialize the database.
-    public void initDB(){
-        this.userDB = new UserDatabase();
+    //Initialize the master controller.
+    //Absolutely core, this sets up the entire system of controllers.
+    public void initializeController(){
+
+        userDB = new UserDatabase();
+        databaseController = new CDatabaseController();
+
+
     }
 
-    //Return the database object!
-    public UserDatabase getUserDB(){
+    //Return the database object! Only avaliable to other controller objects.
+    public static UserDatabase getUserDB(){
         return userDB;
     }
 
-    //Refresh the database!
-    public void refreshDB(){
-        userDB.refresh();
-    }
 
-    //I hate this. Deletes ALL data from the database.
-    public void crazyDatabaseDeletion(){
-        userDB.deleteAllData();
-    }
 
-    public void save(){
-        userDB.save();
-    }
+
 
     /** USER RELATED **/
     //If we probe for the USER that is currently on the app... returns the USER object of that user.
@@ -85,20 +81,7 @@ public class MasterController {
         userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
     }
 
-    //When we have a new user... we call upon the controller here to interact with the database
-    //in order to create a brand new user. Returns this brand new user!
-    public User createNewUser(String usernameGiven, String emailGiven){
-        User new_guy = null;
-        try {
-            new_guy = userDB.createUser(usernameGiven);
-        } catch (UserAlreadyExistsException e) {
-            e.printStackTrace();
-        }
-        new_guy.getProfile().setEmail(emailGiven);
-        userDB.save();
 
-        return new_guy;
-    }
 
     /** SKILLZ RELATED FUNCTIONS **/
 
@@ -121,7 +104,7 @@ public class MasterController {
 
     public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
         userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description, isVisible, image));
-        save();
+        CDatabaseController.save();
     }
 
     /** SkillDescriptionActivity methods **/

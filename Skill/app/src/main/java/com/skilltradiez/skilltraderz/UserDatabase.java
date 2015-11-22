@@ -159,7 +159,7 @@ public class UserDatabase {
         }
     }
 
-    public User createUser(String username) throws UserAlreadyExistsException {
+    /**public User createUser(String username) throws UserAlreadyExistsException {
         if (getAccountByUsername(username) != null)
             throw new UserAlreadyExistsException();
 
@@ -174,7 +174,7 @@ public class UserDatabase {
             throw new RuntimeException();
         }
         return u;
-    }
+    }*/
 
     public User login(String username) {
         User u = getAccountByUsername(username);
@@ -182,21 +182,12 @@ public class UserDatabase {
         return u;
     }
 
-    public void deleteAllData() {
-        try {
-            elastic.deleteDocument("example", "");
-            elastic.deleteDocument("user", "");
-            elastic.deleteDocument("skill", "");
-            elastic.deleteDocument("trade", "");
-            local.deleteFile();
-            currentUser = null;
-            users.clear();
-            skillz.clear();
-            trades.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    public void setCurrentUserToNull(){
+        currentUser = null;
     }
+
+
 
     public void deleteDocumentUser(User user) {
         deleteDocumentUser(user.getUserID().toString());
@@ -238,42 +229,24 @@ public class UserDatabase {
         return currentUser != null;
     }
 
-    /**
-     * Downloads all online data into a local cache
-     * TODO: save must be done before this or we might lose data
-     */
-    public void refresh() {
-        try {
-            List<User> onlineUsers = elastic.getAllUsers();
-            for (User u : onlineUsers) {
-                if (u.equals(currentUser)) setCurrentUser(u);
-                users.remove(u);
-                users.add(u);
-            }
-            //TODO CATCH IOExceptions
-            List<Skill> skills = elastic.getAllSkills();
-            for (Skill s : skills) {
-                skillz.remove(s);
-                skillz.add(s);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
+    /** Manditory to make the refresh function work **/
+    public Set<Skill> getSkillz(){
+        return skillz;
     }
 
-    /**
-     * TODO saving should merge, not overwrite.
-     */
-    public void save() {
-        toBePushed.push(this);
-        // TODO: Saves locally and pushes changes if connected to the internet
-        //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
-        local.saveToFile(currentUser, users, skillz, trades);
-    }
+
+
+
+
+
 
     public ChangeList getChangeList() {
         return toBePushed;
     }
+
+
 
     /*
      * The internet API
@@ -367,16 +340,7 @@ public class UserDatabase {
         }
     }
 
-    public void addTrade(Trade t) {
-        trades.add(t);
-        // New Trade
-        getChangeList().add(t);
-        try {
-            getElastic().addDocument("trade", t.getTradeID().toString(), t);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;

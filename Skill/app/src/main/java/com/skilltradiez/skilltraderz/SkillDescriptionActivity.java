@@ -139,7 +139,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
             masterController.addCurrentSkill(currentSkill);
         }
         hasSkill = !hasSkill;
-        masterController.save();
+        CDatabaseController.save();
     }
 
     public Button getAddRemoveSkill(){

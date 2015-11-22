@@ -110,7 +110,7 @@ public class TradeList extends Notification {
             return;
         trades.add(trade.getTradeID());
         newTrades.add(trade.getTradeID());
-        db.addTrade(trade);
+        CDatabaseController.addTrade(trade);
         notifyDB();
     }
 

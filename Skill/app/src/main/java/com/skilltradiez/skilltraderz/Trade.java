@@ -94,7 +94,7 @@ public class Trade extends Stringeable {
         tradeID = ID.generateRandomID();
         half1 = new HalfTrade(tradeID, user1.getUserID(), 1);
         half2 = new HalfTrade(tradeID, user2.getUserID(), 2);
-        db.addTrade(this);
+        CDatabaseController.addTrade(this);
     }
 
     public HalfTrade getHalf1() {
