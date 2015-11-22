@@ -144,7 +144,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
 
     public void editSkill(View view){
         Intent intent = new Intent(skillDescripContext, EditSkillActivity.class);
-        intent.getExtras(currentSkill.getName().toString(),);
+        //intent.getExtras(currentSkill.getName().toString(),);
         startActivity(intent);
     }
 
