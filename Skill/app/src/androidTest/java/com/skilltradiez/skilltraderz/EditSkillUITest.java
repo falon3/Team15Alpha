@@ -1,6 +1,7 @@
 package com.skilltradiez.skilltraderz;
 
 import android.app.Activity;
+import android.os.StrictMode;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,6 +29,7 @@ public class EditSkillUITest  extends ActivityInstrumentationTestCase2 {
 
         activity.getMasterController().initDB();
         activity.getMasterController().crazyDatabaseDeletion();
+        activity.getMasterController().createNewUser("User", "Email");
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -53,5 +55,7 @@ public class EditSkillUITest  extends ActivityInstrumentationTestCase2 {
         assertEquals("Skill description", skill.getDescription());
         assertEquals("Skill category", skill.getCategory());
         assertEquals(true, skill.isVisible());
+
+        activity.finish();
     }
 }
