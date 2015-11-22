@@ -115,6 +115,8 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -152,6 +154,7 @@ public class UserDatabase {
             skillz.addAll(lpo.getSkillz());
             trades.addAll(lpo.getTrades());
             getChangeList().getNotifications().addAll(lpo.getNotifications());
+            Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
         } else {
             currentUser = null;
         }
@@ -191,6 +194,18 @@ public class UserDatabase {
         }
     }
 
+    public void deleteDocumentUser(User user) {
+        deleteDocumentUser(user.getUserID().toString());
+    }
+
+    public void deleteDocumentSkill(Skill skill) {
+        deleteDocumentSkill(skill.getSkillID().toString());
+    }
+
+    public void deleteDocumentTrade(Trade trade) {
+        deleteDocumentTrade(trade.getTradeID().toString());
+    }
+
     public void deleteDocumentUser(String userID) {
         try {
             elastic.deleteDocument("user", userID);
@@ -210,7 +225,6 @@ public class UserDatabase {
     public void deleteDocumentTrade(String tradeID) {
         try {
             elastic.deleteDocument("trade", tradeID);
-
         }catch (IOException e){
             e.printStackTrace();
         }

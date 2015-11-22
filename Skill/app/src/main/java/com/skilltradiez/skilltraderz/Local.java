@@ -114,7 +114,7 @@ public class Local {
         try {
             readFromFile();
         } catch (IOException e) {
-            // Not Sure what this means
+            // Not sure what this means
             e.printStackTrace();
             throw new RuntimeException();
         }
@@ -172,9 +172,7 @@ public class Local {
             Type lpo_type = new TypeToken<LocalPersistentObject>(){}.getType();
             save_object = gson.fromJson(in, lpo_type);
         } catch (RuntimeException e) {}
-        if (save_object == null) {
-            save_object = new LocalPersistentObject();
-        }
+        if (save_object == null) save_object = new LocalPersistentObject();
         in.close();
         return save_object;
     }
