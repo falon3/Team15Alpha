@@ -166,57 +166,21 @@ public class UserDatabase {
      * All of those huge functions from before were just outright modified and put into the
      * controller itself. Those don't belong in a true model class following MVC.
      */
-    public void setCurrentUserToNull(){
-        currentUser = null;
-    }
+    public void setCurrentUserToNull(){ currentUser = null; }
+
+    public Set<Skill> getSkillz(){ return skillz; }
+
+    public ChangeList getChangeList() { return toBePushed; }
+
+    public Elastic getElastic() { return elastic; }
+
+    public Local getLocal() { return local; }
+
+    public User getCurrentUser() { return currentUser; }
 
 
-    public Set<Skill> getSkillz(){
-        return skillz;
-    }
 
 
-    public ChangeList getChangeList() {
-        return toBePushed;
-    }
-
-
-    /*
-     * The internet API
-     */
-    public Elastic getElastic() {
-        return elastic;
-    }
-
-    /*
-     * The Local API
-     */
-    public Local getLocal() {
-        return local;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public User getAccountByUsername(String username) {
-        for (User u : users)
-            if (u.getProfile().getUsername().equals(username))
-                return u;
-        return getOnlineAccountByUsername(username);
-    }
-
-    private User getOnlineAccountByUsername(String username) {
-        //TODO Maybe this should throw an exception instead of returning null.
-        User u = null;
-        try {
-            //System.out.println(username);
-            u = elastic.getDocumentUser(username);
-            if (u != null) users.add(u);
-        } catch (IOException e) {
-        }
-        return u;
-    }
 
     public User getAccountByUserID(ID id) {
         for (User u : users)

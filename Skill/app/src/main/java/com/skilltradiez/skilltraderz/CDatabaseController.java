@@ -130,7 +130,7 @@ public final class CDatabaseController implements CControllerInterface{
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
 
-        if (MasterController.getUserDB().getAccountByUsername(username) != null)
+        if (getAccountByUsername(username) != null)
             throw new UserAlreadyExistsException();
 
         User u = new User(username);
@@ -150,7 +150,7 @@ public final class CDatabaseController implements CControllerInterface{
 
     //Login functionality
     public static User login(String username) {
-        User u = MasterController.getUserDB().getAccountByUsername(username);
+        User u = getAccountByUsername(username);
         MasterController.getUserDB().setCurrentUser(u);
         return u;
     }
@@ -163,6 +163,28 @@ public final class CDatabaseController implements CControllerInterface{
     }
 
 
+    public static User getAccountByUsername(String username) {
+        Set<User> users = MasterController.getUserDB().getUsers();
+        for (User u : users)
+            if (u.getProfile().getUsername().equals(username))
+                return u;
+        return getOnlineAccountByUsername(username);
+    }
+
+
+    private static User getOnlineAccountByUsername(String username) {
+        //TODO Maybe this should throw an exception instead of returning null.
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        Set<User> users = MasterController.getUserDB().getUsers();
+        User u = null;
+        try {
+            //System.out.println(username);
+            u = elastic.getDocumentUser(username);
+            if (u != null) users.add(u);
+        } catch (IOException e) {
+        }
+        return u;
+    }
 
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/

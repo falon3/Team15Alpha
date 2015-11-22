@@ -58,7 +58,7 @@ public final class MasterController implements CControllerInterface{
 
     //Given a profile name... can we please return THE PROFILE OBJECT?! (Yes. Yes we can.)
     public User getUserByName(String userProfileName){
-        return getUserDB().getAccountByUsername(userProfileName);
+        return CDatabaseController.getAccountByUsername(userProfileName);
     }
 
     public User getUserByID(ID userID){
