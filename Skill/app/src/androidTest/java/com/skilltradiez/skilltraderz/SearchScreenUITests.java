@@ -1,5 +1,6 @@
 package com.skilltradiez.skilltraderz;
 
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
@@ -10,39 +11,44 @@ public class SearchScreenUITests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.SearchScreenActivity.class);
     }
 
-    public void testUsers() {
+    public void testStart() throws Exception {
+        Activity activity = getActivity();
+        activity.finish();
+    }
+
+    public void testUsers() throws Exception  {
         //Give it Users
     }
 
-    public void testSearchUsers() {
+    public void testSearchUsers() throws Exception {
         //Search for Godfrey
     }
 
-    public void testCategorySearchUsers() {
+    public void testCategorySearchUsers() throws Exception {
         //Friends
     }
 
-    public void testSkillz() {
+    public void testSkillz() throws Exception {
         //Give it Skillz
     }
 
-    public void testSearchSkillz() {
+    public void testSearchSkillz() throws Exception {
         //Search for Ability To Survive Long Falls
     }
 
-    public void testCategorySearchSkillz() {
+    public void testCategorySearchSkillz() throws Exception {
         //Physical, Stealth, Science, Math, Whatever, ..., Misc
     }
 
-    public void testTrades() {
+    public void testTrades() throws Exception {
         //Give it Trade
     }
 
-    public void testSearchTrades() {
+    public void testSearchTrades() throws Exception {
         //Search for that violin teacher
     }
 
-    public void testCategorySearchTrades() {
+    public void testCategorySearchTrades() throws Exception {
         //Active, Inactive
     }
 }
