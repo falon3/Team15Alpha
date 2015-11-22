@@ -81,6 +81,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -114,15 +115,17 @@ public class EditSkillActivity extends GeneralMenuActivity {
     private EditText skillCategory;
     private Button addSkillToDB;
     private CheckBox visible;
-    private MasterController masterController;
     private Context edSkillContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_skill);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         masterController = new MasterController();
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_skill);
     }
 
     public EditText getSkillName() {
