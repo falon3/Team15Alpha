@@ -227,7 +227,7 @@ public class Inventory extends Notification {
         Skill temp;
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
-            if (temp.getName().contains(name)) matching.add(temp);
+            if (temp.getName().contains(name) && temp.isVisible()) matching.add(temp);
         }
         return matching;
     }
@@ -243,7 +243,9 @@ public class Inventory extends Notification {
         Skill temp;
         for (ID s : skillz) {
             temp = userDB.getSkillByID(s);
-            if (temp.getCategory().contains(category)) matching.add(temp);
+            if (temp.getCategory().contains(category) &&
+                    (temp.isVisible() || userDB.getAccountByUserID(user).getInventory().hasSkill(temp)))
+                matching.add(temp);
         }
         return matching;
     }
@@ -276,7 +278,6 @@ public class Inventory extends Notification {
         return sorted;
     }
 
-    // TODO: Check if it's the same Skill, but a different version
     public Boolean hasSkill(Skill skill) {
         for (ID s:skillz)
             if (skill.getSkillID().equals(s))

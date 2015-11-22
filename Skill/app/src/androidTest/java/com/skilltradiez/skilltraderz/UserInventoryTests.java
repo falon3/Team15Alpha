@@ -39,7 +39,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
 
         // Testing adding a skill to inventory
         inv.add(skill);
@@ -57,7 +57,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
         inv.add(skill);
 
         // Testing removing a skill from inventory
@@ -76,14 +76,14 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
         inv.add(skill);
 
         // Testing modifying a skill in inventory
         Image dog = new Image("dog chasing it's tail");
         Skill held_skill = inv.get(db, 0);
         held_skill.setDescription("I jumped and then got really tired");
-        held_skill.setImage(dog);
+        held_skill.setImage(dog.getInt());
         held_skill.setVisible(false);
         assertTrue(dog.equals(held_skill.getImage()));
         assertTrue(held_skill.getDescription().equals("I jumped and then got really tired"));
@@ -100,8 +100,8 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
-        Skill skill2 = new Skill(db, "Skill Naem", "dategory", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill2 = new Skill(db, "Skill Naem", "dategory", "desc", true, new NullImage());
         ArrayList<Skill> list1 = new ArrayList<Skill>();
 
         list1.add(skill);
@@ -123,8 +123,8 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc");
-        Skill skill2 = new Skill(db, "Skil Naem", "dategory", "desc");
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill2 = new Skill(db, "Skil Naem", "dategory", "desc", true, new NullImage());
         ArrayList<Skill> list1 = new ArrayList<Skill>();
         ArrayList<Skill> list2 = new ArrayList<Skill>();
 

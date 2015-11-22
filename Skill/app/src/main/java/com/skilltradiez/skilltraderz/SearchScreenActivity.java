@@ -110,8 +110,9 @@ public class SearchScreenActivity extends GeneralMenuActivity {
     private Spinner categorySpinner;
     private Bundle searchExtras;
 
-    private ArrayAdapter<Skill> skillAdapter;
-    private ArrayAdapter<User> userAdapter;
+    private ListAdapter searchAdapter;
+    private List<Stringeable> items;
+
     private ListView resultsList;
 
     //Mastercontroller
@@ -124,15 +125,13 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
         masterController = new MasterController();
 
-        users = new ArrayList<User>();
-        skillz = new ArrayList<Skill>();
-
+        items = new ArrayList<Stringeable>();
         searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt("All_search");
 
         resultsList = (ListView) findViewById(R.id.search_list);
-        skillAdapter = new ArrayAdapter<Skill>(this, R.layout.list_item, skillz);
-        userAdapter = new ArrayAdapter<User>(this, R.layout.list_item, users);
+        searchAdapter = new ListAdapter(this, items);
+
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
@@ -144,28 +143,32 @@ public class SearchScreenActivity extends GeneralMenuActivity {
                     Skill skill = (Skill) parent.getItemAtPosition(position);
                     clickOnSkill(skill);
                 } else {
-                    User user = (User) parent.getItemAtPosition(position);
+                    Profile user = (Profile) parent.getItemAtPosition(position);
                     clickOnUser(user);
                 }
             }
         });
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadItems();
+        resultsList.setAdapter(searchAdapter);
+        searchAdapter.notifyDataSetChanged();
+    }
+
+    public void loadItems() {
         //Refresh the database :D
         masterController.refreshDB();
+        items.clear();
+        refineSearch(null); // search for nothing initially
 
         if (screenType == 0) {
             // all skills
-            resultsList.setAdapter(skillAdapter);
-            skillz.clear();
-            skillz.addAll(masterController.getAllSkillz());
-            skillAdapter.notifyDataSetChanged();
             setTitle("Search Skillz");
         } else {
             // all users
-            resultsList.setAdapter(userAdapter);
-            users.clear();
-            users.addAll(masterController.getAllUserz());
-            userAdapter.notifyDataSetChanged();
             setTitle("Search Users");
         }
     }
@@ -178,27 +181,26 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         //apply it to the list of results
         //update view
         String search = searchField.getText().toString();
+        items.clear();
         if (screenType == 0) {
             // search skills
-            masterController.clearSkillzList(skillz);
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
-                if (s.toString().contains(search))
-                    skillz.add(s);
-            skillAdapter.notifyDataSetChanged();
+                if (s.toString().contains(search) &&
+                        (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s)))
+                    items.add(s);
         } else { // Search users
-            users.clear();
             Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers)
                 if (u.getProfile().getUsername().contains(search))
-                    users.add(u);
-            userAdapter.notifyDataSetChanged();
+                    items.add(u.getProfile());
         }
+        searchAdapter.notifyDataSetChanged();
     }
 
-    public void clickOnUser(User u) {
+    public void clickOnUser(Profile u) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile", u.getProfile().getUsername());
+        intent.putExtra("user_name_for_profile", u.getUsername());
         startActivity(intent);
     }
 

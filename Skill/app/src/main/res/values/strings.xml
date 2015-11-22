@@ -62,7 +62,8 @@
     <string name="new_skill_name">What do you want to name your skill?</string>
     <string name="new_skill_description">Describe your new skill</string>
     <string name="new_skill_category">What category of skill is your new skill</string>
-    
+    <string name="is_visible">Visible</string>
+
     <!-- Categories -->
     <string-array name="category_spinner">
         <item>Creative</item>
@@ -76,4 +77,5 @@
         <item>Physical</item>
         <item>Stealth and Pranks</item>
     </string-array>
+
 </resources>

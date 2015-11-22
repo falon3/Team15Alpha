@@ -88,6 +88,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -116,6 +117,7 @@ public class EditSkillActivity extends ActionBarActivity {
     private EditText skillDescription;
     private EditText skillCategory;
     private Button addSkillToDB;
+    private CheckBox visible;
     private MasterController masterController;
     private Context edSkillContext = this;
 
@@ -127,24 +129,49 @@ public class EditSkillActivity extends ActionBarActivity {
         masterController = new MasterController();
     }
 
+    public EditText getSkillName() {
+        return skillName;
+    }
+
+    public EditText getSkillDescription() {
+        return skillDescription;
+    }
+
+    public EditText getSkillCategory() {
+        return skillCategory;
+    }
+
+    public Button getAddSkillToDB() {
+        return addSkillToDB;
+    }
+
+    public CheckBox getVisible() {
+        return visible;
+    }
+
+    public MasterController getMasterController() {
+        return masterController;
+    }
+
     public void onStart(){
+        //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.
         super.onStart();
         skillName = (EditText) findViewById(R.id.new_skill_name);
         skillDescription = (EditText) findViewById(R.id.new_skill_description);
         skillCategory = (EditText) findViewById(R.id.new_category);
         addSkillToDB = (Button) findViewById(R.id.add_skill_to_database);
-
+        visible = (CheckBox) findViewById(R.id.is_visible);
     }
 
     /**
      * add skill to the database
-     * @ TODO:
      */
     public void addNewSkill(View view){
-        //@todo make character limit of skill name set to 40 characters
+        //Character limit of skill name set to 40 characters
         String name = skillName.getText().toString();
         String category = skillCategory.getText().toString();
         String description = skillDescription.getText().toString();
+        boolean is_visible = visible.isChecked();
 
         if (name.length() == 0 || description.length() == 0 || category.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
@@ -164,7 +191,8 @@ public class EditSkillActivity extends ActionBarActivity {
         }
 
         //Make a new skill through the controller.
-        masterController.makeNewSkill(name, category, description);
+        masterController.makeNewSkill(name, category, description, is_visible, new NullImage());
+        masterController.save();
 
         //Toasty
         Context context = getApplicationContext();

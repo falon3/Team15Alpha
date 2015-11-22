@@ -30,7 +30,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testSetVisibility() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar", "desc");
+        Skill skill = new Skill(db, "foo", "bar", "desc", true, new NullImage());
         skill.setVisible(false);
         assertFalse(skill.isVisible());
     }
@@ -38,7 +38,7 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testSetDescription() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar", "desc");
+        Skill skill = new Skill(db, "foo", "bar", "desc", true, new NullImage());
         skill.setDescription("DESCRIBE'D!!!");
         assertEquals(skill.getDescription(), "DESCRIBE'D!!!");
     }
@@ -46,39 +46,39 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
     public void testAttachPicture() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar", "desc");
+        Skill skill = new Skill(db, "foo", "bar", "desc", true, new NullImage());
         Image img = new Image("foo.tiff");
         //image should be null initially
-        assertTrue(skill.getImage() instanceof NullImage);
+        assertTrue(skill.getImage() == new NullImage().getInt());
         //test setting image
-        skill.setImage(img);
+        skill.setImage(img.getInt());
         assertEquals(skill.getImage(), img);
     }
 
     public void testRetakePicture() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar", "desc");
+        Skill skill = new Skill(db, "foo", "bar", "desc", true, new NullImage());
         Image img = new Image("foo.tiff");
         Image img2 = new Image("foo.bmp");
         //test setting image
-        skill.setImage(img);
+        skill.setImage(img.getInt());
         assertEquals(skill.getImage(), img);
         //test changing(retaking) image
-        skill.setImage(img2);
+        skill.setImage(img2.getInt());
         assertEquals(skill.getImage(), img2);
     }
 
     public void testDeletePicture() {
         UserDatabase db = new UserDatabase();
         db.deleteAllData();
-        Skill skill = new Skill(db, "foo", "bar", "desc");
+        Skill skill = new Skill(db, "foo", "bar", "desc", true, new NullImage());
         Image img = new Image("foo.tiff");
         //test setting image
-        skill.setImage(img);
+        skill.setImage(img.getInt());
         assertEquals(skill.getImage(), img);
         //test deleting image
         skill.deleteImage();
-        assertTrue(skill.getImage() instanceof NullImage);
+        assertTrue(skill.getImage() == new NullImage().getInt());
     }
 }

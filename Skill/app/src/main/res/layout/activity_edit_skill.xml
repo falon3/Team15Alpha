@@ -45,6 +45,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#057777" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/is_visible"
+        android:id="@+id/is_visible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:checked="true" />
+
     <Button
         android:id="@+id/add_skill_to_database"
         android:layout_width="wrap_content"

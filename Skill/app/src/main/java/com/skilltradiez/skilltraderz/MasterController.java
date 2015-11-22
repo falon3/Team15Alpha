@@ -67,6 +67,10 @@ public class MasterController {
         return getUserDB().getAccountByUsername(userProfileName);
     }
 
+    public static User getUserByID(ID userID){
+        return getUserDB().getAccountByUserID(userID);
+    }
+
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
     public static boolean currentUserHasFriend(User currentUser){
@@ -107,6 +111,7 @@ public class MasterController {
     /** SKILLZ RELATED FUNCTIONS **/
 
     //Clear the current List<Skill> of skillz!
+    // this seems unnecessary
     public static void clearSkillzList(List<Skill> skillz){
         skillz.clear();
     }
@@ -120,8 +125,8 @@ public class MasterController {
         return userDB.getUsers();
     }
 
-    public void makeNewSkill(String name, String category, String description){
-        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description));
+    public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
+        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description, isVisible, image));
         save();
     }
 
@@ -133,10 +138,12 @@ public class MasterController {
 
     public static void removeCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
+        currentSkill.removeOwner(userDB.getCurrentUser().getUserID());
     }
 
-    public static void addCurrentskill(Skill currentSkill){
+    public static void addCurrentSkill(Skill currentSkill){
         userDB.getCurrentUser().getInventory().add(currentSkill);
+        currentSkill.addOwner(userDB.getCurrentUser().getUserID());
     }
 
     /** TradeRequestActivity methods **/
