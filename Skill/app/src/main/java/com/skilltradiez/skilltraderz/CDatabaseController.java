@@ -162,4 +162,47 @@ public final class CDatabaseController implements CControllerInterface{
         return currentUser != null;
     }
 
+
+
+
+    /** Delete Document block of functions. These look WAY more controller-like than model **/
+    public static void deleteDocumentUser(User user) {
+        deleteDocumentUser(user.getUserID().toString());
+    }
+
+    public static void deleteDocumentSkill(Skill skill) {
+        deleteDocumentSkill(skill.getSkillID().toString());
+    }
+
+    public static void deleteDocumentTrade(Trade trade) {
+        deleteDocumentTrade(trade.getTradeID().toString());
+    }
+
+    public static void deleteDocumentUser(String userID) {
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        try {
+            elastic.deleteDocument("user", userID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteDocumentSkill(String skillID) {
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        try {
+            elastic.deleteDocument("skill", skillID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteDocumentTrade(String tradeID) {
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        try {
+            elastic.deleteDocument("trade", tradeID);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -350,7 +350,7 @@ public class Skill extends Stringeable {
                 //if removed skill from inventory and no other owners had skill
                 Log.d("GGGGGGGGEEEEEEEEEETTTT", "HEEEEEERRRRRRRR");
                 userDB.getSkills().remove(prev_version);
-                userDB.deleteDocumentSkill(skillID.toString());
+                CDatabaseController.deleteDocumentSkill(skillID.toString());
 
             } else if (prev_version.isOwner(owner) && !isOwner(owner)) {
                 //if removed skill from inventory and other owners had skill

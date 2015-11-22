@@ -159,87 +159,26 @@ public class UserDatabase {
         }
     }
 
-    /**public User createUser(String username) throws UserAlreadyExistsException {
-        if (getAccountByUsername(username) != null)
-            throw new UserAlreadyExistsException();
 
-        User u = new User(username);
-        users.add(u);
-        // You wouldn't be creating a user if you already had one
-        setCurrentUser(u);
-        try {
-            elastic.addDocument("user", username, u);
-        } catch (IOException e) {
-            // No internet, no registration
-            throw new RuntimeException();
-        }
-        return u;
-    }*/
-
-
-
-
+    /** Model here only has the simple getter/setter methods that allow the controller to function
+     * without some insane level of complexity.
+     *
+     * All of those huge functions from before were just outright modified and put into the
+     * controller itself. Those don't belong in a true model class following MVC.
+     */
     public void setCurrentUserToNull(){
         currentUser = null;
     }
 
 
-
-    public void deleteDocumentUser(User user) {
-        deleteDocumentUser(user.getUserID().toString());
-    }
-
-    public void deleteDocumentSkill(Skill skill) {
-        deleteDocumentSkill(skill.getSkillID().toString());
-    }
-
-    public void deleteDocumentTrade(Trade trade) {
-        deleteDocumentTrade(trade.getTradeID().toString());
-    }
-
-    public void deleteDocumentUser(String userID) {
-        try {
-            elastic.deleteDocument("user", userID);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteDocumentSkill(String skillID) {
-        try {
-            elastic.deleteDocument("skill", skillID);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteDocumentTrade(String tradeID) {
-        try {
-            elastic.deleteDocument("trade", tradeID);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-    /** Manditory to make the refresh function work **/
     public Set<Skill> getSkillz(){
         return skillz;
     }
 
 
-
-
-
-
-
     public ChangeList getChangeList() {
         return toBePushed;
     }
-
 
 
     /*
