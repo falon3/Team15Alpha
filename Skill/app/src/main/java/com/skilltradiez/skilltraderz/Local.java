@@ -86,6 +86,8 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -171,7 +173,9 @@ public class Local {
         try {
             Type lpo_type = new TypeToken<LocalPersistentObject>(){}.getType();
             save_object = gson.fromJson(in, lpo_type);
-        } catch (RuntimeException e) {}
+        } catch (RuntimeException e) {
+            Log.d("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII'''''''''''''''''''''''''MMMMMMMMMMMMMMMMMMMMM","HHHHHHHHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRREEEEEEEEEEEEEE!!!!!!!!!!!!!!")
+        }
         if (save_object == null) save_object = new LocalPersistentObject();
         in.close();
         return save_object;
