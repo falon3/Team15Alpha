@@ -299,7 +299,13 @@ public class Inventory extends Notification {
             userDB.getElastic().updateDocument("user", userDB.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
         } catch (IOException e) {
             e.printStackTrace();
-            //TODO Save Locally
+            return false;
+        }
+        //Save Locally
+        try {
+            userDB.getLocal().saveToFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
             return false;
         }
         return true;

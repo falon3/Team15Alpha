@@ -126,8 +126,6 @@ public class InventoryActivity extends GeneralMenuActivity {
         setContentView(R.layout.activity_inventory);
 
         masterController = new MasterController();
-
-        //TODO ...or just .getCurrentUser()
         currentUser = masterController.getUserByID((ID) getIntent().getExtras().get("user_id"));
 
         searchButton = (Button) findViewById(R.id.search_button);

@@ -200,6 +200,13 @@ public class Profile extends Stringeable {
             //TODO Save Locally
             return false;
         }
+        //Save Locally
+        try {
+            userDB.getLocal().saveToFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            return false;
+        }
         return true;
     }
 
