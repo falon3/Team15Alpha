@@ -97,8 +97,6 @@ import java.util.Set;
  */
 
 public class SearchScreenActivity extends GeneralMenuActivity {
-    private List<User> users;
-    private List<Skill> skillz;
     private int screenType;
 
     private Button searchButton;
@@ -142,6 +140,18 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                refineSearch(view);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Shouldn't need to be used
+            }
+        });
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +186,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
     public void loadItems() {
         //Refresh the database :D
-        CDatabaseController.refresh();
+        DatabaseController.refresh();
         items.clear();
         refineSearch(null); // search for nothing initially
 
@@ -199,24 +209,32 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
-        String search = searchField.getText().toString();
+        String search = searchField.getText().toString(),
+            category = categorySpinner.getSelectedItem().toString();
         items.clear();
         if (screenType == 0) {
             // search skills
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
                 if (s.toString().contains(search) &&
-                        (s.isVisible() || masterController.getCurrentUser().getInventory().hasSkill(s)))
+                        (s.getCategory().equals(category) || category.equals("All")) &&
+                        (s.isVisible() || masterController.userHasSkill(s)))
                     items.add(s);
         } else if (screenType == 1) { // Search users
             Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers)
-                if (u.getProfile().getUsername().contains(search))
+                if (u.getProfile().getUsername().contains(search) &&
+                        (category.equals("All") ||
+                                (category.equals("Friends") && masterController.userHasFriend(u)) ||
+                                (category.equals("Non-Friends") && !masterController.userHasFriend(u))))
                     items.add(u.getProfile());
         } else if (screenType == 2) { // Trade History
             Set<Trade> trades = masterController.getAllTradez();
             for (Trade t : trades)
-                if (t.toString().contains(search) && t.getHalfForUser(masterController.getCurrentUser()) != null)
+                if (t.toString().contains(search) &&
+                    (category.equals("All") ||
+                            (category.equals("Active") && t.isActive()) ||
+                            (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
                     items.add(t);
         }
         searchAdapter.notifyDataSetChanged();
@@ -238,14 +256,5 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         Intent intent = new Intent(this, TradeRequestActivity.class);
         intent.putExtra("trade_id", t.getTradeID());
         startActivity(intent);
-    }
-
-    /**
-     * Change category. Yes I know this is a bad comment I'll come back to it.
-     * @ TODO: CHANGE CATEGORY?
-     */
-    public void changeCategory(){
-        //inflate the category spinner
-        //refine the search results
     }
 }
