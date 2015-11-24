@@ -38,6 +38,8 @@
     <string name="delete_trade">Delete Request</string>
     <string name="note_for_trade">Describe your request!</string>
 
+    <string name="trade_history">Trade History</string>
+
     <!-- String related to the Profile layout -->
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="user_name">User Name</string>
@@ -92,5 +94,19 @@
         <item>Parenting</item>
         <item>Physical</item>
         <item>Stealth and Pranks</item>
+    </string-array>
+
+    <!-- Categories (Users) -->
+    <string-array name="friends_All">
+        <item>All</item>
+        <item>Friends</item>
+        <item>Non-Friends</item>
+    </string-array>
+
+    <!-- Categories (Trades) -->
+    <string-array name="trades_All">
+        <item>All</item>
+        <item>Active</item>
+        <item>Inactive</item>
     </string-array>
 </resources>

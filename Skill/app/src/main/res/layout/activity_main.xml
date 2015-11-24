@@ -96,5 +96,20 @@
         android:text="@string/add_a_new_skill"
         android:onClick="createNewSkill"/>
 
+    <Button
+        android:id="@+id/trade_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_with_border"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/trade_history"
+        android:onClick="beginAllSearch"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignEnd="@id/add_a_new_skill"
+        android:layout_alignStart="@id/add_a_new_skill"
+        android:singleLine="false" />
+
 
 </RelativeLayout>

@@ -14,141 +14,106 @@ import java.util.Set;
  * Assuming direct control.
  * --Sovereign, mass effect
  */
-public class MasterController {
-    private static UserDatabase userDB;
+public final class MasterController implements ControllerInterface{
+    private static DatabaseController databaseController;
 
     /** DATABASE RELATED **/
-    //Initialize the database.
-    public void initDB(){
-        this.userDB = new UserDatabase();
+    //Initialize the master controller.
+    //Absolutely core, this sets up the entire system of controllers.
+    public void initializeController(){
+        databaseController = new DatabaseController();
     }
 
-    //Return the database object!
-    public UserDatabase getUserDB(){
-        return userDB;
-    }
-
-    //Refresh the database!
-    public void refreshDB(){
-        userDB.refresh();
-    }
-
-    //I hate this. Deletes ALL data from the database.
-    public void crazyDatabaseDeletion(){
-        userDB.deleteAllData();
-    }
-
-    public void save(){
-        userDB.save();
+    //Return the database object! Only available to other controller objects.
+    public static UserDatabase getUserDB(){
+        return databaseController.getUserDB();
     }
 
     /** USER RELATED **/
     //If we probe for the USER that is currently on the app... returns the USER object of that user.
     //NOT just the name. USER object.
     public User getCurrentUser(){
-        return userDB.getCurrentUser();
+        return getUserDB().getCurrentUser();
     }
 
     //Give the current username from the database.
     public String getCurrentUserUsername(){
-        return userDB.getCurrentUser().getProfile().getUsername();
+        return getUserDB().getCurrentUser().getProfile().getUsername();
     }
 
     public String getCurrentUserEmail(){
-        return userDB.getCurrentUser().getProfile().getEmail();
+        return getUserDB().getCurrentUser().getProfile().getEmail();
     }
 
-    public boolean isLoggedIn() {
-        return userDB.isLoggedIn();
-    }
-
-    //Given a profile name... can we please return THE PROFILE OBJECT?! (Yes. Yes we can.)
+    //Given a profile name we return a user
     public User getUserByName(String userProfileName){
-        return getUserDB().getAccountByUsername(userProfileName);
+        return DatabaseController.getAccountByUsername(userProfileName);
     }
 
     public User getUserByID(ID userID){
-        return getUserDB().getAccountByUserID(userID);
+        return DatabaseController.getAccountByUserID(userID);
     }
 
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
-    public boolean currentUserHasFriend(User currentUser){
-        return currentUser.getFriendsList().hasFriend(userDB.getCurrentUser());
+    public boolean userHasFriend(User user){
+        return user.getFriendsList().hasFriend(getUserDB().getCurrentUser());
     }
 
     public void addANewFriend(User currentUser){
-        userDB.getCurrentUser().getFriendsList().addFriend(currentUser);
+        getCurrentUser().getFriendsList().addFriend(currentUser);
     }
 
     public void removeThisFriend(User currentUser){
-        userDB.getCurrentUser().getFriendsList().removeFriend(currentUser);
-    }
-
-    //When we have a new user... we call upon the controller here to interact with the database
-    //in order to create a brand new user. Returns this brand new user!
-    public User createNewUser(String usernameGiven, String emailGiven){
-        User new_guy = null;
-        try {
-            new_guy = userDB.createUser(usernameGiven);
-        } catch (UserAlreadyExistsException e) {
-            e.printStackTrace();
-        }
-        new_guy.getProfile().setEmail(emailGiven);
-        userDB.save();
-
-        return new_guy;
+        getCurrentUser().getFriendsList().removeFriend(currentUser);
     }
 
     /** SKILLZ RELATED FUNCTIONS **/
-
     //Clear the current List<Skill> of skillz!
     // this seems unnecessary
     public void clearSkillzList(List<Skill> skillz){
         skillz.clear();
     }
 
+    public boolean userHasSkill(Skill skill) {
+        return getCurrentUser().getInventory().hasSkill(skill);
+    }
+
     //Obtain from the user database all of the current skills!
     public Set<Skill> getAllSkillz(){
-        return userDB.getSkills();
+        return getUserDB().getSkills();
     }
 
     public Set<User> getAllUserz(){
-        return userDB.getUsers();
+        return getUserDB().getUsers();
     }
 
-    public Set<Trade> getAllTradez() {return userDB.getTrades();}
+    public Set<Trade> getAllTradez() {return getUserDB().getTrades();}
 
     public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
-        userDB.getCurrentUser().getInventory().add(new Skill(userDB, name, category, description, isVisible, image));
-        save();
+        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, image));
+        DatabaseController.save();
     }
 
     /** SkillDescriptionActivity methods **/
-
-    public Skill getSkillByID(ID identifier){
-        return userDB.getSkillByID(identifier);
-    }
-
     public void removeCurrentSkill(Skill currentSkill){
-        userDB.getCurrentUser().getInventory().remove(currentSkill.getSkillID());
-        currentSkill.removeOwner(userDB.getCurrentUser().getUserID());
+        getCurrentUser().getInventory().remove(currentSkill.getSkillID());
+        currentSkill.removeOwner(getCurrentUser().getUserID());
     }
 
     public void addCurrentSkill(Skill currentSkill){
-        userDB.getCurrentUser().getInventory().add(currentSkill);
-        currentSkill.addOwner(userDB.getCurrentUser().getUserID());
+        getCurrentUser().getInventory().add(currentSkill);
+        currentSkill.addOwner(getCurrentUser().getUserID());
     }
 
     /** TradeRequestActivity methods **/
-
     //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
     public Trade getCurrentTradeByID(ID identifier){
-        return userDB.getTradeByID(identifier);
+        return DatabaseController.getTradeByID(identifier);
     }
 
     //ACCEPT THE TRADE
     public void acceptTheCurrentTrade(Trade trade){
-        trade.getHalfForUser(userDB.getCurrentUser()).setAccepted(true);
+        trade.getHalfForUser(getCurrentUser()).setAccepted(true);
     }
 }

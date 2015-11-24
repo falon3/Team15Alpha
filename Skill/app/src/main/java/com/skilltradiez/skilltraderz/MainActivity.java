@@ -114,13 +114,13 @@ public class MainActivity extends GeneralMenuActivity {
         super.onCreate(savedInstanceState);
 
         masterController = new MasterController();
-        masterController.initDB();
+        masterController.initializeController();
 
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if (masterController.isLoggedIn()) {
+        if (DatabaseController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
         } else {
             setContentView(R.layout.first_time_user);
@@ -189,32 +189,8 @@ public class MainActivity extends GeneralMenuActivity {
 
             //Used for error checking
             // If null, then it failed
-            new_guy = masterController.createNewUser(username,newUserEmail.getText().toString());
-            masterController.save();
-
-/*            try {
-                new_guy = userDB.createUser(username);
-            } catch (UserAlreadyExistsException e) {
-                e.printStackTrace();
-            }
-            catch (IllegalArgumentException e) {
-                Context context_exception = this;
-                // this makes a pop-up alert with a dismiss button.
-                // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
-                AlertDialog.Builder alert = new AlertDialog.Builder(context_exception);
-                alert.setMessage("UserName too long!\n");
-                alert.setCancelable(true);
-                alert.setPositiveButton("retry",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog tooBig_alert = alert.create();
-                tooBig_alert.show();
-                return;
-
-            }*/
+            new_guy = DatabaseController.createNewUser(username, newUserEmail.getText().toString());
+            DatabaseController.save();
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
@@ -235,8 +211,10 @@ public class MainActivity extends GeneralMenuActivity {
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         if(view.getId() == R.id.browse_skillz){
             intent.putExtra("All_search", 0);
-        } else {
+        } else if (view.getId() == R.id.browse_users) {
             intent.putExtra("All_search", 1);
+        } else {
+            intent.putExtra("All_search", 2);
         }
         startActivity(intent);
     }
@@ -270,7 +248,7 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     public void deleteDatabase(View view) {
-        masterController.crazyDatabaseDeletion();
+        DatabaseController.deleteAllData();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
 

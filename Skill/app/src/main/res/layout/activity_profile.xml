@@ -19,6 +19,7 @@
         android:textColor="#057777"
         android:text="@string/user_name"
         android:id="@+id/user_name"
+        android:textAlignment="center"
         android:layout_alignTop="@+id/user_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp" />
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAlignment="center"
         android:text="@string/user_description"
         android:id="@+id/user_description"
         android:layout_below="@+id/user_icon"
@@ -59,8 +61,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="126dp"
-        android:layout_alignEnd="@+id/user_description"
-        android:onClick="checkInventory"/>
+        android:onClick="checkInventory"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"

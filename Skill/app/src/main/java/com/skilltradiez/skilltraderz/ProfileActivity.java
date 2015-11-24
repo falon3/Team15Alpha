@@ -87,7 +87,6 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -118,7 +117,7 @@ public class ProfileActivity extends GeneralMenuActivity {
     private Bundle profileExtras;
     private String userProfileName;
 
-    private User currentUser;
+    private User owner;
     private Boolean hasFriend;
 
     private Context profileContext = this;
@@ -146,9 +145,9 @@ public class ProfileActivity extends GeneralMenuActivity {
 
         populateProfile();
         profileTitle.setText(userProfileName);
-        userContactInfo.setText(currentUser.getProfile().getEmail());
+        userContactInfo.setText(owner.getProfile().getEmail());
 
-        if (masterController.getUserDB().getCurrentUser().getFriendsList().hasFriend(currentUser)) {
+        if (masterController.getUserDB().getCurrentUser().getFriendsList().hasFriend(owner)) {
             addRemoveFriend.setText(R.string.remove_friend);
             hasFriend = true;
         } else {
@@ -157,8 +156,13 @@ public class ProfileActivity extends GeneralMenuActivity {
         }
 
         // You can't be friends with yourself, go get some real friends
-        if (masterController.getUserDB().getCurrentUser().equals(currentUser))
+        if (masterController.getUserDB().getCurrentUser().equals(owner)) {
             addRemoveFriend.setEnabled(false);
+            addRemoveFriend.setVisibility(View.GONE);
+
+            startTrade.setEnabled(false);
+            //startTrade.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -180,8 +184,8 @@ public class ProfileActivity extends GeneralMenuActivity {
      * added them already or not.
      */
     public void populateProfile() {
-        currentUser = masterController.getUserByName(userProfileName);
-        hasFriend = masterController.currentUserHasFriend(currentUser);
+        owner = masterController.getUserByName(userProfileName);
+        hasFriend = masterController.userHasFriend(owner);
     }
 
     /**
@@ -191,7 +195,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void checkInventory(View view){
         Intent intent = new Intent(profileContext, InventoryActivity.class);
-        intent.putExtra("user_id", currentUser.getUserID());
+        intent.putExtra("user_id", owner.getUserID());
         startActivity(intent);
     }
 
@@ -221,13 +225,13 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void addFriend(){
         //Function call to the master controller to deal with all this!
-        masterController.addANewFriend(currentUser);
+        masterController.addANewFriend(owner);
 
-        masterController.save();
+        DatabaseController.save();
 
         //Toasties!
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Added "+currentUser.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Added "+owner.getProfile().getUsername()+" as a friend", Toast.LENGTH_SHORT);
         toast.show();
 
         //Modify the displayed text to remove friend option.
@@ -238,13 +242,13 @@ public class ProfileActivity extends GeneralMenuActivity {
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
-        masterController.removeThisFriend(currentUser);
+        masterController.removeThisFriend(owner);
 
-        masterController.save();
+        DatabaseController.save();
 
         //Toasties!!!!!!
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Removed "+currentUser.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Removed "+ owner.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
 
         //Modify the displayed text the user sees to keep them aware of their choices.
