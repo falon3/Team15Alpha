@@ -1,13 +1,4 @@
 package com.skilltradiez.skilltraderz;
-
-/**~~DESCRIPTION:
- * In this application we can have many sorts of exceptions,
- * it is our goal to handle these exceptions in the best way possible. And so we personally
- * went out of our own ways to make a specific exception for inactive trades!
- * This will act as a generalized exception for now and allows us the ability to personalize
- * our particular ways of tackling the problems of an inactive trade! :)
- */
-
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -26,5 +17,15 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**~~DESCRIPTION:
+ * In this application we can have many sorts of exceptions,
+ * it is our goal to handle these exceptions in the best way possible. And so we personally
+ * went out of our own ways to make a specific exception for inactive trades!
+ * This will act as a generalized exception for now and allows us the ability to personalize
+ * our particular ways of tackling the problems of an inactive trade! :)
+ */
+
+
 public class InactiveTradeException extends Exception {
 }

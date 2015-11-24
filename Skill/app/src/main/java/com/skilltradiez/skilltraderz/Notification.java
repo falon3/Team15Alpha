@@ -1,17 +1,4 @@
 package com.skilltradiez.skilltraderz;
-
-
-/**~~DESCRIPTION:
- * This is going to be an interface in this program for the entire framework of notifications.
- * We may have many sorts of notifications that all vary throughout this application, it is our
- * goal here with this interface to (as is the goal of most interfaces) create a structural
- * framework for the interface that will actually depict the methods that MUST be present in any
- * class that implements this interface.
- *
- * This, like most interfaces, acts as a contract promising any class that implements this
- * interface WILL have these methods listed below.
- */
-
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -30,6 +17,19 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**~~DESCRIPTION:
+ * This is going to be an interface in this program for the entire framework of notifications.
+ * We may have many sorts of notifications that all vary throughout this application, it is our
+ * goal here with this interface to (as is the goal of most interfaces) create a structural
+ * framework for the interface that will actually depict the methods that MUST be present in any
+ * class that implements this interface.
+ *
+ * This, like most interfaces, acts as a contract promising any class that implements this
+ * interface WILL have these methods listed below.
+ */
+
+
 public abstract class Notification {
     private boolean notify = false;
     public void notifyDB() {
