@@ -195,8 +195,8 @@ public class FriendsList extends Notification {
     public boolean commit(UserDatabase userDB) {
         User newFriend, deadFriend;
         for (ID id : newFriends) {
-            newFriend = CDatabaseController.getAccountByUserID(id);
-            newFriend.getFriendsList().addFriend(CDatabaseController.getAccountByUserID(owner));
+            newFriend = DatabaseController.getAccountByUserID(id);
+            newFriend.getFriendsList().addFriend(DatabaseController.getAccountByUserID(owner));
             try {
                 userDB.getElastic().updateDocument("user", newFriend.getProfile().getUsername(), newFriend.getFriendsList(), "friendsList");
             } catch (IOException e) {
@@ -207,8 +207,8 @@ public class FriendsList extends Notification {
         newFriends.clear();
         
         for (ID id : oldFriends) {
-            deadFriend = CDatabaseController.getAccountByUserID(id);
-            deadFriend.getFriendsList().removeFriend(CDatabaseController.getAccountByUserID(owner));
+            deadFriend = DatabaseController.getAccountByUserID(id);
+            deadFriend.getFriendsList().removeFriend(DatabaseController.getAccountByUserID(owner));
             try {
                 userDB.getElastic().updateDocument("user", deadFriend.getProfile().getUsername(), deadFriend.getFriendsList(), "friendsList");
             } catch (IOException e) {

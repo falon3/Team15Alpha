@@ -176,7 +176,7 @@ public class Inventory extends Notification {
      */
     public Skill get(UserDatabase userDB, Integer index) {
         if (index < skillz.size())
-            return CDatabaseController.getSkillByID(skillz.get(index));
+            return DatabaseController.getSkillByID(skillz.get(index));
         return null;
     }
 
@@ -226,7 +226,7 @@ public class Inventory extends Notification {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         Skill temp;
         for (ID s : skillz) {
-            temp = CDatabaseController.getSkillByID(s);
+            temp = DatabaseController.getSkillByID(s);
             if (temp.getName().contains(name) && temp.isVisible()) matching.add(temp);
         }
         return matching;
@@ -242,9 +242,9 @@ public class Inventory extends Notification {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         Skill temp;
         for (ID s : skillz) {
-            temp = CDatabaseController.getSkillByID(s);
+            temp = DatabaseController.getSkillByID(s);
             if (temp.getCategory().contains(category) &&
-                    (temp.isVisible() || CDatabaseController.getAccountByUserID(user).getInventory().hasSkill(temp)))
+                    (temp.isVisible() || DatabaseController.getAccountByUserID(user).getInventory().hasSkill(temp)))
                 matching.add(temp);
         }
         return matching;
@@ -288,7 +288,7 @@ public class Inventory extends Notification {
     public ArrayList<Skill> cloneSkillz(UserDatabase userDB) {
         ArrayList<Skill> newList = new ArrayList<Skill>();
         for (ID id:skillz)
-            newList.add(CDatabaseController.getSkillByID(id));
+            newList.add(DatabaseController.getSkillByID(id));
         return newList;
     }
 
@@ -296,7 +296,8 @@ public class Inventory extends Notification {
     boolean commit(UserDatabase userDB) {
         System.out.println("Inventory commit!");
         try {
-            userDB.getElastic().updateDocument("user", CDatabaseController.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
+            userDB.getElastic().updateDocument("user",
+                    DatabaseController.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
         } catch (IOException e) {
             e.printStackTrace();
             return false;

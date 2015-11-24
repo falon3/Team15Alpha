@@ -110,7 +110,7 @@ public class TradeList extends Notification {
             return;
         trades.add(trade.getTradeID());
         newTrades.add(trade.getTradeID());
-        CDatabaseController.addTrade(trade);
+        DatabaseController.addTrade(trade);
         notifyDB();
     }
 
@@ -119,7 +119,7 @@ public class TradeList extends Notification {
         Trade trade;
 
         for (ID t : trades) {
-            trade = CDatabaseController.getTradeByID(t);
+            trade = DatabaseController.getTradeByID(t);
             if (trade.isActive())
                 activeTrades.add(trade);
         }
@@ -135,15 +135,15 @@ public class TradeList extends Notification {
 
     public Trade getMostRecentTrade(UserDatabase userDB) {
         if (trades.isEmpty()) return null;
-        return CDatabaseController.getTradeByID(trades.get(trades.size()-1));
+        return DatabaseController.getTradeByID(trades.get(trades.size()-1));
     }
 
     @Override
     public boolean commit(UserDatabase userDB) {
         for (ID tradeId : newTrades) {
-            Trade trade = CDatabaseController.getTradeByID(tradeId);
-            User otherUser = CDatabaseController.getAccountByUserID(trade.getHalf2().getUser());
-            User theUser = CDatabaseController.getAccountByUserID(getOwnerID());
+            Trade trade = DatabaseController.getTradeByID(tradeId);
+            User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
+            User theUser = DatabaseController.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);
             try {
                 MasterController.getUserDB().getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");

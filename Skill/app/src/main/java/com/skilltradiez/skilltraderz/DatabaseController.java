@@ -7,9 +7,16 @@ import java.util.Set;
 /**
  * Created by Cole on 2015-11-22.
  */
-public final class CDatabaseController implements CControllerInterface{
+public final class DatabaseController implements ControllerInterface{
+    private static UserDatabase userDB;
 
+    DatabaseController() {
+        userDB = new UserDatabase();
+    }
 
+    public UserDatabase getUserDB() {
+        return userDB;
+    }
 
     //This refresh method damn well belongs in the controller.
     /**
@@ -40,10 +47,6 @@ public final class CDatabaseController implements CControllerInterface{
         }
     }
 
-
-
-
-
     public static void save() {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
@@ -53,15 +56,10 @@ public final class CDatabaseController implements CControllerInterface{
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Set<Trade> trades = MasterController.getUserDB().getTrades();
 
-
         // TODO: Saves locally and pushes changes if connected to the internet
         //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
         local.saveToFile(currentUser, users, skillz, trades);
     }
-
-
-
-
 
     public static void deleteAllData() {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
@@ -71,7 +69,6 @@ public final class CDatabaseController implements CControllerInterface{
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Set<Trade> trades = MasterController.getUserDB().getTrades();
         User currentUser = MasterController.getUserDB().getCurrentUser();
-
 
         try {
             elastic.deleteDocument("example", "");
@@ -88,9 +85,6 @@ public final class CDatabaseController implements CControllerInterface{
         }
     }
 
-
-
-
     //Add a trade
     public static void addTrade(Trade t) {
         Set<Trade> trades = MasterController.getUserDB().getTrades();
@@ -104,10 +98,6 @@ public final class CDatabaseController implements CControllerInterface{
         }
     }
 
-
-
-
-
     //When we have a new user... we call upon the controller here to interact with the database
     //in order to create a brand new user. Returns this brand new user!
     public static User createNewUser(String usernameGiven, String emailGiven){
@@ -118,11 +108,10 @@ public final class CDatabaseController implements CControllerInterface{
             e.printStackTrace();
         }
         new_guy.getProfile().setEmail(emailGiven);
-        CDatabaseController.save();
+        DatabaseController.save();
 
         return new_guy;
     }
-
 
     public static User getAccountByUserID(ID id) {
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -131,7 +120,6 @@ public final class CDatabaseController implements CControllerInterface{
                 return u;
         return null;
     }
-
 
     //Moved create user functionality to this new area
     public static User createUser(String username) throws UserAlreadyExistsException {
@@ -154,8 +142,6 @@ public final class CDatabaseController implements CControllerInterface{
         return u;
     }
 
-
-
     //Login functionality
     public static User login(String username) {
         User u = getAccountByUsername(username);
@@ -163,13 +149,10 @@ public final class CDatabaseController implements CControllerInterface{
         return u;
     }
 
-
-
     public static boolean isLoggedIn() {
         User currentUser = MasterController.getUserDB().getCurrentUser();
         return currentUser != null;
     }
-
 
     public static User getAccountByUsername(String username) {
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -178,7 +161,6 @@ public final class CDatabaseController implements CControllerInterface{
                 return u;
         return getOnlineAccountByUsername(username);
     }
-
 
     private static User getOnlineAccountByUsername(String username) {
         //TODO Maybe this should throw an exception instead of returning null.
@@ -193,10 +175,6 @@ public final class CDatabaseController implements CControllerInterface{
         }
         return u;
     }
-
-
-
-
 
     /** Get by ID functions
      * Each public method is paired with a private method that goes in depth.
@@ -225,8 +203,6 @@ public final class CDatabaseController implements CControllerInterface{
         return t;
     }
 
-
-
     public static Skill getSkillByID(ID id) {
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         for (Skill s : skillz)
@@ -248,16 +224,11 @@ public final class CDatabaseController implements CControllerInterface{
         return s;
     }
 
-
-
     /**Adding a skill **/
-
-
     public static void addSkill(Skill s) {
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         ChangeList changeList = MasterController.getUserDB().getChangeList();
         Elastic elastic = MasterController.getUserDB().getElastic();
-
 
         skillz.add(s);
         // New Skill
@@ -269,7 +240,6 @@ public final class CDatabaseController implements CControllerInterface{
             e.printStackTrace();
         }
     }
-
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
@@ -310,5 +280,4 @@ public final class CDatabaseController implements CControllerInterface{
             e.printStackTrace();
         }
     }
-
 }

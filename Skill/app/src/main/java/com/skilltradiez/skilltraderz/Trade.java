@@ -94,7 +94,8 @@ public class Trade extends Stringeable {
         tradeID = ID.generateRandomID();
         half1 = new HalfTrade(tradeID, user1.getUserID(), 1);
         half2 = new HalfTrade(tradeID, user2.getUserID(), 2);
-        CDatabaseController.addTrade(this);
+
+        DatabaseController.addTrade(this);
     }
 
     public HalfTrade getHalf1() {
@@ -186,9 +187,9 @@ public class Trade extends Stringeable {
 
         // Skill Names: Might be a bit much
         for (ID skillID:half1.getOffer())
-            string += CDatabaseController.getSkillByID(skillID).getName() + " ";
+            string += DatabaseController.getSkillByID(skillID).getName() + " ";
         for (ID skillID:half2.getOffer())
-            string += CDatabaseController.getSkillByID(skillID).getName() + " ";
+            string += DatabaseController.getSkillByID(skillID).getName() + " ";
 
         return string;
     }

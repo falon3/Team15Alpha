@@ -38,6 +38,8 @@
     <string name="delete_trade">Delete Request</string>
     <string name="note_for_trade">Describe your request!</string>
 
+    <string name="trade_history">Trade History</string>
+
     <!-- String related to the Profile layout -->
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="user_name">User Name</string>

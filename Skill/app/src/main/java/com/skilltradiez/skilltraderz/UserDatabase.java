@@ -159,12 +159,14 @@ public class UserDatabase {
         }
     }
 
-
     /** Model here only has the simple getter/setter methods that allow the controller to function
      * without some insane level of complexity.
      *
      * All of those huge functions from before were just outright modified and put into the
      * controller itself. Those don't belong in a true model class following MVC.
+     */
+    /**
+     * This is unfortunately necessary
      */
     public void setCurrentUserToNull(){ currentUser = null; }
 
@@ -189,9 +191,6 @@ public class UserDatabase {
     public Set<Trade> getTrades() {
         return trades;
     }
-
-
-
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;

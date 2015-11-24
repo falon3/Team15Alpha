@@ -218,7 +218,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         //Make a new skill through the controller.
         masterController.makeNewSkill(name, skillCategory.getSelectedItem().toString(), description, isVisible, new NullImage());
-        CDatabaseController.save();
+        DatabaseController.save();
 
         //Toasty
         Context context = getApplicationContext();
