@@ -24,7 +24,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.io.IOException;
 
 
-
 /**
  * Created by Falon3 on 2015-11-05.
  */

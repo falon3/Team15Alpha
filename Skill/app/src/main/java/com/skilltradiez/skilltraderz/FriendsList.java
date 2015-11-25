@@ -1,4 +1,28 @@
 package com.skilltradiez.skilltraderz;
+
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**~~DESCRIPTION:
  * In an application that is based upon users trading skills with other users... does it not
  * make complete sense to have some sort of list that is assocaited with all of the users
@@ -97,36 +121,8 @@ package com.skilltradiez.skilltraderz;
  *
  *     This also has the additional functionality of resetting our new and old friendslists. Meaning
  *     we keep track of who is new and who is old through this method as well! TADA!
- *
- *
- *
- *
- *
- *
  */
 
-/*
- *    Team15Alpha
- *    AppName: SkillTradiez (Subject to change)
- *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * FriendsList manages confirmed, pending and blocked friends for a single user.

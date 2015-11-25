@@ -118,11 +118,7 @@
  */
 package com.skilltradiez.skilltraderz;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
