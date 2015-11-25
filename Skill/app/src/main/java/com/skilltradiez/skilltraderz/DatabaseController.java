@@ -268,7 +268,7 @@ public final class DatabaseController implements ControllerInterface{
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
-        deleteDocumentUser(user.getUserID().toString());
+        deleteDocumentUser(user.getUserID());
     }
 
     public static void deleteDocumentSkill(Skill skill) {
@@ -276,13 +276,13 @@ public final class DatabaseController implements ControllerInterface{
     }
 
     public static void deleteDocumentTrade(Trade trade) {
-        deleteDocumentTrade(trade.getTradeID().toString());
+        deleteDocumentTrade(trade.getTradeID());
     }
 
-    public static void deleteDocumentUser(String userID) {
+    public static void deleteDocumentUser(ID userID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
-            elastic.deleteDocument("user", userID);
+            elastic.deleteDocument("user", userID.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -297,10 +297,10 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
-    public static void deleteDocumentTrade(String tradeID) {
+    public static void deleteDocumentTrade(ID tradeID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
-            elastic.deleteDocument("trade", tradeID);
+            elastic.deleteDocument("trade", tradeID.toString());
         }catch (IOException e){
             e.printStackTrace();
         }

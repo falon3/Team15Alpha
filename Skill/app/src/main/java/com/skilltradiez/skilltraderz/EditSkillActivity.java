@@ -167,12 +167,10 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
 
     public void onStart(){
-        //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.
         super.onStart();
 
 
         // We need to be able to edit an existing skill
-        //TODO this deesn't really edit an existing skill, just populates the boxes with the old data
         if (getIntent().hasExtra("skill_id")) {
             skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
             skillName.setText(skillToEdit.getName());
