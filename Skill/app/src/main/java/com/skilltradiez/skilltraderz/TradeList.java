@@ -200,13 +200,6 @@ public class TradeList extends Notification {
             User currentUser = DatabaseController.getAccountByUserID(getOwnerID());
             User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
 
-            //If given a null just break through it.
-            if (tradeId == null){
-
-                //TODO This needs to give an exception! Something must have went wrong if this happens.
-                //throw new TradeIdIsNullException();
-
-            }
 
             //IF the tradeId is in the trade partners list then delete it.
             if (tradePartner.getTradeList().contains(tradeId)){
