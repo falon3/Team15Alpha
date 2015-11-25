@@ -59,6 +59,7 @@
     <string name="title_activity_edit_skill">EditSkill</string>
     <string name="title_activity_skill_description">SkillDescription</string>
     <string name="skill_title">Skill Title</string>
+    <string name="skill_category">Miscellaneous</string>
     <string name="skill_description">Skill Description</string>
     <string name="add_skill">Add Skill</string>
     <string name="edit_skill">Edit</string>

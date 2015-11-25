@@ -70,6 +70,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Skill currentSkill;
     private Button addRemoveSkill;
     private TextView skillTitle;
+    private TextView skillCategory;
     private TextView skillDescription;
     private Button editSkill;
     private Boolean hasSkill;
@@ -85,11 +86,13 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);
         skillTitle = (TextView) findViewById(R.id.skillTitle);
+        skillCategory = (TextView) findViewById(R.id.skillCategory);
         editSkill = (Button) findViewById(R.id.edit_skill);
     }
 
     public void refresh() {
         setSkillTitle(currentSkill.getName());
+        setSkillCategory(currentSkill.getCategory());
         setSkillDescription(currentSkill.getDescription());
 
         User user = masterController.getCurrentUser();
@@ -112,6 +115,11 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
         skillTitle.setText(text);
+    }
+
+    public void setSkillCategory(String category) {
+        //skillCategory = category of the skill we're looking at
+        skillCategory.setText(category);
     }
 
     public void setSkillDescription(String text){
