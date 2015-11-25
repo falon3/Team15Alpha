@@ -191,7 +191,7 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineAccountByUsername(username);
     }
 
-    private static User getOnlineAccountByUsername(String username) throws UserDoesNotExistException{
+    private static User getOnlineAccountByUsername(String username){
         //TODO Maybe this should throw an exception instead of returning null.
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -201,11 +201,14 @@ public final class DatabaseController implements ControllerInterface{
             u = elastic.getDocumentUser(username);
             if (u != null) users.add(u);
         } catch (IOException e) {
+            System.err.println("Issue reading user from database." + e.getMessage());
+
         }
 
         /**Cole added this for the TODO **/
+
         if (u == null){
-            throw new UserDoesNotExistException("User does NOT exist");
+            //throw new UserDoesNotExistException("User does NOT exist");
         }
 
         return u;

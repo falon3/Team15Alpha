@@ -93,6 +93,19 @@ public class TradeList extends Notification {
         deletedTrades = new ArrayList<ID>();
     }
 
+    public List<ID> getNewTradesList(){
+        return newTrades;
+    }
+
+    public List<ID> getDeletedTradesList(){
+        return deletedTrades;
+    }
+
+    public List<ID> getTradesList(){
+        return trades;
+    }
+
+
     public ID getOwnerID() {
         return owner;
     }
@@ -163,7 +176,7 @@ public class TradeList extends Notification {
     }
 
     @Override
-    public boolean commit(UserDatabase userDB) {
+    public boolean commit(UserDatabase userDB)  {
         for (ID tradeId : newTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
@@ -189,7 +202,10 @@ public class TradeList extends Notification {
 
             //If given a null just break through it.
             if (tradeId == null){
-                continue;
+
+                //TODO This needs to give an exception! Something must have went wrong if this happens.
+                //throw new TradeIdIsNullException();
+
             }
 
             //IF the tradeId is in the trade partners list then delete it.

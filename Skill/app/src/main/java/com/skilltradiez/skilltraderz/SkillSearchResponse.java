@@ -32,7 +32,7 @@ import java.util.List;
  * maintained throughout the application.
  *
  * The purpose of Hit (NOT to be confused with "Hit"!) is so that we can basically parse more
- * elasticsearch meta data. The only parameter we really care about here though is source for now.
+ * elasticsearch meta data. The only parameter we really care about here though is source for now.e
  */
 public class SkillSearchResponse {
     private int took;
