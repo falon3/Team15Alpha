@@ -211,7 +211,7 @@ public class TradeList extends Notification {
             if (!trade.commit(userDB))
                 return false;
         }
-        
+
         //Cleanse the deletedTrades list to be empty again.
         deletedTrades.clear();
         return true;
