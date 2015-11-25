@@ -1,5 +1,22 @@
 package com.skilltradiez.skilltraderz;
-
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +45,7 @@ public final class DatabaseController implements ControllerInterface{
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
+        ChangeList changes = MasterController.getUserDB().getChangeList();
 
         try {
             List<User> onlineUsers = elastic.getAllUsers();
@@ -41,6 +59,7 @@ public final class DatabaseController implements ControllerInterface{
             for (Skill s : skills) {
                 skillz.remove(s);
                 skillz.add(s);
+                changes.add(s);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,9 +75,12 @@ public final class DatabaseController implements ControllerInterface{
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Set<Trade> trades = MasterController.getUserDB().getTrades();
 
-        // TODO: Saves locally and pushes changes if connected to the internet
+        //ToDo: IMPORTANT figure out how to save notifications locally!!!!!
         //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
         local.saveToFile(currentUser, users, skillz, trades);
+        if (MainActivity.connected) {
+            toBePushed.push(MasterController.getUserDB());
+        }
     }
 
     public static void deleteAllData() {
@@ -217,7 +239,10 @@ public final class DatabaseController implements ControllerInterface{
         Skill s = null;
         try {
             s = elastic.getDocumentSkill(id.toString());
-            if (s != null) skillz.add(s);
+            if (s != null) {
+                skillz.add(s);
+                MasterController.getUserDB().getChangeList().add(s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -243,39 +268,39 @@ public final class DatabaseController implements ControllerInterface{
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/
     public static void deleteDocumentUser(User user) {
-        deleteDocumentUser(user.getUserID().toString());
+        deleteDocumentUser(user.getUserID());
     }
 
     public static void deleteDocumentSkill(Skill skill) {
-        deleteDocumentSkill(skill.getSkillID().toString());
+        deleteDocumentSkill(skill.getSkillID());
     }
 
     public static void deleteDocumentTrade(Trade trade) {
-        deleteDocumentTrade(trade.getTradeID().toString());
+        deleteDocumentTrade(trade.getTradeID());
     }
 
-    public static void deleteDocumentUser(String userID) {
+    public static void deleteDocumentUser(ID userID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
-            elastic.deleteDocument("user", userID);
+            elastic.deleteDocument("user", userID.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void deleteDocumentSkill(String skillID) {
+    public static void deleteDocumentSkill(ID skillID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
-            elastic.deleteDocument("skill", skillID);
+            elastic.deleteDocument("skill", skillID.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void deleteDocumentTrade(String tradeID) {
+    public static void deleteDocumentTrade(ID tradeID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
-            elastic.deleteDocument("trade", tradeID);
+            elastic.deleteDocument("trade", tradeID.toString());
         }catch (IOException e){
             e.printStackTrace();
         }

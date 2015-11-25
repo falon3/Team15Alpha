@@ -118,12 +118,9 @@
  */
 package com.skilltradiez.skilltraderz;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * ~~DESCRIPTION:
@@ -317,7 +314,7 @@ public class Skill extends Stringeable {
     }
 
     //"Traditional" getter and setter methods for the private boolean attribute visible
-    //Why "isVisible" isn't "getVisible" is... personal preference. It is a boolean so we'll
+    //Why "isVisible" isn't "getSkillVisible" is... personal preference. It is a boolean so we'll
     //just go with that! But basically is a getter/setter method.
     public boolean isVisible() {
         return visible;
@@ -342,31 +339,44 @@ public class Skill extends Stringeable {
         Elastic ela = userDB.getElastic();
         Skill prev_version;
         ID owner = userDB.getCurrentUser().getUserID();
-
+        System.out.println("SKILL COMMIT");
         try {
             prev_version = ela.getDocumentSkill(skillID.toString());
 
             if (prev_version.isOwner(owner) && !hasOwners()) {
                 //if removed skill from inventory and no other owners had skill
                 userDB.getSkills().remove(prev_version);
-                DatabaseController.deleteDocumentSkill(skillID.toString());
+                DatabaseController.deleteDocumentSkill(skillID);
+                System.out.println("Permantently deleted skill");
 
             } else if (prev_version.isOwner(owner) && !isOwner(owner)) {
                 //if removed skill from inventory and other owners had skill
                 prev_version.owners.remove(owner);
                 ela.addDocument("skill", skillID.toString(), prev_version);
+                System.out.println("Removed skill from one person's inventory");
 
             } else if (prev_version.isOwner(owner) && prev_version.getNumOwners() == 1) {
                 // if only one owner so update skill
+                DatabaseController.deleteDocumentSkill(skillID);
                 ela.addDocument("skill", skillID.toString(), this);
+                Set<Skill> skillz = MasterController.getUserDB().getSkills();
+                skillz.remove(prev_version);
+                skillz.add(this);
+                System.out.println("Updated skill");
 
             } else if (prev_version.isOwner(owner) && prev_version.getNumOwners() > 1) {
                 //if other users had and it was now updated then make new skill and remove self from old one
                 Skill new_version = new Skill(userDB, this);
                 prev_version.owners.remove(owner);
                 ela.addDocument("skill", skillID.toString(), prev_version);
-                ela.addDocument("skill", new_version.getSkillID().toString(), new_version);
+                ela.addDocument("skill", new_version.getSkillID().toString(), new_version); // TODO unnecessary?
                 // TODO: 2015-11-21 need to test to make sure new version is put in the inventory and the old version removed
+                System.out.println("dated skill");
+            } else {
+                //TODO what if this happend??
+                System.out.println("MAYBE BROKEN, FIXME!!!");
+                // i think this happens when the user isn't a previous owner!
+                throw new RuntimeException();
             }
         } catch (IOException e) {
             //userDB.getLocal().getLocalData().getNotifications().add(this);

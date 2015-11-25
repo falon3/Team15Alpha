@@ -1,4 +1,29 @@
 package com.skilltradiez.skilltraderz;
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**~~DESCRIPTION:
  * We want an android framework that will support the ability for the user to interact
@@ -41,39 +66,12 @@ package com.skilltradiez.skilltraderz;
  */
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-/*
- *    Team15Alpha
- *    AppName: SkillTradiez (Subject to change)
- *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Skill currentSkill;
     private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
-    private Context skillDescripContext = this;
+    private Button editSkill;
     private Boolean hasSkill;
 
     @Override
@@ -87,7 +85,10 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);
         skillTitle = (TextView) findViewById(R.id.skillTitle);
+        editSkill = (Button) findViewById(R.id.edit_skill);
+    }
 
+    public void refresh() {
         setSkillTitle(currentSkill.getName());
         setSkillDescription(currentSkill.getDescription());
 
@@ -95,27 +96,24 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         Inventory inv = user.getInventory();
 
         hasSkill = inv.hasSkill(currentSkill);
-        if (hasSkill)
+        if (hasSkill) {
             addRemoveSkill.setText("Remove Skill");
+            editSkill.setVisibility(View.VISIBLE);
+        }
         // It's initially set to "Add Skill"
     }
 
     @Override
     public void onStart(){
         super.onStart();
+        refresh();
     }
 
-    /**
-     * @ TODO:?
-     */
     public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
         skillTitle.setText(text);
     }
 
-    /**
-     * @ TODO:?
-     */
     public void setSkillDescription(String text){
         //skillDescription = description of the skill we're looking at
         skillDescription.setText(text);
@@ -130,15 +128,18 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         if (hasSkill) {
             //Set text to the OPPOSITE of what is happening.
             addRemoveSkill.setText("Add Skill");
+            editSkill.setVisibility(View.INVISIBLE);
             //Evoke controller to REMOVE skill.
             masterController.removeCurrentSkill(currentSkill);
         } else {
             //Set text yet again to the OPPOSITE of what the function is.
             addRemoveSkill.setText("Remove Skill");
+            editSkill.setVisibility(View.VISIBLE);
             //Evoke controller to ADD skill.
             masterController.addCurrentSkill(currentSkill);
         }
         hasSkill = !hasSkill;
+        currentSkill.notifyDB();
         DatabaseController.save();
     }
 
@@ -147,8 +148,8 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     }
 
     public void editSkill(View view){
-        Intent intent = new Intent(skillDescripContext, EditSkillActivity.class);
-        //intent.getExtras(currentSkill.getName().toString(),);
+        Intent intent = new Intent(this, EditSkillActivity.class);
+        intent.putExtra("skill_id", currentSkill.getSkillID());
         startActivity(intent);
     }
 

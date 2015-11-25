@@ -1,4 +1,35 @@
 package com.skilltradiez.skilltraderz;
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**~~DESCRIPTION:
  * We want an android framework that will support the ability for the user to interact
@@ -59,41 +90,6 @@ package com.skilltradiez.skilltraderz;
  *     be giving the UUI the method to actually populate the application being shown through
  *     the UI to the user through this particular method.
  *
- *
- *
- */
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-/*
- *    Team15Alpha
- *    AppName: SkillTradiez (Subject to change)
- *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 public class SearchScreenActivity extends GeneralMenuActivity {
@@ -118,7 +114,11 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
         items = new ArrayList<Stringeable>();
         searchExtras = getIntent().getExtras();
-        screenType = searchExtras.getInt("All_search");
+        screenType = searchExtras.getInt("All_search"); //TODO All_search should have a better name
+        String filter = "All";
+        if (searchExtras.containsKey("filter")) {
+            filter = searchExtras.getString("filter");
+        }
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
@@ -139,6 +139,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
+        categorySpinner.setSelection(adapter.getPosition(filter));
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

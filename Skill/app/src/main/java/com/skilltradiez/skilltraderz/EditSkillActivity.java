@@ -1,5 +1,37 @@
 package com.skilltradiez.skilltraderz;
 
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 /**~~DESCRIPTION:
  * Our application is based off of the notion of facilitating the entire process of one user
  * being able to offer another user a skill. They make a trade from one user to another user
@@ -76,58 +108,20 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-/*
- *    Team15Alpha
- *    AppName: SkillTradiez (Subject to change)
- *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 public class EditSkillActivity extends GeneralMenuActivity {
-    private Skill newSkill;
+    private Skill skillToEdit;
     private EditText skillName;
     private EditText skillDescription;
     private Spinner skillCategory;
+    private CheckBox skillVisible;
     private Button addSkillToDB;
-    private CheckBox visible;
-    private Context edSkillContext = this;
-    private Bundle editSkillExtras;
-
-    private String editName;
-    private String editDescription;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        editSkillExtras = getIntent().getExtras();
         masterController = new MasterController();
 
         super.onCreate(savedInstanceState);
@@ -137,7 +131,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
         skillDescription = (EditText) findViewById(R.id.new_skill_description);
         addSkillToDB = (Button) findViewById(R.id.add_skill_to_database);
         skillCategory = (Spinner) findViewById(R.id.category_spinner);
-        visible = (CheckBox) findViewById(R.id.is_visible);
+        skillVisible = (CheckBox) findViewById(R.id.is_visible);
 
         //Android Developers
         // http://developer.android.com/guide/topics/ui/controls/spinner.html
@@ -146,6 +140,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
         
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
+
 
     }
 
@@ -165,28 +160,25 @@ public class EditSkillActivity extends GeneralMenuActivity {
         return addSkillToDB;
     }
 
-    public CheckBox getVisible() {
-        return visible;
+    public CheckBox getSkillVisible() {
+        return skillVisible;
     }
 
 
 
     public void onStart(){
-        //TODO this should optionally take a skill ID via intent to edit, instead of creating a new one.
         super.onStart();
 
 
-        //@todo: get extras as provided from the skilldescription activity and set the skill name to the extras
         // We need to be able to edit an existing skill
-        if(editSkillExtras != null){
-            editName = editSkillExtras.getString("skillName");
-            editDescription = editSkillExtras.getString("skillDescription");
-            skillName.setText("editName");
-            skillDescription.setText("editDescription");
+        if (getIntent().hasExtra("skill_id")) {
+            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+            skillName.setText(skillToEdit.getName());
+            skillDescription.setText(skillToEdit.getDescription());
+            //TODO figure out how to set category: skillCategory.set???
+            skillVisible.setChecked(skillToEdit.isVisible());
+            addSkillToDB.setText("Save changes");
         }
-
-        //@todo: change the "add skill" button to "Save changes" button if you're editing an existing skill
-        //@todo: make sure that you have actually made changes and then set. if no change just return to inventory
     }
 
     /**
@@ -194,15 +186,16 @@ public class EditSkillActivity extends GeneralMenuActivity {
      */
     public void addNewSkill(View view){
         //Character limit of skill name set to 40 characters
+        //TODO: is the previous comment a TODO?
         String name = skillName.getText().toString();
         String description = skillDescription.getText().toString();
-        boolean isVisible;
-        isVisible = visible.isChecked();
+        String category = skillCategory.getSelectedItem().toString();
+        boolean isVisible = skillVisible.isChecked();
 
         if (name.length() == 0 || description.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
             // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
-            AlertDialog.Builder alert = new AlertDialog.Builder(edSkillContext);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Please make sure all fields are filled!\n");
             alert.setCancelable(true);
             alert.setPositiveButton("retry",
@@ -216,16 +209,29 @@ public class EditSkillActivity extends GeneralMenuActivity {
             return;
         }
 
-        //Make a new skill through the controller.
-        masterController.makeNewSkill(name, skillCategory.getSelectedItem().toString(), description, isVisible, new NullImage());
-        DatabaseController.save();
+        if (skillToEdit == null) { // if we are creating a new skill
+            //Make a new skill through the controller.
+            masterController.makeNewSkill(name, category, description, isVisible, new NullImage());
+            DatabaseController.save();
 
-        //Toasty
-        Context context = getApplicationContext();
-        Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
+            //Toasty
+            Context context = getApplicationContext();
+            Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
 
-        skillName.setText("");
-        skillDescription.setText("");
+            skillName.setText("");
+            skillDescription.setText("");
+        } else { // if we are editing an existing skill
+            skillToEdit.setName(name);
+            skillToEdit.setDescription(description);
+            skillToEdit.setCategory(category);
+            skillToEdit.setVisible(isVisible);
+            DatabaseController.save();
+
+            Context context = getApplicationContext();
+            Toast.makeText(context, "Skill saved!", Toast.LENGTH_SHORT).show();
+
+            finish();
+        }
 
     }
 }
