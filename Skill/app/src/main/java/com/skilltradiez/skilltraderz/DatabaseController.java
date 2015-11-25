@@ -45,6 +45,7 @@ public final class DatabaseController implements ControllerInterface{
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
+        ChangeList changes = MasterController.getUserDB().getChangeList();
 
         try {
             List<User> onlineUsers = elastic.getAllUsers();
@@ -58,6 +59,7 @@ public final class DatabaseController implements ControllerInterface{
             for (Skill s : skills) {
                 skillz.remove(s);
                 skillz.add(s);
+                changes.add(s);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -237,7 +239,10 @@ public final class DatabaseController implements ControllerInterface{
         Skill s = null;
         try {
             s = elastic.getDocumentSkill(id.toString());
-            if (s != null) skillz.add(s);
+            if (s != null) {
+                skillz.add(s);
+                MasterController.getUserDB().getChangeList().add(s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -267,7 +272,7 @@ public final class DatabaseController implements ControllerInterface{
     }
 
     public static void deleteDocumentSkill(Skill skill) {
-        deleteDocumentSkill(skill.getSkillID().toString());
+        deleteDocumentSkill(skill.getSkillID());
     }
 
     public static void deleteDocumentTrade(Trade trade) {
@@ -283,10 +288,10 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
-    public static void deleteDocumentSkill(String skillID) {
+    public static void deleteDocumentSkill(ID skillID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
-            elastic.deleteDocument("skill", skillID);
+            elastic.deleteDocument("skill", skillID.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

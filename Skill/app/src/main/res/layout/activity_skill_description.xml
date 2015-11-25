@@ -75,6 +75,7 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/button_with_border"
         android:text="@string/edit_skill"
+        android:visibility="invisible"
         android:onClick="editSkill"/>
 
 </RelativeLayout>
