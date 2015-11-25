@@ -21,8 +21,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Cole on 2015-11-22.
+/**~~TYPE: CONTROLLER
+ *
+ * DESCRPTION: Following MVC styling to the absolute core, this is taking out of the UserDatabase
+ * anything but the most bare minimal methods. We're maintaing the model as the model, and we're
+ * making all the other functionality be housed here.
+ *
+ * This area will take care of anything and everything the rest of the program may possibly want
+ * to do with the database.
  */
 public final class DatabaseController implements ControllerInterface{
     private static UserDatabase userDB;
@@ -38,9 +44,10 @@ public final class DatabaseController implements ControllerInterface{
     //This refresh method damn well belongs in the controller.
     /**
      * Downloads all online data into a local cache
-     * TODO: save must be done before this or we might lose data
+     * TODO: DONE BY COLE? DID IT WORK? save must be done before this or we might lose dataDONE
      */
     public static void refresh() {
+        save(); //Did save as todo asked... sufficient?
         Elastic elastic = MasterController.getUserDB().getElastic();
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -54,7 +61,7 @@ public final class DatabaseController implements ControllerInterface{
                 users.remove(u);
                 users.add(u);
             }
-            //TODO CATCH IOExceptions
+            //TODO CATCH IOExceptions //Done?
             List<Skill> skills = elastic.getAllSkills();
             for (Skill s : skills) {
                 skillz.remove(s);
@@ -184,7 +191,7 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineAccountByUsername(username);
     }
 
-    private static User getOnlineAccountByUsername(String username) {
+    private static User getOnlineAccountByUsername(String username){
         //TODO Maybe this should throw an exception instead of returning null.
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -194,7 +201,16 @@ public final class DatabaseController implements ControllerInterface{
             u = elastic.getDocumentUser(username);
             if (u != null) users.add(u);
         } catch (IOException e) {
+            System.err.println("Issue reading user from database." + e.getMessage());
+
         }
+
+        /**Cole added this for the TODO **/
+
+        if (u == null){
+            //throw new UserDoesNotExistException("User does NOT exist");
+        }
+
         return u;
     }
 

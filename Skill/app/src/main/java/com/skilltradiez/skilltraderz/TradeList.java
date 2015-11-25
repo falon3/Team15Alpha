@@ -93,6 +93,19 @@ public class TradeList extends Notification {
         deletedTrades = new ArrayList<ID>();
     }
 
+    public List<ID> getNewTradesList(){
+        return newTrades;
+    }
+
+    public List<ID> getDeletedTradesList(){
+        return deletedTrades;
+    }
+
+    public List<ID> getTradesList(){
+        return trades;
+    }
+
+
     public ID getOwnerID() {
         return owner;
     }
@@ -104,6 +117,29 @@ public class TradeList extends Notification {
         addTrade(userDB, t);
 
         return t;
+    }
+
+
+    //Iterate through the entire trades list to see IF something is present.
+    //More used to prevent a null pointer exception then anything.
+    public boolean contains(ID identification){
+        int howMuchToIterate = trades.size()-1;
+
+        for (ID individualID : trades){
+            individualID.toString();
+
+            //Compare the values and this is going to have the value of the string iterated through
+            //compared to the value of the given ID. If it is equal we return the value true.
+            //If not then we will just keep iterating through the loop.
+            if (individualID.toString().equals( identification.toString())){
+                return true;
+            }
+
+        }
+        //If it got through the entire loop then it is not in the string and will return the value
+        //of false to the user.
+        return false;
+
     }
 
     public void addTrade(UserDatabase db, Trade trade) {
@@ -140,7 +176,7 @@ public class TradeList extends Notification {
     }
 
     @Override
-    public boolean commit(UserDatabase userDB) {
+    public boolean commit(UserDatabase userDB)  {
         for (ID tradeId : newTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
@@ -156,10 +192,36 @@ public class TradeList extends Notification {
             if (!trade.commit(userDB))
                 return false;
         }
+
+        /** There might be a bug here, I did this delete trade todo... /signed Cole **/
         newTrades.clear();
         for (ID tradeId : deletedTrades) {
-            //TODO Delete trade
+            Trade trade = DatabaseController.getTradeByID(tradeId);
+            User currentUser = DatabaseController.getAccountByUserID(getOwnerID());
+            User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
+
+
+            //IF the tradeId is in the trade partners list then delete it.
+            if (tradePartner.getTradeList().contains(tradeId)){
+                tradePartner.getTradeList().delete(trade);
+            }
+            //IF the tradeId is in the current user's list then delete it.
+            else if (currentUser.getTradeList().contains(tradeId)){
+                currentUser.getTradeList().delete(trade);
+            }
+
+            try {
+                MasterController.getUserDB().getElastic().updateDocument("user", tradePartner.getProfile().getUsername(), tradePartner.getTradeList(), "tradeList");
+                MasterController.getUserDB().getElastic().updateDocument("user", currentUser.getProfile().getUsername(), currentUser.getTradeList(), "tradeList");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            if (!trade.commit(userDB))
+                return false;
         }
+
+        //Cleanse the deletedTrades list to be empty again.
         deletedTrades.clear();
         return true;
     }

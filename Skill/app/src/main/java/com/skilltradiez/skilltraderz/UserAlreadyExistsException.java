@@ -50,4 +50,17 @@ package com.skilltradiez.skilltraderz;
  */
 public class UserAlreadyExistsException extends Exception {
 
+
+    //Cover our behinds with constructors for this exception. No point in having a useless
+    //empty exception.
+    UserAlreadyExistsException() {super();}
+
+
+    public UserAlreadyExistsException(String message) {super(message);}
+    public UserAlreadyExistsException(String message, Throwable errorSource) {
+        super(message, errorSource);
+    }
+    public UserAlreadyExistsException(Throwable errorSource){ super(errorSource);}
+
+
 }
