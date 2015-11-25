@@ -73,9 +73,12 @@ public final class DatabaseController implements ControllerInterface{
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Set<Trade> trades = MasterController.getUserDB().getTrades();
 
-        // TODO: Saves locally and pushes changes if connected to the internet
+        //ToDo: IMPORTANT figure out how to save notifications locally!!!!!
         //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
         local.saveToFile(currentUser, users, skillz, trades);
+        if (MainActivity.connected) {
+            toBePushed.push(MasterController.getUserDB());
+        }
     }
 
     public static void deleteAllData() {

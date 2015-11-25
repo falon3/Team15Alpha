@@ -100,6 +100,7 @@ public class MainActivity extends GeneralMenuActivity {
     private Button goToProfile;
     private EditText searchField;
     private String searchDatabase;
+    public static boolean connected;
 
     //First time user screen
     private EditText newUserName;
@@ -141,6 +142,20 @@ public class MainActivity extends GeneralMenuActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         //masterController.initializeArrayListForSkills();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    connected = isConnected();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
