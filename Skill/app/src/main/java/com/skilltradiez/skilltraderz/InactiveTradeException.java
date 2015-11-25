@@ -28,4 +28,14 @@ package com.skilltradiez.skilltraderz;
 
 
 public class InactiveTradeException extends Exception {
+
+
+    //An empty exception is literally a bottomless hole.
+    //Here I make a constructor for basically anything you could ask this exception to do.
+    InactiveTradeException() {super();}
+    public InactiveTradeException(String message) {super(message);}
+    public InactiveTradeException(String message, Throwable errorSource) {
+        super(message, errorSource);
+    }
+    public InactiveTradeException(Throwable errorSource){ super(errorSource);}
 }
