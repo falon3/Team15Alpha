@@ -73,16 +73,23 @@ import java.util.List;
 class ChangeList {
     private List<Notification> notifications;
     private List<Notification> newNotifications;
+    private List<Notification> oldNotifications;
     boolean lock;
 
     ChangeList() {
         notifications = new ArrayList<Notification>();
         newNotifications = new ArrayList<Notification>();
+        oldNotifications = new ArrayList<Notification>();
     }
 
     public void add(Notification newNote) {
         if (lock) newNotifications.add(newNote);
         else notifications.add(newNote);
+    }
+
+    public void remove(Notification note) {
+        if (lock) oldNotifications.add(note);
+        else notifications.remove(note);
     }
 
     public List<Notification> getNotifications() {
@@ -110,6 +117,8 @@ class ChangeList {
         }
         lock = false;
         notifications.addAll(newNotifications);
+        notifications.removeAll(oldNotifications);
         newNotifications.clear();
+        oldNotifications.clear();
     }
 }

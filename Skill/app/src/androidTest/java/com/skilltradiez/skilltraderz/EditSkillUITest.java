@@ -41,7 +41,7 @@ public class EditSkillUITest  extends ActivityInstrumentationTestCase2 {
         final EditText nameField = activity.getSkillName();
         final EditText descField = activity.getSkillDescription();
         final EditText categoryField = activity.getSkillCategory();
-        final CheckBox visibilityField = activity.getVisible();
+        final CheckBox visibilityField = activity.getSkillVisible();
         final Button addButton = activity.getAddSkillToDB();
 
         activity.getMasterController().initDB();

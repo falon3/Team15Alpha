@@ -71,7 +71,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Button addRemoveSkill;
     private TextView skillTitle;
     private TextView skillDescription;
-    private Context skillDescripContext = this;
+    private Button editSkill;
     private Boolean hasSkill;
 
     @Override
@@ -85,7 +85,10 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);
         skillTitle = (TextView) findViewById(R.id.skillTitle);
+        editSkill = (Button) findViewById(R.id.edit_skill);
+    }
 
+    public void refresh() {
         setSkillTitle(currentSkill.getName());
         setSkillDescription(currentSkill.getDescription());
 
@@ -93,14 +96,17 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         Inventory inv = user.getInventory();
 
         hasSkill = inv.hasSkill(currentSkill);
-        if (hasSkill)
+        if (hasSkill) {
             addRemoveSkill.setText("Remove Skill");
+            editSkill.setVisibility(View.VISIBLE);
+        }
         // It's initially set to "Add Skill"
     }
 
     @Override
     public void onStart(){
         super.onStart();
+        refresh();
     }
 
     public void setSkillTitle(String text){
@@ -122,15 +128,18 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         if (hasSkill) {
             //Set text to the OPPOSITE of what is happening.
             addRemoveSkill.setText("Add Skill");
+            editSkill.setVisibility(View.INVISIBLE);
             //Evoke controller to REMOVE skill.
             masterController.removeCurrentSkill(currentSkill);
         } else {
             //Set text yet again to the OPPOSITE of what the function is.
             addRemoveSkill.setText("Remove Skill");
+            editSkill.setVisibility(View.VISIBLE);
             //Evoke controller to ADD skill.
             masterController.addCurrentSkill(currentSkill);
         }
         hasSkill = !hasSkill;
+        currentSkill.notifyDB();
         DatabaseController.save();
     }
 
@@ -139,8 +148,8 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     }
 
     public void editSkill(View view){
-        Intent intent = new Intent(skillDescripContext, EditSkillActivity.class);
-        //intent.getExtras(currentSkill.getName().toString(),);
+        Intent intent = new Intent(this, EditSkillActivity.class);
+        intent.putExtra("skill_id", currentSkill.getSkillID());
         startActivity(intent);
     }
 
