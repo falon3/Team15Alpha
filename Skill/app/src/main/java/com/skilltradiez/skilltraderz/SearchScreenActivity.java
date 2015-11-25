@@ -114,7 +114,11 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
         items = new ArrayList<Stringeable>();
         searchExtras = getIntent().getExtras();
-        screenType = searchExtras.getInt("All_search");
+        screenType = searchExtras.getInt("All_search"); //TODO All_search should have a better name
+        String filter = "All";
+        if (searchExtras.containsKey("filter")) {
+            filter = searchExtras.getString("filter");
+        }
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
@@ -135,6 +139,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
+        categorySpinner.setSelection(adapter.getPosition(filter));
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

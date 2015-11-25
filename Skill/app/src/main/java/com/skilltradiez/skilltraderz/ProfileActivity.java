@@ -252,4 +252,11 @@ public class ProfileActivity extends GeneralMenuActivity {
         //Modify the displayed text the user sees to keep them aware of their choices.
         addRemoveFriend.setText(R.string.add_friend);
     }
+
+    public void showFriendsList(View v) {
+        Intent intent = new Intent(this, SearchScreenActivity.class);
+        intent.putExtra("filter", "Friends");
+        intent.putExtra("All_search", 1);
+        startActivity(intent);
+    }
 }
