@@ -21,7 +21,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-/**
+/**~~TYPE: CONTROLLER
+ *
  * DESCRPTION: Following MVC styling to the absolute core, this is taking out of the UserDatabase
  * anything but the most bare minimal methods. We're maintaing the model as the model, and we're
  * making all the other functionality be housed here.
