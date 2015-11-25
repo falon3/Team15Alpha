@@ -101,9 +101,6 @@ import java.util.List;
  *
  */
 
-
-
-
 public class InventoryActivity extends GeneralMenuActivity {
 
     public static String USER_INVENTORY = "USER_INVENTORY";
@@ -152,14 +149,12 @@ public class InventoryActivity extends GeneralMenuActivity {
                 // Shouldn't need to be used
             }
         });
-
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                 Skill skill = (Skill) adapter.getItemAtPosition(position);
                 skillDetails(skill);
             }
         });
-
         searchInventory = "";
     }
 
