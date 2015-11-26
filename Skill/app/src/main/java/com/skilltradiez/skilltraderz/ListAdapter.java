@@ -48,7 +48,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        /* TODO FIGURE THIS OUT
+        /* TODO FIGURE THIS OUT .... maybe unnecessary???
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_item, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);

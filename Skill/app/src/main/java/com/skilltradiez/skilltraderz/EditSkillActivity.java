@@ -187,8 +187,6 @@ public class EditSkillActivity extends GeneralMenuActivity {
      * add skill to the database
      */
     public void addNewSkill(View view){
-        //Character limit of skill name set to 40 characters
-        //TODO: is the previous comment a TODO?
         String name = skillName.getText().toString();
         String description = skillDescription.getText().toString();
         String category = skillCategory.getSelectedItem().toString();

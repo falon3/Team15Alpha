@@ -212,13 +212,10 @@ public class InventoryActivity extends GeneralMenuActivity {
     /**
      * Refine the number of skills that are shown on screen based on the category that each skill
      * belongs to
-     * @ TODO: CATEGORIES
      */
     public List<Skill> refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
-        //TODO: Current CATS ARE: MISC, Physical, Analytical, Creative, Computer, Household, Communication, Parenting and Stealth
-        //TODO: Categories are subject to change
         String category = categorySpinner.getSelectedItem().toString();
         if (category.equals("All"))
             return currentUser.getInventory().cloneSkillz(masterController.getUserDB());

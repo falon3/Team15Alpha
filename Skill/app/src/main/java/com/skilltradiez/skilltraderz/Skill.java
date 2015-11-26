@@ -343,8 +343,7 @@ public class Skill extends Stringeable {
 
     @Override
     public String toString() {
-        //TODO Change Output?
-        return this.getName() + ": " + this.getCategory() + (isVisible() ? "" : " (Invisible)");
+        return this.getName() + ": " + this.getCategory() + " " + this.getDescription() + (isVisible() ? "" : " (Invisible)");
     }
 
     public boolean commit(UserDatabase userDB) {
