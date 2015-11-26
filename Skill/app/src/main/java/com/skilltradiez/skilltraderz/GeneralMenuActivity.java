@@ -71,6 +71,10 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 startActivity(intent);
                 return true;
             case R.id.My_Friends:
+                intent = new Intent(generalContext, SearchScreenActivity.class);
+                intent.putExtra("filter", "Friends");
+                intent.putExtra("All_search", 1);
+                startActivity(intent);
                 return true;
             case R.id.My_Inventory:
                 intent = new Intent(generalContext, ProfileActivity.class);
