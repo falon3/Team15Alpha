@@ -39,7 +39,6 @@ package com.skilltradiez.skilltraderz;
  *     This class has no attributes or methods associated with it aside from the constructor.
  */
 
-
 public class Image {
     //TODO Everything, needs to override equals as well.
     public Image() {}

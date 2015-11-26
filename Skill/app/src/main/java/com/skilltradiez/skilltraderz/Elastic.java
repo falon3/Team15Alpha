@@ -226,10 +226,6 @@ import java.util.List;
  *     This allows us to take an arbitrary type and id of an object and then combust it out.
  */
 
-
-/**
- * Elastic
- */
 public class Elastic {
     SimpleHTTPClient httpClient;
     String baseUrl;

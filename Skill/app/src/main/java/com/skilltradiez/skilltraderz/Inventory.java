@@ -151,11 +151,7 @@ import java.util.List;
  *     stuff these items into a new list that we can utilize throughout the application.
  *
  *     Much fun, much chaos, much order. Somehow both.
- *
- *
- *
  */
-
 
 /**
  * An inventory contains the the skills held by a user.

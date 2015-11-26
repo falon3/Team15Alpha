@@ -74,9 +74,7 @@ import java.io.InputStreamReader;
  *     Sometimes we just want to scan the database and return what exactly is going on at any
  *     given particular point in time. This function will scan the database and turn it into a
  *     readable string. Convenient!
- *
  */
-
 
 /**
  * A simple class for doing http things, that will probably only be useful for elastic.

@@ -121,7 +121,6 @@ import java.io.IOException;
  *
  */
 
-
 public class Profile extends Stringeable {
     private String location = "";
     private Boolean shouldDownloadImages = true;

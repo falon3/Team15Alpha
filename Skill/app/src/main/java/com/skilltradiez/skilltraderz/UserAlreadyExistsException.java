@@ -43,9 +43,6 @@ package com.skilltradiez.skilltraderz;
  * Keeping it short and sweet and to the point!
  */
 
-/**
- * Created by sja2 on 10/28/15.
- */
 public class UserAlreadyExistsException extends Exception {
     //Cover our behinds with constructors for this exception. No point in having a useless
     //empty exception.

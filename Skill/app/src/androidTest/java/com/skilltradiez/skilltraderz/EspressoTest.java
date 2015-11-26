@@ -41,9 +41,6 @@ import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 
-/**
- * Created by Elyse on 11/21/2015.
- */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class EspressoTest {

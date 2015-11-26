@@ -110,7 +110,6 @@ import android.widget.Toast;
  *
  */
 
-
 public class EditSkillActivity extends GeneralMenuActivity {
     private Skill skillToEdit;
     private EditText skillName;
