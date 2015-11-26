@@ -118,6 +118,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
     private Spinner skillCategory;
     private CheckBox skillVisible;
     private Button addSkillToDB;
+    private ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +138,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         //Android Developers
         // http://developer.android.com/guide/topics/ui/controls/spinner.html
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
         
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -177,7 +178,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
             skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
             skillName.setText(skillToEdit.getName());
             skillDescription.setText(skillToEdit.getDescription());
-            //TODO figure out how to set category: skillCategory.set???
+            skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
