@@ -19,6 +19,7 @@ package com.skilltradiez.skilltraderz;
  */
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -123,8 +124,9 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
 
-        searchButton = (Button) findViewById(R.id.search_button);
-        searchField = (EditText) findViewById(R.id.search_bar);
+        //searchButton = (Button) findViewById(R.id.search_button);
+        //searchField = (EditText) findViewById(R.id.search_bar);
+        searchField = null;
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
         ArrayAdapter<CharSequence> adapter;
@@ -153,12 +155,12 @@ public class SearchScreenActivity extends GeneralMenuActivity {
             }
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+/*        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refineSearch(v);
             }
-        });
+        });*/
 
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -183,6 +185,22 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         loadItems();
         resultsList.setAdapter(searchAdapter);
         searchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        if(super.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        switch(item.getItemId()){
+            case R.id.search_button:
+                searchField = (EditText) findViewById(R.id.search_bar);
+                refineSearch(null);
+                return true;
+        }
+        return true;
     }
 
     public void loadItems() {
@@ -210,8 +228,14 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
-        String search = searchField.getText().toString(),
-            category = categorySpinner.getSelectedItem().toString();
+
+        String search, category = categorySpinner.getSelectedItem().toString();
+        if(searchField != null){
+            search = searchField.getText().toString();
+        } else {
+            search = "";
+        }
+
         items.clear();
         if (screenType == 0) {
             // search skills
