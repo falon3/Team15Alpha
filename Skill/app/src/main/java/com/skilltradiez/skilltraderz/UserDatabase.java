@@ -113,7 +113,6 @@ import java.util.Set;
  *
  */
 
-
 /**
  * Created by sja2 on 10/28/15.
  */
@@ -148,7 +147,7 @@ public class UserDatabase {
             users.addAll(lpo.getUsers());
             skillz.addAll(lpo.getSkillz());
             trades.addAll(lpo.getTrades());
-            //getChangeList().getNotifications().addAll(lpo.getNotifications());
+            getChangeList().getNotifications().addAll(lpo.getNotifications());
         } else {
             currentUser = null;
         }
@@ -194,5 +193,4 @@ public class UserDatabase {
         getChangeList().add(currentUser.getProfile());
         getChangeList().add(currentUser.getInventory());
     }
-
 }

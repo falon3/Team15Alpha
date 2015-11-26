@@ -84,7 +84,7 @@ public final class DatabaseController implements ControllerInterface{
 
         //ToDo: IMPORTANT figure out how to save notifications locally!!!!!
         //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
-        local.saveToFile(currentUser, users, skillz, trades);
+        local.saveToFile(currentUser, users, skillz, trades, toBePushed);
         if (MainActivity.connected) {
             toBePushed.push(MasterController.getUserDB());
         }
