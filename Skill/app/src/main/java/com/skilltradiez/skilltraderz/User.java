@@ -104,7 +104,7 @@ import java.util.Observable;
 /**
  * Created by sja2 on 10/28/15.
  */
-public class User extends Observable {
+public class User {
     private Profile profile;
     private Inventory inventory;
     private FriendsList friendsList;
@@ -146,7 +146,6 @@ public class User extends Observable {
         User user = (User) o;
 
         return !(id != null ? !id.equals(user.id) : user.id != null);
-
     }
 
     @Override

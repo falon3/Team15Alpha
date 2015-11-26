@@ -118,13 +118,13 @@ public class Local {
     }
 
     public void saveToFile(User me, Collection<User> friends, Collection<Skill> skillz,
-                           Collection<Trade> trades) {
-        //Collection<Trade> trades, List<Notification> notifications) {
+                           Collection<Trade> trades, ChangeList changeList) {
         save_object.setCurrentUser(me);
         save_object.setUsers(friends);
         save_object.setSkillz(skillz);
         save_object.setTrades(trades);
         //save_object.setNotifications(notifications);
+        save_object.setNotifications(changeList);
 
         try {
             saveToFile();

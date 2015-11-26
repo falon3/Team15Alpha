@@ -18,7 +18,6 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**~~DESCRIPTION:
  * Suppose we have the very very dastardly case in which we have a user attempt to
  * register themselves as a user that we actually already have within out databse. This is a massive big big big problem
@@ -44,23 +43,19 @@ package com.skilltradiez.skilltraderz;
  * Keeping it short and sweet and to the point!
  */
 
-
 /**
  * Created by sja2 on 10/28/15.
  */
 public class UserAlreadyExistsException extends Exception {
-
-
     //Cover our behinds with constructors for this exception. No point in having a useless
     //empty exception.
     UserAlreadyExistsException() {super();}
 
-
     public UserAlreadyExistsException(String message) {super(message);}
+
     public UserAlreadyExistsException(String message, Throwable errorSource) {
         super(message, errorSource);
     }
+
     public UserAlreadyExistsException(Throwable errorSource){ super(errorSource);}
-
-
 }

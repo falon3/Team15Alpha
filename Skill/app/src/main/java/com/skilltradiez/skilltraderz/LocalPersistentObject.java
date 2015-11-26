@@ -101,6 +101,12 @@ public class LocalPersistentObject {
     private Collection<Skill> skillz; // Skillz that are found in the User and Friend's Inventories
     private Collection<Trade> trades; // User's Trade History
     //private List<Notification> notifications; // Skill changes, Trade Changes
+    private Collection<FriendsList> changedFriends;
+    private Collection<Profile> changedProfile;
+    private Collection<Inventory> changedInventory;
+    private Collection<Skill> changedSkillz;
+    private Collection<TradeList> changedTradesList;
+    private Collection<Trade> changedTrades;
 
     LocalPersistentObject() {
         currentUser = null;
@@ -108,6 +114,12 @@ public class LocalPersistentObject {
         skillz = new ArrayList<Skill>();
         trades = new ArrayList<Trade>();
         //notifications = new ArrayList<Notification>();
+        this.changedFriends = new ArrayList<FriendsList>();
+        this.changedProfile = new ArrayList<Profile>();
+        this.changedInventory = new ArrayList<Inventory>();
+        this.changedSkillz =  new ArrayList<Skill>();
+        this.changedTradesList = new ArrayList<TradeList>();
+        this.changedTrades = new ArrayList<Trade>();
     }
 
     public User getCurrentUser () { return currentUser;}
@@ -140,11 +152,24 @@ public class LocalPersistentObject {
         this.trades = trades;
     }
 
-    //public Collection<Notification> getNotifications() {
-        //return notifications;
-    //}
+    public Collection<Notification> getNotifications() {
+        Collection<Notification> notifications = new ArrayList<Notification>();
+        notifications.addAll(changedFriends);
+        notifications.addAll(changedProfile);
+        notifications.addAll(changedInventory);
+        notifications.addAll(changedSkillz);
+        notifications.addAll(changedTradesList);
+        notifications.addAll(changedTrades);
+        return notifications;
+    }
 
-    //public void setNotifications(List<Notification> notifications) {
+    public void setNotifications(ChangeList notifications) {
+        this.changedFriends = notifications.getFriendsList();
+        this.changedProfile = notifications.getProfiles();
+        this.changedInventory = notifications.getInventory();
+        this.changedSkillz =  notifications.getSkillz();
+        this.changedTradesList = notifications.getTradesList();
+        this.changedTrades = notifications.getTrades();
         //this.notifications = notifications;
-    //}
+    }
 }
