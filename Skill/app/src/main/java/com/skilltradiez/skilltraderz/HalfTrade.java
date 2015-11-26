@@ -139,10 +139,6 @@ import java.util.List;
  *         :(
  */
 
-
-/**
- * Created by nweninge on 11/5/15.
- */
 public class HalfTrade extends Notification {
     private ID user;
     private List<ID> offer;
