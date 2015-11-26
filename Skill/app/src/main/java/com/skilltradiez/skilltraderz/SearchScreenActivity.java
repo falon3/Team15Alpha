@@ -106,16 +106,18 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
     private ListView resultsList;
 
+    public static String SEARCH_TYPE_PARAM = "All_search";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
 
+
         masterController = new MasterController();
 
         items = new ArrayList<Stringeable>();
         searchExtras = getIntent().getExtras();
-        screenType = searchExtras.getInt("All_search"); //TODO All_search should have a better name
+        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
         String filter = "All";
         if (searchExtras.containsKey("filter")) {
             filter = searchExtras.getString("filter");

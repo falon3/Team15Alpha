@@ -391,12 +391,6 @@ public class Skill extends Stringeable {
                 throw new RuntimeException();
             }
         } catch (IOException e) {
-            //userDB.getLocal().getLocalData().getNotifications().add(this);
-            try {
-                userDB.getLocal().saveToFile();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
             e.printStackTrace();
             return false;
         }

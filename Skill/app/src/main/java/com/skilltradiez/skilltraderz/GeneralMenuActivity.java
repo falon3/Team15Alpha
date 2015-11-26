@@ -62,15 +62,19 @@ public class GeneralMenuActivity extends ActionBarActivity {
         switch(item.getItemId()){
             case R.id.All_Skillz:
                 intent = new Intent(generalContext, SearchScreenActivity.class);
-                intent.putExtra("All_search", 0);
+                intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
                 startActivity(intent);
                 return true;
             case R.id.All_Users:
                 intent = new Intent(generalContext, SearchScreenActivity.class);
-                intent.putExtra("All_search", 1);
+                intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
             case R.id.My_Friends:
+                intent = new Intent(generalContext, SearchScreenActivity.class);
+                intent.putExtra("filter", "Friends");
+                intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
+                startActivity(intent);
                 return true;
             case R.id.My_Inventory:
                 intent = new Intent(generalContext, ProfileActivity.class);
