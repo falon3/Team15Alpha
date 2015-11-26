@@ -116,7 +116,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
         items = new ArrayList<Stringeable>();
         searchExtras = getIntent().getExtras();
-        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM); //TODO All_search should have a better name
+        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
         String filter = "All";
         if (searchExtras.containsKey("filter")) {
             filter = searchExtras.getString("filter");
