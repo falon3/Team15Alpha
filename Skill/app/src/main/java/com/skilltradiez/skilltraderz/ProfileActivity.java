@@ -256,7 +256,7 @@ public class ProfileActivity extends GeneralMenuActivity {
     public void showFriendsList(View v) {
         Intent intent = new Intent(this, SearchScreenActivity.class);
         intent.putExtra("filter", "Friends");
-        intent.putExtra("All_search", 1);
+        intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
         startActivity(intent);
     }
 }
