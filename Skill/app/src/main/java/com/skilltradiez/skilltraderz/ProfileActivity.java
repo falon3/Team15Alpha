@@ -24,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,11 +122,10 @@ public class ProfileActivity extends GeneralMenuActivity {
 
     private Context profileContext = this;
 
-    private Button addRemoveFriend;
-    private Button startTrade;
-    private Button viewInventory;
-    private TextView userContactInfo;
-    private TextView profileTitle;
+    private Button addRemoveFriend, startTrade, viewInventory;
+    private TextView userContactInfo, profileTitle;
+    private CheckBox checkBox;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,10 +141,13 @@ public class ProfileActivity extends GeneralMenuActivity {
         viewInventory = (Button) findViewById(R.id.inventory);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         profileTitle = (TextView) findViewById(R.id.user_name);
+        checkBox = (CheckBox) findViewById(R.id.auto_img);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         populateProfile();
         profileTitle.setText(userProfileName);
         userContactInfo.setText(owner.getProfile().getEmail());
+        ratingBar.setNumStars(owner.getProfile().getRating());
 
         if (masterController.getUserDB().getCurrentUser().getFriendsList().hasFriend(owner)) {
             addRemoveFriend.setText(R.string.remove_friend);
@@ -154,13 +158,35 @@ public class ProfileActivity extends GeneralMenuActivity {
         }
 
         // You can't be friends with yourself, go get some real friends
-        if (masterController.getUserDB().getCurrentUser().equals(owner)) {
+        if (masterController.getCurrentUser().equals(owner)) {
             addRemoveFriend.setEnabled(false);
             addRemoveFriend.setVisibility(View.GONE);
 
             startTrade.setEnabled(false);
-            //startTrade.setVisibility(View.GONE);
+            startTrade.setVisibility(View.GONE);
+
+            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toggleAutoImgDownloads();
+                }
+            });
+
+            ratingBar.setEnabled(false);
+        } else {
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    owner.getProfile().addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
+                }
+            });
         }
+    }
+
+    private void toggleAutoImgDownloads() {
+        checkBox.setChecked(!checkBox.isChecked());
     }
 
     @Override

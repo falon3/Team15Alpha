@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**~~DESCRIPTION:
@@ -122,7 +123,6 @@ import java.util.List;
  *     This also has the additional functionality of resetting our new and old friendslists. Meaning
  *     we keep track of who is new and who is old through this method as well! TADA!
  */
-
 
 /**
  * FriendsList manages confirmed, pending and blocked friends for a single user.

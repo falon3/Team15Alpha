@@ -109,8 +109,6 @@ import java.io.IOException;
  *          -delete the avatar (going to default)     --deteleAvatar
  *
  *
- *
- *
  *  METHODS NOT RELATED TO ATTRIBUTES:
  *
  *  1: COMMIT:
@@ -123,14 +121,14 @@ import java.io.IOException;
 
 
 public class Profile extends Stringeable {
-    private String location = "";
+    private String username, email, location;
     private Boolean shouldDownloadImages = true;
     private int avatar;
-    private String username = "";
-    private String email = "";
+    private Rating rating;
 
     Profile(String username) {
         setUsername(username);
+        rating = new Rating();
     }
 
     public String getLocation() {
@@ -186,6 +184,15 @@ public class Profile extends Stringeable {
 
     public void setShouldDownloadImages(Boolean shouldDownloadImages) {
         this.shouldDownloadImages = shouldDownloadImages;
+        notifyDB();
+    }
+
+    public int getRating() {
+        return rating.getRating();
+    }
+
+    public void addRating(String username, int rate) {
+        rating.changeRating(username, rate);
         notifyDB();
     }
 
