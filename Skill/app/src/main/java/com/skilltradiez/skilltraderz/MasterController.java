@@ -72,7 +72,7 @@ public final class MasterController implements ControllerInterface{
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
     public boolean userHasFriend(User user){
-        return user.getFriendsList().hasFriend(getUserDB().getCurrentUser());
+        return getCurrentUser().getFriendsList().hasFriend(user);
     }
 
     public void addANewFriend(User currentUser){

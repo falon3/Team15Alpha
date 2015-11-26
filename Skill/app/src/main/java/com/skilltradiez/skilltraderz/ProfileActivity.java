@@ -145,12 +145,10 @@ public class ProfileActivity extends GeneralMenuActivity {
         profileTitle.setText(userProfileName);
         userContactInfo.setText(owner.getProfile().getEmail());
 
-        if (masterController.getUserDB().getCurrentUser().getFriendsList().hasFriend(owner)) {
+        if (hasFriend) {
             addRemoveFriend.setText(R.string.remove_friend);
-            hasFriend = true;
         } else {
             addRemoveFriend.setText(R.string.add_friend);
-            hasFriend = false;
         }
 
         // You can't be friends with yourself, go get some real friends
