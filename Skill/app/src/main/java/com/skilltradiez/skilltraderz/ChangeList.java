@@ -71,10 +71,11 @@ import java.util.List;
 
 
 class ChangeList {
+    // Notifications are: FriendsList, Profile, Inventory, Skill, TradeList, Trade
     private List<Notification> notifications;
     private List<Notification> newNotifications;
     private List<Notification> oldNotifications;
-    boolean lock;
+    private boolean lock;
 
     ChangeList() {
         notifications = new ArrayList<Notification>();
@@ -94,6 +95,54 @@ class ChangeList {
 
     public List<Notification> getNotifications() {
         return notifications;
+    }
+
+    public List<FriendsList> getFriendsList() {
+        List<FriendsList> friendsLists = new ArrayList<FriendsList>();
+        for (Notification note:notifications)
+            if (note instanceof FriendsList)
+                friendsLists.add((FriendsList)note);
+        return friendsLists;
+    }
+
+    public List<Profile> getProfiles() {
+        List<Profile> profiles = new ArrayList<Profile>();
+        for (Notification note:notifications)
+            if (note instanceof Profile)
+                profiles.add((Profile)note);
+        return profiles;
+    }
+
+    public List<Inventory> getInventory() {
+        List<Inventory> inventories = new ArrayList<Inventory>();
+        for (Notification note:notifications)
+            if (note instanceof Inventory)
+                inventories.add((Inventory)note);
+        return inventories;
+    }
+
+    public List<Skill> getSkillz() {
+        List<Skill> skillz = new ArrayList<Skill>();
+        for (Notification note:notifications)
+            if (note instanceof Skill)
+                skillz.add((Skill) note);
+        return skillz;
+    }
+
+    public List<TradeList> getTradesList() {
+        List<TradeList> tradeLists = new ArrayList<TradeList>();
+        for (Notification note:notifications)
+            if (note instanceof TradeList)
+                tradeLists.add((TradeList)note);
+        return tradeLists;
+    }
+
+    public List<Trade> getTrades() {
+        List<Trade> trades = new ArrayList<Trade>();
+        for (Notification note:notifications)
+            if (note instanceof Trade)
+                trades.add((Trade)note);
+        return trades;
     }
 
     /*
