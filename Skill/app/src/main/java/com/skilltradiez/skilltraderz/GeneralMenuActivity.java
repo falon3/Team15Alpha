@@ -40,7 +40,7 @@ import android.view.View;
  */
 public class GeneralMenuActivity extends ActionBarActivity {
 
-    private Context generalContext = this;
+    protected Context generalContext = this;
 
     public MasterController masterController;
 
@@ -86,7 +86,7 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 startActivity(intent);
                 return true;
         }
-        return true;
+        return false;
     }
 
     public MasterController getMasterController() {
