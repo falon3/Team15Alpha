@@ -221,11 +221,11 @@ public class MainActivity extends GeneralMenuActivity {
     public void beginAllSearch(View view){
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         if(view.getId() == R.id.browse_skillz){
-            intent.putExtra("All_search", 0);
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
         } else if (view.getId() == R.id.browse_users) {
-            intent.putExtra("All_search", 1);
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
         } else {
-            intent.putExtra("All_search", 2);
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
         }
         startActivity(intent);
     }

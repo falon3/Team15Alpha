@@ -193,14 +193,6 @@ public class Profile extends Stringeable {
             userDB.getElastic().updateDocument("user", username, this, "profile");
         } catch (IOException e) {
             e.printStackTrace();
-            //TODO Save Locally
-            return false;
-        }
-        //Save Locally
-        try {
-            userDB.getLocal().saveToFile();
-        } catch (IOException e1) {
-            e1.printStackTrace();
             return false;
         }
         return true;

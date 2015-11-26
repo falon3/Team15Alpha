@@ -148,6 +148,7 @@ public class UserDatabase {
         } else {
             currentUser = null;
         }
+        getChangeList().push(this);
     }
 
     /** Model here only has the simple getter/setter methods that allow the controller to function
