@@ -22,8 +22,11 @@ package com.skilltradiez.skilltraderz;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -120,6 +123,8 @@ public class EditSkillActivity extends GeneralMenuActivity {
     private Button addSkillToDB;
     private ArrayAdapter<CharSequence> adapter;
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -181,6 +186,33 @@ public class EditSkillActivity extends GeneralMenuActivity {
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
+        }
+    }
+
+    //TODO 3 methods BELOW
+    public void addNewImage(View view) {
+
+    }
+
+    public void deleteImage(View view) {
+
+    }
+
+    public void retakeImage(View view) {
+
+    }
+
+    public void startTakingImage() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
         }
     }
 
