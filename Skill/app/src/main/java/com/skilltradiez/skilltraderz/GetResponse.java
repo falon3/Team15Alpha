@@ -64,10 +64,6 @@ package com.skilltradiez.skilltraderz;
  *
  */
 
-
-/**
- * Created by nweninge on 11/4/15.
- */
 public class GetResponse<T> {
     public String _index;
     public String _type;

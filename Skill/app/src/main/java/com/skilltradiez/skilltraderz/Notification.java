@@ -29,7 +29,6 @@ package com.skilltradiez.skilltraderz;
  * interface WILL have these methods listed below.
  */
 
-
 public abstract class Notification {
     private boolean notify = false;
     public void notifyDB() {

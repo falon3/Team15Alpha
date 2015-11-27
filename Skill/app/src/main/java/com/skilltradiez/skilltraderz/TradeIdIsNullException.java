@@ -1,8 +1,5 @@
 package com.skilltradiez.skilltraderz;
 
-/**
- * Created by Cole on 2015-11-25.
- */
 public class TradeIdIsNullException extends Exception {
 
     //Cover our behinds with constructors for this exception. No point in having a useless

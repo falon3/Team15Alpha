@@ -26,9 +26,7 @@ package com.skilltradiez.skilltraderz;
  * our particular ways of tackling the problems of an inactive trade! :)
  */
 
-
 public class InactiveTradeException extends Exception {
-
 
     //An empty exception is literally a bottomless hole.
     //Here I make a constructor for basically anything you could ask this exception to do.

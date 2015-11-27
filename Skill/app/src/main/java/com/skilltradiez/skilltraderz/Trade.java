@@ -76,13 +76,8 @@ package com.skilltradiez.skilltraderz;
  *      to the application we're going to actually need to update the database itself with
  *      the object!
  *
- *
  */
 
-
-/**
- * Created by sja2 on 10/28/15.
- */
 public class Trade extends Stringeable {
     private ID tradeID;
     private HalfTrade half1, half2;

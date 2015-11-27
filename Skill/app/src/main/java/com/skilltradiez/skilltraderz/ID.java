@@ -79,11 +79,6 @@ import java.util.Random;
  *
  */
 
-
-
-/**
- * Created by sja2 on 10/28/15.
- */
 public class ID implements Serializable {
     private Long id;
 

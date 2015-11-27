@@ -98,10 +98,6 @@ package com.skilltradiez.skilltraderz;
  *         -Obtain the userID (object)                      --getUserID
  */
 
-
-/**
- * Created by sja2 on 10/28/15.
- */
 public class User {
     private Profile profile;
     private Inventory inventory;

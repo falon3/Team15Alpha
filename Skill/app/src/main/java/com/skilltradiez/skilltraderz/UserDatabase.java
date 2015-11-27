@@ -113,9 +113,6 @@ import java.util.Set;
  *
  */
 
-/**
- * Created by sja2 on 10/28/15.
- */
 public class UserDatabase {
     private User currentUser;
     private Set<User> users;

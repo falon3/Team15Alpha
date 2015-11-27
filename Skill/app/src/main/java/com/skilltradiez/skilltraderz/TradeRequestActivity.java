@@ -90,9 +90,7 @@ import org.w3c.dom.Text;
  *     sort of special unique identifier (aside from ID) that the user can relate to when they are
  *     dealing with the entire trade process. This gives the user that power to set the
  *     title of the trade! GLORIOUS!
- *
  */
-
 
 public class TradeRequestActivity extends GeneralMenuActivity {
     private Context tradeContext = this;

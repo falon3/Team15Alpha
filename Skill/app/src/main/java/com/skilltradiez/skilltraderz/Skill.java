@@ -343,8 +343,7 @@ public class Skill extends Stringeable {
 
     @Override
     public String toString() {
-        //TODO Change Output?
-        return this.getName() + ": " + this.getCategory() + (isVisible() ? "" : " (Invisible)");
+        return this.getName() + ": " + this.getCategory() + " " + this.getDescription() + (isVisible() ? "" : " (Invisible)");
     }
 
     public boolean commit(UserDatabase userDB) {
@@ -359,7 +358,7 @@ public class Skill extends Stringeable {
                 //if removed skill from inventory and no other owners had skill
                 userDB.getSkills().remove(prev_version);
                 DatabaseController.deleteDocumentSkill(skillID);
-                System.out.println("Permantently deleted skill");
+                System.out.println("Permanently deleted skill");
 
             } else if (prev_version.isOwner(owner) && !isOwner(owner)) {
                 //if removed skill from inventory and other owners had skill
@@ -381,11 +380,10 @@ public class Skill extends Stringeable {
                 Skill new_version = new Skill(userDB, this);
                 prev_version.owners.remove(owner);
                 ela.addDocument("skill", skillID.toString(), prev_version);
-                ela.addDocument("skill", new_version.getSkillID().toString(), new_version); // TODO unnecessary?
-                // TODO: 2015-11-21 need to test to make sure new version is put in the inventory and the old version removed
+                ela.addDocument("skill", new_version.getSkillID().toString(), new_version);
                 System.out.println("dated skill");
             } else {
-                //TODO what if this happend??
+                //TODO what if this happened??
                 System.out.println("MAYBE BROKEN, FIXME!!!");
                 // i think this happens when the user isn't a previous owner!
                 throw new RuntimeException();

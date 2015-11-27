@@ -24,9 +24,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-/**
- * Created by nweninge on 11/21/15.
- */
 public class EditSkillUITest  extends ActivityInstrumentationTestCase2 {
     public EditSkillUITest() {
         super(EditSkillActivity.class);

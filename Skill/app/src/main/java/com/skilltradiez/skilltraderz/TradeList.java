@@ -70,14 +70,6 @@ import java.util.List;
  *
  *         -obtain the list of all of the most recently active trade (SINGULAR) in which case
  *         the trades will be compared based upon time.         --getMostRecentTrade
- *
- *
- *
- */
-
-
-/**
- * Created by sja2 on 10/28/15.
  */
 
 public class TradeList extends Notification {
