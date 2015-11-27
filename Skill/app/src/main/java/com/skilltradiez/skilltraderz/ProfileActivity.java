@@ -163,10 +163,10 @@ public class ProfileActivity extends GeneralMenuActivity {
         // You can't be friends with yourself, go get some real friends
         if (masterController.getCurrentUser().equals(owner)) {
             addRemoveFriend.setEnabled(false);
-            addRemoveFriend.setVisibility(View.GONE);
+            addRemoveFriend.setVisibility(View.INVISIBLE);
 
             startTrade.setEnabled(false);
-            startTrade.setVisibility(View.GONE);
+            startTrade.setVisibility(View.INVISIBLE);
 
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
