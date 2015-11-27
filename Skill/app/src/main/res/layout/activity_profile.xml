@@ -107,6 +107,24 @@
         android:layout_alignEnd="@+id/user_name"
         android:onClick="showFriendsList"/>
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/auto_img"
+        android:id="@+id/auto_img"
+        android:checked="true"
+        android:visibility="invisible"
+        android:layout_above="@+id/inventory"
+        android:layout_alignStart="@+id/user_name" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_above="@+id/inventory"
+        android:layout_centerHorizontal="true"
+        android:numStars="0" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,6 +147,5 @@
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/maketrade"
         android:layout_toEndOf="@+id/contact_button" />
-
 
 </RelativeLayout>

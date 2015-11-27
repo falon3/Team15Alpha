@@ -222,13 +222,12 @@ import java.util.Set;
  * -Set the description         --setDescription
  */
 public class Skill extends Stringeable {
-    private String name;
-    private String category;
+    private String name, category, description;
     private int image;
     private boolean visible;
-    private String description;
     private ID skillID = ID.generateRandomID();
     private ArrayList<ID> owners;
+    private Rating rating;
 
     /**
      * CONSTRUCTOR
@@ -242,10 +241,12 @@ public class Skill extends Stringeable {
         setDescription(description);
         setImage(image.getInt());
 
+        rating = new Rating();
+
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
-        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
-        initialAdditionOfSkillToDB(this);
+        //it to the database. this doesn't happen too many times in the actual app, but lots in tests.
+        DatabaseController.addSkill(this);
     }
 
     Skill(UserDatabase db, Skill skill) {
@@ -257,27 +258,17 @@ public class Skill extends Stringeable {
         setDescription(skill.getDescription());
         setImage(skill.getImage());
 
+        rating = new Rating();
+
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
-        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
-        //DatabaseController.addSkill(this);
-        initialAdditionOfSkillToDB(this);
+        //it to the database. this doesn't happen too many times in the actual app, but lots in tests.
+        DatabaseController.addSkill(this);
     }
-
-
 
     /**
      * METHODS
      **/
-
-    /**Cole did this, did the to do problem get solved by this?**/
-    public void initialAdditionOfSkillToDB(Skill givenSkill){
-        DatabaseController.addSkill(givenSkill);
-    }
-
-
-
-
     //Traditional getter and setter methods for the private attribute name
     public String getName() {
         return name;
@@ -339,6 +330,15 @@ public class Skill extends Stringeable {
 
     public ID getSkillID() {
         return skillID;
+    }
+
+    public int getRating() {
+        return rating.getRating();
+    }
+
+    public void addRating(String username, int rate) {
+        rating.changeRating(username, rate);
+        notifyDB();
     }
 
     @Override
