@@ -123,7 +123,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
     private Context profileContext = this;
 
-    private Button addRemoveFriend, startTrade, viewInventory, contactInfo;
+    private Button addRemoveFriend, startTrade, viewInventory, contactInfo, friendListButton;
     private TextView userContactInfo, profileTitle;
     private CheckBox checkBox;
     private RatingBar ratingBar;
@@ -147,6 +147,7 @@ public class ProfileActivity extends GeneralMenuActivity {
         checkBox = (CheckBox) findViewById(R.id.auto_img);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         userContactInfo = (TextView) findViewById(R.id.user_description);
+        friendListButton = (Button) findViewById(R.id.friend_list_button);
 
         populateProfile();
         profileTitle.setText(userProfileName);
@@ -178,6 +179,9 @@ public class ProfileActivity extends GeneralMenuActivity {
                     owner.getProfile().addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
                 }
             });
+            friendListButton.setVisibility(View.INVISIBLE);
+            newEmail.setVisibility(View.INVISIBLE);
+            contactInfo.setVisibility(View.INVISIBLE);
         }
     }
 
