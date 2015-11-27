@@ -161,6 +161,11 @@ public class EditTradeActivity extends GeneralMenuActivity {
                 otherInvAdapter.notifyDataSetChanged();
             }
         });
+
+        offerList.setAdapter(offerAdapter);
+        yourInvList.setAdapter(yourInvAdapter);
+        requestList.setAdapter(requestAdapter);
+        otherInvList.setAdapter(otherInvAdapter);
     }
 
     @Override
@@ -170,10 +175,6 @@ public class EditTradeActivity extends GeneralMenuActivity {
         otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
 
         loadItems();
-        offerList.setAdapter(offerAdapter);
-        yourInvList.setAdapter(yourInvAdapter);
-        requestList.setAdapter(requestAdapter);
-        otherInvList.setAdapter(otherInvAdapter);
 
         offerAdapter.notifyDataSetChanged();
         yourInvAdapter.notifyDataSetChanged();

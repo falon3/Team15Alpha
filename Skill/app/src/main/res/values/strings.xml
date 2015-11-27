@@ -72,6 +72,8 @@
     <string name="is_visible">Visible</string>
     <string name="auto_img">Automatic Image Downloads</string>
     <string name="edit_email_button">Edit Contact</string>
+    <string name="name">Name:</string>
+    <string name="photo_alt">Take Photo</string>
 
     <!-- Categories -->
     <string-array name="category_spinner_strings">

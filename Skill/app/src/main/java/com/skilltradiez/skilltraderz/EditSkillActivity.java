@@ -35,6 +35,7 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -118,20 +119,17 @@ import java.util.ArrayList;
  * Nothing. This is created during the onStart() method.
  */
 
-public class EditSkillActivity extends GeneralMenuActivity {
+public class EditSkillActivity extends CameraActivity {
     private Skill skillToEdit;
-    private EditText skillName;
-    private EditText skillDescription;
+
+    private ListView imageList;
+    private EditText skillName, skillDescription;
     private Spinner skillCategory;
     private CheckBox skillVisible;
     private Button addSkillToDB;
-    private ArrayAdapter<CharSequence> adapter;
-    private Runnable imageResultAction;
-    private Bitmap lastImage;
-    private LinearLayout imageLayout;
-    private ArrayList<Image> images = new ArrayList<Image>();
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private ImageAdapter imageAdapter;
+    private ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +146,11 @@ public class EditSkillActivity extends GeneralMenuActivity {
         addSkillToDB = (Button) findViewById(R.id.add_skill_to_database);
         skillCategory = (Spinner) findViewById(R.id.category_spinner);
         skillVisible = (CheckBox) findViewById(R.id.is_visible);
-        imageLayout = (LinearLayout) findViewById(R.id.imageLayout);
+        imageList = (ListView) findViewById(R.id.imageList);
+
+        // Images Setup
+        imageAdapter = new ImageAdapter(this, getImages());
+        imageList.setAdapter(imageAdapter);
 
         //Android Developers
         // http://developer.android.com/guide/topics/ui/controls/spinner.html
@@ -157,6 +159,39 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        // We need to be able to edit an existing skill
+        if (getIntent().hasExtra("skill_id")) {
+            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+            skillName.setText(skillToEdit.getName());
+            skillDescription.setText(skillToEdit.getDescription());
+            skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
+            setImages(skillToEdit.getImages());
+            skillVisible.setChecked(skillToEdit.isVisible());
+            addSkillToDB.setText("Save changes");
+        }
+        imageAdapter.notifyDataSetChanged();
+    }
+
+    public void addNewImage(View view) {
+        addNewImage(view);
+        imageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void deleteImage(View view, Image toBeRemoved) {
+        super.deleteImage(view, toBeRemoved);
+        imageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void retakeImage(View view, Image toBeRemoved) {
+        super.retakeImage(view, toBeRemoved);
+        imageAdapter.notifyDataSetChanged();
     }
 
     public EditText getSkillName() {
@@ -177,75 +212,6 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
     public CheckBox getSkillVisible() {
         return skillVisible;
-    }
-
-
-    public void onStart() {
-        super.onStart();
-
-
-        // We need to be able to edit an existing skill
-        if (getIntent().hasExtra("skill_id")) {
-            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
-            skillName.setText(skillToEdit.getName());
-            skillDescription.setText(skillToEdit.getDescription());
-            skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
-            skillVisible.setChecked(skillToEdit.isVisible());
-            addSkillToDB.setText("Save changes");
-        }
-    }
-
-    //TODO 3 methods BELOW
-    public void addNewImage(View view) {
-        startTakingImage();
-        imageResultAction = new Runnable() {
-            @Override
-            public void run() {
-                Button delete = new Button(generalContext);
-                delete.setText("delete");
-                Button retake = new Button(generalContext);
-                retake.setText("retake");
-                ImageView iv = new ImageView(generalContext);
-                iv.setImageBitmap(lastImage);
-                GridLayout gl = new GridLayout(generalContext);
-                gl.addView(delete);
-                gl.addView(retake);
-                gl.addView(iv);
-                imageLayout.addView(gl);
-
-                Image image = new Image(lastImage);
-                DatabaseController.addImage(image);
-                if (skillToEdit == null) {
-                    images.add(image);
-                } else {
-                    skillToEdit.addImage(image);
-                }
-            }
-        };
-    }
-
-    public void deleteImage(View view) {
-
-    }
-
-    public void retakeImage(View view) {
-
-    }
-
-    public void startTakingImage() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            lastImage = (Bitmap) extras.get("data");
-            imageResultAction.run();
-        }
     }
 
     /**
@@ -276,7 +242,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         if (skillToEdit == null) { // if we are creating a new skill
             //Make a new skill through the controller.
-            masterController.makeNewSkill(name, category, description, isVisible, images);
+            masterController.makeNewSkill(name, category, description, isVisible, getImages());
             DatabaseController.save();
 
             //Toasty
@@ -289,6 +255,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
             skillToEdit.setName(name);
             skillToEdit.setDescription(description);
             skillToEdit.setCategory(category);
+            skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
             DatabaseController.save();
 
@@ -297,6 +264,5 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
             finish();
         }
-
     }
 }
