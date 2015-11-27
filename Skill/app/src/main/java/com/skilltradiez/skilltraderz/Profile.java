@@ -127,7 +127,7 @@ public class Profile extends Stringeable {
 
     Profile(String username) {
         setUsername(username);
-        rating = new Rating(username);
+        rating = new Rating("user", username);
     }
 
     public String getLocation() {
