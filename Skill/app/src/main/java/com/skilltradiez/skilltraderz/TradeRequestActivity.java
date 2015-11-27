@@ -20,14 +20,11 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 /**~~DESCRIPTION:
  * We want an android framework that will support the ability for the user to interact
@@ -124,7 +121,7 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         deleteRequest = (Button) findViewById(R.id.deleteTrade);
         counterOffer = (Button) findViewById(R.id.counterTrade);
         tradeDescription = (TextView) findViewById(R.id.trade_description);
-        skillsInTrade = (ListView) findViewById(R.id.skillListInTrade);
+        skillsInTrade = (ListView) findViewById(R.id.offerList);
         tradeTitle = (TextView) findViewById(R.id.trading_with);
     }
 
