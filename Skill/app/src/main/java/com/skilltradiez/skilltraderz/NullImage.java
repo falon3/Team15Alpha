@@ -52,7 +52,7 @@ package com.skilltradiez.skilltraderz;
  */
 
 public class NullImage extends Image {
-    public int getInt() {
-        return R.id.user_icon;
-    }
+    //public int getInt() {
+        //return R.id.user_icon;
+    //}
 }
