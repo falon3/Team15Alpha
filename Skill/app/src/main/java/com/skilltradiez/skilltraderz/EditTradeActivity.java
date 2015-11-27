@@ -77,14 +77,34 @@ public class EditTradeActivity extends GeneralMenuActivity {
     private Button cancelTrade;
     private Button addSkillToTrade;
 
+    private User activeUser, passiveUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
 
+        ID userID;
+
+        masterController = new MasterController();
+        Bundle profileExtras = getIntent().getExtras();
+
+        // Get active and passive Users
+        userID = (ID)profileExtras.get("active_id");
+        activeUser = DatabaseController.getAccountByUserID(userID);
+        userID = (ID)profileExtras.get("passive_id");
+        passiveUser = DatabaseController.getAccountByUserID(userID);
+
+        // Get UI elements
         tradeTitle = (TextView) findViewById(R.id.trading_with);
 
         //skillsInTrade = (ListView) findViewById(R.id.skill);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
     }
 
     public void addSkillToTrade(View view){
