@@ -100,8 +100,11 @@ public class EditTradeActivity extends GeneralMenuActivity {
         yourInv = new ArrayList<Skill>();
         request = new ArrayList<Skill>();
         otherInv = new ArrayList<Skill>();
-        
+
         // Get UI elements
+        sendTrade = (Button) findViewById(R.id.sendTrade);
+        cancelTrade = (Button) findViewById(R.id.deleteTrade);
+
         tradeTitle = (TextView) findViewById(R.id.trading_with);
         otherInvTitle = (TextView) findViewById(R.id.other_inv);
 
@@ -202,6 +205,8 @@ public class EditTradeActivity extends GeneralMenuActivity {
 
     public void sendTrade(View view){
         //TODO Send The Trade
+        Trade trade = activeUser.getTradeList().createTrade(MasterController.getUserDB(), activeUser, passiveUser, offer, request);
+
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
         /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
