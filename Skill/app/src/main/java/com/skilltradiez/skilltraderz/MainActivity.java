@@ -142,6 +142,7 @@ public class MainActivity extends GeneralMenuActivity {
         actionBar.setHomeButtonEnabled(true);
         //masterController.initializeArrayListForSkills();
 
+        // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
