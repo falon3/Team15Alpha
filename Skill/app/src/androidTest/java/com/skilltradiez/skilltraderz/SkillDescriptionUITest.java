@@ -23,6 +23,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.mock.MockContext;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class SkillDescriptionUITest extends ActivityInstrumentationTestCase2 {
     public SkillDescriptionUITest() {
         super(SkillDescriptionActivity.class);
@@ -40,7 +42,7 @@ public class SkillDescriptionUITest extends ActivityInstrumentationTestCase2 {
         DatabaseController.deleteAllData();
 
         DatabaseController.createNewUser("User", "Email");
-        mc.makeNewSkill("Skill1Test", "testing", "see if can add new skill", true, new NullImage());
+        mc.makeNewSkill("Skill1Test", "testing", "see if can add new skill", true, new ArrayList<Image>());
         Skill skill = ((Skill)(mc.getAllSkillz().toArray()[0]));
         // see if skill added
         assertTrue(mc.getCurrentUser().getInventory().hasSkill(skill));

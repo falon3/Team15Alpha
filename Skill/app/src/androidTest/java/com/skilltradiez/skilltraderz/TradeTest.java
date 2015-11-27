@@ -36,7 +36,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User user2 = DatabaseController.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
 
-            offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new NullImage()));
+            offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new ArrayList<Image>()));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             DatabaseController.save();
@@ -55,7 +55,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User user2 = DatabaseController.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
 
-            offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new NullImage()));
+            offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new ArrayList<Image>()));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             trade.getHalfForUser(user2).setAccepted(true);
@@ -73,7 +73,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User user2 = DatabaseController.createUser("u2");
             List<Skill> offer = new ArrayList<Skill>();
 
-            offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new NullImage()));
+            offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new ArrayList<Image>()));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             // decline the trade
@@ -98,8 +98,8 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             List<Skill> offer = new ArrayList<Skill>();
             List<Skill> counterOffer = new ArrayList<Skill>();
 
-            offer.add(new Skill(db,"illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new NullImage()));
-            counterOffer.add(new Skill(db,"Counter skill", "meta", "desc", true, new NullImage()));
+            offer.add(new Skill(db,"illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new ArrayList<Image>()));
+            counterOffer.add(new Skill(db,"Counter skill", "meta", "desc", true, new ArrayList<Image>()));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             trade.getHalfForUser(user2).setAccepted(false);
@@ -122,7 +122,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User joel = DatabaseController.createUser("Joel");
 
             List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
-            skillz1.add(new Skill(db, "...YEP", "FOO", "desc", true, new NullImage()));
+            skillz1.add(new Skill(db, "...YEP", "FOO", "desc", true, new ArrayList<Image>()));
 
             TradeList tl = bob.getTradeList();
             tl.createTrade(db, bob, joel, skillz2);
@@ -153,7 +153,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             User joel = DatabaseController.createUser("Joel");
 
             List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
-            skillz1.add(new Skill(db, "...YEP", "BAR", "desc", true, new NullImage()));
+            skillz1.add(new Skill(db, "...YEP", "BAR", "desc", true, new ArrayList<Image>()));
 
             TradeList tl = bob.getTradeList();
 

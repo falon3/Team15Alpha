@@ -18,6 +18,10 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.graphics.Bitmap;
+
+import java.io.IOException;
+
 /**~~DESCRIPTION:
  * So our program is core on trades, and profiles and users. Users have profiles and there is a
  * very clear way to make their profiles and their offers (of skills) more lucrative, exciting,
@@ -39,11 +43,55 @@ package com.skilltradiez.skilltraderz;
  *     This class has no attributes or methods associated with it aside from the constructor.
  */
 
-public class Image {
-    //TODO Everything, needs to override equals as well.
-    public Image() {}
-    public Image(String filename) {}
-    public int getInt() {
-        return 0;
+public class Image extends Notification {
+    private Bitmap bitmap;
+    private ID id;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Image image = (Image) o;
+
+        return !(id != null ? !id.equals(image.id) : image.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    public Image() {
+        id = ID.generateRandomID();
+    }
+    public Image(Bitmap bitmap) {
+        id = ID.generateRandomID();
+        this.bitmap = bitmap;
+    }
+    public Image(String filename) {
+        //LOL
+        throw new NullPointerException("this can't possibly work!");
+    }
+    public ID getID() {
+        return id;
+    }
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        notifyDB();
+    }
+    @Override
+    boolean commit(UserDatabase userDB) {
+        try {
+            userDB.getElastic().addDocument("image", id.toString(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

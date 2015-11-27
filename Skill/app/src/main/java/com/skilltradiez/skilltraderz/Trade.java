@@ -168,8 +168,8 @@ public class Trade extends Stringeable {
         return "I should REALLY find the user's names";
     }
 
-    public int getImage() {
-        return 0;
+    public Image getImage() {
+        return new NullImage();
     }
 
     @Override

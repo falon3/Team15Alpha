@@ -121,8 +121,17 @@ public final class DatabaseController implements ControllerInterface{
         try {
             MasterController.getUserDB().getElastic().addDocument("trade", t.getTradeID().toString(), t);
         } catch (IOException e) {
+            //TODO this is bad and the user won't even know
             e.printStackTrace();
         }
+    }
+
+    public static void addImage(Image i) {
+        Set<Image> images = MasterController.getUserDB().getImagez();
+        images.add(i);
+        MasterController.getUserDB().getChangeList().add(i);
+        i.notifyDB();
+        save();
     }
 
     //When we have a new user... we call upon the controller here to interact with the database
