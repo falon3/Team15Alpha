@@ -120,6 +120,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -223,7 +224,7 @@ import java.util.Set;
  */
 public class Skill extends Stringeable {
     private String name, category, description;
-    private int image;
+    private List<Image> images;
     private boolean visible;
     private ID skillID = ID.generateRandomID();
     private ArrayList<ID> owners;
@@ -232,14 +233,14 @@ public class Skill extends Stringeable {
     /**
      * CONSTRUCTOR
      **/
-    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, Image image) {
+    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, List<Image> images) {
         setName(skill_name);
         owners = new ArrayList<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
         setVisible(isVisible);
         setDescription(description);
-        setImage(image.getInt());
+        setImages(images);
 
         rating = new Rating("skill", skillID.toString());
 
@@ -256,7 +257,7 @@ public class Skill extends Stringeable {
         setCategory(skill.getCategory());
         setVisible(skill.isVisible());
         setDescription(skill.getDescription());
-        setImage(skill.getImage());
+        setImages(skill.images);
 
         rating = new Rating("skill", skillID.toString());
 
@@ -269,6 +270,27 @@ public class Skill extends Stringeable {
     /**
      * METHODS
      **/
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+        notifyDB();
+    }
+    public void setImage(Image image, int pos) {
+        this.images.set(pos, image);
+    }
+    public Image getImage(int pos) {
+        return images.get(pos);
+    }
+
+    public Image getImage() {
+        return images.size() == 0 ? new NullImage() : images.get(0);
+    }
+    public void addImage(Image image) {
+        images.add(image);
+    }
+    public void removeImage(Image image) {
+        images.remove(image);
+    }
     //Traditional getter and setter methods for the private attribute name
     public String getName() {
         return name;
@@ -289,20 +311,10 @@ public class Skill extends Stringeable {
         notifyDB();
     }
 
-    //Traditional getter and setter methods for the private attribute image
-    public int getImage() {
-        return image;//Drawable.createFromInputStream(URL, null);
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-        notifyDB();
-    }
-
     //DELETION of an image method. Replaces the image with a newly instantiated NullImage
     //object within this line.
-    public void deleteImage() {
-        setImage(new NullImage().getInt());
+    public void deleteImage(int pos) {
+        images.remove(pos);
         notifyDB();
     }
 

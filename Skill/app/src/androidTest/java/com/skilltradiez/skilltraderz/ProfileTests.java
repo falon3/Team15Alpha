@@ -106,30 +106,6 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testAvatar() throws UserAlreadyExistsException {
-        UserDatabase db = new UserDatabase();
-        DatabaseController.deleteAllData();
-        User user = DatabaseController.createUser("Username");
-        Image avatar = new Image("hello.jpeg");
-        Image avatar2 = new Image("hello.jpg");
-
-        //avatar should be empty to begin with
-        assertNull(user.getProfile().getAvatar());
-
-        //test setting avatar
-        user.getProfile().setAvatar(avatar.getInt());
-        assertEquals(user.getProfile().getAvatar(), avatar);
-
-        //test changing avatar
-        user.getProfile().setAvatar(avatar2.getInt());
-        assertEquals(user.getProfile().getAvatar(), avatar2);
-
-        //test deleting avatar
-        user.getProfile().deleteAvatar();
-        assertTrue(user.getProfile().getAvatar() == new NullImage().getInt());
-
-    }
-
     public void testSetDownloadImages() {
         try {
             UserDatabase db = new UserDatabase();

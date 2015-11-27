@@ -105,8 +105,8 @@ public final class MasterController implements ControllerInterface{
 
     public Set<Trade> getAllTradez() {return getUserDB().getTrades();}
 
-    public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
-        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, image));
+    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images){
+        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, images));
         DatabaseController.save();
     }
 

@@ -18,6 +18,8 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.graphics.Bitmap;
+
 /** ~~DESCRIPTION:
  * A null image is going to be the default image that we utilize in this application.
  * We cannot exactly utilize a "null" in the way that a null will undoubtebly cause cataclysmic
@@ -52,7 +54,9 @@ package com.skilltradiez.skilltraderz;
  */
 
 public class NullImage extends Image {
-    //public int getInt() {
-        //return R.id.user_icon;
-    //}
+    public NullImage() {
+        super();
+        Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ALPHA_8);
+        setBitmap(bitmap);
+    }
 }

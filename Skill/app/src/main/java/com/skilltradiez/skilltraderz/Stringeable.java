@@ -32,5 +32,5 @@ package com.skilltradiez.skilltraderz;
 public abstract class Stringeable extends Notification {
     abstract String getName();
     abstract String getDescription();
-    abstract int getImage();
+    abstract Image getImage();
 }

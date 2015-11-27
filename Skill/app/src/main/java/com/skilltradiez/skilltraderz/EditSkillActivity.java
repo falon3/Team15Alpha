@@ -32,10 +32,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * ~~TYPE: MODEL + CONTROLLER
@@ -123,10 +126,10 @@ public class EditSkillActivity extends GeneralMenuActivity {
     private CheckBox skillVisible;
     private Button addSkillToDB;
     private ArrayAdapter<CharSequence> adapter;
-    private ArrayAdapter<Bitmap> imageAdapter;
     private Runnable imageResultAction;
     private Bitmap lastImage;
     private LinearLayout imageLayout;
+    private ArrayList<Image> images = new ArrayList<Image>();
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -198,9 +201,25 @@ public class EditSkillActivity extends GeneralMenuActivity {
         imageResultAction = new Runnable() {
             @Override
             public void run() {
+                Button delete = new Button(generalContext);
+                delete.setText("delete");
+                Button retake = new Button(generalContext);
+                retake.setText("retake");
                 ImageView iv = new ImageView(generalContext);
                 iv.setImageBitmap(lastImage);
-                imageLayout.addView(iv);
+                GridLayout gl = new GridLayout(generalContext);
+                gl.addView(delete);
+                gl.addView(retake);
+                gl.addView(iv);
+                imageLayout.addView(gl);
+
+                Image image = new Image(lastImage);
+                DatabaseController.addImage(image);
+                if (skillToEdit == null) {
+                    images.add(image);
+                } else {
+                    skillToEdit.addImage(image);
+                }
             }
         };
     }
@@ -257,7 +276,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
 
         if (skillToEdit == null) { // if we are creating a new skill
             //Make a new skill through the controller.
-            masterController.makeNewSkill(name, category, description, isVisible, new NullImage());
+            masterController.makeNewSkill(name, category, description, isVisible, images);
             DatabaseController.save();
 
             //Toasty

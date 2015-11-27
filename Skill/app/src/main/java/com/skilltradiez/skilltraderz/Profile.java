@@ -122,7 +122,6 @@ import java.io.IOException;
 public class Profile extends Stringeable {
     private String username, email, location;
     private Boolean shouldDownloadImages = true;
-    private int avatar;
     private Rating rating;
 
     Profile(String username) {
@@ -163,20 +162,6 @@ public class Profile extends Stringeable {
         notifyDB();
     }
 
-    public void deleteAvatar() {
-        avatar = new NullImage().getInt();
-        notifyDB();
-    }
-
-    public int getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(int avatar) {
-        this.avatar = avatar;
-        notifyDB();
-    }
-
     public Boolean getShouldDownloadImages() {
         return shouldDownloadImages;
     }
@@ -213,8 +198,7 @@ public class Profile extends Stringeable {
         return getLocation();
     }
 
-    public int getImage() {
-        //TODO Decide how images work
-        return getAvatar();
+    public Image getImage() {
+        return new NullImage();
     }
 }
