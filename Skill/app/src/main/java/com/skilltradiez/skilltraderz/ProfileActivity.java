@@ -152,7 +152,7 @@ public class ProfileActivity extends GeneralMenuActivity {
         populateProfile();
         profileTitle.setText(userProfileName);
         userContactInfo.setText(owner.getProfile().getEmail());
-        ratingBar.setNumStars(owner.getProfile().getRating());
+        ratingBar.setRating(owner.getProfile().getRating());
 
         if (hasFriend) {
             addRemoveFriend.setText(R.string.remove_friend);

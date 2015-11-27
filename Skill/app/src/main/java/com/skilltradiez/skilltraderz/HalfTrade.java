@@ -142,10 +142,9 @@ import java.util.List;
  * because their commit methods are called by TradesList and Trade, respectively
  */
 public class HalfTrade extends Notification {
-    private ID user;
+    private ID user, tradeID;
     private List<ID> offer;
     private boolean accepted;
-    private ID tradeID;
     private int part;
 
     public HalfTrade(ID trade, ID user, int part) {
