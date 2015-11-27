@@ -278,19 +278,29 @@ public class Skill extends Stringeable {
     public void setImage(Image image, int pos) {
         this.images.set(pos, image);
     }
+
+    // Better Specific Method
     public Image getImage(int pos) {
         return images.get(pos);
     }
 
+    @Deprecated
     public Image getImage() {
         return images.size() == 0 ? new NullImage() : images.get(0);
     }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
     public void addImage(Image image) {
         images.add(image);
     }
+
     public void removeImage(Image image) {
         images.remove(image);
     }
+
     //Traditional getter and setter methods for the private attribute name
     public String getName() {
         return name;

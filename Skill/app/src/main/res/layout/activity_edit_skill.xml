@@ -28,68 +28,74 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.EditSkill">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/name"
+        android:id="@+id/Name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
     <EditText
         android:id="@+id/new_skill_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:hint="@string/new_skill_name"
         android:maxLength="40"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#057777" />
-
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="75dp"
-        android:id="@+id/horizontalScrollView2"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#057777"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/new_skill_name"
-        android:background="@drawable/button_with_border"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/add_skill_to_database">
+        android:layout_below="@+id/Name" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imageLayout">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:layout_below="@+id/button"
-                android:layout_toStartOf="@+id/is_visible" />
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take Image"
-        android:id="@+id/button"
-        android:layout_below="@+id/new_skill_name"
-        android:layout_alignParentStart="true"
+        android:id="@+id/takeImage"
         android:onClick="addNewImage"
-        android:layout_alignStart="@id/horizontalScrollView2"
-        android:layout_toStartOf="@+id/horizontalScrollView2"
-        android:layout_above="@+id/new_skill_description" />
+        android:src="@drawable/ic_action_image_camera_alt"
+        android:layout_alignTop="@+id/Desc"
+        android:contentDescription="@string/photo_alt" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageList"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/is_visible"
+        android:layout_alignLeft="@+id/takeImage"
+        android:layout_below="@+id/takeImage"
+        android:layout_alignRight="@+id/takeImage"
+        android:layout_above="@+id/category_spinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Description:"
+        android:id="@+id/Desc"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:layout_toRightOf="@+id/takeImage"
+        android:layout_below="@+id/new_skill_name" />
 
     <EditText
         android:id="@+id/new_skill_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentStart="false"
         android:hint="@string/new_skill_description"
         android:inputType="textMultiLine"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#057777"
-        android:layout_above="@+id/category_spinner"
-        android:layout_below="@+id/horizontalScrollView2" />
+        android:maxLines="4"
+        android:layout_below="@+id/Desc"
+        android:layout_toRightOf="@+id/imageList" />
 
     <CheckBox
         android:layout_width="wrap_content"
