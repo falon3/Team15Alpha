@@ -89,6 +89,12 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         rating = (RatingBar) findViewById(R.id.ratingBar2);
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        refresh();
+    }
+
     public void refresh() {
         setSkillTitle(currentSkill.getName());
         setSkillCategory(currentSkill.getCategory());
@@ -104,7 +110,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         }
         // It's initially set to "Add Skill"
 
-        rating.setNumStars(currentSkill.getRating());
+        rating.setRating(currentSkill.getRating());
         if (masterController.userHasSkill(currentSkill))
             rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
@@ -112,12 +118,6 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
                     currentSkill.addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
                 }
             });
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        refresh();
     }
 
     public void setSkillTitle(String text){

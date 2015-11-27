@@ -112,7 +112,6 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
 
-
         masterController = new MasterController();
 
         items = new ArrayList<Stringeable>();

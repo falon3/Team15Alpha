@@ -75,9 +75,12 @@ package com.skilltradiez.skilltraderz;
  *      So when we actually have one of these objects, since it is so critical and SO core
  *      to the application we're going to actually need to update the database itself with
  *      the object!
- *
  */
 
+/**
+ * Neither Trade nor HalfTrade use notifyDB
+ * because their commit methods are called by TradesList and Trade, respectively
+ */
 public class Trade extends Stringeable {
     private ID tradeID;
     private HalfTrade half1, half2;

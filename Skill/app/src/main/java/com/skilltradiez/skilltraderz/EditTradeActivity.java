@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 /**~~DESCRIPTION:
  * Since trading is THE major selling point of this application it would only make sense for
@@ -69,32 +72,131 @@ import org.w3c.dom.Text;
  */
 
 public class EditTradeActivity extends GeneralMenuActivity {
-    private TextView tradeTitle;
-    private ArrayAdapter<Skill> skillAdapter;
-    private ListView skillsInTrade;
-    private EditText tradeNotes;
-    private Button sendTrade;
-    private Button cancelTrade;
-    private Button addSkillToTrade;
+    private TradeAdapter offerAdapter, yourInvAdapter, requestAdapter, otherInvAdapter;
+    private ListView offerList, yourInvList, requestList, otherInvList;
+
+    private TextView tradeTitle, otherInvTitle;
+    private Button sendTrade, cancelTrade;
+
+    private ArrayList<Skill> offer, yourInv, request, otherInv;
+    private User activeUser, passiveUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
 
-        tradeTitle = (TextView) findViewById(R.id.trading_with);
+        masterController = new MasterController();
+        Bundle profileExtras = getIntent().getExtras();
 
-        //skillsInTrade = (ListView) findViewById(R.id.skill);
+        // Get active and passive Users
+        ID userID = (ID)profileExtras.get("active_id");
+        activeUser = DatabaseController.getAccountByUserID(userID);
+        userID = (ID)profileExtras.get("passive_id");
+        passiveUser = DatabaseController.getAccountByUserID(userID);
+
+        //Init Lists
+        offer = new ArrayList<Skill>();
+        yourInv = new ArrayList<Skill>();
+        request = new ArrayList<Skill>();
+        otherInv = new ArrayList<Skill>();
+
+        // Get UI elements
+        sendTrade = (Button) findViewById(R.id.sendTrade);
+        cancelTrade = (Button) findViewById(R.id.deleteTrade);
+
+        tradeTitle = (TextView) findViewById(R.id.trading_with);
+        otherInvTitle = (TextView) findViewById(R.id.other_inv);
+
+        offerList = (ListView) findViewById(R.id.offerList);
+        yourInvList = (ListView) findViewById(R.id.your_invList);
+
+        requestList = (ListView) findViewById(R.id.requestList);
+        otherInvList = (ListView) findViewById(R.id.other_invList);
+
+        offerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Skill skill = (Skill) parent.getItemAtPosition(position);
+                offer.remove(skill);
+                yourInv.add(skill);
+
+                offerAdapter.notifyDataSetChanged();
+                yourInvAdapter.notifyDataSetChanged();
+            }
+        });
+
+        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Skill skill = (Skill) parent.getItemAtPosition(position);
+                request.remove(skill);
+                otherInv.add(skill);
+
+                requestAdapter.notifyDataSetChanged();
+                otherInvAdapter.notifyDataSetChanged();
+            }
+        });
+
+        yourInvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Skill skill = (Skill) parent.getItemAtPosition(position);
+                yourInv.remove(skill);
+                offer.add(skill);
+
+                offerAdapter.notifyDataSetChanged();
+                yourInvAdapter.notifyDataSetChanged();
+            }
+        });
+
+        otherInvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Skill skill = (Skill) parent.getItemAtPosition(position);
+                otherInv.remove(skill);
+                request.add(skill);
+
+                requestAdapter.notifyDataSetChanged();
+                otherInvAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
-    public void addSkillToTrade(View view){
-        Context context = getApplicationContext();
-        Toast.makeText(context, "Doesn't work yet whoops!", Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(EditTradeActivity.this, InventoryActivity.class);
-        startActivity(intent);*/
+    @Override
+    public void onStart() {
+        super.onStart();
+        tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
+        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
+
+        loadItems();
+        offerList.setAdapter(offerAdapter);
+        yourInvList.setAdapter(yourInvAdapter);
+        requestList.setAdapter(requestAdapter);
+        otherInvList.setAdapter(otherInvAdapter);
+
+        offerAdapter.notifyDataSetChanged();
+        yourInvAdapter.notifyDataSetChanged();
+        requestAdapter.notifyDataSetChanged();
+        otherInvAdapter.notifyDataSetChanged();
+    }
+
+    private void loadItems() {
+        DatabaseController.refresh();
+
+        // Fill four Lists
+        yourInv.addAll(activeUser.getInventory().cloneSkillz(MasterController.getUserDB()));
+        otherInv.addAll(passiveUser.getInventory().cloneSkillz(MasterController.getUserDB()));
+        //offer and request begin empty
+
+        offerAdapter = new TradeAdapter(this, offer);
+        requestAdapter = new TradeAdapter(this, request);
+        yourInvAdapter = new TradeAdapter(this, yourInv, true);
+        otherInvAdapter = new TradeAdapter(this, otherInv, true);
     }
 
     public void deleteRequest(View view){
+        //TODO delete the trade
         Context context = getApplicationContext();
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
         /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
@@ -102,10 +204,12 @@ public class EditTradeActivity extends GeneralMenuActivity {
     }
 
     public void sendTrade(View view){
+        //TODO Send The Trade
+        Trade trade = activeUser.getTradeList().createTrade(MasterController.getUserDB(), activeUser, passiveUser, offer, request);
+
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
         /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
         startActivity(intent);*/
-
     }
 }
