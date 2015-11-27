@@ -115,15 +115,18 @@
         android:checked="true"
         android:visibility="invisible"
         android:layout_above="@+id/inventory"
-        android:layout_alignStart="@+id/user_name" />
+        android:layout_alignStart="@+id/user_name"
+        android:clickable="true"
+        android:enabled="true"
+        android:onClick="toggleAutoImgDownloads" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
-        android:layout_above="@+id/inventory"
-        android:layout_centerHorizontal="true"
-        android:numStars="0" />
+        android:numStars="0"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"

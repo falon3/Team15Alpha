@@ -169,12 +169,6 @@ public class ProfileActivity extends GeneralMenuActivity {
 
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    toggleAutoImgDownloads();
-                }
-            });
 
             ratingBar.setEnabled(false);
         } else {
@@ -187,8 +181,8 @@ public class ProfileActivity extends GeneralMenuActivity {
         }
     }
 
-    private void toggleAutoImgDownloads() {
-        checkBox.setChecked(!checkBox.isChecked());
+    public void toggleAutoImgDownloads(View v) {
+        owner.getProfile().setShouldDownloadImages(checkBox.isChecked());
     }
 
     @Override

@@ -9,10 +9,16 @@ import java.util.HashMap;
  *  - Skill Ratings are how difficult/good a skill is
  *  - User Ratings are a measurement of their personal Skill Teaching Ability
  */
-public class Rating{
+public class Rating<T> extends Notification {
+    private ID id;
     private HashMap<String, Integer> rating;
-    Rating() {
+    Rating(ID id) {
         rating = new HashMap<String, Integer>();
+        this.id = id;
+    }
+
+    public ID getId() {
+        return id;
     }
 
     /**
@@ -38,5 +44,10 @@ public class Rating{
         if (rating.containsKey(username))
             rating.remove(username);
         rating.put(username, rate);
+    }
+
+    @Override
+    boolean commit(UserDatabase userDB) {
+        return false;
     }
 }
