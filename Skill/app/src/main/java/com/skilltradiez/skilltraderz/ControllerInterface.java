@@ -17,8 +17,6 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Created by Stephen on 2015-11-23.
- */
+
 public interface ControllerInterface {
 }

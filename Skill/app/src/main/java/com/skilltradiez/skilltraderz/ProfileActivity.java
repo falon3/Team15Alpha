@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,16 +115,18 @@ import android.widget.Toast;
 public class ProfileActivity extends GeneralMenuActivity {
     private Bundle profileExtras;
     private String userProfileName;
+    private TextView userContactInfo;
 
     private User owner;
     private Boolean hasFriend;
 
     private Context profileContext = this;
 
+    private Button contactInfo;
     private Button addRemoveFriend;
     private Button startTrade;
     private Button viewInventory;
-    private TextView userContactInfo;
+    private EditText newEmail;
     private TextView profileTitle;
 
     @Override
@@ -135,11 +138,13 @@ public class ProfileActivity extends GeneralMenuActivity {
         profileExtras = getIntent().getExtras();
         userProfileName = profileExtras.getString("user_name_for_profile");
 
+        contactInfo = (Button) findViewById(R.id.contact_button);
         addRemoveFriend = (Button) findViewById(R.id.add_friend);
         startTrade = (Button) findViewById(R.id.maketrade);
         viewInventory = (Button) findViewById(R.id.inventory);
-        userContactInfo = (TextView) findViewById(R.id.user_description);
+        newEmail = (EditText) findViewById(R.id.edit_contact);
         profileTitle = (TextView) findViewById(R.id.user_name);
+        userContactInfo = (TextView) findViewById(R.id.user_description);
 
         populateProfile();
         profileTitle.setText(userProfileName);
@@ -205,6 +210,21 @@ public class ProfileActivity extends GeneralMenuActivity {
         //do not show start trade button
         Intent intent = new Intent(profileContext, EditTradeActivity.class);
         startActivity(intent);
+    }
+
+    public void editContactInformation(View view){
+        final Context context = getApplicationContext();
+        final String email;
+        if(newEmail.getText().toString().isEmpty()){
+            Toast.makeText(context, "You didn't enter a new email!", Toast.LENGTH_SHORT).show();
+        }else {
+            email = newEmail.getText().toString();
+            //initialize this up top like other ones above
+            owner.getProfile().setEmail(email);
+            userContactInfo.setText(owner.getProfile().getEmail());
+            DatabaseController.save();
+            //save new info through whatever master controller
+        }
     }
 
     public void addRemoveFriend(View view){

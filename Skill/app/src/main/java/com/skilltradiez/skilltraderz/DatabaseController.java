@@ -44,10 +44,10 @@ public final class DatabaseController implements ControllerInterface{
     //This refresh method damn well belongs in the controller.
     /**
      * Downloads all online data into a local cache
-     * TODO: DONE BY COLE? DID IT WORK? save must be done before this or we might lose dataDONE
+     * TODO: debug why local changes offline don't persist once back online... not sure if problem is here
      */
     public static void refresh() {
-        save(); //Did save as todo asked... sufficient?
+        save();
         Elastic elastic = MasterController.getUserDB().getElastic();
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -82,8 +82,6 @@ public final class DatabaseController implements ControllerInterface{
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Set<Trade> trades = MasterController.getUserDB().getTrades();
 
-        //ToDo: IMPORTANT figure out how to save notifications locally!!!!!
-        //local.saveToFile(currentUser, users, skillz, trades, toBePushed.getNotifications());
         local.saveToFile(currentUser, users, skillz, trades, toBePushed);
         if (MainActivity.connected) {
             toBePushed.push(MasterController.getUserDB());
@@ -192,7 +190,6 @@ public final class DatabaseController implements ControllerInterface{
     }
 
     private static User getOnlineAccountByUsername(String username){
-        //TODO Maybe this should throw an exception instead of returning null.
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
         User u = null;
@@ -202,13 +199,6 @@ public final class DatabaseController implements ControllerInterface{
             if (u != null) users.add(u);
         } catch (IOException e) {
             System.err.println("Issue reading user from database." + e.getMessage());
-
-        }
-
-        /**Cole added this for the TODO **/
-
-        if (u == null){
-            //throw new UserDoesNotExistException("User does NOT exist");
         }
 
         return u;
@@ -275,7 +265,6 @@ public final class DatabaseController implements ControllerInterface{
         // New Skill
         changeList.add(s);
         try {
-            //TODO: Seems to be a problem for no apparent reason (Maybe the Network in UI Issue?)
             elastic.addDocument("skill", s.getSkillID().toString(), s);
         } catch (IOException e) {
             e.printStackTrace();

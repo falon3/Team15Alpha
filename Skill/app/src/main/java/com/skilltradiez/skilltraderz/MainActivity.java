@@ -89,7 +89,6 @@ import android.widget.Toast;
  *
  */
 
-
 public class MainActivity extends GeneralMenuActivity {
     private Context mainContext = this;
 
@@ -143,6 +142,7 @@ public class MainActivity extends GeneralMenuActivity {
         actionBar.setHomeButtonEnabled(true);
         //masterController.initializeArrayListForSkills();
 
+        // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -174,20 +174,7 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     /**
-     * Make a thread with a string. Used to search the database for a specific user or skill.
-     * @param
-     */
-    public void makeSearchThread(String stringToSearch){
-        /*
-        Like in the lab Get a string and search
-        SearchThread thread = new SearchThread(string);
-        thread.start();*/
-        //TODO: Use this or remove this
-    }
-
-    /**
      * Create a new user when you first open up the app.
-     *
      */
     private static User new_guy = null;
     public void newUser(View view){

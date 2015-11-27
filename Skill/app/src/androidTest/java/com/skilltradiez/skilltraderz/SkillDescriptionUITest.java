@@ -23,10 +23,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.mock.MockContext;
 import android.widget.Button;
 
-
-/**
- * Created by nweninge on 11/21/15.
- */
 public class SkillDescriptionUITest extends ActivityInstrumentationTestCase2 {
     public SkillDescriptionUITest() {
         super(SkillDescriptionActivity.class);

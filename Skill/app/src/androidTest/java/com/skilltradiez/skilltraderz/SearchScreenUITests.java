@@ -20,9 +20,6 @@ package com.skilltradiez.skilltraderz;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
-/**
- * Created by Stephen on 2015-11-21.
- */
 public class SearchScreenUITests extends ActivityInstrumentationTestCase2 {
     SearchScreenUITests() {
         super(com.skilltradiez.skilltraderz.SearchScreenActivity.class);

@@ -62,9 +62,7 @@ import android.widget.TextView;
  *     This is going to be the entire process of adding or removing a skill from a skill description
  *     when we actually have the user interact with the UI to call this method that will
  *     allow them to add or remove a damn skill.
- *
  */
-
 
 public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Skill currentSkill;

@@ -32,6 +32,7 @@ import java.util.List;
  * This can be useful in telling us how many times the search was done, whether it worked or failed.
  *
  */
+
 public class UserSearchResponse {
     private int took;
     private boolean timed_out;

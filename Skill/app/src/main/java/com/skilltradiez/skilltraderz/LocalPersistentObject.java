@@ -91,10 +91,6 @@ import java.util.List;
  *
  */
 
-
-/**
- * Created by Falon3 on 2015-11-04.
- */
 public class LocalPersistentObject {
     private User currentUser; // Profile, Inventory, Friendslist
     private Collection<User> users; // Friends Profiles, Inventories

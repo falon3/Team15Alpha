@@ -96,8 +96,6 @@ import java.util.Collection;
  *
  */
 
-
-
 public class Local {
     LocalPersistentObject save_object = null;
     private static final String SAVE_FILE = "/sdcard/save_file.sav";

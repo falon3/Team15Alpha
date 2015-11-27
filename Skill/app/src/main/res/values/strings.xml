@@ -67,6 +67,7 @@
     <string name="new_skill_description">Describe your new skill</string>
     <string name="new_skill_category">What category of skill is your new skill</string>
     <string name="is_visible">Visible</string>
+    <string name="edit_email_button">Edit Contact</string>
 
     <!-- Categories -->
     <string-array name="category_spinner_strings">

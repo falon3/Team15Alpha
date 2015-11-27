@@ -115,7 +115,6 @@ import android.widget.Toast;
  * Nothing. This is created during the onStart() method.
  */
 
-
 public class EditSkillActivity extends GeneralMenuActivity {
     private Skill skillToEdit;
     private EditText skillName;
@@ -233,9 +232,7 @@ public class EditSkillActivity extends GeneralMenuActivity {
     /**
      * add skill to the database
      */
-    public void addNewSkill(View view) {
-        //Character limit of skill name set to 40 characters
-        //TODO: is the previous comment a TODO?
+    public void addNewSkill(View view){
         String name = skillName.getText().toString();
         String description = skillDescription.getText().toString();
         String category = skillCategory.getSelectedItem().toString();
