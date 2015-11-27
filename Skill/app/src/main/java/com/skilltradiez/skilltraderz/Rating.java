@@ -1,5 +1,6 @@
 package com.skilltradiez.skilltraderz;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -9,16 +10,21 @@ import java.util.HashMap;
  *  - Skill Ratings are how difficult/good a skill is
  *  - User Ratings are a measurement of their personal Skill Teaching Ability
  */
-public class Rating<T> extends Notification {
-    private ID id;
+public class Rating extends Notification {
+    private String type, id;
     private HashMap<String, Integer> rating;
-    Rating(ID id) {
+    Rating(String type, String id) {
         rating = new HashMap<String, Integer>();
+        this.type = type;
         this.id = id;
     }
 
-    public ID getId() {
+    public String getId() {
         return id;
+    }
+
+    public String getType() {
+        return type;
     }
 
     /**
@@ -48,6 +54,17 @@ public class Rating<T> extends Notification {
 
     @Override
     boolean commit(UserDatabase userDB) {
-        return false;
+        //TODO commit this to it's user/skill
+        try {
+            if (type.equals("skill")) {
+                userDB.getElastic().updateDocument(type, id, this, "rating");
+            } else {
+                userDB.getElastic().updateDocument(type, id, this, "profile/" + "rating");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

@@ -241,7 +241,7 @@ public class Skill extends Stringeable {
         setDescription(description);
         setImage(image.getInt());
 
-        rating = new Rating();
+        rating = new Rating("skill", skillID.toString());
 
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
@@ -258,7 +258,7 @@ public class Skill extends Stringeable {
         setDescription(skill.getDescription());
         setImage(skill.getImage());
 
-        rating = new Rating();
+        rating = new Rating("skill", skillID.toString());
 
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
@@ -392,7 +392,7 @@ public class Skill extends Stringeable {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return rating.commit(userDB);
     }
 
     public int getNumOwners() {
