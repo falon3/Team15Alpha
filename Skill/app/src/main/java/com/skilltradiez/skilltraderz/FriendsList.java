@@ -128,43 +128,58 @@ import java.util.List;
  * FriendsList manages confirmed, pending and blocked friends for a single user.
  */
 public class FriendsList extends Notification {
+    /**Local Class Variables
+     * 1: owner, an ID Object that is identifying the owner of this FriendsList Object.
+     * 2: friendsList, a list of ID Objects that are going to be the ID Objects corresponding
+     *     to the friends of this user who owns this FriendsList Object.
+     */
     private ID owner;
     private List<ID> friendsList;
 
+    /**CONSTRUCTOR:
+     * Takes in the ID Object for the owner of this FriendsList Object and will assign the
+     * local variable owner to the ID passed into the constructor. And then it will instantiate
+     * a new ArrayList of ID objects.
+     *
+     * @param owner_id ID Object representing the owner of the FriendsList.
+     */
     FriendsList(ID owner_id) {
         owner = owner_id;
         friendsList = new ArrayList<ID>();
     }
 
+
     /**
-     * Gets the owner of this friend list.
+     * Returns the ID Object for the owner of the FriendsList Object.
+     * @return ID Object
      */
     public ID getOwner() {
         return owner;
     }
 
+
     /**
-     * Gets a list of confirmed friends.
-     *
-     * @return A list of their UserIDs.
+     * When invoked, will return the list of friends from the FriendsList Object.
+     * @return List of ID Objects.
      */
     public List<ID> getFriends() {
         return friendsList;
     }
 
+
     /**
-     * Remove a friend from this friend list.
-     *
-     * @param terrible_person the user to remove.
+     * Removes the passed in User Object parameter from the FriendsList. Notifies DB of change.
+     * @param terrible_person User Object.
      */
     public void removeFriend(User terrible_person) {
         friendsList.remove(terrible_person.getUserID());
         notifyDB();
     }
 
+
     /**
-     * Both users become each others friends.
-     * @param great_person The user to add as a friend to this user and vice versa.
+     * Adds the passed in User Object parameter to the FriendsList. Notifies DB of change.
+     * @param great_person User Object.
      */
     public void addFriend(User great_person) {
         if (hasFriend(great_person)) return;
@@ -172,16 +187,21 @@ public class FriendsList extends Notification {
         notifyDB();
     }
 
+
     /**
-     * Indicates if another user is currently a friend of this user.
-     *
-     * @param that_guy the user to check
-     * @return a boolean indicating if they are a friend
+     * Will return true/false if the passed in User Object is present in the FriendsList.
+     * @param that_guy User Object.
+     * @return Boolean. True/False.
      */
     public boolean hasFriend(User that_guy) {
         return friendsList.contains(that_guy.getUserID());
     }
 
+    /**
+     * When invoked, this method will take in the user database and will update the elastic/DB.
+     * @param userDB UserDatabase Object.
+     * @return Boolean. True/False.
+     */
     public boolean commit(UserDatabase userDB) {
         User owner = DatabaseController.getAccountByUserID(getOwner());
         try {

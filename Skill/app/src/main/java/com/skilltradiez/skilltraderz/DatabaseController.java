@@ -56,17 +56,26 @@ public final class DatabaseController implements ControllerInterface{
     /**
      * Returns the user database object, the one used for the entire application.
      * This method should not be called EVER outside of controllers to follow strict MVC methods.
-     * 
-     * @return
+     * ...Please... :(
+     *
+     * @return UserDatabase object, the core database of the application.
      */
     public UserDatabase getUserDB() {
         return userDB;
     }
 
-    //This refresh method damn well belongs in the controller.
+
     /**
      * Downloads all online data into a local cache
      * TODO: debug why local changes offline don't persist once back online... not sure if problem is here
+     */
+
+
+    /**
+     * This method when invoked will take all of the current various parts of the model of
+     * the application and put them into the database.
+     * Upon failure, will return an IOException.
+     * @throws IOException
      */
     public static void refresh() {
         save();
@@ -95,6 +104,10 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
+    /**
+     * This method when called will update the MasterController's model with the current data
+     * within the application.
+     */
     public static void save() {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
@@ -110,6 +123,10 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
+    /**
+     * Will morbidly destroy all data from the models within the application and elastic.
+     * @throws IOException
+     */
     public static void deleteAllData() {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
@@ -134,30 +151,47 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
-    //Add a trade
-    public static void addTrade(Trade t) {
+
+    /**
+     * This method will take in a trade object and add it to the model in the application.
+     * @param trade Trade Object.
+     * @throws IOException
+     */
+    public static void addTrade(Trade trade) {
         Set<Trade> trades = MasterController.getUserDB().getTrades();
-        trades.add(t);
+        trades.add(trade);
         // New Trade
-        MasterController.getUserDB().getChangeList().add(t);
+        MasterController.getUserDB().getChangeList().add(trade);
         try {
-            MasterController.getUserDB().getElastic().addDocument("trade", t.getTradeID().toString(), t);
+            MasterController.getUserDB().getElastic().addDocument("trade", trade.getTradeID().toString(), trade);
         } catch (IOException e) {
             //TODO this is bad and the user won't even know
             e.printStackTrace();
         }
     }
 
-    public static void addImage(Image i) {
+
+    /**
+     * Will take in an image object and it will add the image object to the model of the application
+     * @param image Image Object.
+     */
+    public static void addImage(Image image) {
         Set<Image> images = MasterController.getUserDB().getImagez();
-        images.add(i);
-        MasterController.getUserDB().getChangeList().add(i);
-        i.notifyDB();
+        images.add(image);
+        MasterController.getUserDB().getChangeList().add(image);
+        image.notifyDB();
         save();
     }
 
-    //When we have a new user... we call upon the controller here to interact with the database
-    //in order to create a brand new user. Returns this brand new user!
+
+
+    /**
+     *When we have a new user... we call upon the controller here to interact with the database
+     *in order to create a brand new user. Returns this brand new user!
+     * @param usernameGiven String input.
+     * @param emailGiven String input.
+     * @return User Object
+     */
     public static User createNewUser(String usernameGiven, String emailGiven){
         User new_guy = null;
         try {
@@ -171,6 +205,11 @@ public final class DatabaseController implements ControllerInterface{
         return new_guy;
     }
 
+    /**
+     * Given an ID object, will return the user where the ID matches.
+     * @param id ID Object
+     * @return User Object.
+     */
     public static User getAccountByUserID(ID id) {
         Set<User> users = MasterController.getUserDB().getUsers();
         for (User u : users)
@@ -179,7 +218,14 @@ public final class DatabaseController implements ControllerInterface{
         return null;
     }
 
-    //Moved create user functionality to this new area
+    /**
+     * This method when called is going to be involved in creating a new user and all tasks that are
+     * involved with the creation of said user.
+     * @param username String input
+     * @return User Object.
+     * @throws UserAlreadyExistsException
+     * @throws IOException
+     */
     public static User createUser(String username) throws UserAlreadyExistsException {
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -200,18 +246,33 @@ public final class DatabaseController implements ControllerInterface{
         return u;
     }
 
-    //Login functionality
+    /**
+     * Create a new User object with the username given and return the User object.
+     * @param username String input.
+     * @return User Object.
+     */
     public static User login(String username) {
         User u = getAccountByUsername(username);
         MasterController.getUserDB().setCurrentUser(u);
         return u;
     }
 
+    /**
+     * Returns a boolean stating TRUE-- the user is logged in. Or FALSE-- where the user is not
+     * logged in.
+     * @return Boolean. True/False.
+     */
     public static boolean isLoggedIn() {
         User currentUser = MasterController.getUserDB().getCurrentUser();
         return currentUser != null;
     }
 
+    /**
+     * Returns a User object where the username passed in matches a User object.
+     * This is paired with the getOnlineAccountByID in this class.
+     * @param username String input.
+     * @return User Object.
+     */
     public static User getAccountByUsername(String username) {
         Set<User> users = MasterController.getUserDB().getUsers();
         for (User u : users)
@@ -220,6 +281,13 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineAccountByUsername(username);
     }
 
+    /**
+     *Returns a User object where the username passed to the method matches a User object.
+     * This IS going to look at the elastic / online database information.
+     * @param username String input.
+     * @return User Object.
+     * @throws IOException
+     */
     private static User getOnlineAccountByUsername(String username){
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -235,9 +303,13 @@ public final class DatabaseController implements ControllerInterface{
         return u;
     }
 
-    /** Get by ID functions
-     * Each public method is paired with a private method that goes in depth.
-     * **/
+
+    /**
+     * Returns a Trade object where the ID passed in matches a Trade object.
+     * This is paired with the getOnlineTradeByID method in this class.
+     * @param id ID Object.
+     * @return Trade Object.
+     */
 
     public static Trade getTradeByID(ID id) {
         Set<Trade> trades = MasterController.getUserDB().getTrades();
@@ -247,7 +319,13 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineTradeByID(id);
     }
 
-    //Associated with above function.
+    /**
+     * Returns a Trade object where the ID passed in matches a Trade object.
+     * This IS GOING TO be looking at the elastic / online database information.
+     * @param id ID Object.
+     * @return Trade Object.
+     * @throws IOException
+     */
     private static Trade getOnlineTradeByID(ID id) {
         Set<Trade> trades = MasterController.getUserDB().getTrades();
         Elastic elastic = MasterController.getUserDB().getElastic();
@@ -262,6 +340,12 @@ public final class DatabaseController implements ControllerInterface{
         return t;
     }
 
+    /**
+     * Returns a Skill object where the ID passed in matches a Skill object.
+     * This is paired with the getOnlineSkillByID method in this class.
+     * @param id ID Object.
+     * @return ID Object.
+     */
     public static Skill getSkillByID(ID id) {
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         for (Skill s : skillz)
@@ -270,30 +354,14 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineSkillByID(id);
     }
 
-    public static Image getImageByID(ID id) {
-        Set<Image> images = MasterController.getUserDB().getImagez();
-        for (Image i : images)
-            if (i.getID().equals(id))
-                return i;
-        return getOnlineImageByID(id);
-    }
 
-    private static Image getOnlineImageByID(ID id) {
-        Set<Image> images = MasterController.getUserDB().getImagez();
-        Elastic elastic = MasterController.getUserDB().getElastic();
-        Image i = null;
-        try {
-            i = elastic.getDocumentImage(id.toString());
-            if (i != null) {
-                images.add(i);
-                MasterController.getUserDB().getChangeList().add(i);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return i;
-    }
-
+    /**
+     * Returns a Skill object where the ID passed in matches a Skill object.
+     * This is IS GOING TO be looking at the elastic / online database information.
+     * @param id ID Object.
+     * @return Skill Object.
+     * @throws IOException
+     */
     private static Skill getOnlineSkillByID(ID id) {
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Elastic elastic = MasterController.getUserDB().getElastic();
@@ -310,35 +378,98 @@ public final class DatabaseController implements ControllerInterface{
         return s;
     }
 
-    /**Adding a skill **/
-    public static void addSkill(Skill s) {
+    /**
+     * Returns an Image object where the ID passed in matches an Image object.
+     * This is paired with the getOnlineImageByID method in this class.
+     * @param id ID Object.
+     * @return Image Object.
+     */
+    public static Image getImageByID(ID id) {
+        Set<Image> images = MasterController.getUserDB().getImagez();
+        for (Image i : images)
+            if (i.getID().equals(id))
+                return i;
+        return getOnlineImageByID(id);
+    }
+
+
+    /**
+     * Returns an Image object where the ID passed in matches an Image object.
+     * This IS GOING TO be looking at the elastic / online database information.
+     * @param id ID Object.
+     * @return Image Object.
+     * @throws IOException
+     */
+    private static Image getOnlineImageByID(ID id) {
+        Set<Image> images = MasterController.getUserDB().getImagez();
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        Image i = null;
+        try {
+            i = elastic.getDocumentImage(id.toString());
+            if (i != null) {
+                images.add(i);
+                MasterController.getUserDB().getChangeList().add(i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+
+    /**
+     * Add a Skill object passed to this method to the model of this application.
+     * @param skill Skill Object
+     * @throws IOException
+     */
+    public static void addSkill(Skill skill) {
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         ChangeList changeList = MasterController.getUserDB().getChangeList();
         Elastic elastic = MasterController.getUserDB().getElastic();
 
-        skillz.add(s);
+        skillz.add(skill);
         // New Skill
-        changeList.add(s);
+        changeList.add(skill);
         try {
-            elastic.addDocument("skill", s.getSkillID().toString(), s);
+            elastic.addDocument("skill", skill.getSkillID().toString(), skill);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /** Delete Document block of functions. These look WAY more controller-like than model **/
+    /**
+     * Deletes the given User object from the model of the application.
+     * @param user User Object.
+     */
     public static void deleteDocumentUser(User user) {
         deleteDocumentUser(user.getUserID());
     }
 
+    /**
+     * Deletes the given Skill object from the model of the application.
+     * @param skill Skill Object
+     */
     public static void deleteDocumentSkill(Skill skill) {
         deleteDocumentSkill(skill.getSkillID());
     }
 
+    /**
+     * Deletes the given Trade object from the model of the application.
+     * @param trade Trade Object
+     */
     public static void deleteDocumentTrade(Trade trade) {
         deleteDocumentTrade(trade.getTradeID());
     }
 
+    /**
+     * Deletes the given ID (USER ID!) from the model of the application.
+     * Yes, if you look at the code it looks similar to the other delete document functions.
+     * BUT there is a very critical string flag that is going to differentiate to the elastic
+     * function on WHAT is being deleted.
+     * @param userID ID Object for a particular USER.
+     * @throws IOException
+     */
     public static void deleteDocumentUser(ID userID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
@@ -348,6 +479,14 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
+    /**
+     * Deletes the given ID (SKILL ID!) from the model of the application.
+     * Yes, if you look at the code it looks similar to the other delete document functions.
+     * BUT there is a very critical string flag that is going to differentiate to the elastic
+     * function on WHAT is being deleted.
+     * @param skillID ID object for a particular SKILL.
+     * @throws IOException
+     */
     public static void deleteDocumentSkill(ID skillID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
@@ -357,6 +496,14 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
+    /**
+     * Deletes the given ID (TRADE ID!) from the model of the application.
+     * Yes, if you look at the code it looks similar to the other delete document functions.
+     * BUT there is a very critical string flag that is going to differentiate to the elastic
+     * function on WHAT is being deleted.
+     * @param tradeID ID Object for a particular TRADE.
+     * @throws IOException
+     */
     public static void deleteDocumentTrade(ID tradeID) {
         Elastic elastic = MasterController.getUserDB().getElastic();
         try {
@@ -366,6 +513,16 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
+    /**
+     * This method will update the elastic document paired with the user database with the
+     * updated information passed into this method.
+     * @param type Input string for a type, NOT an Object.
+     * @param id Input string for an ID, NOT an Object.
+     * @param data Elastic search requires the use of a T type.
+     * @param path Input string for a path to be utilized by elastic. NOT an Object.
+     * @param <T> Elastic Search requires a T type to be utilized.
+     * @throws IOException
+     */
     public static  <T> void  updateElasticDocument(String type, String id, T data, String path) throws IOException{
         userDB.getElastic().updateDocument(type, id, data, path);
     }

@@ -20,6 +20,10 @@ import java.util.List;
 public class CameraActivity extends GeneralMenuActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    /**Class variables
+     * 1: lastImage, a Bitmap Object variable holding the last image utilized in the application.
+     * 2: images, a list of Image Objects holding all of the images relevant to the application.
+     */
     private Bitmap lastImage;
     private List<Image> images;
 
@@ -33,7 +37,7 @@ public class CameraActivity extends GeneralMenuActivity {
     /**
      * Will invoke the method to start taking an image.
      *
-     * @param view
+     * @param view View Object. (UI related.)
      */
     public void addNewImage(View view) {
         startTakingImage();
@@ -41,8 +45,8 @@ public class CameraActivity extends GeneralMenuActivity {
 
     /**
      * Remove the image passed into the method from the images file
-     * @param view
-     * @param toBeRemoved
+     * @param view View Object. (UI related.)
+     * @param toBeRemoved Image Object.
      */
     public void deleteImage(View view, Image toBeRemoved) {
         images.remove(toBeRemoved);
@@ -50,8 +54,8 @@ public class CameraActivity extends GeneralMenuActivity {
 
     /**
      * If we already have an image, delete the old image and invoke method to take a new one.
-     * @param view
-     * @param toBeRemoved
+     * @param view View Object.
+     * @param toBeRemoved Image Object.
      */
     public void retakeImage(View view, Image toBeRemoved) {
         deleteImage(view, toBeRemoved);
@@ -61,7 +65,7 @@ public class CameraActivity extends GeneralMenuActivity {
 
     /**
      * When invoked will start a new activity involving taking a picture with the device's camera.
-     * @return
+     * @return Bitmap Object.
      */
     public Bitmap startTakingImage() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -73,9 +77,9 @@ public class CameraActivity extends GeneralMenuActivity {
     /**
      * Method will take a new image and add the image to the images through the database controller
      * and the images.add method.
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode Integer.
+     * @param resultCode Integer.
+     * @param data Intent Object. (UI Related.)
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -91,7 +95,7 @@ public class CameraActivity extends GeneralMenuActivity {
 
     /**
      * Returns the last image
-     * @return
+     * @return Bitmap Object.
      */
     public Bitmap getLastImage() {
         return lastImage;
@@ -99,7 +103,7 @@ public class CameraActivity extends GeneralMenuActivity {
 
     /**
      * Will assign the (class local) images variable to the passed in image list parameter.
-     * @param images
+     * @param images List of Image Objects.
      */
     public void setImages(List<Image> images) {
         this.images = images;
@@ -107,7 +111,7 @@ public class CameraActivity extends GeneralMenuActivity {
 
     /**
      * Return the (class local) images variable.
-     * @return
+     * @return List of Image Objects.
      */
     public List<Image> getImages() {
         return images;

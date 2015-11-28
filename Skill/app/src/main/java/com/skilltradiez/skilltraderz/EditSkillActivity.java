@@ -121,6 +121,19 @@ import java.util.List;
  */
 
 public class EditSkillActivity extends CameraActivity {
+    /**Activity Class Variables:
+     * 1: ID_PARAM, used to identify the particular ID in string format.
+     * 2: skillToEdit, holds a Skill Object that will be edited by the user.
+     * 3: imageList, holds a list of Image Objects in a List View. (UI)
+     * 4: skillName, EditText Object that will display the name of the skill. (UI)
+     * 5: skillDescrption, EditText Object that will display the description of the skill. (UI)
+     * 6: skillCategory, Spinner Object displaying the various categories the user may see. (UI)
+     * 7: skillVisible, Button Object that will let the user click it to make their skill visible
+     *     or not. (UI)
+     * 8: addSkillToDB, Button Object that when clicked will add the skill to the database. (UI)
+     * 9: imageAdapter, will adapt the image to the application's screen. (UI)
+     * 10: adapter, will be involved in making many CharSequence objects relate to the UI. (UI)
+     */
     static String ID_PARAM = "skill_id";
     private Skill skillToEdit;
 
@@ -129,7 +142,6 @@ public class EditSkillActivity extends CameraActivity {
     private Spinner skillCategory;
     private CheckBox skillVisible;
     private Button addSkillToDB;
-
     private ImageAdapter imageAdapter;
     private ArrayAdapter<CharSequence> adapter;
 
@@ -138,6 +150,7 @@ public class EditSkillActivity extends CameraActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //Instantiate the critical MasterController object. Mandatory for application function.
         masterController = new MasterController();
 
         super.onCreate(savedInstanceState);
@@ -163,6 +176,7 @@ public class EditSkillActivity extends CameraActivity {
         skillCategory.setAdapter(adapter);
     }
 
+
     public void onStart() {
         super.onStart();
 
@@ -182,46 +196,86 @@ public class EditSkillActivity extends CameraActivity {
         imageAdapter.notifyDataSetChanged();
     }
 
+
+    /** METHODS **/
+
+    /**
+     * Notifies the imageAdapter that there is a new image to display.
+     * @param view View Object. (UI related.)
+     */
     @Override
     public void addNewImage(View view) {
         super.addNewImage(view);
         imageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Removes a supplied Image Object and then notifies the imageAdapter of the change.
+     * @param view View Object. (UI related.)
+     * @param toBeRemoved Image Object.
+     */
     @Override
     public void deleteImage(View view, Image toBeRemoved) {
         super.deleteImage(view, toBeRemoved);
         imageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * When invoked, will remove the current image and invoke the retakeImage method and notify adapter.
+     * @param view View Object.
+     * @param toBeRemoved Image Object.
+     */
     @Override
     public void retakeImage(View view, Image toBeRemoved) {
         super.retakeImage(view, toBeRemoved);
         imageAdapter.notifyDataSetChanged();
     }
 
+
+    /**
+     * Return the skillName EditText from the application UI.
+     * @return EditText Object. (UI)
+     */
     public EditText getSkillName() {
         return skillName;
     }
 
+    /**
+     * Returns the skillDescription EditText from the application UI.
+     * @return EditText Object. (UI)
+     */
     public EditText getSkillDescription() {
         return skillDescription;
     }
 
+    /**
+     * Returns the skillCategory Spinner from the application UI.
+     * @return Spinner Object. (UI)
+     */
     public Spinner getSkillCategory() {
         return skillCategory;
     }
 
+    /**
+     * Returns the addSkillToDB Button from the application UI.
+     * @return Button Object. (UI)
+     */
     public Button getAddSkillToDB() {
         return addSkillToDB;
     }
 
+    /**
+     * Returns the skillVisible CheckBox from the application UI.
+     * @return Checkbox Object. (UI)
+     */
     public CheckBox getSkillVisible() {
         return skillVisible;
     }
 
+
     /**
-     * add skill to the database
+     * Will add a new skill to the model, however beneath the hood involves many controller method calls.
+     * @param view View Object.
      */
     public void addNewSkill(View view){
         String name = skillName.getText().toString();
