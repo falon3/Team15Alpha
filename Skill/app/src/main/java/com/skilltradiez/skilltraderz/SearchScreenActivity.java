@@ -115,12 +115,17 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         masterController = new MasterController();
 
         items = new ArrayList<Stringeable>();
+
         searchExtras = getIntent().getExtras();
-        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
-        String filter = "All";
-        if (searchExtras.containsKey("filter")) {
-            filter = searchExtras.getString("filter");
+        try {
+            screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("SearchScreenActivity was not given the screenType");
         }
+        String filter = "All";
+        if (searchExtras.containsKey("filter"))
+            filter = searchExtras.getString("filter");
+
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
