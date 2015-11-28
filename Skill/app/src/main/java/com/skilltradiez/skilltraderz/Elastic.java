@@ -18,6 +18,8 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -246,7 +248,7 @@ public class Elastic {
     public <T> void addDocument(String type, String id, T data) throws IOException {
         type = URLEncoder.encode(type, "ISO-8859-1");
         id = URLEncoder.encode(id, "ISO-8859-1");
-        httpClient.post(baseUrl + type + "/" + id, gson.toJson(data));
+        Log.d("ELASTIC", httpClient.post(baseUrl + type + "/" + id, gson.toJson(data)));
     }
 
     /**
@@ -323,6 +325,15 @@ public class Elastic {
         String resp = httpClient.get(baseUrl + "trade" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<Trade>>() { }.getType();
         return ((GetResponse<Trade>)gson.fromJson(resp, getResponseType))._source;
+    }
+
+    public Image getDocumentImage(String id) throws IOException {
+        id = URLEncoder.encode(id, "ISO-8859-1");
+        String resp = httpClient.get(baseUrl + "image" + "/" + id);
+        Type getResponseType = new TypeToken<GetResponse<String>>() { }.getType();
+        Image.Imageb64 b64 = ((GetResponse<Image.Imageb64>)gson.fromJson(resp, getResponseType))._source;
+        byte[] decodedByte = Base64.decode(b64.data, 0);
+        return new Image(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length), new ID(Long.parseLong(id)));
     }
 
     /**

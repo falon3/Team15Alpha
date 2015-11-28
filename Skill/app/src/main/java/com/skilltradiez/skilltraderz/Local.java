@@ -106,7 +106,7 @@ public class Local {
         } catch (IOException e) {
             // Not sure what this means
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException("Local could not save");
         }
     }
 

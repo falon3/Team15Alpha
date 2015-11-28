@@ -58,5 +58,4 @@
         android:icon="@drawable/sk_plus"
         skillz:showAsAction="always" />
 
-
 </menu>

@@ -19,7 +19,9 @@ package com.skilltradiez.skilltraderz;
  */
 
 import android.graphics.Bitmap;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**~~DESCRIPTION:
@@ -70,6 +72,10 @@ public class Image extends Notification {
         id = ID.generateRandomID();
         this.bitmap = bitmap;
     }
+    public Image(Bitmap bitmap, ID id) {
+        this.id = id;
+        this.bitmap = bitmap;
+    }
     public Image(String filename) {
         //LOL
         throw new NullPointerException("this can't possibly work!");
@@ -86,12 +92,25 @@ public class Image extends Notification {
     }
     @Override
     boolean commit(UserDatabase userDB) {
+        System.out.println("IMAGE COMMIT");
+        http://stackoverflow.com/questions/9224056/android-bitmap-to-base64-string
         try {
-            userDB.getElastic().addDocument("image", id.toString(), this);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream .toByteArray();
+            String encoded = Base64.encodeToString(byteArray, Base64.URL_SAFE);
+            encoded = encoded.replace("\n", "");
+            userDB.getElastic().addDocument("image", id.toString(), new Imageb64(encoded));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+    class Imageb64 {
+        public Imageb64(String data) {
+            this.data = data;
+        }
+        String data;
     }
 }

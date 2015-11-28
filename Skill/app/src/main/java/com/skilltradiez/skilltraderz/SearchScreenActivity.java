@@ -99,6 +99,8 @@ import java.util.Set;
  */
 
 public class SearchScreenActivity extends GeneralMenuActivity {
+    static String SEARCH_TYPE_PARAM = "All_search",
+                FILTER_PARAM = "filter";
     private int screenType;
 
     private Context searchScreenContext = this;
@@ -113,7 +115,6 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
     private ListView resultsList;
 
-    public static String SEARCH_TYPE_PARAM = "All_search";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,12 +123,18 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         masterController = new MasterController();
 
         items = new ArrayList<Stringeable>();
+
         searchExtras = getIntent().getExtras();
-        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
-        String filter = "All";
-        if (searchExtras.containsKey("filter")) {
-            filter = searchExtras.getString("filter");
+        try {
+            screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("SearchScreenActivity was not given the screenType");
         }
+
+        String filter = "All";
+        if (searchExtras.containsKey(FILTER_PARAM))
+            filter = searchExtras.getString(FILTER_PARAM);
+
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
@@ -150,6 +157,11 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setSelection(adapter.getPosition(filter));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -185,11 +197,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
                 }
             }
         });
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
         loadItems();
         resultsList.setAdapter(searchAdapter);
         searchAdapter.notifyDataSetChanged();
@@ -215,9 +223,8 @@ public class SearchScreenActivity extends GeneralMenuActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        if(super.onOptionsItemSelected(item)){
+        if(super.onOptionsItemSelected(item))
             return true;
-        }
 
         switch(item.getItemId()){
             case R.id.search_button:
@@ -292,19 +299,19 @@ public class SearchScreenActivity extends GeneralMenuActivity {
 
     public void clickOnUser(Profile u) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile", u.getUsername());
+        intent.putExtra(ProfileActivity.UNIQUE_PARAM, u.getUsername());
         startActivity(intent);
     }
 
     public void clickOnSkill(Skill s) {
         Intent intent = new Intent(this, SkillDescriptionActivity.class);
-        intent.putExtra("skill_id", s.getSkillID());
+        intent.putExtra(SkillDescriptionActivity.ID_PARAM, s.getSkillID());
         startActivity(intent);
     }
 
     public void clickOnTrade(Trade t) {
         Intent intent = new Intent(this, TradeRequestActivity.class);
-        intent.putExtra("trade_id", t.getTradeID());
+        intent.putExtra(TradeRequestActivity.ID_PARAM, t.getTradeID());
         startActivity(intent);
     }
 }

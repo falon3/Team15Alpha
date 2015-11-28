@@ -37,31 +37,6 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/search_button"
-        android:layout_weight="0.75"
-        android:hint="@string/search_field_text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#629595" />
-
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_weight="0.51"
-        android:background="@drawable/button_with_border"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="@string/search_button"
-        android:onClick="beginRefinedSearch"/>
-
     <Button
         android:id="@+id/browse_skillz"
         android:layout_width="wrap_content"
@@ -72,7 +47,8 @@
         android:text="@string/browse_skillz"
         android:onClick="beginAllSearch"
         android:layout_above="@+id/imageView"
-        android:layout_alignEnd="@+id/trade_history" />
+        android:layout_alignEnd="@+id/trade_history"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/browse_users"
@@ -121,7 +97,17 @@
         android:paddingRight="25dp"
         android:text="@string/trade_history"
         android:onClick="beginAllSearch"
+<<<<<<< HEAD
         android:singleLine="false"
         android:layout_alignTop="@+id/add_a_new_skill"
         android:layout_alignParentStart="true" />
+=======
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignEnd="@id/add_a_new_skill"
+        android:layout_alignStart="@id/add_a_new_skill"
+        android:singleLine="false"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/add_a_new_skill" />
+>>>>>>> db04ed5d5f9139684e7daa0eec4e01d18dc69109
 </RelativeLayout>

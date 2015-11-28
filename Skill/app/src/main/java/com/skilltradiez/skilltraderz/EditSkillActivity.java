@@ -40,6 +40,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ~~TYPE: MODEL + CONTROLLER
@@ -120,6 +121,7 @@ import java.util.ArrayList;
  */
 
 public class EditSkillActivity extends CameraActivity {
+    static String ID_PARAM = "skill_id";
     private Skill skillToEdit;
 
     private ListView imageList;
@@ -165,20 +167,24 @@ public class EditSkillActivity extends CameraActivity {
         super.onStart();
 
         // We need to be able to edit an existing skill
-        if (getIntent().hasExtra("skill_id")) {
-            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+        if (getIntent().hasExtra(ID_PARAM)) {
+            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get(ID_PARAM));
             skillName.setText(skillToEdit.getName());
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
-            setImages(skillToEdit.getImages());
+            List<Image> images = getImages();
+            for (ID id : skillToEdit.getImages()) {
+                images.add(DatabaseController.getImageByID(id));
+            }
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
     }
 
+    @Override
     public void addNewImage(View view) {
-        addNewImage(view);
+        super.addNewImage(view);
         imageAdapter.notifyDataSetChanged();
     }
 

@@ -248,6 +248,30 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineSkillByID(id);
     }
 
+    public static Image getImageByID(ID id) {
+        Set<Image> images = MasterController.getUserDB().getImagez();
+        for (Image i : images)
+            if (i.getID().equals(id))
+                return i;
+        return getOnlineImageByID(id);
+    }
+
+    private static Image getOnlineImageByID(ID id) {
+        Set<Image> images = MasterController.getUserDB().getImagez();
+        Elastic elastic = MasterController.getUserDB().getElastic();
+        Image i = null;
+        try {
+            i = elastic.getDocumentImage(id.toString());
+            if (i != null) {
+                images.add(i);
+                MasterController.getUserDB().getChangeList().add(i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
     private static Skill getOnlineSkillByID(ID id) {
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         Elastic elastic = MasterController.getUserDB().getElastic();
