@@ -102,10 +102,10 @@ import java.util.List;
  */
 
 public class InventoryActivity extends GeneralMenuActivity {
+    static String USER_INVENTORY = "USER_INVENTORY",
+                    ID_PARAM = "user_id";
 
-    public static String USER_INVENTORY = "USER_INVENTORY";
-
-    Context inventoryContext = this;
+    private Context inventoryContext = this;
     private User currentUser;
     private List<Skill> skillz;//All skillz in inventory
     private List<Stringeable> foundSkillz;
@@ -124,7 +124,7 @@ public class InventoryActivity extends GeneralMenuActivity {
         setContentView(R.layout.activity_inventory);
 
         masterController = new MasterController();
-        currentUser = masterController.getUserByID((ID) getIntent().getExtras().get("user_id"));
+        currentUser = masterController.getUserByID((ID) getIntent().getExtras().get(ID_PARAM));
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_bar);
@@ -228,7 +228,7 @@ public class InventoryActivity extends GeneralMenuActivity {
      */
     public void skillDetails(Skill skill){
         Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);
-        intent.putExtra("skill_id", skill.getSkillID());
+        intent.putExtra(SkillDescriptionActivity.ID_PARAM, skill.getSkillID());
         startActivity(intent);
     }
 }

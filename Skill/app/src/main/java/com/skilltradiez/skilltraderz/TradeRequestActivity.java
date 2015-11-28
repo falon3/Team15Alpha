@@ -89,108 +89,23 @@ import android.widget.Toast;
  *     title of the trade! GLORIOUS!
  */
 
+//TODO EVERYTHING: this is more the result, not the action; of trading
 public class TradeRequestActivity extends GeneralMenuActivity {
+    static String ID_PARAM = "trade_id";
     private Context tradeContext = this;
 
-    private Button acceptRequest;
-    private Button deleteRequest;
-    private Button counterOffer;
-    private TextView tradeTitle;
-    private TextView tradeDescription;
-    private ListView skillsInTrade;
     private Trade trade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_request);
-        //Initiate master controller object here.
 
-        masterController = new MasterController();
-
-        Bundle extras = getIntent().getExtras();
-        //Use the ID of the trade to get the trade OBJECT and assign it to trade variable.
-        trade = masterController.getCurrentTradeByID((ID) extras.get("trade_id"));
+        //TOD Check Intent for Extras
     }
 
     @Override
     public void onStart(){
         super.onStart();
-
-        acceptRequest = (Button) findViewById(R.id.acceptTrade);
-        deleteRequest = (Button) findViewById(R.id.deleteTrade);
-        counterOffer = (Button) findViewById(R.id.counterTrade);
-        tradeDescription = (TextView) findViewById(R.id.trade_description);
-        skillsInTrade = (ListView) findViewById(R.id.offerList);
-        tradeTitle = (TextView) findViewById(R.id.trading_with);
-    }
-
-    /**
-     * Accept a trade. Sends a message to the user making the request that you are happy with the
-     * terms of the request. Will add the trade to your history
-     */
-    public void acceptTrade(){
-        //Alert dialog that you have accepted the request. Sends a notification to the requester
-        //Add the trade to your history
-        Toast toast = Toast.makeText(tradeContext, "Accepted a Trade", Toast.LENGTH_SHORT);
-        toast.show();
-
-        //Evoke the masterController to set the trade to be ACCEPTED == TRUE.
-        masterController.acceptTheCurrentTrade(trade);
-
-    }
-
-    /**
-     * Delete a request.
-     */
-    public void deleteRequest(){
-        // alert dialogue for making sure that you want to delete the request. Confirmation.
-        Toast toast = Toast.makeText(tradeContext, "Deleted a Request", Toast.LENGTH_SHORT);
-        toast.show();
-        //TODO the model doesn't support this yet.
-    }
-
-    /**
-     * counter offer. Takes you to the Edit Trade Request screen
-     * @ TODO:
-     */
-    public void counterOffer(View view){
-        Intent intent = new Intent(tradeContext, EditTradeActivity.class);
-        intent.putExtra("trade_id", trade.getTradeID());
-        startActivity(intent);
-        //TODO: Shouldn't we set the Extra?
-        intent.getExtras().get("counter_offer");
-    }
-
-    /**
-     * Set the details of the trade offer.
-     * View
-     * @ TODO: setTrade Details?
-     */
-    public void setTradeDetails(){
-        //need a list of skills relevant to the trade and then populate the view
-        //skillsInTrade = something based on other things
-    }
-
-    /**
-     * Set the notes of the trade as given by the trade requester
-     * View
-     * @ TODO: Trade Notes?
-     */
-    public void setTradeNotes(){
-        //need to get the notes from the requester to populate this field
-        // tradeDescription = something
-    }
-
-    /**
-     * Who you're trading with
-     * View
-     * @ TODO:
-     */
-    public void setTradeTitle(){
-        //tradeTitle = who you're trading with
-        UserDatabase db = masterController.getUserDB();
-        User otherUser = DatabaseController.getAccountByUserID(trade.getOppositeHalf(db.getCurrentUser()).getUser());
-        tradeTitle.setText(otherUser.getProfile().getUsername());
     }
 }

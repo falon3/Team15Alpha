@@ -72,6 +72,8 @@ import java.util.ArrayList;
  */
 
 public class EditTradeActivity extends GeneralMenuActivity {
+    static String ACTIVE_PARAM = "active_id",
+                PASSIVE_PARAM = "passive_id";
     private TradeAdapter offerAdapter, yourInvAdapter, requestAdapter, otherInvAdapter;
     private ListView offerList, yourInvList, requestList, otherInvList;
 
@@ -90,9 +92,9 @@ public class EditTradeActivity extends GeneralMenuActivity {
         Bundle profileExtras = getIntent().getExtras();
 
         // Get active and passive Users
-        ID userID = (ID)profileExtras.get("active_id");
+        ID userID = (ID)profileExtras.get(ACTIVE_PARAM);
         activeUser = DatabaseController.getAccountByUserID(userID);
-        userID = (ID)profileExtras.get("passive_id");
+        userID = (ID)profileExtras.get(PASSIVE_PARAM);
         passiveUser = DatabaseController.getAccountByUserID(userID);
 
         //Init Lists
