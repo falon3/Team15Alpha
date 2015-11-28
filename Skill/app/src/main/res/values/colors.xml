@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="mainSkillAppColor">#057777</color>
-    <color name="tealTextColor">#82BBBB</color>
+    <color name="tealTextColor">#8fdcdc</color>
     <color name="greyTextColor">#8F8F8F</color>
-    <color name="blackAccent">#000404</color>
+    <color name="medGreyAccent">#383838</color>
     <color name="darkTealAccent">#005151</color>
     <color name="lightTealAccent">#438F8F</color>
     <color name="darkGreyAccent">#202020</color>
