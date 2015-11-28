@@ -241,6 +241,7 @@ public final class DatabaseController implements ControllerInterface{
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
             // No internet, no registration
+            //TODO catch this and tell the user about it.
             throw new RuntimeException();
         }
         return u;
