@@ -17,14 +17,18 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * DESCRPTION: This activity is going to be the core menu page for our entire application, following
@@ -46,7 +50,18 @@ public class GeneralMenuActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setIcon(R.drawable.ic_search);
+
+        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflator.inflate(R.layout.search, null);
+
+        actionBar.setCustomView(view);
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -75,12 +90,20 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
-            case R.id.My_Inventory:
+            //@todo maybe if already at home screen don't go anywhere
+            case R.id.Go_Home_Menu:
+                intent = new Intent(generalContext, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.Go_Profile_Menu:
                 intent = new Intent(generalContext, ProfileActivity.class);
                 intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
                 startActivity(intent);
                 return true;
-            case R.id.Create_Skill:
+            // TODO: 11/28/2015
+            case R.id.Go_To_Messages_Menu:
+                return true;
+            case R.id.Go_Make_Skill:
                 intent = new Intent(generalContext, EditSkillActivity.class);
                 startActivity(intent);
                 return true;
@@ -88,6 +111,8 @@ public class GeneralMenuActivity extends ActionBarActivity {
         return false;
     }
 
+    //@todo clean up strings if there is time
+    //@todo parent activity for enabling the back button on action bar needs work
     public MasterController getMasterController() {
         return masterController;
     }

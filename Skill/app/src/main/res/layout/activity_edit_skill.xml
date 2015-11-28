@@ -60,11 +60,10 @@
         android:contentDescription="@string/photo_alt" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageList"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/is_visible"
         android:layout_alignLeft="@+id/takeImage"
         android:layout_below="@+id/takeImage"
         android:layout_alignRight="@+id/takeImage"

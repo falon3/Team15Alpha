@@ -26,7 +26,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.skilltradiez.skilltraderz.MainActivity">
+    tools:context="com.skilltradiez.skilltraderz.MainActivity"
+    android:id="@+id/s">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -40,12 +41,13 @@
         android:id="@+id/browse_skillz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
         android:background="@drawable/button_with_border"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="@string/browse_skillz"
         android:onClick="beginAllSearch"
+        android:layout_above="@+id/imageView"
+        android:layout_alignEnd="@+id/trade_history"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -57,9 +59,8 @@
         android:paddingRight="25dp"
         android:text="@string/browse_users"
         android:onClick="beginAllSearch"
-        android:layout_below="@+id/browse_skillz"
-        android:layout_alignStart="@+id/browse_skillz"
-        android:layout_marginTop="38dp" />
+        android:layout_above="@+id/imageView"
+        android:layout_alignEnd="@+id/add_a_new_skill" />
 
     <Button
         android:id="@+id/go_to_profile"
@@ -79,15 +80,13 @@
         android:id="@+id/add_a_new_skill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/go_to_profile"
-        android:layout_alignStart="@+id/go_to_profile"
-        android:layout_below="@+id/go_to_profile"
-        android:layout_marginTop="37dp"
         android:background="@drawable/button_with_border"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="@string/add_a_new_skill"
-        android:onClick="createNewSkill"/>
+        android:onClick="createNewSkill"
+        android:layout_alignTop="@+id/go_to_profile"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/trade_history"
@@ -98,11 +97,7 @@
         android:paddingRight="25dp"
         android:text="@string/trade_history"
         android:onClick="beginAllSearch"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignEnd="@id/add_a_new_skill"
-        android:layout_alignStart="@id/add_a_new_skill"
         android:singleLine="false"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/add_a_new_skill" />
+        android:layout_alignTop="@+id/add_a_new_skill"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

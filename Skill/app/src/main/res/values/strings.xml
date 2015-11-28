@@ -6,8 +6,13 @@
     <string name="title_activity_search_screen">SearchScreenActivity</string>
     <string name="title_activity_edit_trade">EditTradeActivity</string>
 
-    <!-- String relating to the main hamburger menu -->
+    <!-- String relating to the menus -->
     <string name="title_activity_general_menu">GeneralMenuActivity</string>
+    <string name="go_home_menu">Home</string>
+    <string name="go_profile">You</string>
+    <string name="go_messages">Messages</string>
+    <string name="go_make_skill">+ Skillz</string>
+    <string name="go_to_settings">Settings</string>
 
     <!-- String relating to the First Time User layout -->
     <string name="make_a_user_name">Make a user name</string>
@@ -56,7 +61,6 @@
     <!-- Strings related to the Inventory layout -->
     <string name="title_activity_inventory">InventoryActivity</string>
     <string name="refine_search">Refine Search</string>
-
 
     <!-- String related to making or editing a skill -->
     <string name="title_activity_edit_skill">EditSkill</string>

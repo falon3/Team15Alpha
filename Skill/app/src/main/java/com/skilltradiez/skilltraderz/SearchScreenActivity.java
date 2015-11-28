@@ -17,8 +17,12 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -97,6 +102,8 @@ public class SearchScreenActivity extends GeneralMenuActivity {
     static String SEARCH_TYPE_PARAM = "All_search",
                 FILTER_PARAM = "filter";
     private int screenType;
+
+    private Context searchScreenContext = this;
 
     private Button searchButton;
     private EditText searchField;
@@ -195,6 +202,23 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         resultsList.setAdapter(searchAdapter);
         searchAdapter.notifyDataSetChanged();
     }
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_ham, menu);
+
+        //Android Developers
+        //http://developer.android.com/training/search/setup.html#create-sc - Nov 26, 2015
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search_bar).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
