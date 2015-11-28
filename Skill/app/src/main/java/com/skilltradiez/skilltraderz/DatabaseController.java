@@ -31,12 +31,34 @@ import java.util.Set;
  * to do with the database.
  */
 public final class DatabaseController implements ControllerInterface{
+
+    /** LOCAL VARIABLES
+     * 1: userDB, this is going to be the single core database object created for the entire
+     * application. Anything that needs to access, write to, or otherwise in this application
+     * will go through this controller which has exclusive access to this database object.
+     */
     private static UserDatabase userDB;
 
+    /** CONSTRUCTOR:
+     * Creates the DatabaseController object. In reality though the only class that will
+     * (or ever should) create this is the master controller once the master controller is
+     * instantiated.
+     *
+     * Parameters: None.
+     * Return: An instance of the DatabaseController object.
+     */
     DatabaseController() {
         userDB = new UserDatabase();
     }
 
+    /** METHODS **/
+
+    /**
+     * Returns the user database object, the one used for the entire application.
+     * This method should not be called EVER outside of controllers to follow strict MVC methods.
+     * 
+     * @return
+     */
     public UserDatabase getUserDB() {
         return userDB;
     }

@@ -71,32 +71,69 @@ import java.util.List;
 
 
 class ChangeList {
-    // Notifications are: FriendsList, Profile, Inventory, Skill, TradeList, Trade
+    /** LOCAL VARIABLES
+     * Notifications are: FriendsList, Profile, Inventory, Skill, TradeList, Trade
+     *
+     * 1: notifications, the overall list if all notifications.
+     * 2: newNotifications, the list of only new notifications that haven't been commited to the DB.
+     * 3: oldNotifications, the list of only old notifications that have been commited to the DB.
+     * 4: lock, a boolean involved in whether we have the method use the overall notifications list
+     *    or whether we have it in an old or new notifications list.
+     */
     private List<Notification> notifications;
     private List<Notification> newNotifications;
     private List<Notification> oldNotifications;
     private boolean lock;
 
+    /** CONSTRUCTOR:
+     * Creates the ChangeList object, assigning three ArrayLists of notifications corresponding to:
+     * 1: notifications, the overall list if all notifications.
+     * 2: newNotifications, the list of only new notifications that haven't been commited to the DB.
+     * 3: oldNotifications, the list of only old notifications that have been commited to the DB.
+     *
+     * Params: None.
+     * Return: Creates a ChangeList object.
+     */
     ChangeList() {
         notifications = new ArrayList<Notification>();
         newNotifications = new ArrayList<Notification>();
         oldNotifications = new ArrayList<Notification>();
     }
 
+
+    /** METHODS **/
+
+    /**
+     * Given a notification object, will add this notification object to the notifications list.
+     * @param newNote
+     */
     public void add(Notification newNote) {
         if (lock) newNotifications.add(newNote);
         else notifications.add(newNote);
     }
 
+    /**
+     * Given a notification object, will remove that object from the notifications list.
+     * @param note
+     */
     public void remove(Notification note) {
         if (lock) oldNotifications.add(note);
         else notifications.remove(note);
     }
 
+    /**
+     * Returns the list of notifications.
+     * @return
+     */
     public List<Notification> getNotifications() {
         return notifications;
     }
 
+    /**
+     * Returns the list of friends, based upon the friends being an instance of any notification
+     * present in the notifications list.
+     * @return
+     */
     public List<FriendsList> getFriendsList() {
         List<FriendsList> friendsLists = new ArrayList<FriendsList>();
         for (Notification note:notifications)
@@ -105,6 +142,11 @@ class ChangeList {
         return friendsLists;
     }
 
+    /**
+     * Returns the list of profiles, based upon the profiles being an instance of any notification
+     * present in the notifications list.
+     * @return
+     */
     public List<Profile> getProfiles() {
         List<Profile> profiles = new ArrayList<Profile>();
         for (Notification note:notifications)
@@ -112,6 +154,12 @@ class ChangeList {
                 profiles.add((Profile)note);
         return profiles;
     }
+
+    /**
+     * Returns the list of inventories, based upon the inventories being an instance of any
+     * notification present in the notifications list.
+     * @return
+     */
 
     public List<Inventory> getInventory() {
         List<Inventory> inventories = new ArrayList<Inventory>();
@@ -121,6 +169,11 @@ class ChangeList {
         return inventories;
     }
 
+    /**
+     * Returns the list of Skillz, based upon the Skillz being an instance of any notification
+     * present in the notifications list.
+     * @return
+     */
     public List<Skill> getSkillz() {
         List<Skill> skillz = new ArrayList<Skill>();
         for (Notification note:notifications)
@@ -129,6 +182,12 @@ class ChangeList {
         return skillz;
     }
 
+    /**
+     * Returns the list of trades LISTS, based upon the trades being an instance of any notification
+     * present in the notifications list.
+     * Please do not confuse this with the getTrades method.
+     * @return
+     */
     public List<TradeList> getTradesList() {
         List<TradeList> tradeLists = new ArrayList<TradeList>();
         for (Notification note:notifications)
@@ -137,6 +196,12 @@ class ChangeList {
         return tradeLists;
     }
 
+    /**
+     * Returns the list of INDIVIDUAL trades, based upon the profiles being an instance of any
+     * notification present in the notifications list.
+     * Please do not confuse this with the getTradesList method.
+     * @return
+     */
     public List<Trade> getTrades() {
         List<Trade> trades = new ArrayList<Trade>();
         for (Notification note:notifications)
@@ -145,12 +210,15 @@ class ChangeList {
         return trades;
     }
 
-    /*
+
+    /**
      * Pushes all notifications to the internet through the User Database
      * - If the internet is not available or it is disconnected, the Notification
      * is not removed from the list
      * - If the commit is successful, then we remove the Notification
+     * @param userDB
      */
+
     public void push(UserDatabase userDB) {
         lock = true;
         for (Notification note : notifications) {

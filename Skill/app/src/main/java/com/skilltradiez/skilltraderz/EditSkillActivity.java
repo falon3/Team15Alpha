@@ -27,6 +27,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -161,10 +164,13 @@ public class EditSkillActivity extends CameraActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
-    }
 
-    public void onStart() {
-        super.onStart();
+        setAddImageCallback(new Runnable() {
+            @Override
+            public void run() {
+                imageAdapter.notifyDataSetChanged();
+            }
+        });
 
         // We need to be able to edit an existing skill
         if (getIntent().hasExtra(ID_PARAM)) {
@@ -173,12 +179,24 @@ public class EditSkillActivity extends CameraActivity {
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             List<Image> images = getImages();
+            images.clear();
             for (ID id : skillToEdit.getImages())
                 images.add(DatabaseController.getImageByID(id));
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_ham, menu);
+
+        //disable add skill button from menubar when already in edit skill activity
+        MenuItem item = menu.findItem(R.id.Go_Make_Skill);
+        item.setEnabled(false);
+        return true;
     }
 
     @Override
@@ -268,6 +286,7 @@ public class EditSkillActivity extends CameraActivity {
             skillToEdit.setCategory(category);
             skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
+            skillToEdit.setImages(getImages());
             DatabaseController.save();
 
             Context context = getApplicationContext();
