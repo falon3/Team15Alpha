@@ -78,6 +78,9 @@
     <string name="edit_email_button">Edit Contact</string>
     <string name="name">Name:</string>
     <string name="photo_alt">Take Photo</string>
+    <string name="img">img</string>
+    <string name="retake">Retake</string>
+    <string name="remove">Remove</string>
 
     <!-- Categories -->
     <string-array name="category_spinner_strings">

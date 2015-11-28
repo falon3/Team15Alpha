@@ -43,9 +43,6 @@ import android.widget.Toast;
  * on it- but it is of paramount importance that this is created ahead of time!
  */
 public class GeneralMenuActivity extends ActionBarActivity {
-
-
-
     protected Context generalContext = this;
 
     public MasterController masterController;
@@ -119,6 +116,4 @@ public class GeneralMenuActivity extends ActionBarActivity {
     public MasterController getMasterController() {
         return masterController;
     }
-
-
 }
