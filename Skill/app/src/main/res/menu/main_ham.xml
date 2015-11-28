@@ -40,9 +40,8 @@
         android:id="@+id/Create_Skill"
         android:title="@string/create_skill_menu"
         skillz:showAsAction="never" />
-    <item android:id="@+id/search_bar"
-        android:title="@string/search_field_text"
-        android:actionViewClass="android.widget.SearchView" />
+    <searchable android:id="@+id/search_bar"
+        android:hint="@string/search_field_text" />
     <item android:id="@+id/search_button"
         android:icon="@drawable/ic_list"
         android:title="@string/search_button"
