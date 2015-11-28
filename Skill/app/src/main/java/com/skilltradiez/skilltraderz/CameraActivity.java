@@ -23,8 +23,6 @@ public class CameraActivity extends GeneralMenuActivity {
     private Bitmap lastImage;
     private List<Image> images;
 
-    private Runnable imageResultAction;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,38 +30,8 @@ public class CameraActivity extends GeneralMenuActivity {
         images = new ArrayList<Image>();
     }
 
-    //TODO 3 methods BELOW
     public void addNewImage(View view) {
         startTakingImage();
-
-        Image image = new Image(lastImage);
-        DatabaseController.addImage(image);
-        images.add(image);
-
-        /*imageResultAction = new Runnable() {
-            @Override
-            public void run() {
-                Button delete = new Button(generalContext);
-                delete.setText("delete");
-                Button retake = new Button(generalContext);
-                retake.setText("retake");
-                ImageView iv = new ImageView(generalContext);
-                iv.setImageBitmap(lastImage);
-                GridLayout gl = new GridLayout(generalContext);
-                gl.addView(delete);
-                gl.addView(retake);
-                gl.addView(iv);
-                imageLayout.addView(gl);
-
-                Image image = new Image(lastImage);
-                DatabaseController.addImage(image);
-                if (skillToEdit == null) {
-                    images.add(image);
-                } else {
-                    skillToEdit.addImage(image);
-                }
-            }
-        };*/
     }
 
     public void deleteImage(View view, Image toBeRemoved) {
@@ -88,7 +56,10 @@ public class CameraActivity extends GeneralMenuActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             lastImage = (Bitmap) extras.get("data");
-            imageResultAction.run();
+
+            Image image = new Image(lastImage);
+            DatabaseController.addImage(image);
+            images.add(image);
         }
     }
 

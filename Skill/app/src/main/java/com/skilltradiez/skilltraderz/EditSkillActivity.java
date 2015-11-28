@@ -40,6 +40,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ~~TYPE: MODEL + CONTROLLER
@@ -171,15 +172,19 @@ public class EditSkillActivity extends CameraActivity {
             skillName.setText(skillToEdit.getName());
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
-            setImages(skillToEdit.getImages());
+            List<Image> images = getImages();
+            for (ID id : skillToEdit.getImages()) {
+                images.add(DatabaseController.getImageByID(id));
+            }
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
     }
 
+    @Override
     public void addNewImage(View view) {
-        addNewImage(view);
+        super.addNewImage(view);
         imageAdapter.notifyDataSetChanged();
     }
 

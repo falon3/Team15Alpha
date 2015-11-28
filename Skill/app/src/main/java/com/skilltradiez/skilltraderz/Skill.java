@@ -224,7 +224,7 @@ import java.util.Set;
  */
 public class Skill extends Stringeable {
     private String name, category, description;
-    private List<Image> images;
+    private List<ID> images;
     private boolean visible;
     private ID skillID = ID.generateRandomID();
     private ArrayList<ID> owners;
@@ -257,7 +257,7 @@ public class Skill extends Stringeable {
         setCategory(skill.getCategory());
         setVisible(skill.isVisible());
         setDescription(skill.getDescription());
-        setImages(skill.images);
+        images = skill.getImages();
 
         rating = new Rating("skill", skillID.toString());
 
@@ -272,33 +272,34 @@ public class Skill extends Stringeable {
      **/
 
     public void setImages(List<Image> images) {
-        this.images = images;
+        this.images.clear();
+        for (Image i : images) {
+            this.images.add(i.getID());
+        }
         notifyDB();
     }
     public void setImage(Image image, int pos) {
-        this.images.set(pos, image);
+        this.images.set(pos, image.getID());
     }
 
-    // Better Specific Method
-    public Image getImage(int pos) {
-        return images.get(pos);
-    }
-
-    @Deprecated
+    @Override
     public Image getImage() {
-        return images.size() == 0 ? new NullImage() : images.get(0);
+        return images.size() == 0 ? new NullImage() : DatabaseController.getImageByID(images.get(0));
     }
 
-    public List<Image> getImages() {
+    /**
+     * IT IS VERY IMPORTANT THAT YOU DO NOT MODIFY THE RETURN VALUE!
+     */
+    public List<ID> getImages() {
         return images;
     }
 
     public void addImage(Image image) {
-        images.add(image);
+        images.add(image.getID());
     }
 
     public void removeImage(Image image) {
-        images.remove(image);
+        images.remove(image.getID());
     }
 
     //Traditional getter and setter methods for the private attribute name
