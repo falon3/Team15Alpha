@@ -104,10 +104,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
                 SEARCH_QUERY = "query";
     private int screenType;
 
-    private Context searchScreenContext = this;
-
-    private Button searchButton;
-    private EditText searchField;
     private Spinner categorySpinner;
     private Bundle searchExtras;
 
@@ -126,13 +122,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
         items = new ArrayList<Stringeable>();
 
         searchExtras = getIntent().getExtras();
-        try {
-            screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
-        } catch (RuntimeException e) {
-            throw new RuntimeException("SearchScreenActivity was not given the screenType");
-        }
-
-        screenType = searchExtras.getInt(SEARCH_QUERY);
+        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
+        //query = searchExtras.getInt(SEARCH_QUERY);
 
         setSearchParam(screenType);
 
@@ -144,9 +135,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
 
-        //searchButton = (Button) findViewById(R.id.search_button);
-        //searchField = (EditText) findViewById(R.id.search_bar);
-        searchField = null;
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
         ArrayAdapter<CharSequence> adapter;
@@ -171,7 +159,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                refineSearch("");
+                refineSearch(getQuery());
             }
 
             @Override
@@ -179,13 +167,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
                 // Shouldn't need to be used
             }
         });
-
-/*        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refineSearch(v);
-            }
-        });*/
 
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -207,44 +188,12 @@ public class SearchScreenActivity extends SearchMenuActivity {
         resultsList.setAdapter(searchAdapter);
         searchAdapter.notifyDataSetChanged();
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_ham, menu);
-
-        //Android Developers
-        //http://developer.android.com/training/search/setup.html#create-sc - Nov 26, 2015
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search_bar).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        if(super.onOptionsItemSelected(item))
-            return true;
-
-        switch(item.getItemId()){
-            case R.id.search_button:
-                searchField = (EditText) findViewById(R.id.search_bar);
-                refineSearch(null);
-                return true;
-        }
-        return true;
-    }
 
     public void loadItems() {
         //Refresh the database :D
         DatabaseController.refresh();
         items.clear();
-        refineSearch(null); // search for nothing initially
+        refineSearch(); // search for nothing initially
 
         if (screenType == 0) {
             // all skills
@@ -304,46 +253,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
         }
         searchAdapter.notifyDataSetChanged();
     }
-    /*public void refineSearch(View v){
-        //get whatever is in searchField
-        //apply it to the list of results
-        //update view
-
-        String search, category = categorySpinner.getSelectedItem().toString();
-        if(searchField != null){
-            search = searchField.getText().toString();
-        } else {
-            search = "";
-        }
-
-        items.clear();
-        if (screenType == 0) {
-            // search skills
-            Set<Skill> skills = masterController.getAllSkillz();
-            for (Skill s : skills)
-                if (s.toString().contains(search) &&
-                        (s.getCategory().equals(category) || category.equals("All")) &&
-                        (s.isVisible() || masterController.userHasSkill(s)))
-                    items.add(s);
-        } else if (screenType == 1) { // Search users
-            Set<User> onlineUsers = masterController.getAllUserz();
-            for (User u : onlineUsers)
-                if (u.getProfile().getUsername().contains(search) &&
-                        (category.equals("All") ||
-                                (category.equals("Friends") && masterController.userHasFriend(u)) ||
-                                (category.equals("Non-Friends") && !masterController.userHasFriend(u))))
-                    items.add(u.getProfile());
-        } else if (screenType == 2) { // Trade History
-            Set<Trade> trades = masterController.getAllTradez();
-            for (Trade t : trades)
-                if (t.toString().contains(search) &&
-                    (category.equals("All") ||
-                            (category.equals("Active") && t.isActive()) ||
-                            (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
-                    items.add(t);
-        }
-        searchAdapter.notifyDataSetChanged();
-    }*/
 
     public void clickOnUser(Profile u) {
         Intent intent = new Intent(this, ProfileActivity.class);

@@ -133,7 +133,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ImageViewerActivity.class);
-                    intent.getExtras().putSerializable(ImageViewerActivity.IMAGE_ID_PARAM, id);
+                    intent.putExtra(ImageViewerActivity.IMAGE_ID_PARAM, id);
                     startActivity(intent);
                 }
             });

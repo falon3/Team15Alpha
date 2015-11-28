@@ -125,4 +125,6 @@
         <item>Inactive</item>
     </string-array>
     <string name="title_activity_image_viewer">ImageViewerActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="desc">Description:</string>
 </resources>
