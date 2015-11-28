@@ -34,7 +34,7 @@
     </style>
 
     <style name="skillzRatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/sz_circle</item>
+        <item name="android:progressDrawable">@drawable/sz_circle_tiny</item>
         <item name="android:minHeight">80dip</item>
         <item name="android:maxHeight">48dip</item>
     </style>

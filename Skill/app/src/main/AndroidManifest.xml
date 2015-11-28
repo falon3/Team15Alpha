@@ -23,10 +23,9 @@
         <activity
             android:name=".MainActivity"
             android:label=""
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,7 +44,8 @@
         </activity>
         <activity
             android:name=".TradeRequestActivity"
-            android:label="" >
+            android:label=""
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name=".SkillDescriptionActivity"
@@ -53,16 +53,17 @@
         </activity>
         <activity
             android:name=".EditTradeActivity"
-            android:label="" >
+            android:label=""
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name=".EditSkillActivity"
-            android:label="" >
+            android:label=""
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name=".GeneralMenuActivity"
             android:theme="@android:style/Theme.NoDisplay" >
         </activity>
     </application>
-
 </manifest>
