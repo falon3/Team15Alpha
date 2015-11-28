@@ -99,12 +99,7 @@
             android:layout_alignParentStart="true"
             android:onClick="checkInventory"
             android:layout_alignParentEnd="true"
-            android:layout_above="@+id/friend_list_button" /><![CDATA[
-
-        @+id/user_description" />
-
-        ]]>
-
+            android:layout_above="@+id/friend_list_button" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,7 +158,6 @@
         android:layout_alignParentBottom="true"
         android:mirrorForRtl="false"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentStart="false"
-        style="@style/skillzRatingBar" />
+        android:layout_alignParentStart="false"/>
 
 </RelativeLayout>

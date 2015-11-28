@@ -27,6 +27,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -161,10 +164,13 @@ public class EditSkillActivity extends CameraActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
-    }
 
-    public void onStart() {
-        super.onStart();
+        setAddImageCallback(new Runnable() {
+            @Override
+            public void run() {
+                imageAdapter.notifyDataSetChanged();
+            }
+        });
 
         // We need to be able to edit an existing skill
         if (getIntent().hasExtra(ID_PARAM)) {
@@ -173,13 +179,24 @@ public class EditSkillActivity extends CameraActivity {
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             List<Image> images = getImages();
-            for (ID id : skillToEdit.getImages()) {
+            images.clear();
+            for (ID id : skillToEdit.getImages())
                 images.add(DatabaseController.getImageByID(id));
-            }
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_ham, menu);
+
+        //disable add skill button from menubar when already in edit skill activity
+        MenuItem item = menu.findItem(R.id.Go_Make_Skill);
+        item.setEnabled(false);
+        return true;
     }
 
     @Override
@@ -224,10 +241,12 @@ public class EditSkillActivity extends CameraActivity {
      * add skill to the database
      */
     public void addNewSkill(View view){
-        String name = skillName.getText().toString();
-        String description = skillDescription.getText().toString();
-        String category = skillCategory.getSelectedItem().toString();
+        String name, description, category;
         boolean isVisible = skillVisible.isChecked();
+
+        name = skillName.getText().toString();
+        description = skillDescription.getText().toString();
+        category = skillCategory.getSelectedItem().toString();
 
         if (name.length() == 0 || description.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
@@ -257,12 +276,17 @@ public class EditSkillActivity extends CameraActivity {
 
             skillName.setText("");
             skillDescription.setText("");
+            skillCategory.setSelection(0);
+            skillVisible.setChecked(true);
+            getImages().clear();
+            imageAdapter.notifyDataSetChanged();
         } else { // if we are editing an existing skill
             skillToEdit.setName(name);
             skillToEdit.setDescription(description);
             skillToEdit.setCategory(category);
             skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
+            skillToEdit.setImages(getImages());
             DatabaseController.save();
 
             Context context = getApplicationContext();
