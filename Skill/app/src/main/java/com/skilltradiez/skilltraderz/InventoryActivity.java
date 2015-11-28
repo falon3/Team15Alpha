@@ -101,7 +101,7 @@ import java.util.List;
  *
  */
 
-public class InventoryActivity extends GeneralMenuActivity {
+public class InventoryActivity extends SearchMenuActivity {
     static String USER_INVENTORY = "USER_INVENTORY",
                     ID_PARAM = "user_id";
 
@@ -110,8 +110,7 @@ public class InventoryActivity extends GeneralMenuActivity {
     private List<Skill> skillz;//All skillz in inventory
     private List<Stringeable> foundSkillz;
 
-    private Button searchButton;
-    private Button startTrade;
+    private Button searchButton, startTrade;
     private EditText searchField;
     private String searchInventory;
     private Spinner categorySpinner;
@@ -132,6 +131,9 @@ public class InventoryActivity extends GeneralMenuActivity {
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         inventoryList = (ListView) findViewById(R.id.results_list);
 
+        if (masterController.getCurrentUser().equals(currentUser))
+            startTrade.setVisibility(View.INVISIBLE);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_All, android.R.layout.simple_spinner_item);
 
@@ -141,7 +143,7 @@ public class InventoryActivity extends GeneralMenuActivity {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                searchInventory(view);
+                searchInventory(getQuery());
             }
 
             @Override
@@ -163,18 +165,16 @@ public class InventoryActivity extends GeneralMenuActivity {
         super.onStart();
 
         loadSkillz();
+
         adapter = new ListAdapter(this, foundSkillz);
-
         inventoryList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
-        searchInventory(null);
+        searchInventory();
     }
 
     private void loadSkillz() {
         Inventory inv = currentUser.getInventory();
         skillz = inv.cloneSkillz(masterController.getUserDB());
-
         foundSkillz = new ArrayList<Stringeable>();
     }
 
@@ -190,14 +190,23 @@ public class InventoryActivity extends GeneralMenuActivity {
         startActivity(intent);
     }
 
+
+    public void startSearch(String query){
+        searchInventory(query);
+    }
+
     /**
      * Search through a user's inventory with a textual query to refine the number of items that
      * are shown
      */
-    public void searchInventory(View v){
+    public void searchInventory(){
+        searchInventory("");
+    }
+
+    public void searchInventory(String query){
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
-        String regex = searchField.getText().toString(); // not a regex
+        String regex = query; // not a regex
         List<Skill> categorySkillz = refineInventoryByCategory(),
                 nameSkillz = currentUser.getInventory().findByName(masterController.getUserDB(), regex);
 
@@ -208,6 +217,7 @@ public class InventoryActivity extends GeneralMenuActivity {
 
         adapter.notifyDataSetChanged();
     }
+
 
     /**
      * Refine the number of skills that are shown on screen based on the category that each skill

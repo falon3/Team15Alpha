@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:background="@color/mainSkillAppColor"
+            android:background="@drawable/iconshape"
             android:src="@drawable/ic_search" />
 
     </FrameLayout>
