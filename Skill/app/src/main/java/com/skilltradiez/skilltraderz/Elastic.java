@@ -330,7 +330,7 @@ public class Elastic {
     public Image getDocumentImage(String id) throws IOException {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "image" + "/" + id);
-        Type getResponseType = new TypeToken<GetResponse<String>>() { }.getType();
+        Type getResponseType = new TypeToken<GetResponse<Image.Imageb64>>() { }.getType();
         Image.Imageb64 b64 = ((GetResponse<Image.Imageb64>)gson.fromJson(resp, getResponseType))._source;
         byte[] decodedByte = Base64.decode(b64.data, 0);
         return new Image(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length), new ID(Long.parseLong(id)));
