@@ -132,7 +132,7 @@ public class UserDatabase {
 
         // Persistence API
         // Via ElasticSearch(Internet)
-        elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/");
+        elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", new HTTPClient());
         // Via SD Card(Local)
         local = new Local();
 
