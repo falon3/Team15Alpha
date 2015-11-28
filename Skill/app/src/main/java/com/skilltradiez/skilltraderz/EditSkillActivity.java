@@ -27,6 +27,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -180,6 +183,17 @@ public class EditSkillActivity extends CameraActivity {
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_ham, menu);
+
+        //disable add skill button from menubar when already in edit skill activity
+        MenuItem item = menu.findItem(R.id.Go_Make_Skill);
+        item.setEnabled(false);
+        return true;
     }
 
     @Override
