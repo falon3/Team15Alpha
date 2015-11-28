@@ -72,13 +72,13 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 return true;
             case R.id.My_Friends:
                 intent = new Intent(generalContext, SearchScreenActivity.class);
-                intent.putExtra("filter", "Friends");
+                intent.putExtra(SearchScreenActivity.FILTER_PARAM, "Friends");
                 intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
             case R.id.My_Inventory:
                 intent = new Intent(generalContext, ProfileActivity.class);
-                intent.putExtra("user_name_for_profile", masterController.getCurrentUserUsername());
+                intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
                 startActivity(intent);
                 return true;
             case R.id.Create_Skill:
