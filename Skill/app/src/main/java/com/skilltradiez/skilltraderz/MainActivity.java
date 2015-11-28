@@ -139,6 +139,7 @@ public class MainActivity extends GeneralMenuActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(false);
         actionBar.setHomeButtonEnabled(true);
         //masterController.initializeArrayListForSkills();
 
