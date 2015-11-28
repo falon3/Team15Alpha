@@ -97,17 +97,8 @@
         android:paddingRight="25dp"
         android:text="@string/trade_history"
         android:onClick="beginAllSearch"
-<<<<<<< HEAD
         android:singleLine="false"
         android:layout_alignTop="@+id/add_a_new_skill"
         android:layout_alignParentStart="true" />
-=======
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignEnd="@id/add_a_new_skill"
-        android:layout_alignStart="@id/add_a_new_skill"
-        android:singleLine="false"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/add_a_new_skill" />
->>>>>>> db04ed5d5f9139684e7daa0eec4e01d18dc69109
+
 </RelativeLayout>
