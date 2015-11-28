@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -19,17 +18,19 @@
     -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/sz_list2">
 
-        <ImageView android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/iconshape"
-            android:id="@+id/img" />
+        <ImageView
+            android:id="@+id/img"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp" />
 
         <TableLayout
             android:layout_width="match_parent"
@@ -40,8 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textAppearance="@color/tealTextColor"
                 android:textAlignment="center"
+                android:textAppearance="@color/tealTextColor"
                 android:textSize="20sp" />
 
             <TextView
