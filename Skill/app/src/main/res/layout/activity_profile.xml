@@ -157,7 +157,6 @@
         android:layout_alignParentBottom="true"
         android:mirrorForRtl="false"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentStart="false"
-        style="@style/skillzRatingBar" />
+        android:layout_alignParentStart="false"/>
 
 </RelativeLayout>

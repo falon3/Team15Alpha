@@ -32,7 +32,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/imageScroller"
         android:src="@drawable/sz_circle"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -46,7 +46,7 @@
         android:paddingRight="25dp"
         android:text="@string/browse_skillz"
         android:onClick="beginAllSearch"
-        android:layout_above="@+id/imageView"
+        android:layout_above="@+id/imageScroller"
         android:layout_alignEnd="@+id/trade_history"
         android:layout_centerHorizontal="true" />
 
@@ -59,7 +59,7 @@
         android:paddingRight="25dp"
         android:text="@string/browse_users"
         android:onClick="beginAllSearch"
-        android:layout_above="@+id/imageView"
+        android:layout_above="@+id/imageScroller"
         android:layout_alignEnd="@+id/add_a_new_skill" />
 
     <Button

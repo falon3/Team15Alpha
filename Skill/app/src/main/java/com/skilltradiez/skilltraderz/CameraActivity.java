@@ -22,6 +22,7 @@ public class CameraActivity extends GeneralMenuActivity {
 
     private Bitmap lastImage;
     private List<Image> images;
+    private Runnable addImageCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +64,14 @@ public class CameraActivity extends GeneralMenuActivity {
      * When invoked will start a new activity involving taking a picture with the device's camera.
      * @return
      */
-    public Bitmap startTakingImage() {
+    public void startTakingImage() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null)
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        return lastImage;
+    }
+
+    public void setAddImageCallback(Runnable runnable) {
+        this.addImageCallback = runnable;
     }
 
     /**
@@ -79,6 +83,7 @@ public class CameraActivity extends GeneralMenuActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             lastImage = (Bitmap) extras.get("data");
@@ -86,6 +91,8 @@ public class CameraActivity extends GeneralMenuActivity {
             Image image = new Image(lastImage);
             DatabaseController.addImage(image);
             images.add(image);
+
+            addImageCallback.run();
         }
     }
 
