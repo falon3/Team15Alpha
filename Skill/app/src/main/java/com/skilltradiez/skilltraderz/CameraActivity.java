@@ -83,7 +83,6 @@ public class CameraActivity extends GeneralMenuActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             lastImage = (Bitmap) extras.get("data");
