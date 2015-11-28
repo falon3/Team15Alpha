@@ -240,6 +240,7 @@ public class Skill extends Stringeable {
         setCategory(category);
         setVisible(isVisible);
         setDescription(description);
+        images = new ArrayList<Image>();
         setImages(images);
 
         rating = new Rating("skill", skillID.toString());
@@ -272,6 +273,9 @@ public class Skill extends Stringeable {
      **/
 
     public void setImages(List<Image> images) {
+        if (this.images == null) {
+            this.images = new ArrayList<ID>();
+        }
         this.images.clear();
         for (Image i : images) {
             this.images.add(i.getID());
@@ -284,7 +288,7 @@ public class Skill extends Stringeable {
 
     @Override
     public Image getImage() {
-        return images.size() == 0 ? new NullImage() : DatabaseController.getImageByID(images.get(0));
+        return (images == null || images.size() == 0) ? new NullImage() : DatabaseController.getImageByID(images.get(0));
     }
 
     /**
