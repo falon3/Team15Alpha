@@ -38,65 +38,152 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#057777" />
 
-    <TextView
-        android:id="@+id/offering"
-        android:layout_width="wrap_content"
+    <TableRow
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/trading_with"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/trading_with"
-        android:layout_marginTop="28dp"
-        android:text="@string/offering"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#057777" />
+        android:id="@+id/offerHeader"
+        android:layout_marginTop="10dp">
 
-    <ListView
-        android:id="@+id/skillListInTrade"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/offering"
-        android:layout_marginTop="27dp"
-        android:background="@drawable/button_with_border" />
+        <TextView
+            android:id="@+id/offering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offering"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#057777"
+            android:layout_weight="5" />
 
-    <EditText
-        android:id="@+id/trade_description"
-        android:inputType="textMultiLine"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:background="@drawable/button_with_border"
-        android:hint="@string/note_for_trade"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_above="@+id/deleteTrade"
+        <TextView
+            android:id="@+id/your_inv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offer_inv"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#057777"
+            android:layout_weight="2" />
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/addSkillToTrade" />
+        android:showDividers="beginning|middle|end"
+        android:id="@+id/Offers"
+        android:layout_below="@+id/offerHeader">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ListView
+                android:id="@+id/offerList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_with_border"
+                android:layout_column="0"
+                android:layout_weight="1" />
+
+            <ListView
+                android:id="@+id/your_invList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_with_border"
+                android:layout_column="1"
+                android:layout_weight="1" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestHeader"
+        android:clickable="true"
+        android:layout_below="@+id/Offers">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/requesting"
+            android:id="@+id/requesting"
+            android:singleLine="true"
+            android:textColor="#057777"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/request_inv"
+            android:id="@+id/other_inv"
+            android:singleLine="true"
+            android:textColor="#057777"
+            android:layout_weight="0" />
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/requestHeader"
+        android:showDividers="beginning|middle|end"
+        android:layout_above="@+id/sendTrade"
+        android:id="@+id/Requests">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2" >
+
+            <ListView
+                android:id="@+id/requestList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_with_border"
+                android:layout_column="0"
+                android:layout_weight="1" />
+
+            <ListView
+                android:id="@+id/other_invList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_with_border"
+                android:layout_column="1"
+                android:layout_weight="1" />
+        </TableRow>
+
+    </TableLayout>
 
     <Button
         android:id="@+id/sendTrade"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
         android:text="@string/send_trade"
-        android:onClick="sendTrade"/>
-
-    <Button
-        android:id="@+id/addSkillToTrade"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_a_new_skill"
-        android:onClick="addSkillToTrade"
+        android:onClick="sendTrade"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/sendTrade" />
+        android:layout_alignParentEnd="true"
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/deleteTrade"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/addSkillToTrade"
+        android:layout_alignBottom="@+id/sendTrade"
         android:layout_alignParentStart="true"
         android:text="@string/delete_trade"
         android:onClick="deleteRequest"/>

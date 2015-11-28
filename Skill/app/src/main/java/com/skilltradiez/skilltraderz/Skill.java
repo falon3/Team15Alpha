@@ -120,6 +120,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -222,30 +223,31 @@ import java.util.Set;
  * -Set the description         --setDescription
  */
 public class Skill extends Stringeable {
-    private String name;
-    private String category;
-    private int image;
+    private String name, category, description;
+    private List<Image> images;
     private boolean visible;
-    private String description;
     private ID skillID = ID.generateRandomID();
     private ArrayList<ID> owners;
+    private Rating rating;
 
     /**
      * CONSTRUCTOR
      **/
-    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, Image image) {
+    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, List<Image> images) {
         setName(skill_name);
         owners = new ArrayList<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
         setVisible(isVisible);
         setDescription(description);
-        setImage(image.getInt());
+        setImages(images);
+
+        rating = new Rating("skill", skillID.toString());
 
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
-        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
-        initialAdditionOfSkillToDB(this);
+        //it to the database. this doesn't happen too many times in the actual app, but lots in tests.
+        DatabaseController.addSkill(this);
     }
 
     Skill(UserDatabase db, Skill skill) {
@@ -255,28 +257,49 @@ public class Skill extends Stringeable {
         setCategory(skill.getCategory());
         setVisible(skill.isVisible());
         setDescription(skill.getDescription());
-        setImage(skill.getImage());
+        setImages(skill.images);
+
+        rating = new Rating("skill", skillID.toString());
 
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
-        //it to the database. this doens't happen too many times in the actual app, but lots in tests.
-        //DatabaseController.addSkill(this);
-        initialAdditionOfSkillToDB(this);
+        //it to the database. this doesn't happen too many times in the actual app, but lots in tests.
+        DatabaseController.addSkill(this);
     }
-
-
 
     /**
      * METHODS
      **/
 
-    /**Cole did this, did the to do problem get solved by this?**/
-    public void initialAdditionOfSkillToDB(Skill givenSkill){
-        DatabaseController.addSkill(givenSkill);
+    public void setImages(List<Image> images) {
+        this.images = images;
+        notifyDB();
+    }
+    public void setImage(Image image, int pos) {
+        this.images.set(pos, image);
     }
 
+    // Better Specific Method
+    public Image getImage(int pos) {
+        return images.get(pos);
+    }
 
+    @Deprecated
+    public Image getImage() {
+        return images.size() == 0 ? new NullImage() : images.get(0);
+    }
 
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void addImage(Image image) {
+        images.add(image);
+    }
+
+    public void removeImage(Image image) {
+        images.remove(image);
+    }
 
     //Traditional getter and setter methods for the private attribute name
     public String getName() {
@@ -298,20 +321,10 @@ public class Skill extends Stringeable {
         notifyDB();
     }
 
-    //Traditional getter and setter methods for the private attribute image
-    public int getImage() {
-        return image;//Drawable.createFromInputStream(URL, null);
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-        notifyDB();
-    }
-
     //DELETION of an image method. Replaces the image with a newly instantiated NullImage
     //object within this line.
-    public void deleteImage() {
-        setImage(new NullImage().getInt());
+    public void deleteImage(int pos) {
+        images.remove(pos);
         notifyDB();
     }
 
@@ -341,10 +354,18 @@ public class Skill extends Stringeable {
         return skillID;
     }
 
+    public int getRating() {
+        return rating.getRating();
+    }
+
+    public void addRating(String username, int rate) {
+        rating.changeRating(username, rate);
+        notifyDB();
+    }
+
     @Override
     public String toString() {
-        //TODO Change Output?
-        return this.getName() + ": " + this.getCategory() + (isVisible() ? "" : " (Invisible)");
+        return this.getName() + ": " + this.getCategory() + " " + this.getDescription() + (isVisible() ? "" : " (Invisible)");
     }
 
     public boolean commit(UserDatabase userDB) {
@@ -359,7 +380,7 @@ public class Skill extends Stringeable {
                 //if removed skill from inventory and no other owners had skill
                 userDB.getSkills().remove(prev_version);
                 DatabaseController.deleteDocumentSkill(skillID);
-                System.out.println("Permantently deleted skill");
+                System.out.println("Permanently deleted skill");
 
             } else if (prev_version.isOwner(owner) && !isOwner(owner)) {
                 //if removed skill from inventory and other owners had skill
@@ -381,11 +402,10 @@ public class Skill extends Stringeable {
                 Skill new_version = new Skill(userDB, this);
                 prev_version.owners.remove(owner);
                 ela.addDocument("skill", skillID.toString(), prev_version);
-                ela.addDocument("skill", new_version.getSkillID().toString(), new_version); // TODO unnecessary?
-                // TODO: 2015-11-21 need to test to make sure new version is put in the inventory and the old version removed
+                ela.addDocument("skill", new_version.getSkillID().toString(), new_version);
                 System.out.println("dated skill");
             } else {
-                //TODO what if this happend??
+                //TODO what if this happened??
                 System.out.println("MAYBE BROKEN, FIXME!!!");
                 // i think this happens when the user isn't a previous owner!
                 throw new RuntimeException();
@@ -394,7 +414,7 @@ public class Skill extends Stringeable {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return rating.commit(userDB);
     }
 
     public int getNumOwners() {

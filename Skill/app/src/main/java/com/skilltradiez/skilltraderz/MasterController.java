@@ -72,7 +72,7 @@ public final class MasterController implements ControllerInterface{
     /**FRIEND RELATED **/
     //Do they have THIS friend in particular.
     public boolean userHasFriend(User user){
-        return user.getFriendsList().hasFriend(getUserDB().getCurrentUser());
+        return getCurrentUser().getFriendsList().hasFriend(user);
     }
 
     public void addANewFriend(User currentUser){
@@ -105,8 +105,8 @@ public final class MasterController implements ControllerInterface{
 
     public Set<Trade> getAllTradez() {return getUserDB().getTrades();}
 
-    public void makeNewSkill(String name, String category, String description, boolean isVisible, Image image){
-        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, image));
+    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images){
+        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, images));
         DatabaseController.save();
     }
 

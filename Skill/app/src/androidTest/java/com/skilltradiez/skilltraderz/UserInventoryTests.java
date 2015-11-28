@@ -30,15 +30,15 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
     public void testAddSkill() {
         UserDatabase db = new UserDatabase();
-        db.deleteAllData();
+        DatabaseController.deleteAllData();
         User owner = null;
         try {
-            owner = db.createUser("Billy");
+            owner = DatabaseController.createUser("Billy");
         } catch (UserAlreadyExistsException e) {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new ArrayList<Image>());
 
         // Testing adding a skill to inventory
         inv.add(skill);
@@ -48,15 +48,15 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
     public void testRemoveSkill() {
         UserDatabase db = new UserDatabase();
-        db.deleteAllData();
+        DatabaseController.deleteAllData();
         User owner = null;
         try {
-            owner = db.createUser("Billy");
+            owner = DatabaseController.createUser("Billy");
         } catch (UserAlreadyExistsException e) {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new ArrayList<Image>());
         inv.add(skill);
 
         // Testing removing a skill from inventory
@@ -67,22 +67,22 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
     public void testSetSkillProperties() {
         UserDatabase db = new UserDatabase();
-        db.deleteAllData();
+        DatabaseController.deleteAllData();
         User owner = null;
         try {
-            owner = db.createUser("Billy");
+            owner = DatabaseController.createUser("Billy");
         } catch (UserAlreadyExistsException e) {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new ArrayList<Image>());
         inv.add(skill);
 
         // Testing modifying a skill in inventory
         Image dog = new Image("dog chasing it's tail");
         Skill held_skill = inv.get(db, 0);
         held_skill.setDescription("I jumped and then got really tired");
-        held_skill.setImage(dog.getInt());
+        held_skill.setImage(dog, 0);
         held_skill.setVisible(false);
         assertTrue(dog.equals(held_skill.getImage()));
         assertTrue(held_skill.getDescription().equals("I jumped and then got really tired"));
@@ -91,16 +91,16 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
     public void testSkillSorting() {
         UserDatabase db = new UserDatabase();
-        db.deleteAllData();
+        DatabaseController.deleteAllData();
         User owner = null;
         try {
-            owner = db.createUser("Billy");
+            owner = DatabaseController.createUser("Billy");
         } catch (UserAlreadyExistsException e) {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
-        Skill skill2 = new Skill(db, "Skill Naem", "dategory", "desc", true, new NullImage());
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new ArrayList<Image>());
+        Skill skill2 = new Skill(db, "Skill Naem", "dategory", "desc", true, new ArrayList<Image>());
         ArrayList<Skill> list1 = new ArrayList<Skill>();
 
         list1.add(skill);
@@ -114,16 +114,16 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
     public void testSearchSkills() {
         UserDatabase db = new UserDatabase();
-        db.deleteAllData();
+        DatabaseController.deleteAllData();
         User owner = null;
         try {
-            owner = db.createUser("Billy");
+            owner = DatabaseController.createUser("Billy");
         } catch (UserAlreadyExistsException e) {
             // can't happen
         }
         Inventory inv = owner.getInventory();
-        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new NullImage());
-        Skill skill2 = new Skill(db, "Skil Naem", "dategory", "desc", true, new NullImage());
+        Skill skill = new Skill(db, "Skill Name", "category", "desc", true, new ArrayList<Image>());
+        Skill skill2 = new Skill(db, "Skil Naem", "dategory", "desc", true, new ArrayList<Image>());
         ArrayList<Skill> list1 = new ArrayList<Skill>();
         ArrayList<Skill> list2 = new ArrayList<Skill>();
 

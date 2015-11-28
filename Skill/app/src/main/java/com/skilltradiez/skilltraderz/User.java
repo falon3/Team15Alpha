@@ -18,8 +18,6 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.Observable;
-
 /**~~DESCRPTION:
  * I suppose it might make quite a fascinating piece of contemporary art in which case we make
  * an application that is based around users without actually having any users present within
@@ -100,10 +98,6 @@ import java.util.Observable;
  *         -Obtain the userID (object)                      --getUserID
  */
 
-
-/**
- * Created by sja2 on 10/28/15.
- */
 public class User {
     private Profile profile;
     private Inventory inventory;

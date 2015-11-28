@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        /* TODO FIGURE THIS OUT
+        /* TODO FIGURE THIS OUT .... maybe unnecessary???
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_item, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
@@ -75,8 +76,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
             view = inflater.inflate(R.layout.list_item, parent, false);
             viewHolder.name = (TextView) view.findViewById(R.id.name);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
-
-            //viewHolder.img = view.findViewById(R.id.img);
+            viewHolder.img = (ImageView) view.findViewById(R.id.img);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -84,10 +84,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
         // Populate the data into the template view using the data object
         viewHolder.name.setText(item.getName());
         viewHolder.desc.setText(item.getDescription());
-        //TODO IMAGES
-        // viewHolder.img.setImageResource(item.getImage());
-        //viewHolder.img.setBackground(item.getImage());
-        // Return the completed view to render on screen
+        viewHolder.img.setImageBitmap(item.getImage().getBitmap());
         return view;
     }
 
@@ -95,6 +92,6 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
     public class ViewHolder {
         TextView name;
         TextView desc;
-        View img;
+        ImageView img;
     }
 }

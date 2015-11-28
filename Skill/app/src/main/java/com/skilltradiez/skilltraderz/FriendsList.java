@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**~~DESCRIPTION:
@@ -123,21 +124,16 @@ import java.util.List;
  *     we keep track of who is new and who is old through this method as well! TADA!
  */
 
-
 /**
  * FriendsList manages confirmed, pending and blocked friends for a single user.
  */
 public class FriendsList extends Notification {
     private ID owner;
     private List<ID> friendsList;
-    private List<ID> newFriends;
-    private List<ID> oldFriends;
 
     FriendsList(ID owner_id) {
         owner = owner_id;
         friendsList = new ArrayList<ID>();
-        newFriends = new ArrayList<ID>();
-        oldFriends = new ArrayList<ID>();
     }
 
     /**
@@ -163,7 +159,6 @@ public class FriendsList extends Notification {
      */
     public void removeFriend(User terrible_person) {
         friendsList.remove(terrible_person.getUserID());
-        oldFriends.add(terrible_person.getUserID());
         notifyDB();
     }
 
@@ -174,7 +169,6 @@ public class FriendsList extends Notification {
     public void addFriend(User great_person) {
         if (hasFriend(great_person)) return;
         friendsList.add(great_person.getUserID());
-        newFriends.add(great_person.getUserID());
         notifyDB();
     }
 
@@ -189,30 +183,13 @@ public class FriendsList extends Notification {
     }
 
     public boolean commit(UserDatabase userDB) {
-        User newFriend, deadFriend;
-        for (ID id : newFriends) {
-            newFriend = DatabaseController.getAccountByUserID(id);
-            newFriend.getFriendsList().addFriend(DatabaseController.getAccountByUserID(owner));
-            try {
-                userDB.getElastic().updateDocument("user", newFriend.getProfile().getUsername(), newFriend.getFriendsList(), "friendsList");
-            } catch (IOException e) {
-                // try again later
-                return false;
-            }
+        User owner = DatabaseController.getAccountByUserID(getOwner());
+        try {
+            userDB.getElastic().updateDocument("user", owner.getProfile().getUsername(), this, "friendsList");
+        } catch (IOException e) {
+            // try again later
+            return false;
         }
-        newFriends.clear();
-        
-        for (ID id : oldFriends) {
-            deadFriend = DatabaseController.getAccountByUserID(id);
-            deadFriend.getFriendsList().removeFriend(DatabaseController.getAccountByUserID(owner));
-            try {
-                userDB.getElastic().updateDocument("user", deadFriend.getProfile().getUsername(), deadFriend.getFriendsList(), "friendsList");
-            } catch (IOException e) {
-                // try again later
-                return false;
-            }
-        }
-        oldFriends.clear();
         return true;
     }
 }

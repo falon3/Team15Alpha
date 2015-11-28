@@ -24,6 +24,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RatingBar;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,11 +123,11 @@ public class ProfileActivity extends GeneralMenuActivity {
 
     private Context profileContext = this;
 
-    private Button addRemoveFriend;
-    private Button startTrade;
-    private Button viewInventory;
-    private TextView userContactInfo;
-    private TextView profileTitle;
+    private Button addRemoveFriend, startTrade, viewInventory, contactInfo, friendListButton;
+    private TextView userContactInfo, profileTitle;
+    private CheckBox checkBox;
+    private RatingBar ratingBar;
+    private EditText newEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,32 +138,55 @@ public class ProfileActivity extends GeneralMenuActivity {
         profileExtras = getIntent().getExtras();
         userProfileName = profileExtras.getString("user_name_for_profile");
 
+        contactInfo = (Button) findViewById(R.id.contact_button);
         addRemoveFriend = (Button) findViewById(R.id.add_friend);
         startTrade = (Button) findViewById(R.id.maketrade);
         viewInventory = (Button) findViewById(R.id.inventory);
-        userContactInfo = (TextView) findViewById(R.id.user_description);
+        newEmail = (EditText) findViewById(R.id.edit_contact);
         profileTitle = (TextView) findViewById(R.id.user_name);
+        checkBox = (CheckBox) findViewById(R.id.auto_img);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        userContactInfo = (TextView) findViewById(R.id.user_description);
+        friendListButton = (Button) findViewById(R.id.friend_list_button);
 
         populateProfile();
         profileTitle.setText(userProfileName);
         userContactInfo.setText(owner.getProfile().getEmail());
+        ratingBar.setRating(owner.getProfile().getRating());
 
-        if (masterController.getUserDB().getCurrentUser().getFriendsList().hasFriend(owner)) {
+        if (hasFriend) {
             addRemoveFriend.setText(R.string.remove_friend);
-            hasFriend = true;
         } else {
             addRemoveFriend.setText(R.string.add_friend);
-            hasFriend = false;
         }
 
         // You can't be friends with yourself, go get some real friends
-        if (masterController.getUserDB().getCurrentUser().equals(owner)) {
+        if (masterController.getCurrentUser().equals(owner)) {
             addRemoveFriend.setEnabled(false);
-            addRemoveFriend.setVisibility(View.GONE);
+            addRemoveFriend.setVisibility(View.INVISIBLE);
 
             startTrade.setEnabled(false);
-            //startTrade.setVisibility(View.GONE);
+            startTrade.setVisibility(View.INVISIBLE);
+
+            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
+
+            ratingBar.setEnabled(false);
+        } else {
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    owner.getProfile().addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
+                }
+            });
+            friendListButton.setVisibility(View.INVISIBLE);
+            newEmail.setVisibility(View.INVISIBLE);
+            contactInfo.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void toggleAutoImgDownloads(View v) {
+        owner.getProfile().setShouldDownloadImages(checkBox.isChecked());
     }
 
     @Override
@@ -197,16 +223,28 @@ public class ProfileActivity extends GeneralMenuActivity {
         startActivity(intent);
     }
 
-    /**
-     *
-     * @param view
-     * @ TODO: 11/4/2015
-     */
     public void startTrade(View view){
         //check if user you are making a trade with is your friend
         //do not show start trade button
         Intent intent = new Intent(profileContext, EditTradeActivity.class);
+        intent.putExtra("active_id", masterController.getCurrentUser().getUserID());
+        intent.putExtra("passive_id", owner.getUserID());
         startActivity(intent);
+    }
+
+    public void editContactInformation(View view){
+        final Context context = getApplicationContext();
+        final String email;
+        if(newEmail.getText().toString().isEmpty()){
+            Toast.makeText(context, "You didn't enter a new email!", Toast.LENGTH_SHORT).show();
+        }else {
+            email = newEmail.getText().toString();
+            //initialize this up top like other ones above
+            owner.getProfile().setEmail(email);
+            userContactInfo.setText(owner.getProfile().getEmail());
+            DatabaseController.save();
+            //save new info through whatever master controller
+        }
     }
 
     public void addRemoveFriend(View view){

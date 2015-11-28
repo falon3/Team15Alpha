@@ -70,21 +70,11 @@ import java.util.List;
  *
  *         -obtain the list of all of the most recently active trade (SINGULAR) in which case
  *         the trades will be compared based upon time.         --getMostRecentTrade
- *
- *
- *
- */
-
-
-/**
- * Created by sja2 on 10/28/15.
  */
 
 public class TradeList extends Notification {
     private ID owner;
-    private List<ID> trades;
-    private List<ID> newTrades;
-    private List<ID> deletedTrades;
+    private List<ID> trades, newTrades, deletedTrades;
 
     TradeList(ID id) {
         owner = id;
@@ -93,7 +83,7 @@ public class TradeList extends Notification {
         deletedTrades = new ArrayList<ID>();
     }
 
-    public List<ID> getNewTradesList(){
+    public List<ID> getPendingTradesList(){
         return newTrades;
     }
 
@@ -110,6 +100,10 @@ public class TradeList extends Notification {
         return owner;
     }
 
+    /* This is only deprecated to discourage its use.
+    *  - Used a considerable amount by tests
+    */
+    @Deprecated
     public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer) {
         Trade t = new Trade(userDB, user1, user2);
         t.getHalfForUser(user1).setOffer(offer);
@@ -119,6 +113,12 @@ public class TradeList extends Notification {
         return t;
     }
 
+    public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer, List<Skill> request) {
+        Trade trade = createTrade(userDB, user1, user2, offer);
+        // User1 set this offer, so user2 hasn't accepted
+        trade.getHalfForUser(user2).setOffer(request);
+        return trade;
+    }
 
     //Iterate through the entire trades list to see IF something is present.
     //More used to prevent a null pointer exception then anything.
@@ -131,10 +131,8 @@ public class TradeList extends Notification {
             //Compare the values and this is going to have the value of the string iterated through
             //compared to the value of the given ID. If it is equal we return the value true.
             //If not then we will just keep iterating through the loop.
-            if (individualID.toString().equals( identification.toString())){
+            if (individualID.toString().equals( identification.toString()))
                 return true;
-            }
-
         }
         //If it got through the entire loop then it is not in the string and will return the value
         //of false to the user.
@@ -183,8 +181,8 @@ public class TradeList extends Notification {
             User theUser = DatabaseController.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);
             try {
-                MasterController.getUserDB().getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
-                MasterController.getUserDB().getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
+                userDB.getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
+                userDB.getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -200,7 +198,6 @@ public class TradeList extends Notification {
             User currentUser = DatabaseController.getAccountByUserID(getOwnerID());
             User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
 
-
             //IF the tradeId is in the trade partners list then delete it.
             if (tradePartner.getTradeList().contains(tradeId)){
                 tradePartner.getTradeList().delete(trade);
@@ -211,8 +208,8 @@ public class TradeList extends Notification {
             }
 
             try {
-                MasterController.getUserDB().getElastic().updateDocument("user", tradePartner.getProfile().getUsername(), tradePartner.getTradeList(), "tradeList");
-                MasterController.getUserDB().getElastic().updateDocument("user", currentUser.getProfile().getUsername(), currentUser.getTradeList(), "tradeList");
+                userDB.getElastic().updateDocument("user", tradePartner.getProfile().getUsername(), tradePartner.getTradeList(), "tradeList");
+                userDB.getElastic().updateDocument("user", currentUser.getProfile().getUsername(), currentUser.getTradeList(), "tradeList");
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;

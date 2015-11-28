@@ -26,11 +26,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.ProfileActivity">
 
-    <View android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:background="@drawable/iconshape"
-        android:id="@+id/user_icon" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,9 +34,9 @@
         android:text="@string/user_name"
         android:id="@+id/user_name"
         android:textAlignment="center"
-        android:layout_alignTop="@+id/user_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -58,54 +53,117 @@
         android:layout_alignTop="@+id/user_name"
         android:onClick="addRemoveFriend"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textAlignment="center"
-        android:text="@string/user_description"
-        android:id="@+id/user_description"
-        android:layout_below="@+id/user_icon"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp"
-        android:layout_alignEnd="@+id/add_friend"
-        android:layout_above="@+id/inventory" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/user_inventory"
-        android:background="@drawable/button_with_border"
-        android:id="@+id/inventory"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="126dp"
-        android:onClick="checkInventory"
-        android:layout_alignParentEnd="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/make_trade"
-        android:background="@drawable/button_with_border"
+        android:background="#629595"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:id="@+id/maketrade"
-        android:onClick="startTrade"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:onClick="startTrade
+        android:layout_toRightOf="
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/user_name"
+        style="?android:attr/buttonStyleSmall"
+        android:textColor="#ffffff"
+        android:layout_alignBottom="@+id/user_name" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/contact_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/user_name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAlignment="center"
+            android:text="@string/user_description"
+            android:id="@+id/user_description"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_inventory"
+            android:background="@drawable/button_with_border"
+            android:id="@+id/inventory"
+            android:layout_alignParentStart="true"
+            android:onClick="checkInventory"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/friend_list_button" /><![CDATA[
+
+        @+id/user_description" />
+
+        ]]>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friend_List"
+            android:id="@+id/friend_list_button"
+            android:background="@drawable/button_with_border"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/maketrade"
+            android:layout_alignEnd="@+id/user_name"
+            android:onClick="showFriendsList"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auto_img"
+            android:id="@+id/auto_img"
+            android:checked="true"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:enabled="true"
+            android:onClick="toggleAutoImgDownloads"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/inventory"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/friend_List"
-        android:id="@+id/friend_list_button"
+        android:text="Edit Email"
+        android:id="@+id/contact_button"
         android:background="@drawable/button_with_border"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/maketrade"
-        android:layout_alignEnd="@+id/user_name"
-        android:onClick="showFriendsList"/>
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:onClick="editContactInformation"
+        android:layout_above="@+id/ratingBar"
+        android:layout_alignParentStart="true" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="Edit Email"
+        android:id="@+id/edit_contact"
+        android:layout_alignTop="@+id/contact_button"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/contact_button" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:numStars="5"
+        android:layout_alignParentBottom="true"
+        android:mirrorForRtl="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="false"
+        style="@style/skillzRatingBar" />
 
 </RelativeLayout>

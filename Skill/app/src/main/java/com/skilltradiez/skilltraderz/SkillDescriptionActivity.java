@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**~~DESCRIPTION:
@@ -62,17 +63,13 @@ import android.widget.TextView;
  *     This is going to be the entire process of adding or removing a skill from a skill description
  *     when we actually have the user interact with the UI to call this method that will
  *     allow them to add or remove a damn skill.
- *
  */
-
 
 public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Skill currentSkill;
-    private Button addRemoveSkill;
-    private TextView skillTitle;
-    private TextView skillCategory;
-    private TextView skillDescription;
-    private Button editSkill;
+    private Button addRemoveSkill, editSkill;
+    private TextView skillTitle, skillCategory, skillDescription;
+    private RatingBar rating;
     private Boolean hasSkill;
 
     @Override
@@ -88,6 +85,14 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         skillTitle = (TextView) findViewById(R.id.skillTitle);
         skillCategory = (TextView) findViewById(R.id.skillCategory);
         editSkill = (Button) findViewById(R.id.edit_skill);
+
+        rating = (RatingBar) findViewById(R.id.ratingBar2);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        refresh();
     }
 
     public void refresh() {
@@ -104,12 +109,15 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
             editSkill.setVisibility(View.VISIBLE);
         }
         // It's initially set to "Add Skill"
-    }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        refresh();
+        rating.setRating(currentSkill.getRating());
+        if (masterController.userHasSkill(currentSkill))
+            rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    currentSkill.addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
+                }
+            });
     }
 
     public void setSkillTitle(String text){

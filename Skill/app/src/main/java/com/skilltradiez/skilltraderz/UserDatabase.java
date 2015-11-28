@@ -113,14 +113,12 @@ import java.util.Set;
  *
  */
 
-/**
- * Created by sja2 on 10/28/15.
- */
 public class UserDatabase {
     private User currentUser;
     private Set<User> users;
     private Set<Trade> trades;
     private Set<Skill> skillz;
+    private Set<Image> imagez;
     private ChangeList toBePushed;
     private Elastic elastic;
     private Local local;
@@ -129,6 +127,7 @@ public class UserDatabase {
         users = new HashSet<User>();
         trades = new HashSet<Trade>();
         skillz = new HashSet<Skill>();
+        imagez = new HashSet<Image>();
         toBePushed = new ChangeList();
 
         // Persistence API
@@ -147,6 +146,7 @@ public class UserDatabase {
             users.addAll(lpo.getUsers());
             skillz.addAll(lpo.getSkillz());
             trades.addAll(lpo.getTrades());
+            //TODO images & local (maybe? maybe this isn't even required!);
             getChangeList().getNotifications().addAll(lpo.getNotifications());
         } else {
             currentUser = null;
@@ -193,5 +193,13 @@ public class UserDatabase {
         getChangeList().add(currentUser.getTradeList());
         getChangeList().add(currentUser.getProfile());
         getChangeList().add(currentUser.getInventory());
+    }
+
+    public Set<Image> getImagez() {
+        return imagez;
+    }
+
+    public void setImagez(Set<Image> imagez) {
+        this.imagez = imagez;
     }
 }

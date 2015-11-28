@@ -121,16 +121,14 @@ import java.util.List;
  *
  *     1: COMMIT:
  *         It would be ideal if we had all of these lovely halftrades that are a part of the trade
- *         actually be commited, and say... actually maintained and stored in a database. I mean
+ *         actually be committed, and say... actually maintained and stored in a database. I mean
  *         maybe I am just in an idealistic world but having things stored somewhere is nice.
  *         And that is why we have this commit method.
- *
  *
  *     2: EQUALS:
  *         Suppose we want to see if two half trades are equal, what are we going to do then?
  *         We're going to call THIS function (and no, no busters of the spectral kind) and
  *         pass into it an object to compare to.
- *
  *
  *     3: HASHCODE:
  *         What if we want a unique identifier for this? A hash code is the ideal way of trying
@@ -139,11 +137,14 @@ import java.util.List;
  *         :(
  */
 
+/**
+ * Neither Trade nor HalfTrade use notifyDB
+ * because their commit methods are called by TradesList and Trade, respectively
+ */
 public class HalfTrade extends Notification {
-    private ID user;
+    private ID user, tradeID;
     private List<ID> offer;
     private boolean accepted;
-    private ID tradeID;
     private int part;
 
     public HalfTrade(ID trade, ID user, int part) {

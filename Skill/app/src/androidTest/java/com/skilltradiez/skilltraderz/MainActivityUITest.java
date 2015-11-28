@@ -23,9 +23,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * Created by Cole on 2015-11-17.
- */
 public class MainActivityUITest extends ActivityInstrumentationTestCase2 {
 
     private EditText nameField;

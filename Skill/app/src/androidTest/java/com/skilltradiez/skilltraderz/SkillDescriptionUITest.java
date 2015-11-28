@@ -23,10 +23,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.mock.MockContext;
 import android.widget.Button;
 
+import java.util.ArrayList;
 
-/**
- * Created by nweninge on 11/21/15.
- */
 public class SkillDescriptionUITest extends ActivityInstrumentationTestCase2 {
     public SkillDescriptionUITest() {
         super(SkillDescriptionActivity.class);
@@ -39,10 +37,12 @@ public class SkillDescriptionUITest extends ActivityInstrumentationTestCase2 {
 
     public void testAddRemoveSkill() throws Exception {
         MasterController mc = new MasterController();
-        mc.initDB();
-        mc.crazyDatabaseDeletion();
-        mc.createNewUser("User", "Email");
-        mc.makeNewSkill("Skill1Test", "testing", "see if can add new skill", true, new NullImage());
+        mc.initializeController();
+
+        DatabaseController.deleteAllData();
+
+        DatabaseController.createNewUser("User", "Email");
+        mc.makeNewSkill("Skill1Test", "testing", "see if can add new skill", true, new ArrayList<Image>());
         Skill skill = ((Skill)(mc.getAllSkillz().toArray()[0]));
         // see if skill added
         assertTrue(mc.getCurrentUser().getInventory().hasSkill(skill));
