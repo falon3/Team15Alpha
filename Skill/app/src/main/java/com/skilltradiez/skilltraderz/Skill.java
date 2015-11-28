@@ -240,7 +240,7 @@ public class Skill extends Stringeable {
         setCategory(category);
         setVisible(isVisible);
         setDescription(description);
-        images = new ArrayList<Image>();
+        this.images = new ArrayList<ID>();
         setImages(images);
 
         rating = new Rating("skill", skillID.toString());

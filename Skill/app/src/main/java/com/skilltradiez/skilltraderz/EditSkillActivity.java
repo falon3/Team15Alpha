@@ -161,10 +161,13 @@ public class EditSkillActivity extends CameraActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
-    }
 
-    public void onStart() {
-        super.onStart();
+        setAddImageCallback(new Runnable() {
+            @Override
+            public void run() {
+                imageAdapter.notifyDataSetChanged();
+            }
+        });
 
         // We need to be able to edit an existing skill
         if (getIntent().hasExtra(ID_PARAM)) {
@@ -173,6 +176,7 @@ public class EditSkillActivity extends CameraActivity {
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             List<Image> images = getImages();
+            images.clear();
             for (ID id : skillToEdit.getImages())
                 images.add(DatabaseController.getImageByID(id));
             skillVisible.setChecked(skillToEdit.isVisible());
@@ -268,6 +272,7 @@ public class EditSkillActivity extends CameraActivity {
             skillToEdit.setCategory(category);
             skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
+            skillToEdit.setImages(getImages());
             DatabaseController.save();
 
             Context context = getApplicationContext();
