@@ -177,9 +177,8 @@ public class EditSkillActivity extends CameraActivity {
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             List<Image> images = getImages();
             images.clear();
-            for (ID id : skillToEdit.getImages()) {
+            for (ID id : skillToEdit.getImages())
                 images.add(DatabaseController.getImageByID(id));
-            }
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
@@ -228,10 +227,12 @@ public class EditSkillActivity extends CameraActivity {
      * add skill to the database
      */
     public void addNewSkill(View view){
-        String name = skillName.getText().toString();
-        String description = skillDescription.getText().toString();
-        String category = skillCategory.getSelectedItem().toString();
+        String name, description, category;
         boolean isVisible = skillVisible.isChecked();
+
+        name = skillName.getText().toString();
+        description = skillDescription.getText().toString();
+        category = skillCategory.getSelectedItem().toString();
 
         if (name.length() == 0 || description.length() == 0) {
             // this makes a pop-up alert with a dismiss button.
@@ -261,6 +262,10 @@ public class EditSkillActivity extends CameraActivity {
 
             skillName.setText("");
             skillDescription.setText("");
+            skillCategory.setSelection(0);
+            skillVisible.setChecked(true);
+            getImages().clear();
+            imageAdapter.notifyDataSetChanged();
         } else { // if we are editing an existing skill
             skillToEdit.setName(name);
             skillToEdit.setDescription(description);
