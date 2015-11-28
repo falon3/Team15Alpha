@@ -7,6 +7,7 @@
         <item name="android:actionBarWidgetTheme">@style/AppTheme.OverflowTextView</item>
         <item name="android:dropDownListViewStyle">@style/AppTheme.OverflowListView</item>
         <item name="android:itemBackground">@color/mainSkillAppColor</item>
+        <item name="android:windowBackground">@color/darkGreyAccent</item>
     </style>
 
     <!-- Action Bar Background Style -->

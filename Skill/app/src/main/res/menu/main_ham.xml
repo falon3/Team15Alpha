@@ -33,18 +33,29 @@
         android:title="@string/your_friends"
         skillz:showAsAction="never" />
     <item
-        android:id="@+id/My_Inventory"
-        android:title="@string/your_inventory"
+        android:id="@+id/Go_To_Settings"
+        android:title="@string/go_to_settings"
         skillz:showAsAction="never" />
+
     <item
-        android:id="@+id/Create_Skill"
-        android:title="@string/create_skill_menu"
-        skillz:showAsAction="never" />
-    <searchable android:id="@+id/search_bar"
-        android:hint="@string/search_field_text" />
-    <item android:id="@+id/search_button"
-        android:icon="@drawable/ic_list"
-        android:title="@string/search_button"
-        android:actionViewClass="android.widget.SearchView" />
+        android:id="@+id/Go_Home_Menu"
+        android:icon="@drawable/ic_home"
+        android:title="@string/go_home_menu"
+        skillz:showAsAction="always" />
+    <item
+        android:id="@+id/Go_Profile_Menu"
+        android:icon="@drawable/ic_person"
+        android:title="@string/go_profile"
+        skillz:showAsAction="always" />
+    <item
+        android:id="@+id/Go_To_Messages_Menu"
+        android:title="@string/go_messages"
+        android:icon="@drawable/ic_mail"
+        skillz:showAsAction="always" />
+    <item
+        android:id="@+id/Go_Make_Skill"
+        android:title="@string/go_make_skill"
+        android:icon="@drawable/sk_plus"
+        skillz:showAsAction="always" />
 
 </menu>

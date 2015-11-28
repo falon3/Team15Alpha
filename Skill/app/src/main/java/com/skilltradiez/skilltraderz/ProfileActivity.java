@@ -20,6 +20,7 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -154,6 +155,9 @@ public class ProfileActivity extends GeneralMenuActivity {
         profileTitle.setText(userProfileName);
         userContactInfo.setText(owner.getProfile().getEmail());
         ratingBar.setRating(owner.getProfile().getRating());
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(false);
 
         if (hasFriend) {
             addRemoveFriend.setText(R.string.remove_friend);
