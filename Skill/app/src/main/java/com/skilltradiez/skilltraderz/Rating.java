@@ -57,9 +57,9 @@ public class Rating extends Notification {
         //TODO commit this to it's user/skill
         try {
             if (type.equals("skill")) {
-                userDB.getElastic().updateDocument(type, id, this, "rating");
+                DatabaseController.updateElasticDocument(type, id, this, "rating");
             } else {
-                userDB.getElastic().updateDocument(type, id, this, "profile/" + "rating");
+                DatabaseController.updateElasticDocument(type, id, this, "profile/" + "rating");
             }
         } catch (IOException e) {
             e.printStackTrace();
