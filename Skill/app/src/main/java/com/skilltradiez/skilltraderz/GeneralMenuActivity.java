@@ -46,20 +46,26 @@ public class GeneralMenuActivity extends ActionBarActivity {
     protected Context generalContext = this;
 
     public MasterController masterController;
+    private EditText searchBar;
+    // Search Skillz By default
+    private int SEARCH_PARAM = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setIcon(R.drawable.ic_search);
 
-        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflator.inflate(R.layout.search, null);
 
         actionBar.setCustomView(view);
 
+        searchBar = (EditText) findViewById(R.id.search_bar);
     }
 
 
@@ -107,8 +113,26 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent = new Intent(generalContext, EditSkillActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.search_bar_button:
+                startSearch(getQuery());
+                return true;
         }
         return false;
+    }
+
+    protected void setSearchParam(int NEW_PARAM) {
+        SEARCH_PARAM = NEW_PARAM;
+    }
+
+    protected void startSearch(String query) {
+        Intent intent = new Intent(generalContext, SearchScreenActivity.class);
+        intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, SEARCH_PARAM);
+        intent.putExtra(SearchScreenActivity.SEARCH_QUERY, query);
+        startActivity(intent);
+    }
+
+    protected String getQuery() {
+        return searchBar.getText().toString();
     }
 
     //@todo clean up strings if there is time
