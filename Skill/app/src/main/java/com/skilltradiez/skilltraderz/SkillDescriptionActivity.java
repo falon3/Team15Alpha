@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -74,6 +75,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private RatingBar rating;
     private Boolean hasSkill;
     private LinearLayout imageView;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +126,17 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
             });
 
         imageView.removeAllViews();
-        for (ID id : currentSkill.getImages()) {
+        for (final ID id : currentSkill.getImages()) {
             Image image = DatabaseController.getImageByID(id);
             ImageView iv = new ImageView(this);
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ImageViewerActivity.class);
+                    intent.putExtra(ImageViewerActivity.IMAGE_ID_PARAM, id);
+                    startActivity(intent);
+                }
+            });
             iv.setImageBitmap(image.getBitmap());
             imageView.addView(iv);
         }

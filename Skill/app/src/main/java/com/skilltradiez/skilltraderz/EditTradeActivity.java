@@ -115,6 +115,13 @@ public class EditTradeActivity extends GeneralMenuActivity {
 
         requestList = (ListView) findViewById(R.id.requestList);
         otherInvList = (ListView) findViewById(R.id.other_invList);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
+        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
 
         offerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -164,19 +171,12 @@ public class EditTradeActivity extends GeneralMenuActivity {
             }
         });
 
+        loadItems();
+
         offerList.setAdapter(offerAdapter);
         yourInvList.setAdapter(yourInvAdapter);
         requestList.setAdapter(requestAdapter);
         otherInvList.setAdapter(otherInvAdapter);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
-        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
-
-        loadItems();
 
         offerAdapter.notifyDataSetChanged();
         yourInvAdapter.notifyDataSetChanged();
