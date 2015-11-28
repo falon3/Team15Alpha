@@ -61,8 +61,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:id="@+id/maketrade"
-        android:onClick="startTrade
-        android:layout_toRightOf="
+        android:onClick="startTrade"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/user_name"
