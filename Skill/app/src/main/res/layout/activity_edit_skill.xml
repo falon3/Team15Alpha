@@ -36,7 +36,8 @@
         android:id="@+id/Name"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="#005151" />
 
     <EditText
         android:id="@+id/new_skill_name"
@@ -51,35 +52,37 @@
         android:layout_below="@+id/Name" />
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/takeImage"
         android:onClick="addNewImage"
         android:src="@drawable/ic_action_image_camera_alt"
         android:layout_alignTop="@+id/Desc"
-        android:contentDescription="@string/photo_alt" />
+        android:contentDescription="@string/photo_alt"
+        android:background="#005151" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageList"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/is_visible"
         android:layout_alignLeft="@+id/takeImage"
         android:layout_below="@+id/takeImage"
         android:layout_alignRight="@+id/takeImage"
-        android:layout_above="@+id/category_spinner" />
+        android:layout_above="@+id/category_spinner"
+        android:background="#438F8F" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Description:"
+        android:text="@string/desc"
         android:id="@+id/Desc"
         android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
+        android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/takeImage"
-        android:layout_below="@+id/new_skill_name" />
+        android:layout_below="@+id/new_skill_name"
+        android:background="#005151" />
 
     <EditText
         android:id="@+id/new_skill_description"
@@ -114,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_with_border"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentStart="false"
         android:onClick="addNewSkill"
         android:text="@string/add_skill" />
 

@@ -99,7 +99,7 @@ public class Image extends Notification {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream .toByteArray();
-            String encoded = Base64.encodeToString(byteArray, Base64.URL_SAFE);
+            String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
             encoded = encoded.replace("\n", "");
             userDB.getElastic().addDocument("image", id.toString(), new Imageb64(encoded));
         } catch (IOException e) {

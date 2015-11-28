@@ -98,15 +98,12 @@ import java.util.Set;
  *
  */
 
-public class SearchScreenActivity extends GeneralMenuActivity {
+public class SearchScreenActivity extends SearchMenuActivity {
     static String SEARCH_TYPE_PARAM = "All_search",
-                FILTER_PARAM = "filter";
+                FILTER_PARAM = "filter",
+                SEARCH_QUERY = "query";
     private int screenType;
 
-    private Context searchScreenContext = this;
-
-    private Button searchButton;
-    private EditText searchField;
     private Spinner categorySpinner;
     private Bundle searchExtras;
 
@@ -125,11 +122,10 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         items = new ArrayList<Stringeable>();
 
         searchExtras = getIntent().getExtras();
-        try {
-            screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
-        } catch (RuntimeException e) {
-            throw new RuntimeException("SearchScreenActivity was not given the screenType");
-        }
+        screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
+        //query = searchExtras.getInt(SEARCH_QUERY);
+
+        setSearchParam(screenType);
 
         String filter = "All";
         if (searchExtras.containsKey(FILTER_PARAM))
@@ -139,9 +135,6 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
 
-        //searchButton = (Button) findViewById(R.id.search_button);
-        //searchField = (EditText) findViewById(R.id.search_bar);
-        searchField = null;
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
         ArrayAdapter<CharSequence> adapter;
@@ -166,7 +159,7 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                refineSearch(view);
+                refineSearch(getQuery());
             }
 
             @Override
@@ -174,13 +167,6 @@ public class SearchScreenActivity extends GeneralMenuActivity {
                 // Shouldn't need to be used
             }
         });
-
-/*        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refineSearch(v);
-            }
-        });*/
 
         resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -202,44 +188,12 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         resultsList.setAdapter(searchAdapter);
         searchAdapter.notifyDataSetChanged();
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_ham, menu);
-
-        //Android Developers
-        //http://developer.android.com/training/search/setup.html#create-sc - Nov 26, 2015
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search_bar).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        if(super.onOptionsItemSelected(item))
-            return true;
-
-        switch(item.getItemId()){
-            case R.id.search_button:
-                searchField = (EditText) findViewById(R.id.search_bar);
-                refineSearch(null);
-                return true;
-        }
-        return true;
-    }
 
     public void loadItems() {
         //Refresh the database :D
         DatabaseController.refresh();
         items.clear();
-        refineSearch(null); // search for nothing initially
+        refineSearch(); // search for nothing initially
 
         if (screenType == 0) {
             // all skills
@@ -253,20 +207,23 @@ public class SearchScreenActivity extends GeneralMenuActivity {
         }
     }
 
+    protected void startSearch(String query) {
+        refineSearch(query);
+    }
+
+    protected void refineSearch() {
+        refineSearch("");
+    }
+
     /**
      * Take a string and refine the list of Users/Skills
      */
-    public void refineSearch(View v){
+    public void refineSearch(String query){
         //get whatever is in searchField
         //apply it to the list of results
         //update view
 
-        String search, category = categorySpinner.getSelectedItem().toString();
-        if(searchField != null){
-            search = searchField.getText().toString();
-        } else {
-            search = "";
-        }
+        String search = query, category = categorySpinner.getSelectedItem().toString();
 
         items.clear();
         if (screenType == 0) {
@@ -289,9 +246,9 @@ public class SearchScreenActivity extends GeneralMenuActivity {
             Set<Trade> trades = masterController.getAllTradez();
             for (Trade t : trades)
                 if (t.toString().contains(search) &&
-                    (category.equals("All") ||
-                            (category.equals("Active") && t.isActive()) ||
-                            (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
+                        (category.equals("All") ||
+                                (category.equals("Active") && t.isActive()) ||
+                                (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
                     items.add(t);
         }
         searchAdapter.notifyDataSetChanged();

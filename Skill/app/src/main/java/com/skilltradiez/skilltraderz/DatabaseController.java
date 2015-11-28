@@ -427,7 +427,9 @@ public final class DatabaseController implements ControllerInterface{
         ChangeList changeList = MasterController.getUserDB().getChangeList();
         Elastic elastic = MasterController.getUserDB().getElastic();
 
+
         skillz.add(skill);
+
         // New Skill
         changeList.add(skill);
         try {

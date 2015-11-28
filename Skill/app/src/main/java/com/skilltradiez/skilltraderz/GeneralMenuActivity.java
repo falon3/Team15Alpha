@@ -27,7 +27,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -45,23 +47,30 @@ import android.widget.Toast;
 public class GeneralMenuActivity extends ActionBarActivity {
 
 
+
     /**LOCAL CLASS VARIABLES:
      * 1: generalContext: Assign a Context to a variable to be used generally.
      * 2: masterController: Create the ever-critical MasterController object that acts
      * as the most core controller for the entire application.
      */
+
     protected Context generalContext = this;
     public MasterController masterController;
+    protected EditText searchBar;
+    // Search Skillz By default
+    private int SEARCH_PARAM = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setIcon(R.drawable.ic_search);
 
-        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflator.inflate(R.layout.search, null);
 
         actionBar.setCustomView(view);
@@ -126,6 +135,21 @@ public class GeneralMenuActivity extends ActionBarActivity {
         return false;
     }
 
+    protected void setSearchParam(int NEW_PARAM) {
+        SEARCH_PARAM = NEW_PARAM;
+    }
+
+    protected void startSearch(String query) {
+        Intent intent = new Intent(generalContext, SearchScreenActivity.class);
+        intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, SEARCH_PARAM);
+        intent.putExtra(SearchScreenActivity.SEARCH_QUERY, query);
+        startActivity(intent);
+    }
+
+    protected String getQuery() {
+        return searchBar.getText().toString();
+    }
+
     //@todo clean up strings if there is time
     //@todo parent activity for enabling the back button on action bar needs work
 
@@ -136,6 +160,4 @@ public class GeneralMenuActivity extends ActionBarActivity {
     public MasterController getMasterController() {
         return masterController;
     }
-
-
 }

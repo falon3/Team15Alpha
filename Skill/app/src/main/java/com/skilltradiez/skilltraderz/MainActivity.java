@@ -27,6 +27,7 @@ import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -127,16 +128,10 @@ public class MainActivity extends GeneralMenuActivity {
         searchAllUsersButton = (Button) findViewById(R.id.browse_users);
         goToProfile = (Button) findViewById(R.id.go_to_profile);
 
-
         // first_time (login)
         newUserName = (EditText) findViewById(R.id.usernameField);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(false);
-        actionBar.setHomeButtonEnabled(true);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -158,6 +153,10 @@ public class MainActivity extends GeneralMenuActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_ham, menu);
+
+        //disable go to Home menu button from menubar when already in home menu
+        MenuItem item = menu.findItem(R.id.Go_Home_Menu);
+        item.setEnabled(false);
         return true;
     }
 
