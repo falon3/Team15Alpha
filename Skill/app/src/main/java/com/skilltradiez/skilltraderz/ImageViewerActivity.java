@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ImageView;
 
-public class ImageViewerActivity extends ActionBarActivity {
+public class ImageViewerActivity extends GeneralMenuActivity {
     static String IMAGE_ID_PARAM = "image_id";
 
     private ImageView imageView;
