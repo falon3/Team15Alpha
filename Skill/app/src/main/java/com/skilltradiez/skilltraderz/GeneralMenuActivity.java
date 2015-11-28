@@ -27,7 +27,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -46,7 +48,7 @@ public class GeneralMenuActivity extends ActionBarActivity {
     protected Context generalContext = this;
 
     public MasterController masterController;
-    private EditText searchBar;
+    protected EditText searchBar;
     // Search Skillz By default
     private int SEARCH_PARAM = 0;
 
@@ -64,8 +66,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
         View view = inflator.inflate(R.layout.search, null);
 
         actionBar.setCustomView(view);
-
-        searchBar = (EditText) findViewById(R.id.search_bar);
     }
 
 
@@ -112,9 +112,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
             case R.id.Go_Make_Skill:
                 intent = new Intent(generalContext, EditSkillActivity.class);
                 startActivity(intent);
-                return true;
-            case R.id.search_bar_button:
-                startSearch(getQuery());
                 return true;
         }
         return false;
