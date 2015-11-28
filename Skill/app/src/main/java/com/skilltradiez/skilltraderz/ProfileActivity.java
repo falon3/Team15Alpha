@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -198,6 +199,10 @@ public class ProfileActivity extends GeneralMenuActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_ham, menu);
+
+        //disable go to profile button from menubar when already in profile
+        MenuItem item = menu.findItem(R.id.Go_Profile_Menu);
+        item.setEnabled(false);
         return true;
     }
 
