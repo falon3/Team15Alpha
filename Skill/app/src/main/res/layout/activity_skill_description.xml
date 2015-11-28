@@ -51,12 +51,23 @@
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="75dp"
-        android:id="@+id/horizontalScrollView2"
+        android:id="@+id/imageScroller"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/skillCategory"
         android:background="@drawable/button_with_border"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_below="@+id/skillCategory"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/imageView"></LinearLayout>
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/skill_description"
@@ -66,7 +77,7 @@
         android:inputType="textMultiLine"
         android:text="@string/skill_description"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/horizontalScrollView2"
+        android:layout_below="@+id/imageScroller"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
@@ -99,13 +110,6 @@
         android:text="@string/edit_skill"
         android:visibility="invisible"
         android:onClick="editSkill"/>
-
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/horizontalScrollView"
-        android:layout_below="@+id/add_remove_skill"
-        android:layout_alignParentStart="true" />
 
     <RatingBar
         style="@style/skillzRatingBar"

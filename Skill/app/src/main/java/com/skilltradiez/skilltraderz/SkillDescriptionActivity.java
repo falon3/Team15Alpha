@@ -17,12 +17,12 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -73,6 +73,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private TextView skillTitle, skillCategory, skillDescription;
     private RatingBar rating;
     private Boolean hasSkill;
+    private LinearLayout imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         skillTitle = (TextView) findViewById(R.id.skillTitle);
         skillCategory = (TextView) findViewById(R.id.skillCategory);
         editSkill = (Button) findViewById(R.id.edit_skill);
+        imageView = (LinearLayout) findViewById(R.id.imageView);
 
         rating = (RatingBar) findViewById(R.id.ratingBar2);
     }
@@ -120,6 +122,14 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
                     currentSkill.addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
                 }
             });
+
+        imageView.removeAllViews();
+        for (ID id : currentSkill.getImages()) {
+            Image image = DatabaseController.getImageByID(id);
+            ImageView iv = new ImageView(this);
+            iv.setImageBitmap(image.getBitmap());
+            imageView.addView(iv);
+        }
     }
 
     public void setSkillTitle(String text){
