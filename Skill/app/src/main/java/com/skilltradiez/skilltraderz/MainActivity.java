@@ -127,16 +127,10 @@ public class MainActivity extends GeneralMenuActivity {
         searchAllUsersButton = (Button) findViewById(R.id.browse_users);
         goToProfile = (Button) findViewById(R.id.go_to_profile);
 
-
         // first_time (login)
         newUserName = (EditText) findViewById(R.id.usernameField);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(false);
-        actionBar.setHomeButtonEnabled(true);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
