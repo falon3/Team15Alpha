@@ -46,6 +46,7 @@ import java.io.IOException;
  */
 
 public class Image extends Notification {
+    
     private Bitmap bitmap;
     private ID id;
 
