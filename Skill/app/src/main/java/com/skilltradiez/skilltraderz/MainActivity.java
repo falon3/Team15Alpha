@@ -93,12 +93,9 @@ public class MainActivity extends GeneralMenuActivity {
     private Context mainContext = this;
 
     //Main screen
-    private Button searchButton;
     private Button searchAllSkillzButton;
     private Button searchAllUsersButton;
     private Button goToProfile;
-    private EditText searchField;
-    private String searchDatabase;
     public static boolean connected;
 
     //First time user screen
@@ -123,24 +120,22 @@ public class MainActivity extends GeneralMenuActivity {
             setContentView(R.layout.first_time_user);
         }
 
-        // main
-        searchButton = (Button) findViewById(R.id.search_button);
+        // mainActivity
+        //searchButton = (Button) findViewById(R.id.search_button);
+        //searchField = (EditText) findViewById(R.id.search_bar);
         searchAllSkillzButton = (Button) findViewById(R.id.browse_skillz);
         searchAllUsersButton = (Button) findViewById(R.id.browse_users);
         goToProfile = (Button) findViewById(R.id.go_to_profile);
-        searchField = (EditText) findViewById(R.id.search_bar);
 
-        // first_time
+
+        // first_time (login)
         newUserName = (EditText) findViewById(R.id.usernameField);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
 
-        searchDatabase = "";
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        //masterController.initializeArrayListForSkills();
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -166,16 +161,9 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     /**
-     * onClick listeners and buttons go here
-     */
-    @Override
-    public void onStart(){
-        super.onStart();
-    }
-
-    /**
      * Create a new user when you first open up the app.
      */
+    //TODO Check why this is static and outside the method?
     private static User new_guy = null;
     public void newUser(View view){
         final Context context = getApplicationContext();
@@ -186,7 +174,7 @@ public class MainActivity extends GeneralMenuActivity {
         }else {
             username = newUserName.getText().toString();
 
-            //Used for error checking
+            // Used for error checking
             // If null, then it failed
             new_guy = DatabaseController.createNewUser(username, newUserEmail.getText().toString());
             DatabaseController.save();
@@ -219,21 +207,12 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     /**
-     * Begin a refined search of the database from user input
-     * @param view
-     */
-    public void beginRefinedSearch(View view){
-        Intent intent = new Intent(mainContext, SearchScreenActivity.class);
-        startActivity(intent);
-    }
-
-    /**
      * Take user to their own profile when "Your Profile" button is pressed
      * @param view
      */
     public void showProfile(View view){
         Intent intent = new Intent(mainContext, ProfileActivity.class);
-        intent.putExtra("user_name_for_profile", masterController.getCurrentUserUsername());
+        intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
         startActivity(intent);
     }
 

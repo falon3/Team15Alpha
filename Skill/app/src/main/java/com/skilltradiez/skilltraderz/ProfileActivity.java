@@ -115,6 +115,7 @@ import android.widget.Toast;
  */
 
 public class ProfileActivity extends GeneralMenuActivity {
+    static String UNIQUE_PARAM = "user_name_for_profile";
     private Bundle profileExtras;
     private String userProfileName;
 
@@ -136,7 +137,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
         masterController = new MasterController();
         profileExtras = getIntent().getExtras();
-        userProfileName = profileExtras.getString("user_name_for_profile");
+        userProfileName = profileExtras.getString(UNIQUE_PARAM);
 
         contactInfo = (Button) findViewById(R.id.contact_button);
         addRemoveFriend = (Button) findViewById(R.id.add_friend);
@@ -219,7 +220,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void checkInventory(View view){
         Intent intent = new Intent(profileContext, InventoryActivity.class);
-        intent.putExtra("user_id", owner.getUserID());
+        intent.putExtra(InventoryActivity.ID_PARAM, owner.getUserID());
         startActivity(intent);
     }
 
@@ -227,8 +228,8 @@ public class ProfileActivity extends GeneralMenuActivity {
         //check if user you are making a trade with is your friend
         //do not show start trade button
         Intent intent = new Intent(profileContext, EditTradeActivity.class);
-        intent.putExtra("active_id", masterController.getCurrentUser().getUserID());
-        intent.putExtra("passive_id", owner.getUserID());
+        intent.putExtra(EditTradeActivity.ACTIVE_PARAM, masterController.getCurrentUser().getUserID());
+        intent.putExtra(EditTradeActivity.PASSIVE_PARAM, owner.getUserID());
         startActivity(intent);
     }
 
@@ -284,7 +285,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
         //Toasties!!!!!!
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Removed "+ owner.getProfile().getUsername()+" from FriendsList", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Removed "+ owner.getProfile().getUsername() +" from FriendsList", Toast.LENGTH_SHORT);
         toast.show();
 
         //Modify the displayed text the user sees to keep them aware of their choices.
@@ -293,7 +294,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
     public void showFriendsList(View v) {
         Intent intent = new Intent(this, SearchScreenActivity.class);
-        intent.putExtra("filter", "Friends");
+        intent.putExtra(SearchScreenActivity.FILTER_PARAM, "Friends");
         intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
         startActivity(intent);
     }

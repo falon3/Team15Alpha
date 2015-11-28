@@ -66,6 +66,8 @@ import android.widget.TextView;
  */
 
 public class SkillDescriptionActivity extends GeneralMenuActivity {
+    static String ID_PARAM = "skill_id";
+
     private Skill currentSkill;
     private Button addRemoveSkill, editSkill;
     private TextView skillTitle, skillCategory, skillDescription;
@@ -78,7 +80,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         setContentView(R.layout.activity_skill_description);
         masterController = new MasterController();
 
-        currentSkill = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+        currentSkill = DatabaseController.getSkillByID((ID) getIntent().getExtras().get(ID_PARAM));
 
         addRemoveSkill = (Button) findViewById(R.id.add_remove_skill);
         skillDescription = (TextView) findViewById(R.id.skill_description);

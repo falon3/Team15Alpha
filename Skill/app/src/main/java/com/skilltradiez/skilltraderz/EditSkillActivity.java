@@ -120,6 +120,7 @@ import java.util.ArrayList;
  */
 
 public class EditSkillActivity extends CameraActivity {
+    static String ID_PARAM = "skill_id";
     private Skill skillToEdit;
 
     private ListView imageList;
@@ -165,8 +166,8 @@ public class EditSkillActivity extends CameraActivity {
         super.onStart();
 
         // We need to be able to edit an existing skill
-        if (getIntent().hasExtra("skill_id")) {
-            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get("skill_id"));
+        if (getIntent().hasExtra(ID_PARAM)) {
+            skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get(ID_PARAM));
             skillName.setText(skillToEdit.getName());
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
