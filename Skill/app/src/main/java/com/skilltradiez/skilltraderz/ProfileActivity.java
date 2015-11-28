@@ -161,9 +161,14 @@ public class ProfileActivity extends GeneralMenuActivity {
         actionBar.setDisplayShowCustomEnabled(false);
 
         if (hasFriend) {
+            //check if user is your friend you can make trade request
             addRemoveFriend.setText(R.string.remove_friend);
+            startTrade.setVisibility(View.VISIBLE);
+
         } else {
+            //do not show start trade button since not a friend
             addRemoveFriend.setText(R.string.add_friend);
+            startTrade.setVisibility(View.INVISIBLE);
         }
 
         // You can't be friends with yourself, go get some real friends
@@ -234,8 +239,6 @@ public class ProfileActivity extends GeneralMenuActivity {
     }
 
     public void startTrade(View view){
-        //check if user you are making a trade with is your friend
-        //do not show start trade button
         Intent intent = new Intent(profileContext, EditTradeActivity.class);
         intent.putExtra(EditTradeActivity.ACTIVE_PARAM, masterController.getCurrentUser().getUserID());
         intent.putExtra(EditTradeActivity.PASSIVE_PARAM, owner.getUserID());
@@ -260,8 +263,11 @@ public class ProfileActivity extends GeneralMenuActivity {
     public void addRemoveFriend(View view){
         if(hasFriend){
             removeFriend();
+            //do not show start trade button anymore since not a friend
+            startTrade.setVisibility(View.INVISIBLE);
         }else{
             addFriend();
+            startTrade.setVisibility(View.VISIBLE);
         }
         hasFriend = !hasFriend;
     }
