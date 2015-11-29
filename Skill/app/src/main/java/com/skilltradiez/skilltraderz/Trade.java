@@ -182,6 +182,13 @@ public class Trade extends Stringeable {
         return "TRADE: "+half1.getUser()+" -> "+half2.toString();
     }
 
+    public String getCategory(){
+        if(isActive()){
+            return "Active";
+        }
+        return "Inactive";
+    }
+
     public String getDescription() {
         // SUBTITLE
         return "I should REALLY find the user's names";
