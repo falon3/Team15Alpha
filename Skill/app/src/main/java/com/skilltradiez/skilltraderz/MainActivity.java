@@ -128,7 +128,7 @@ public class MainActivity extends GeneralMenuActivity {
 
         searchAllSkillzButton = (Button) findViewById(R.id.All_Skillz);
         searchAllUsersButton = (Button) findViewById(R.id.All_Users);
-        goToProfile = (Button) findViewById(R.id.go_to_profile);
+        //goToProfile = (Button) findViewById(R.id.go_to_profile);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -201,17 +201,15 @@ public class MainActivity extends GeneralMenuActivity {
      */
     public void beginAllSearch(View view) {
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
-        if (view.getId() == R.id.browse_skillz) {
+        if (view.getId() == R.id.All_Skillz) {
             intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
-        } else if (view.getId() == R.id.browse_users) {
+        } else if (view.getId() == R.id.All_Users) {
             intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
         } else {
             intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
         }
         startActivity(intent);
     }
-
-    -
 
     /**
      * Take user to their own profile when "Your Profile" button is pressed
