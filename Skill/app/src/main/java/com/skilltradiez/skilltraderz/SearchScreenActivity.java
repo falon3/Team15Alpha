@@ -26,6 +26,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -245,6 +247,48 @@ public class SearchScreenActivity extends SearchMenuActivity {
         searchAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Returns a copy of the list of skills, sorted ascending by name.
+     */
+    public List<Stringeable> orderByTop(UserDatabase userDB) {
+        List<Stringeable> sorted = cloneStringeable();
+        Collections.sort(sorted, new Comparator<Stringeable>() {
+            @Override
+            public int compare(Stringeable lhs, Stringeable rhs) {
+                return rhs.getTop() - lhs.getTop();
+            }
+        });
+        return sorted;
+    }
+
+    /**
+     * Returns a copy of the list of stringeables, sorted ascending by name.
+     */
+    public List<Stringeable> orderByName(UserDatabase userDB) {
+        List<Stringeable> sorted = cloneStringeable();
+        Collections.sort(sorted, new Comparator<Stringeable>() {
+            @Override
+            public int compare(Stringeable lhs, Stringeable rhs) {
+                return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
+            }
+        });
+        return sorted;
+    }
+
+    /**
+     * Returns a copy of the list of stringeables, sorted ascending by category.
+     */
+    public List<Stringeable> orderByCategory(UserDatabase userDB) {
+        List<Stringeable> sorted = cloneStringeable();
+        Collections.sort(sorted, new Comparator<Stringeable>() {
+            @Override
+            public int compare(Stringeable lhs, Stringeable rhs) {
+                return lhs.getCategory().toLowerCase().compareTo(rhs.getCategory().toLowerCase());
+            }
+        });
+        return sorted;
+    }
+
     public void clickOnUser(Profile u) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra(ProfileActivity.UNIQUE_PARAM, u.getUsername());
@@ -261,5 +305,12 @@ public class SearchScreenActivity extends SearchMenuActivity {
         Intent intent = new Intent(this, TradeRequestActivity.class);
         intent.putExtra(TradeRequestActivity.TRADE_ID_PARAM, t.getTradeID());
         startActivity(intent);
+    }
+
+    public List<Stringeable> cloneStringeable() {
+        List<Stringeable> stringeables = new ArrayList<Stringeable>();
+        for (Stringeable string:items)
+            stringeables.add(string);
+        return stringeables;
     }
 }

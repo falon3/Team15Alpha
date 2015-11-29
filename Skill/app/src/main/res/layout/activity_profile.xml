@@ -136,8 +136,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:onClick="editContactInformation"
-        android:layout_above="@+id/ratingBar"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -147,16 +147,7 @@
         android:id="@+id/edit_contact"
         android:layout_alignTop="@+id/contact_button"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/contact_button" />
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:numStars="5"
-        android:layout_alignParentBottom="true"
-        android:mirrorForRtl="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentStart="false"/>
+        android:layout_toEndOf="@+id/contact_button"
+        android:layout_alignBottom="@+id/contact_button" />
 
 </RelativeLayout>
