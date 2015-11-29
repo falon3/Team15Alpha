@@ -15,11 +15,13 @@ import java.util.List;
 public class TradeAdapter extends ArrayAdapter<Skill> {
     private final Activity context;
     private final List<Skill> items;
+    private final boolean offer;
 
     public TradeAdapter(Activity context, List<Skill> itemList) {
         super(context, R.layout.trade_offer, itemList);
         this.context = context;
         this.items = itemList;
+        offer = true;
     }
 
     @SuppressWarnings("unused") // boolean is used to identify arrow direction
@@ -27,6 +29,7 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
         super(context, R.layout.trade_inv, itemList);
         this.context = context;
         this.items = itemList;
+        offer = false;
     }
 
     @Override
@@ -37,8 +40,11 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
         if (view == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            view = inflater.inflate(R.layout.list_item, parent, false);
-            viewHolder.name = (TextView) view.findViewById(R.id.skillName);
+            if (offer)
+                view = inflater.inflate(R.layout.trade_offer, parent, false);
+            else
+                view = inflater.inflate(R.layout.trade_inv, parent, false);
+            viewHolder.name = (TextView) view.findViewById(R.id.name);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
             view.setTag(viewHolder);
         } else {

@@ -18,38 +18,37 @@
     *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 
-    <TableRow
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="78dp">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="78dp">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SkillName"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/tealTextColor" />
 
-            <TextView
-                android:id="@+id/skillName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SkillName"
-                android:textAppearance="@color/tealTextColor"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="CoolCategory" />
+    </TableLayout>
 
-            <TextView
-                android:id="@+id/desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CoolCategory" />
-        </TableLayout>
+    <ImageView android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_action_arrow_right"
+        android:id="@+id/img"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true" />
 
-        <ImageView android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_action_arrow_right"
-            android:id="@+id/img" />
-    </TableRow>
-
-</LinearLayout>
+</RelativeLayout>

@@ -121,7 +121,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
     public void onStart() {
         super.onStart();
         tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
-        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
+        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "'s Inventory:");
 
         offerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
