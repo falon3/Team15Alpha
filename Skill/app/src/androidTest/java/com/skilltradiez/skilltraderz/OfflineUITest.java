@@ -115,4 +115,37 @@ public class OfflineUITest {
         onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
         deleteDatabase();
     }
+    @Test
+    public void testBrowseFriendInventory() throws UserAlreadyExistsException {
+        //create friend
+        DatabaseController.createUser("Friend for a minute");
+
+        //login
+        onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //find friend
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText("Friend for a minute"), closeSoftKeyboard());
+        onView(withId(R.id.search_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //add friend
+        onView(withId(R.id.add_friend)).perform(click());
+
+        //simulate going offline with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+        DatabaseController.refresh();
+
+        //browse all users then select friend and view inventory
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText("Friend for a minute"), closeSoftKeyboard());
+        onView(withId(R.id.search_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //browse friend inventory now while offline
+        onView(withId(R.id.inventory)).perform(click());
+        //Doesn't break... success!
+    }
 }
