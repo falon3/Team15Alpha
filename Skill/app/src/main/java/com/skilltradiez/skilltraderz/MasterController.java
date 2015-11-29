@@ -129,6 +129,24 @@ public final class MasterController implements ControllerInterface{
         currentSkill.addOwner(getCurrentUser().getUserID());
     }
 
+    public void deleteTrade(ID tradeID) {
+        DatabaseController.deleteDocumentTrade(tradeID);
+    }
+
+    public List<Skill> getSkillList(List<ID> ids) {
+        List<Skill> skills = new ArrayList<Skill>();
+        for (ID id:ids)
+            skills.add(DatabaseController.getSkillByID(id));
+        return skills;
+    }
+
+    public List<Stringeable> getStringeableSkillList(List<ID> ids) {
+        List<Stringeable> skills = new ArrayList<Stringeable>();
+        for (ID id:ids)
+            skills.add(DatabaseController.getSkillByID(id));
+        return skills;
+    }
+
     /** TradeRequestActivity methods **/
     //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
     public Trade getTradeByID(ID identifier){
