@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,7 +36,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-/**~~DESCRIPTION:
+/**
  * Since trading is THE major selling point of this application it would only make sense for
  * us to actually be able to modify the trades that we are actually using in this application.
  * Trades are their own object (Please go to that class in order to see all of the details and
@@ -47,33 +48,35 @@ import java.util.ArrayList;
  * How else are we going to have the user interact with it? "Tada here is a class, we hope you
  * somehow figure out a way to interact with it!" Buttons, UI, layouts... this is all essential
  * for any sort of decent user experience. Without it we are in trouble! Big... big trouble!
- *
- * ~~ACCESS:
- * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
- * we can have this class actually be accessed technically anywhere in the application that
- * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
- * an instance of the "EditTradeActivity" object.
- *
- * Instead what is happening is that we are having this activity be called by the onCreate() method
- * as is traditionally done in the android studio framework for android applications. In this
- * instance we're going to create this activity and then we'll have an onstart() method following
- * this which is going to make it so that we have this activate a cascade of events that are all
- * interelated with the main primary goal of allowing us to have a screen where we edit the
- * trading activity!
- *
- *~~CONSTRUCTOR:
- * Upon calling the method onCreate() for this activity the android studio framework will
- * cause the android application to create an instance of this actvity and display it to the user.
- *
- * ~~ATTRIBUTES/METHODS:
- * 1: None yet. Placeholder.
- *
- *
  */
 
 public class EditTradeActivity extends GeneralMenuActivity {
+    /**Activity Class Variables:
+     * 1: ACTIVE_PARAM, involved with holding the static string "active_id" which will be utilized
+     *     in being passed to methods where we need to differentiate IDs given.
+     * 2: PASSIVE_PARAM, similar to ACTIVE_PARAM but has the string "passive_id".
+     * 3: TRADE_ID_PARAM, similar to ACTIVE_PARAM and PASSIVE_PARAM above, however this string
+     *     will be utilized to uniquely identify Trade IDs being passed.
+     * 4: TradeAdapters (Yes, all of them), involved with setting up the UI for this object.
+     * 5: ListViews (Yes, all of them), invovled with setting up the List Views used by
+     *     this object to represent the UI shown to the user.
+     * 6: TextViews (Yes, all of them), involved in representing core textual data to the user
+     *     through the UI.
+     * 7: Buttons (Yes, all of them), involved in allowing the user a method to interact with
+     *     the UI in order to carry out a particular desired task.
+     * 8: offer, this is  list of Skill Objects that is involved with maintaining the current
+     *     offer of the Trade Object this EditTradeActivity is based upon.
+     * 9: yourInv, this list of Skill Objects maintains the current user's inventory.
+     * 10: request, this list of Skill Objects contains the list of requests that the user has.
+     * 11: otherInvList, this list of Skill Objects contains the Skills the user is offering.
+     * 12: activeUser, this User Object is going to be the ACTIVE_PARAM user.
+     * 13: passiveUser, this User Object is the PASSIVE_PARAM user.
+     * 14: trade, this is going to be the ever-critical Trade Object that is associated with this
+     *      EditTradeActivity. (No point in this page if we don't have a Trade, right?)
+     */
     static String ACTIVE_PARAM = "active_id",
-                PASSIVE_PARAM = "passive_id";
+                PASSIVE_PARAM = "passive_id",
+                TRADE_ID_PARAM = "trade_id";
     private TradeAdapter offerAdapter, yourInvAdapter, requestAdapter, otherInvAdapter;
     private ListView offerList, yourInvList, requestList, otherInvList;
 
@@ -82,6 +85,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
 
     private ArrayList<Skill> offer, yourInv, request, otherInv;
     private User activeUser, passiveUser;
+    private Trade trade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,10 @@ public class EditTradeActivity extends GeneralMenuActivity {
         activeUser = DatabaseController.getAccountByUserID(userID);
         userID = (ID)profileExtras.get(PASSIVE_PARAM);
         passiveUser = DatabaseController.getAccountByUserID(userID);
+
+        ID tradeID = (ID)profileExtras.get(TRADE_ID_PARAM);
+        if (tradeID != null)
+            trade = DatabaseController.getTradeByID(tradeID);
 
         //Init Lists
         offer = new ArrayList<Skill>();
@@ -121,7 +129,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
     public void onStart() {
         super.onStart();
         tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
-        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
+        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "'s Inventory:");
 
         offerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -184,6 +192,12 @@ public class EditTradeActivity extends GeneralMenuActivity {
         otherInvAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Refresh the Database, obtain all relevant information from the database and initialize
+     * all TradeAdapter objects. Essentially this method is going to be critical to starting
+     * up this activity and handling all of the work behind this functioning Activity before it
+     * even is functioning.
+     */
     private void loadItems() {
         DatabaseController.refresh();
 
@@ -198,21 +212,46 @@ public class EditTradeActivity extends GeneralMenuActivity {
         otherInvAdapter = new TradeAdapter(this, otherInv, true);
     }
 
+    /**
+     * Given a View Object (to identify the trade), this method will remove the Trade Object
+     * associated with the given View Object. It will then display a brief message to the user
+     * upon success.
+     * @param view View Object of the EditTradeActivity.
+     */
     public void deleteRequest(View view){
         //TODO delete the trade
+        if (trade != null)
+            masterController.deleteTrade(trade);
+
         Context context = getApplicationContext();
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
-        startActivity(intent);*/
+
+        finish();
     }
 
-    public void sendTrade(View view){
+    /**
+     * If the user has at least one skill in their trade, when invoked this method will obtain
+     * all relevant information from the database and add this trade to the database. Afterwards
+     * saving the database and giving the user a brief conformation message.
+     * @param view View Object of the EditTradeActivity.
+     */
+    public void sendTrade(View view) {
+        if (offer.size() == 0) {
+            Toast.makeText(getApplicationContext(), "You need to request at least one skill!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //TODO Send The Trade
-        Trade trade = activeUser.getTradeList().createTrade(MasterController.getUserDB(), activeUser, passiveUser, offer, request);
+        if (trade != null){
+            trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);
+            activeUser.getTradeList().addTrade(masterController.getUserDB(), trade);
+        } else {
+            trade = activeUser.getTradeList().createTrade(masterController.getUserDB(), activeUser, passiveUser, offer, request);
+        }
+        DatabaseController.save();
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
-        startActivity(intent);*/
+
+        finish();
     }
 }

@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**~~DESCRIPTION:
+/**
  * What is life without change?
  * I don't know, I am not a philosopher. Please don't ask me. Please... :(
  *
@@ -46,33 +46,12 @@ import java.util.List;
  * right?! Well it gets even better! When the notification list is fully populated we are going
  * to let the user actually have a method that lets them push ALL of this to a particular user's
  * database! Now that is glorious, and majestic.
- *
- * ACCESS:
- * This is a (not specified so default!) public class that will be accessible throughout
- * the entire application. Why? Why my good sir, because change happens everywhere! That is why
- * this is such a majestic class. The methods can be called anywhere and everywhere.
- *
- * CONSTRUCTORS:
- * This class only has a single constructor (ChangeList) which takes in NO PARAMETERS (In other
- * words, please please please instantiate this before you plan to put in notifications into it,
- * well that and pushing an empty list of notifications to the userDB Would be strange....)
- *
- * ATTRIBUTES/METHODS:
- *  1: NOTIFICATIONS:
- *      This is going to be the overall main list that is going to hold together all of the
- *      various notification objects together into a single easy-to-deal-with bundle. Allowing
- *      us to make modifications to this list that will represent modifications in the
- *      entire string of the program.
- *
- *      WE PROVIDE THE METHODS TO:
- *      -Add notification objects to this list!             --add
- *      -Put into the database all of the modifications     --push
  */
 
 
 
 class ChangeList {
-    /** LOCAL VARIABLES
+    /** Class Variables:
      * Notifications are: FriendsList, Profile, Inventory, Skill, TradeList, Trade
      *
      * 1: notifications, the overall list if all notifications.
@@ -86,7 +65,7 @@ class ChangeList {
     private List<Notification> oldNotifications;
     private boolean lock;
 
-    /** CONSTRUCTOR:
+    /**
      * Creates the ChangeList object, assigning three ArrayLists of notifications corresponding to:
      * 1: notifications, the overall list if all notifications.
      * 2: newNotifications, the list of only new notifications that haven't been commited to the DB.
@@ -102,8 +81,7 @@ class ChangeList {
     }
 
 
-    /** METHODS **/
-
+    /** Methods **/
     /**
      * Given a notification object, will add this notification object to the notifications list.
      * @param newNote Notification Object.

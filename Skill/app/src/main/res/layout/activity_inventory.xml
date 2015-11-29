@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -43,10 +42,10 @@
         android:id="@+id/results_list"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
+        android:layout_above="@+id/category_spinner"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/maketrade"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/button_with_border" />
+        android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/maketrade"
@@ -55,37 +54,10 @@
         android:layout_alignEnd="@+id/results_list"
         android:layout_alignTop="@+id/inventoryTitle"
         android:background="@drawable/button_with_border"
+        android:onClick="startTrade"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="@string/make_trade"
-        android:onClick="startTrade"/>
-
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/results_list"
-        android:layout_marginTop="28dp"
-        android:layout_toStartOf="@+id/maketrade"
-        android:layout_weight="0.75"
-        android:hint="@string/refine_search"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#629595" />
-
-    <Button
-        android:id="@+id/search_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/search_bar"
-        android:layout_alignEnd="@+id/results_list"
-        android:layout_alignTop="@+id/search_bar"
-        android:background="@drawable/button_with_border"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="@string/search_button"
-        android:onClick="searchInventory"/>
+        android:text="@string/make_trade" />
 
     <Spinner
         android:id="@+id/category_spinner"
@@ -93,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:background="@drawable/spinner"
         android:spinnerMode="dropdown" />
 
 </RelativeLayout>

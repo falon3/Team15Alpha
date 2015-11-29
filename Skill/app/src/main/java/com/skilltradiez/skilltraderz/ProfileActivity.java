@@ -129,7 +129,6 @@ public class ProfileActivity extends GeneralMenuActivity {
     private Button addRemoveFriend, startTrade, viewInventory, contactInfo, friendListButton;
     private TextView userContactInfo, profileTitle;
     private CheckBox checkBox;
-    private RatingBar ratingBar;
     private EditText newEmail;
 
     @Override
@@ -148,14 +147,17 @@ public class ProfileActivity extends GeneralMenuActivity {
         newEmail = (EditText) findViewById(R.id.edit_contact);
         profileTitle = (TextView) findViewById(R.id.user_name);
         checkBox = (CheckBox) findViewById(R.id.auto_img);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
 
         populateProfile();
-        profileTitle.setText(userProfileName);
+        profileTitle.setText(owner.getProfile().getUsername());
         userContactInfo.setText(owner.getProfile().getEmail());
-        ratingBar.setRating(owner.getProfile().getRating());
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(false);
@@ -181,15 +183,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
-
-            ratingBar.setEnabled(false);
         } else {
-            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    owner.getProfile().addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
-                }
-            });
             friendListButton.setVisibility(View.INVISIBLE);
             newEmail.setVisibility(View.INVISIBLE);
             contactInfo.setVisibility(View.INVISIBLE);
@@ -211,12 +205,6 @@ public class ProfileActivity extends GeneralMenuActivity {
         return true;
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        populateProfile();
-    }
-
     /**
      * When you click on a profile it gets the profile data and displays
      * the correct button in corner of whether can "add" or "remove" friend depending if you have
@@ -224,7 +212,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void populateProfile() {
         owner = masterController.getUserByName(userProfileName);
-        hasFriend = masterController.userHasFriend(owner);
+        hasFriend = masterController.hasFriend(owner);
     }
 
     /**
@@ -277,7 +265,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void addFriend(){
         //Function call to the master controller to deal with all this!
-        masterController.addANewFriend(owner);
+        masterController.addFriend(owner);
 
         DatabaseController.save();
 
@@ -294,7 +282,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
-        masterController.removeThisFriend(owner);
+        masterController.removeFriend(owner);
 
         DatabaseController.save();
 

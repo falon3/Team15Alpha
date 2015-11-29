@@ -123,8 +123,6 @@ public class TradeList extends Notification {
     //Iterate through the entire trades list to see IF something is present.
     //More used to prevent a null pointer exception then anything.
     public boolean contains(ID identification){
-        int howMuchToIterate = trades.size()-1;
-
         for (ID individualID : trades){
             individualID.toString();
 
@@ -145,7 +143,6 @@ public class TradeList extends Notification {
             return;
         trades.add(trade.getTradeID());
         newTrades.add(trade.getTradeID());
-        DatabaseController.addTrade(trade);
         notifyDB();
     }
 
@@ -163,8 +160,12 @@ public class TradeList extends Notification {
     }
 
     public void delete(Trade trade) {
-        trades.remove(trade.getTradeID());
-        deletedTrades.add(trade.getTradeID());
+        delete(trade.getTradeID());
+    }
+
+    public void delete(ID tradeID) {
+        trades.remove(tradeID);
+        deletedTrades.add(tradeID);
         notifyDB();
     }
 
@@ -180,6 +181,7 @@ public class TradeList extends Notification {
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User theUser = DatabaseController.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);
+            theUser.getTradeList().addTrade(userDB, trade);
             try {
                 userDB.getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
                 userDB.getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
@@ -221,5 +223,13 @@ public class TradeList extends Notification {
         //Cleanse the deletedTrades list to be empty again.
         deletedTrades.clear();
         return true;
+    }
+
+    /*
+     * This happens when any trade completes successfully
+     */
+    public void tradeComplete(ID tradeID) {
+        MasterController.getCurrentUser().getProfile().tradeSuccess();
+        delete(tradeID);
     }
 }

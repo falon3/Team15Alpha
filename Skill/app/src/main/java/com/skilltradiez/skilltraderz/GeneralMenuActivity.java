@@ -33,7 +33,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
- * DESCRPTION: This activity is going to be the core menu page for our entire application, following
+ * This activity is going to be the core menu page for our entire application, following
  * MVC styling and the conceptual idea of an OO-Knife scraping off the UI we have made it so
  * that all functionality located here is going to be involved in the controller and model classes.
  *
@@ -46,14 +46,15 @@ import android.widget.Toast;
  */
 public class GeneralMenuActivity extends ActionBarActivity {
 
-
-
-    /**LOCAL CLASS VARIABLES:
+    /**Activity Class Variables:
      * 1: generalContext: Assign a Context to a variable to be used generally.
      * 2: masterController: Create the ever-critical MasterController object that acts
-     * as the most core controller for the entire application.
+     *    as the most core controller for the entire application.
+     * 3: searchBar: This EditText value is what allows the user to actually formulate a string
+     *    query that the application can process.
+     * 4: SEARCH_PARAM: This is going to indicate the type of search actually being performed
+     *    by the application when the user desires to search.
      */
-
     protected Context generalContext = this;
     public MasterController masterController;
     protected EditText searchBar;
@@ -114,6 +115,10 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
+            case R.id.Go_To_Settings:
+                intent = new Intent(generalContext, SettingsActivity.class);
+                startActivity(intent);
+                return true;
             //@todo maybe if already at home screen don't go anywhere
             case R.id.Go_Home_Menu:
                 intent = new Intent(generalContext, MainActivity.class);
@@ -124,7 +129,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
                 startActivity(intent);
                 return true;
-            // TODO: 11/28/2015
             case R.id.Go_To_Messages_Menu:
                 return true;
             case R.id.Go_Make_Skill:
@@ -135,10 +139,29 @@ public class GeneralMenuActivity extends ActionBarActivity {
         return false;
     }
 
+    /**
+     * Given an integer value to identify the search parameter type, will set the local variable
+     * SEARCH_PARAM to the given integer value.
+     *
+     * @param NEW_PARAM Integer value given, meant to represent the search parameter type.
+     */
     protected void setSearchParam(int NEW_PARAM) {
         SEARCH_PARAM = NEW_PARAM;
     }
 
+    /**
+     * Given a string of what the user wants to search for, we treat this as query and start a
+     * new activity class based upon this search.
+     *
+     * Create a new intent, given the Context, and the SearchStringActivity class.
+     * Specify extra parameters on this SearchStringActivity that include SEARCH_TYPE being
+     *    the type of search to perform, SEARCH_PARAM being the type of the search.
+     * But that line isn't enough, we need to specify for this SearchScreenActivity
+     *    the SEARCH_QUERY which is the string of thee query given into this method.
+     * Finally we invoke that activity using startActivity.
+     *
+     * @param query String of what is being obtained by the user's inquisiton.
+     */
     protected void startSearch(String query) {
         Intent intent = new Intent(generalContext, SearchScreenActivity.class);
         intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, SEARCH_PARAM);
@@ -146,6 +169,10 @@ public class GeneralMenuActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /**
+     * Returns the String that the user put into the search bar.
+     * @return A String of the "Query" the user put into the search bar.
+     */
     protected String getQuery() {
         return searchBar.getText().toString();
     }
@@ -155,7 +182,7 @@ public class GeneralMenuActivity extends ActionBarActivity {
 
     /**
      * When invoked this method will return the MasterController object for the entire application.
-     * @return MasterController object.
+     * @return MasterController Object.
      */
     public MasterController getMasterController() {
         return masterController;

@@ -20,7 +20,7 @@ import java.util.List;
 public class CameraActivity extends GeneralMenuActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    /**Class variables
+    /**Class variables:
      * 1: lastImage, a Bitmap Object variable holding the last image utilized in the application.
      * 2: images, a list of Image Objects holding all of the images relevant to the application.
      */
@@ -35,6 +35,7 @@ public class CameraActivity extends GeneralMenuActivity {
         images = new ArrayList<Image>();
     }
 
+    /** Methods **/
     /**
      * Will invoke the method to start taking an image.
      *

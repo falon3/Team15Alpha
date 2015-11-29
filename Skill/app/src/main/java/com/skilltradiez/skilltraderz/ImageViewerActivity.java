@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ImageView;
 
-public class ImageViewerActivity extends ActionBarActivity {
+
+public class ImageViewerActivity extends GeneralMenuActivity {
     /**LOCAL CLASS VARIABLES
      * 1: IMAGE_ID_PARAM: This String variable will be assigned the value of the image
      *     identification number.

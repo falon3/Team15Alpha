@@ -17,13 +17,15 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import android.content.Context;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-/**~~TYPE: CONTROLLER
- *
- * DESCRPTION: Following MVC styling to the absolute core, this is taking out of the UserDatabase
+/**
+ *Following MVC styling to the absolute core, this is taking out of the UserDatabase
  * anything but the most bare minimal methods. We're maintaing the model as the model, and we're
  * making all the other functionality be housed here.
  *
@@ -32,14 +34,14 @@ import java.util.Set;
  */
 public final class DatabaseController implements ControllerInterface{
 
-    /** LOCAL VARIABLES
+    /** Class Variables:
      * 1: userDB, this is going to be the single core database object created for the entire
      * application. Anything that needs to access, write to, or otherwise in this application
      * will go through this controller which has exclusive access to this database object.
      */
     private static UserDatabase userDB;
 
-    /** CONSTRUCTOR:
+    /**
      * Creates the DatabaseController object. In reality though the only class that will
      * (or ever should) create this is the master controller once the master controller is
      * instantiated.
@@ -51,8 +53,7 @@ public final class DatabaseController implements ControllerInterface{
         userDB = new UserDatabase();
     }
 
-    /** METHODS **/
-
+    /** Methods **/
     /**
      * Returns the user database object, the one used for the entire application.
      * This method should not be called EVER outside of controllers to follow strict MVC methods.
@@ -141,6 +142,7 @@ public final class DatabaseController implements ControllerInterface{
             elastic.deleteDocument("user", "");
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
+            elastic.deleteDocument("image", "");
             local.deleteFile();
             MasterController.getUserDB().setCurrentUserToNull();
             users.clear();
@@ -150,7 +152,6 @@ public final class DatabaseController implements ControllerInterface{
             e.printStackTrace();
         }
     }
-
 
     /**
      * This method will take in a trade object and add it to the model in the application.
@@ -170,7 +171,6 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
-
     /**
      * Will take in an image object and it will add the image object to the model of the application
      * @param image Image Object.
@@ -182,9 +182,6 @@ public final class DatabaseController implements ControllerInterface{
         image.notifyDB();
         save();
     }
-
-
-
     /**
      *When we have a new user... we call upon the controller here to interact with the database
      *in order to create a brand new user. Returns this brand new user!
@@ -192,13 +189,10 @@ public final class DatabaseController implements ControllerInterface{
      * @param emailGiven String input.
      * @return User Object
      */
-    public static User createNewUser(String usernameGiven, String emailGiven){
+    public static User createNewUser(String usernameGiven, String emailGiven) throws UserAlreadyExistsException {
         User new_guy = null;
-        try {
-            new_guy = createUser(usernameGiven);
-        } catch (UserAlreadyExistsException e) {
-            e.printStackTrace();
-        }
+        new_guy = createUser(usernameGiven);
+
         new_guy.getProfile().setEmail(emailGiven);
         DatabaseController.save();
 
@@ -241,7 +235,6 @@ public final class DatabaseController implements ControllerInterface{
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
             // No internet, no registration
-            //TODO catch this and tell the user about it.
             throw new RuntimeException();
         }
         return u;

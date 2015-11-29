@@ -24,7 +24,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -169,14 +168,23 @@ public class MainActivity extends GeneralMenuActivity {
         final Context context = getApplicationContext();
         final String username;
 
-        if(newUserName.getText().toString().isEmpty()){
+        if(newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")){
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-        }else {
+        }
+        else if (newUserEmail.getText().toString().isEmpty() || newUserEmail.getText().toString().equals(" ")){
+            Toast.makeText(context, "You need an email!", Toast.LENGTH_SHORT).show();
+        }else{
             username = newUserName.getText().toString();
 
             // Used for error checking
             // If null, then it failed
-            new_guy = DatabaseController.createNewUser(username, newUserEmail.getText().toString());
+            try {
+                new_guy = DatabaseController.createNewUser(username, newUserEmail.getText().toString());
+            } catch (UserAlreadyExistsException e) {
+                e.printStackTrace();
+            } catch (RuntimeException ex) {
+                Toast.makeText(context, "Need to be online to create an account!" + username, Toast.LENGTH_SHORT).show();
+            }
             DatabaseController.save();
 
             if (new_guy != null) {
