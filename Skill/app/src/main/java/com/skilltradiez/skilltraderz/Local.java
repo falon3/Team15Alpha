@@ -31,75 +31,21 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-/**~~DESCRIPTION:
+/**
  * In our application it is going to be essential for local saves to be incorporated through
  * some sort of mecahnsm, this class, the local class is going to be what we're actually
  * going to utilize in order to achieve this end.
- *
- * ~~ACCESS:
- * This is public meaning any part of this application can indeed somehow create instantiations
- * of this object and that any part of the application can also use any methods that are
- * associated with any of these objects at whim. Allowing flexibility and a lot of potential
- * areas of use! GLORIOUS! :)
- *
- * ~~CONSTRUCTOR:
- * This class is going to only have a single constructor that will take into itself no params
- * but when it is instantiated it will attempt to create a save_object (attribute) which is
- * going to be an attempted readfrom file. If this fails then we throw an exception mindyou!
- * SAFTEY FIRST! :D
- *
- * ~~ATTRIBUTES/METHODS:
- *
- * 1: SAVE_OBJECT:
- *     This is going to be the attribute associated with what the constructor read from the file
- *     and this is going to allow easy and effecient caching of all of the file that we desire
- *     to know about and interact with.
- *
- *
- * 2: SAVE_FILE:
- *     This is something set by us to set a path of where exactly we're going to be putting
- *     together all of this locally saved data once we're at the point of saving the things.
- *     This is hard coded.
- *
- * ~~MISC METHODS:
- *     I'm going to isolate the methods here for clarity's sake, please forgive me for breaking
- *     the regular formatting of comments.
- *
- * 1: SAVETOFILE:
- *     THIS IS AN OVERLOADED METHOD! OVERLOADED METHOD! TWO VERIONS!
- *
- *     OVERLOAD 1:
- *     PARAMETERS: NONE (NONE! NO PARAMETERS HERE!)
- *     When this method is called we're going to do the very critical and obviously essential
- *     thing of saving the current file into the local device. This when called will allow us to
- *     do this process. SUPER CRITICAL. No point to any of this without this method.
- *
- *     OVERLOAD 2:
- *     PARAMETERS: User me, List<User> friends, List<Skill> skillz List<Trade> trades,
- *                   List<Notification> notifications
- *     This is going to be our initial save to the storage on the device, we therefore
- *     need to specify and send a whole bunch of parameters into the local device's storage, this
- *     will allow the application to actually know what the heck it is putting into the local
- *     storage on the device.
- *
- *
- *
- * 2: GETLOCALDATA:
- *     This is going to return the ENTIRE saved object from the local device's storage and
- *     inform the application of all of it as a LocalPersistentObject object.
- *
- * 3: READFROMFILE:
- *     When we actually are going to take the storage of the application we're going to actually
- *     be looking at the information that is currently stored within the application and then
- *     we'll see what is going on through this method and then we'll see through this all
- *     being returned as a LocalPersistentObject.
- *
  */
 
 public class Local {
     LocalPersistentObject save_object = null;
     private static final String SAVE_FILE = "/sdcard/save_file.sav";
 
+    /**
+     * When this constructor is invoked it will attempt to use the readFromFile method provided
+     * in this class- if it fails then it will return an IOException error and throw a new
+     * RuntimeException.
+     */
     Local() {
         try {
             readFromFile();
@@ -110,11 +56,33 @@ public class Local {
         }
     }
 
-    // method to get Locally Saved Data
+    /**
+     * Classical getter method that returns the save object on the user's device.
+     * The returned object is called a LocalPersistentObject.
+     *
+     * @return LocalPersistentObject Object
+     */
     public LocalPersistentObject getLocalData() {
         return save_object;
     }
 
+    /**
+     * When this method is called and passed all the parameters, it will take all of the parameters
+     * that it is given, set them to the save_object and then attempt to save it to the device.
+     *
+     * This method takes in a lot of parameters, and will assign to the save_object each of the
+     *    parameters one by one.
+     * Attempts to invoke the saveToFile method, if this fails then it will catch an IOException
+     *    which will throw the RuntimeException that there was a failure in saving locally to the
+     *    user's device.
+     * If all goes well, the user will have a local save of the information.
+     *
+     * @param me User Object.
+     * @param friends Collection of User Objects.
+     * @param skillz Collection of Skill Objects.
+     * @param trades Collection of Trade Objects
+     * @param changeList Collcetion of ChangeList Objects.
+     */
     public void saveToFile(User me, Collection<User> friends, Collection<Skill> skillz,
                            Collection<Trade> trades, ChangeList changeList) {
         save_object.setCurrentUser(me);
@@ -132,7 +100,27 @@ public class Local {
         }
     }
 
-    // method to save LocalPersistentObject to local file
+    /**
+     * When invoked, will attempt to save the save_object LocalPersistentObject to the user's
+     * device.
+     *
+     * Assigns a FileOutputStream object to null.
+     * Creates a new File object sending in the parameter SAVE_FILE.
+     * If a file does not exist, will create a new file.
+     * Assigns the FileOutputStream to a new FileOutputStream Object with the parameter of the
+     *    File object created above.
+     * Creates a new BufferedWriterObject with the parameter of a new OutputStreamWriter which was
+     *    instantiated with the FileOutputStream Object created earlier in the method.
+     * Creates a new Gson object.
+     * Invokes the toJson method on the new Gson Object on the save_object and puts it into the
+     *    created ButteredWriter Object.
+     * Flushes the output, to ensure that we have updated all of the information and none is left
+     *    in a staged state that isn't actually completed.
+     * Closes the FileOutputStream.
+     * The file should now be saved locally to the user's device.
+     *
+     * @throws IOException
+     */
     public void saveToFile() throws IOException {
         FileOutputStream fop = null;
         File file = new File(SAVE_FILE);
@@ -147,8 +135,27 @@ public class Local {
         fop.close();
     }
 
-    /* method to read LocalPersistentObject from local file
-     * returns what is read as a LocalPersistentObject*/
+    /**
+     * Reads the LocalPersistentObject from the user's device, and then returns this
+     * LocalPersistentObject.
+     *
+     * Creates a new File Object by passing in the parameter SAVE_FILE.
+     * If the file does not exist, create a new file by invoking the File Object's createNewFile
+     *    method.
+     * Creates a new FileInputStream by passing in the File Object in as a parameter.
+     * Creates a new BufferedReader object by passing as a parameter into the constructor an
+     *    InputStreamReader by passing into THIS constructor the FileInputStream Object made above.
+     * Creates a new Gson Object.
+     * Attempts to obtain the Type of the LocalPersistentObject by using the TypeToken standard,
+     *   then will assign the save_object variable with the gson.fromJson of the BufferedReader
+     *   Object created and the Type. If this fails we will throw a RuntimeException.
+     * If the save_object is null after all of that, we create a new LocalPersistentObject Object.
+     * We then return the save_object LocalPersistentObject.
+     *
+     *
+     * @return LocalPersistentObject
+     * @throws IOException
+     */
     public LocalPersistentObject readFromFile() throws IOException {
         FileInputStream fip = null;
         File file = new File(SAVE_FILE);
@@ -170,6 +177,15 @@ public class Local {
         return save_object;
     }
 
+    /**
+     * When invoked, will create a new File based upon the parameter SAVE_FILE and then will
+     * invoke the File Object's delete method- deleting the file from the user's local device.
+     *
+     * Creates a new File Object using the class variable SAVE_FILE as a parameter.
+     * Invokes the delete method from the File Object.
+     *
+     * @throws IOException
+     */
     public void deleteFile() throws IOException {
         File file = new File(SAVE_FILE);
         file.delete();
