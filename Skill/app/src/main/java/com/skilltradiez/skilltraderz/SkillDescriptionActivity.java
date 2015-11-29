@@ -116,15 +116,6 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         }
         // It's initially set to "Add Skill"
 
-        rating.setRating(currentSkill.getRating());
-        if (masterController.userHasSkill(currentSkill))
-            rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    currentSkill.addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
-                }
-            });
-
         imageView.removeAllViews();
         for (final ID id : currentSkill.getImages()) {
             Image image = DatabaseController.getImageByID(id);

@@ -155,7 +155,6 @@ public class ProfileActivity extends GeneralMenuActivity {
         populateProfile();
         profileTitle.setText(userProfileName);
         userContactInfo.setText(owner.getProfile().getEmail());
-        ratingBar.setRating(owner.getProfile().getRating());
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(false);
@@ -184,12 +183,6 @@ public class ProfileActivity extends GeneralMenuActivity {
 
             ratingBar.setEnabled(false);
         } else {
-            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    owner.getProfile().addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
-                }
-            });
             friendListButton.setVisibility(View.INVISIBLE);
             newEmail.setVisibility(View.INVISIBLE);
             contactInfo.setVisibility(View.INVISIBLE);

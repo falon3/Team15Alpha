@@ -228,7 +228,6 @@ public class Skill extends Stringeable {
     private boolean visible;
     private ID skillID = ID.generateRandomID();
     private ArrayList<ID> owners;
-    private Rating rating;
 
     /**
      * CONSTRUCTOR
@@ -242,8 +241,6 @@ public class Skill extends Stringeable {
         setDescription(description);
         this.images = new ArrayList<ID>();
         setImages(images);
-
-        rating = new Rating("skill", skillID.toString());
 
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
@@ -260,8 +257,6 @@ public class Skill extends Stringeable {
         setDescription(skill.getDescription());
         images = skill.getImages();
 
-        rating = new Rating("skill", skillID.toString());
-
         //TODO this probably shouldn't add itself to the database.
         //To fix this, you need to make sure that everywhere new Skill(...) is called it also adds
         //it to the database. this doesn't happen too many times in the actual app, but lots in tests.
@@ -271,7 +266,6 @@ public class Skill extends Stringeable {
     /**
      * METHODS
      **/
-
     public void setImages(List<Image> images) {
         if (this.images == null) {
             this.images = new ArrayList<ID>();
@@ -291,9 +285,6 @@ public class Skill extends Stringeable {
         return (images == null || images.size() == 0) ? new NullImage() : DatabaseController.getImageByID(images.get(0));
     }
 
-    /**
-     * IT IS VERY IMPORTANT THAT YOU DO NOT MODIFY THE RETURN VALUE!
-     */
     public List<ID> getImages() {
         return images;
     }
@@ -343,6 +334,10 @@ public class Skill extends Stringeable {
         notifyDB();
     }
 
+    public int getTop() {
+        return getNumOwners();
+    }
+
     //"Traditional" getter and setter methods for the private boolean attribute visible
     //Why "isVisible" isn't "getSkillVisible" is... personal preference. It is a boolean so we'll
     //just go with that! But basically is a getter/setter method.
@@ -357,15 +352,6 @@ public class Skill extends Stringeable {
 
     public ID getSkillID() {
         return skillID;
-    }
-
-    public int getRating() {
-        return rating.getRating();
-    }
-
-    public void addRating(String username, int rate) {
-        rating.changeRating(username, rate);
-        notifyDB();
     }
 
     @Override
@@ -420,7 +406,7 @@ public class Skill extends Stringeable {
             e.printStackTrace();
             return false;
         }
-        return rating.commit(userDB);
+        return true;
     }
 
     public int getNumOwners() {

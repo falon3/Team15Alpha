@@ -97,7 +97,7 @@
         android:paddingRight="25dp"
         android:text="@string/add_skill"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/ratingBar2" />
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:id="@+id/edit_skill"
@@ -110,15 +110,5 @@
         android:text="@string/edit_skill"
         android:visibility="invisible"
         android:onClick="editSkill"/>
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar2"
-        android:rating="0"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

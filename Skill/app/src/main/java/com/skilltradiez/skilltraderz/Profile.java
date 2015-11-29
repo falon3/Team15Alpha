@@ -122,11 +122,11 @@ import java.io.IOException;
 public class Profile extends Stringeable {
     private String username, email, location;
     private Boolean shouldDownloadImages = true;
-    private Rating rating;
+    private int successfulTrades;
 
     Profile(String username) {
         setUsername(username);
-        rating = new Rating("user", username);
+        successfulTrades = 0;
     }
 
     public String getLocation() {
@@ -171,15 +171,6 @@ public class Profile extends Stringeable {
         notifyDB();
     }
 
-    public int getRating() {
-        return rating.getRating();
-    }
-
-    public void addRating(String username, int rate) {
-        rating.changeRating(username, rate);
-        notifyDB();
-    }
-
     public boolean commit(UserDatabase userDB) {
         try {
             userDB.getElastic().updateDocument("user", username, this, "profile");
@@ -210,5 +201,17 @@ public class Profile extends Stringeable {
 
     public Image getImage() {
         return new NullImage();
+    }
+
+    public int getTop() {
+        return getSuccessfulTrades();
+    }
+
+    public int getSuccessfulTrades() {
+        return successfulTrades;
+    }
+
+    public void tradeSuccess() {
+        successfulTrades++;
     }
 }
