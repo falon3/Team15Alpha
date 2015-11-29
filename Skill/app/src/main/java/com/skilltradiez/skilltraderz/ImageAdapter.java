@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import java.util.List;
 
 /**
- * Created by Stephen on 2015-11-27.
+ * No.
  */
 public class ImageAdapter extends ArrayAdapter<Image> {
-    /**LOCAL CLASS VARIABLES:
+    /**Class Variables:
      * 1: context, a CameraActivity Object will be passed to this ImageAdapter class and this variable
      *     will maintain the record of this. Very core to the functioning of our UI in this class.
      */
