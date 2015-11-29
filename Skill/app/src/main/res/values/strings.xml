@@ -13,6 +13,14 @@
     <string name="go_messages">Messages</string>
     <string name="go_make_skill">+ Skillz</string>
     <string name="go_to_settings">Settings</string>
+    
+    <!-- Strings related to Settings -->
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="settings_username">Elyse </string>
+    <string name="settings_usercity">City: </string>
+    <string name="settings_usercontact">Contact Information: </string>
+    <string name="settings_download_pics">Auto-download pictures</string>
+    <string name="settings_save_changes">Save Changes</string>
 
     <!-- String relating to the First Time User layout -->
     <string name="make_a_user_name">Make a user name</string>
@@ -125,6 +133,5 @@
         <item>Inactive</item>
     </string-array>
 
-    <string name="title_activity_settings">SettingsActivity</string>
     <string name="desc">Description:</string>
 </resources>
