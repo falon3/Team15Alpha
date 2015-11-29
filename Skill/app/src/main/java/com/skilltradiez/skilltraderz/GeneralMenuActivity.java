@@ -45,8 +45,16 @@ import android.widget.Toast;
  * on it- but it is of paramount importance that this is created ahead of time!
  */
 public class GeneralMenuActivity extends ActionBarActivity {
-    protected Context generalContext = this;
 
+
+
+    /**LOCAL CLASS VARIABLES:
+     * 1: generalContext: Assign a Context to a variable to be used generally.
+     * 2: masterController: Create the ever-critical MasterController object that acts
+     * as the most core controller for the entire application.
+     */
+
+    protected Context generalContext = this;
     public MasterController masterController;
     protected EditText searchBar;
     // Search Skillz By default
@@ -76,6 +84,16 @@ public class GeneralMenuActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * This method is core UI to the application's UI, it has a series of case statements that will
+     * break down all of the possible options that the user interface may take. Has limited
+     * functionality related purely to UI (activity, intents, etc). View and controller
+     * functionality are still split into their respective categories and handled elsewhere.
+     * As is the style of our MVC.
+     *
+     * @param item MenuItem Object. (UI)
+     * @return Boolean. True/False.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -134,6 +152,11 @@ public class GeneralMenuActivity extends ActionBarActivity {
 
     //@todo clean up strings if there is time
     //@todo parent activity for enabling the back button on action bar needs work
+
+    /**
+     * When invoked this method will return the MasterController object for the entire application.
+     * @return MasterController object.
+     */
     public MasterController getMasterController() {
         return masterController;
     }

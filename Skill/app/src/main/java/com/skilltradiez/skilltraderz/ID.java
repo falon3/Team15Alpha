@@ -80,37 +80,76 @@ import java.util.Random;
  */
 
 public class ID implements Serializable {
+
+    /**LOCAL CLASS VARIABLES
+     * 1: id, this variable will hold the Long type of the identification number for this ID.
+     *     Why we chose long opposed to int is that it allowed us greater flexibility in numbers.
+     */
     private Long id;
 
+    /** CONSTRUCTOR:
+     *  Will construct the ID Object with the Long number passed into the constructor.
+     * @param num Long value input. Assigns this value to the Identification Number of the object.
+     */
+    ID(long num) {
+        id = num;
+    }
+
+    /** METHODS **/
+
+    /**
+     * When invoked upon an instance of an ID object will return a string format of the ID.
+     * @return String of the ID.
+     */
     @Override
     public String toString() {
         return id.toString();
     }
 
+    /**
+     * Will take in an Object (any ol object...) of the Object type; and will then compare the
+     * current object with the object passed into the method. If they are equal return true. If
+     * they are not equal, then return false.
+     * @param inputObject Object Object.
+     * @return Boolean. True/False.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object inputObject) {
+        if (this == inputObject) return true;
+        if (inputObject == null || getClass() != inputObject.getClass()) return false;
 
-        ID id1 = (ID) o;
+        ID id1 = (ID) inputObject;
 
         return !(id != null ? !id.equals(id1.id) : id1.id != null);
 
     }
 
+    /**
+     * This method when called is going to give us a hash (horrendous hash function- I am deeply
+     * offended) of the tradeID ID Object value. Allowing us to easily compare values.
+     * Why is that? Because a hash will make comparison very easy and small.
+     *
+     * @return Integer. THIS integer represents the hash of the tradeID ID object.
+     */
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
 
-    ID(long num) {
-        id = num;
-    }
 
+    /**
+     * Will return the current id number as a Number Object. We're getting fancy here. :)
+     * @return Number Object.
+     */
     public Number getID() {
         return id;
     }
 
+    /**
+     * Generates a random ID (Pseudorandom, because Java isn't truly random) and then creates
+     * a NEW ID Object with this "randomly" generated ID value.
+     * @return ID Object.
+     */
     static ID generateRandomID() {
         return new ID(new Random().nextLong());
     }
