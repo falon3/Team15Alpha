@@ -269,7 +269,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
 
     public void clickOnTrade(Trade t) {
         Intent intent = new Intent(this, TradeRequestActivity.class);
-        intent.putExtra(TradeRequestActivity.ID_PARAM, t.getTradeID());
+        intent.putExtra(TradeRequestActivity.TRADE_ID_PARAM, t.getTradeID());
         startActivity(intent);
     }
 }

@@ -77,6 +77,8 @@ package com.skilltradiez.skilltraderz;
  *      the object!
  */
 
+import java.util.List;
+
 /**
  * Neither Trade nor HalfTrade use notifyDB
  * because their commit methods are called by TradesList and Trade, respectively
@@ -123,6 +125,14 @@ public class Trade extends Stringeable {
         return null;
     }
 
+    public void set(UserDatabase userDB, User user1, User user2, List<Skill> offer, List<Skill> request){
+        Trade t = new Trade(userDB, user1, user2);
+        t.getHalfForUser(user1).setOffer(offer);
+        t.getHalfForUser(user1).setAccepted(true);
+        t.getHalfForUser(user2).setOffer(request);
+        t.getHalfForUser(user2).setAccepted(false);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,6 +159,12 @@ public class Trade extends Stringeable {
      */
     public boolean isActive() {
         return !(half1.isAccepted() && half2.isAccepted());
+    }
+
+    public boolean checkIfComplete() {
+        if (half1.hasChanged() || half2.hasChanged())
+            notifyDB();
+        return true;
     }
 
     public boolean commit(UserDatabase userDB) {
