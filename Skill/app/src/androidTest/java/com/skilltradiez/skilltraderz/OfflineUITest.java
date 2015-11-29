@@ -62,11 +62,7 @@ public class OfflineUITest {
         onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
         onView(withId(R.id.beginApp)).perform(click());
-
         //assert it didn't go to the main screen because no new account was made
-        onView(withId(R.id.browse_skillz)).check(matches(not(isDisplayed())));
-        //onView(withId(R.id.go_to_profile)).perform(click());
-        //onView(withId(R.id.user_name)).check(matches(withText("Elyse")));
+        onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
     }
-
 }
