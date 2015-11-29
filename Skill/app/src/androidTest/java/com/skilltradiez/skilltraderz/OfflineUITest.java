@@ -67,7 +67,7 @@ public class OfflineUITest {
         MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
 
         // click add skill
-        onView(withId(R.id.add_a_new_skill)).perform(click());
+        onView(withId(R.id.Go_Make_Skill)).perform(click());
 
 
         // and set skill properties
@@ -132,7 +132,7 @@ public class OfflineUITest {
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
         //add friend
-        onView(withId(R.id.add_friend)).perform(click());
+        onView(withId(R.id.right_button)).perform(click());
 
         //simulate going offline with bad HTTPClient now
         MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
