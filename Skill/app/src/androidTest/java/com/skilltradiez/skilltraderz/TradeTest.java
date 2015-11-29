@@ -29,7 +29,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testInitTrade() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user = DatabaseController.createUser("u");
@@ -48,7 +50,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testAcceptTradeRequest() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user = DatabaseController.createUser("u");
@@ -66,7 +70,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testRefuseTradeRequest() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user = DatabaseController.createUser("u");
@@ -90,7 +96,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testCounterOfferTradeRequest() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user = DatabaseController.createUser("u");
@@ -115,7 +123,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testModifyActiveTrade() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User bob = DatabaseController.createUser("Bob");
@@ -146,7 +156,9 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testBrowseTradeHistory() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User bob = DatabaseController.createUser("Bob");
