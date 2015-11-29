@@ -48,81 +48,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ~~TYPE: MODEL + CONTROLLER
- * <p/>
- * ~~DESCRIPTION:
  * Our application is based off of the notion of facilitating the entire process of one user
  * being able to offer another user a skill. They make a trade from one user to another user
  * through our application.
- * <p/>
+ *
  * That being said, how possibly could the ability to edit a skill (THE thing offered during trades)
  * not be one of our core functionalities?!
- * <p/>
+ *
  * This class will be all about editing the skills that users offer, storing relevant values into
  * a swath of attributes and then giving other classes the methods to interact with this!
- * <p/>
- * ~~ACCESS:
- * This class is a public class, meaning that any other part of the application (class, etc) has
- * complete access to this class and it's functions once it is instantiated into an object. For
- * the ability to edit skills, this allows the ability to actually edit skills to be pervasive
- * throughout our entire application. Meaning that this is not locked down to one single class.
- * Flexibility is critical.
- * <p/>
- * However this is likely a large misnomer of the word "class" , as this is actually an activity
- * (more UI related) as well as utilizing the android framework to make all of our classes
- * come to life.
- * <p/>
- * <p/>
- * ~~CONSTRUCTOR:
- * As is typical with android activities used in applications, this activity once invoked will
- * be made with the onCreate() method followed by anything present in the onStart() method.
- * <p/>
- * ~~ATTRIBUTES/METHODS:
- * 1: SKILLNAME:
- * This is going to be extremely relevant on this part of the application, when we have the
- * users actually go around trying to trade their skills is it not considered critical to have
- * some sort of label for it? I mean in an idealistic world we could always just assign the
- * name an arbitrary value that blank and let users read descriptions (as to not be swayed
- * by potentially flawed name choices!)... but alas we do not live in such a world filled with
- * boundless memes.
- * <p/>
- * WE PROVIDE THE METHODS TO:
- * Nothing. This is created during the onStart() method.
- * <p/>
- * 2: SKILLDESCRIPTION:
- * This is going to be the ever importaint location where users may stroke their ego.
- * "Oh I may be a dog trainer but I truly won 1337 poodle olympics, and I can cut a poodles
- * hair into all sorts of shapes and da'aling it is just absolutely gaaawgeous."-- or something
- * absolutely mortifying like this.
- * <p/>
- * Pretty much without this we couldn't let people uniquely identify their skill. Why would
- * I want Big Bertha's cat grooming business over that of the lovely Anastasia? The differences
- * in their description. But keep in mind we don't actually have a verification method so
- * I am certain if one wanted they could say they are offering the skill of flying people
- * to the moon on a baboon while singing a tune about a forlorn swoon.
- * <p/>
- * WE PROVIDE THE METHODS TO:
- * Nothing. This is, similar to above, created during the onStart() method.
- * <p/>
- * 3: SKILLCATEGORY:
- * We can all pretend we don't like our categories, we can go onto (some random webpage)
- * and I am confident in my claim that I can somehow offend someone by saying a tomato
- * is a fruit. "BUT NO IT IS A VEGETABLE!!!1!!1!1!". ALAS-- we are using categories to help
- * us define general types for users to interact with.
- * <p/>
- * Allow me to demonstrate through example:
- * CATEGORY: Cats
- * Skill 1 (from random user 1): Cat bathing (Very daring.)
- * Skill 2: Cat petting (Very loving.)
- * Skill 3: Cat grooming (Much wow.)
- * Skill 4: Teaching a cat how to duel with light sabers because I am really REALLY hyped
- * for a particular movie coming out soon. Lightsabers. Cats. Nothing could go wrong.
- * <p/>
- * So this example hopefully demonstrates that given a "cat" CATegory (oh my, how punny) we
- * will actually be able to let users pin point a finer granularity in their searches.
- * <p/>
- * WE PROVIDE THE METHODS TO:
- * Nothing. This is created during the onStart() method.
  */
 
 public class EditSkillActivity extends CameraActivity {
@@ -205,7 +139,11 @@ public class EditSkillActivity extends CameraActivity {
         imageAdapter.notifyDataSetChanged();
     }
 
-    /** METHODS **/
+
+    /**
+     * Notifies the imageAdapter that there is a new image to display.
+     * @param menu View Object. (UI related.)
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -217,6 +155,16 @@ public class EditSkillActivity extends CameraActivity {
         return true;
     }
 
+    /**
+     * When invoked, will initialize all of the Skill elements to a default state.
+     *
+     * Set the text of Skill name to be empty.
+     * Set the description of the Skill to be empty.
+     * Make the Skill category 0.
+     * Make the Skill visible.
+     * Clear the images from the Skill.
+     * Notify the adapter tha the Skill data has changed.
+     */
     public void initState() {
         skillName.setText("");
         skillDescription.setText("");
@@ -226,6 +174,16 @@ public class EditSkillActivity extends CameraActivity {
         imageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * When this method is invoked we will use the passed in view to identify the image, and then
+     * we will pass this image into the database.
+     *
+     * The View here will be able to distinguish a given Image, that is why a View is passed.
+     * This view will then be passed to the superclass (CameraActivity) method of addNewImage.
+     * We then notify the adapter that there has been a change to the data set.
+     *
+     * @param view View Object. (UI related.)
+     */
     @Override
     public void addNewImage(View view) {
         super.addNewImage(view);
@@ -313,7 +271,8 @@ public class EditSkillActivity extends CameraActivity {
     }
 
     /**
-     * Will add a new skill to the model, however beneath the hood involves many controller method calls.
+     * Will add a new skill to the model, however beneath the hood involves many controller
+     * method calls, alerts and UI element changes.
      * @param view View Object.
      */
     public void addNewSkill(View view){

@@ -15,18 +15,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Stephen on 2015-11-27.
+ * When the application is requested to have camera functionality by the user this activity
+ * will be invoked and will implement all of the functionality required for our application
+ * to use the camera.
  */
 public class CameraActivity extends GeneralMenuActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    /**Class variables
+
+    /**Class variables:
      * 1: lastImage, a Bitmap Object variable holding the last image utilized in the application.
      * 2: images, a list of Image Objects holding all of the images relevant to the application.
+     * 3: addImageCallback, this is a Runnable Object allowing us to call back to a prior image.
+     * 4: REQUEST_IMAGE_CAPTURE, holds an integer that is used in android methods that will
+     *    allow us to utilize the android camera functionality.
      */
     private Bitmap lastImage;
     private List<Image> images;
     private Runnable addImageCallback;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,16 @@ public class CameraActivity extends GeneralMenuActivity {
         images = new ArrayList<Image>();
     }
 
-    // adds a list of images to the current image list
+
+    /**
+     * Adds a list of images to the current image list.
+     *
+     * Creates a new List of Image Objects.
+     * Iterates through the passed in List of ID Objects (where the IDs correspond to Image Objects)
+     *    and adds each of these images to the database.
+     *
+     * @param prevImages List of ID Objects related to Images.
+     */
     public void addImages(List<ID> prevImages) {
         List<Image> images = new ArrayList<Image>();
         for (ID id : prevImages)

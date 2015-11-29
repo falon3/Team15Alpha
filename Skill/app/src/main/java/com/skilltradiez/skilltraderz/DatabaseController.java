@@ -24,9 +24,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-/**~~TYPE: CONTROLLER
- *
- * DESCRPTION: Following MVC styling to the absolute core, this is taking out of the UserDatabase
+/**
+ *Following MVC styling to the absolute core, this is taking out of the UserDatabase
  * anything but the most bare minimal methods. We're maintaing the model as the model, and we're
  * making all the other functionality be housed here.
  *
@@ -35,14 +34,14 @@ import java.util.Set;
  */
 public final class DatabaseController implements ControllerInterface{
 
-    /** LOCAL VARIABLES
+    /** Class Variables:
      * 1: userDB, this is going to be the single core database object created for the entire
      * application. Anything that needs to access, write to, or otherwise in this application
      * will go through this controller which has exclusive access to this database object.
      */
     private static UserDatabase userDB;
 
-    /** CONSTRUCTOR:
+    /**
      * Creates the DatabaseController object. In reality though the only class that will
      * (or ever should) create this is the master controller once the master controller is
      * instantiated.
@@ -54,8 +53,7 @@ public final class DatabaseController implements ControllerInterface{
         userDB = new UserDatabase();
     }
 
-    /** METHODS **/
-
+    /** Methods **/
     /**
      * Returns the user database object, the one used for the entire application.
      * This method should not be called EVER outside of controllers to follow strict MVC methods.

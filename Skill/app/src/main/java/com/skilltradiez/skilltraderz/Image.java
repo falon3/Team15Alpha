@@ -24,7 +24,7 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-/**~~DESCRIPTION:
+/**
  * So our program is core on trades, and profiles and users. Users have profiles and there is a
  * very clear way to make their profiles and their offers (of skills) more lucrative, exciting,
  * cool and overall appleaing...
@@ -32,22 +32,11 @@ import java.io.IOException;
  * Colorful images! We're going to actually grant the user the ability to actually go through
  * their application and select an image (or upload a new one!) where they will be making an
  * image class.
- *
- * ~~ACCESS:
- * This is a public class and can be instantiated anywhere by any class anywhere in the application
- *
- * ~~CONSTRUCTORS:
- * This class has a constructor associated with itself where it takes in a string of a particular
- * file to open and then will process this string of the file and maintain the image in itself.
- * Glorious.
- *
- * ~~ATTRIBUTES/METHODS:
- *     This class has no attributes or methods associated with it aside from the constructor.
  */
 
 public class Image extends Notification {
 
-    /**LOCAL CLASS VARIABLES:
+    /**Class Variables:
      * 1: bitmap, will hold a Bitmap Object that corresponds to the image that the Image Object
      *     holds.
      * 2: id, will hold an ID Object that will correspond to the identification number of this
@@ -58,7 +47,7 @@ public class Image extends Notification {
 
     /**CONSTRUCTORS: There are FOUR. **/
 
-    /** Constructor 1:
+    /**
      * This constructor takes in no parameters and will merely generate a random novel ID.
      * (Pseudorandom, not truly random.) This pseudorandom will then be assigned to the value
      * of the identification number of this Object when created.
@@ -70,7 +59,7 @@ public class Image extends Notification {
     }
 
 
-    /** Constructor 2:
+    /**
      * Will take in a Bitmap Object to be assigned as the image when this class is being
      * instantiated as an Image Object and then will
      *
@@ -81,7 +70,7 @@ public class Image extends Notification {
         this.bitmap = bitmap;
     }
 
-    /**Constructor 3:
+    /**
      * Will take in a Bitmap Object AND an ID Object and will create a new Image Object based upon
      * the image stored being the Bitmap Object given and the ID of the Image being the ID given.
      * @param bitmap Bitmap Object
@@ -92,7 +81,7 @@ public class Image extends Notification {
         this.bitmap = bitmap;
     }
 
-    /**Constructor 4:
+    /**
      * Will take in an input String being the filename and then will create a new Image Object
      * based upon the string given to this constructor.
      * @param filename String input.
@@ -102,7 +91,6 @@ public class Image extends Notification {
         throw new NullPointerException("this can't possibly work!");
     }
 
-    /** METHODS **/
 
     /**
      * When invoked will return the Image Object's identification number.

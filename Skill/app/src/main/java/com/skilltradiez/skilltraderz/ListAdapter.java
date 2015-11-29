@@ -86,7 +86,8 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
         viewHolder.name.setText(item.getName());
         viewHolder.cat.setText(item.getCategory());
         viewHolder.desc.setText(item.getDescription());
-        viewHolder.img.setImageBitmap(item.getImage().getBitmap());
+        if (item.getImage() != null)
+            viewHolder.img.setImageBitmap(item.getImage().getBitmap());
         return view;
     }
 

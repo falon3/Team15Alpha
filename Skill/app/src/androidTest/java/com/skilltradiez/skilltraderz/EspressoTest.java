@@ -27,6 +27,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -67,7 +69,7 @@ public class EspressoTest {
         onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
         onView(withId(R.id.beginApp)).perform(click());
-        onView(withId(R.id.go_to_profile)).perform(click());
+        onView(withId(R.id.Go_Profile_Menu)).perform(click());
         onView(withId(R.id.user_name)).check(matches(withText("Elyse")));
     }
 
@@ -80,7 +82,7 @@ public class EspressoTest {
         onView(withId(R.id.beginApp)).perform(click());
 
         // click add skill
-        onView(withId(R.id.add_a_new_skill)).perform(click());
+        onView(withId(R.id.Go_Make_Skill)).perform(click());
 
         // set skill properties
         onView(withId(R.id.new_skill_name)).perform(typeText("Sname"), closeSoftKeyboard());
@@ -94,7 +96,7 @@ public class EspressoTest {
 
         // go back to home screen and then to profile and inventory
         pressBack();
-        onView(withId(R.id.go_to_profile)).perform(click());
+        onView(withId(R.id.Go_Profile_Menu)).perform(click());
         onView(withId(R.id.inventory)).perform(click());
 
         // click on the skill
@@ -135,13 +137,14 @@ public class EspressoTest {
         onView(withId(R.id.beginApp)).perform(click());
 
         //find friend
+        openContextualActionModeOverflowMenu();
         onView(withId(R.id.All_Users)).perform(click());
         onView(withId(R.id.search_bar)).perform(typeText("Friend"), closeSoftKeyboard());
         onView(withId(R.id.search_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
         //add friend
-        onView(withId(R.id.add_friend)).perform(click());
+        onView(withId(R.id.right_button)).perform(click());
 
         //check that friend was added
         MasterController mc = new MasterController();
@@ -155,7 +158,7 @@ public class EspressoTest {
         testAddFriend();
 
         //remove friend
-        onView(withId(R.id.add_friend)).perform(click());
+        onView(withId(R.id.right_button)).perform(click());
 
         //check that friend was removed
         MasterController mc = new MasterController();
