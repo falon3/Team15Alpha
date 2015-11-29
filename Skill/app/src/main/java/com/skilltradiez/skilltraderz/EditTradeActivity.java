@@ -74,7 +74,8 @@ import java.util.ArrayList;
 
 public class EditTradeActivity extends GeneralMenuActivity {
     static String ACTIVE_PARAM = "active_id",
-                PASSIVE_PARAM = "passive_id";
+                PASSIVE_PARAM = "passive_id",
+                TRADE_ID_PARAM = "trade_id";
     private TradeAdapter offerAdapter, yourInvAdapter, requestAdapter, otherInvAdapter;
     private ListView offerList, yourInvList, requestList, otherInvList;
 
@@ -83,6 +84,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
 
     private ArrayList<Skill> offer, yourInv, request, otherInv;
     private User activeUser, passiveUser;
+    private Trade trade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,10 @@ public class EditTradeActivity extends GeneralMenuActivity {
         activeUser = DatabaseController.getAccountByUserID(userID);
         userID = (ID)profileExtras.get(PASSIVE_PARAM);
         passiveUser = DatabaseController.getAccountByUserID(userID);
+
+        ID tradeID = (ID)profileExtras.get(TRADE_ID_PARAM);
+        if (tradeID != null)
+            trade = DatabaseController.getTradeByID(tradeID);
 
         //Init Lists
         offer = new ArrayList<Skill>();
@@ -201,20 +207,28 @@ public class EditTradeActivity extends GeneralMenuActivity {
 
     public void deleteRequest(View view){
         //TODO delete the trade
+        if (trade != null)
+            masterController.deleteTrade(trade.getTradeID());
+
         Context context = getApplicationContext();
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
-        startActivity(intent);*/
+
+        finish();
     }
 
-    public void sendTrade(View view){
+    public void sendTrade(View view) {
         //TODO Send The Trade
-        Trade trade = activeUser.getTradeList().createTrade(MasterController.getUserDB(), activeUser, passiveUser, offer, request);
+        if (trade != null){
+            trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);
+            activeUser.getTradeList().addTrade(masterController.getUserDB(), trade);
+        } else {
+            trade = activeUser.getTradeList().createTrade(masterController.getUserDB(), activeUser, passiveUser, offer, request);
+        }
         DatabaseController.save();
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(EditTradeActivity.this, ProfileActivity.class);
-        startActivity(intent);*/
+
+        finish();
     }
 }

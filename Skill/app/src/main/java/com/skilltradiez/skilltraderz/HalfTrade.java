@@ -224,6 +224,12 @@ public class HalfTrade extends Notification {
         notifyDB();
     }
 
+    @Override
+    public void notifyDB() {
+        super.notifyDB();
+        DatabaseController.getTradeByID(tradeID).notifyDB();
+    }
+
     /**
      * Will commit all of the current HalfTrade Object's data located within the model to the DB.
      * @param userDB UserDatabase Object.

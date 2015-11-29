@@ -26,7 +26,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.EditTradeActivity"
-    android:id="@+id/">
+    android:id="@+id/rel_layout">
 
     <TextView
         android:id="@+id/trading_with"
@@ -71,20 +71,12 @@
         android:layout_below="@+id/offerHeader"
         android:layout_alignParentLeft="true">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-            <ListView
-                android:id="@+id/offerList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_with_border"
-                android:layout_column="0"
-                android:layout_weight="1" />
-
-        </TableRow>
+        <ListView
+            android:id="@+id/offerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_with_border"
+            android:layout_weight="1" />
 
     </TableLayout>
 
@@ -121,20 +113,12 @@
         android:layout_above="@+id/sendTrade"
         android:id="@+id/Requests">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2" >
-
-            <ListView
-                android:id="@+id/requestList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_with_border"
-                android:layout_column="0"
-                android:layout_weight="1" />
-
-        </TableRow>
+        <ListView
+            android:id="@+id/requestList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_with_border"
+            android:layout_weight="1" />
 
     </TableLayout>
 
@@ -148,6 +132,20 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:singleLine="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:id="@+id/counterTrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/counterTrade"
+        android:onClick="counterTrade"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="false"
+        android:singleLine="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/deleteTrade"
+        android:layout_toLeftOf="@+id/sendTrade" />
 
     <Button
         android:id="@+id/deleteTrade"

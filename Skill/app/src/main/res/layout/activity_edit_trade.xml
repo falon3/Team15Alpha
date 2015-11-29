@@ -26,7 +26,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.EditTradeActivity"
-    android:id="@+id/">
+    android:id="@+id/rel_layout">
 
     <TextView
         android:id="@+id/trading_with"
