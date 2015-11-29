@@ -142,11 +142,25 @@ import java.util.List;
  * because their commit methods are called by TradesList and Trade, respectively
  */
 public class HalfTrade extends Notification {
+
+    /**LOCAL CLASS VARIABLES:
+     * 1: user, holds the ID Object related to the particular user involved in the trade.
+     * 2: tradeID, holds the ID Object related to the particular Trade Object (THIS trade object!)
+     * 3: offer, holds a List of ID Objects that represent the total trade offer in this Trade Obj.
+     * 4: accepted, either this trade is (TRUE) accepted or it is not (FALSE).
+     * 5: part, a basic integer that keeps track of which part of the trade this HalfTrade obj is.
+     */
     private ID user, tradeID;
     private List<ID> offer;
     private boolean accepted;
     private int part;
 
+    /** CONSTRUCTOR:
+     *
+     * @param trade ID Object for a TRADE.
+     * @param user ID Object for a USER.
+     * @param part Integer for which part of the trade we're dealing with.
+     */
     public HalfTrade(ID trade, ID user, int part) {
         tradeID = trade;
         this.user = user;
@@ -155,19 +169,36 @@ public class HalfTrade extends Notification {
         this.part = part;
     }
 
+    /**
+     * Returns the ID for the user who "owns" this half trade.
+     * @return ID Object.
+     */
     public ID getUser() {
         return user;
     }
 
+    /**
+     * Sets the ID for this object, the HalfTrade. This user and half trade will be related after.
+     * @param user ID Object.
+     */
     public void setUser(ID user) {
         this.user = user;
         notifyDB();
     }
 
+    /**
+     * Obtains the List of ID Objects that together form the offer of the HalfTrade Object (THIS).
+     * @return List of ID Objects.
+     */
     public List<ID> getOffer() {
         return offer;
     }
 
+    /**
+     * Sets the current offer present in this HalfTrade object to the passed in List of Skill
+     * Objects passed into this method.
+     * @param offer List of Skill Objects.
+     */
     public void setOffer(List<Skill> offer) {
         List<ID> ids = new ArrayList<ID>();
         for (Skill skill : offer)
@@ -176,15 +207,28 @@ public class HalfTrade extends Notification {
         notifyDB();
     }
 
+    /**
+     * Return if the trade has or has not been accepted.
+     * @return Boolean. True/False.
+     */
     public boolean isAccepted() {
         return accepted;
     }
 
+    /**
+     * Passed in a boolean to be aware of current state, will change the boolean to accepted.
+     * @param accepted Boolean Value. True/False. (Should be FALSE in this instance!!!!!!!!) :)
+     */
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
         notifyDB();
     }
 
+    /**
+     * Will commit all of the current HalfTrade Object's data located within the model to the DB.
+     * @param userDB UserDatabase Object.
+     * @return Boolean. True/False.
+     */
     @Override
     public boolean commit(UserDatabase userDB) {
         Elastic ela = userDB.getElastic();
@@ -197,18 +241,30 @@ public class HalfTrade extends Notification {
         return true;
     }
 
+    /**
+     * Pass in an object, and we will then see if this object is equal to the HalfTrade object.
+     * @param inputObject Object Object. (Oh how punny.)
+     * @return Boolean. True/False.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object inputObject) {
+        if (this == inputObject) return true;
+        if (inputObject == null || getClass() != inputObject.getClass()) return false;
 
-        HalfTrade halfTrade = (HalfTrade) o;
+        HalfTrade halfTrade = (HalfTrade) inputObject;
 
         if (part != halfTrade.part) return false;
         return !(tradeID != null ? !tradeID.equals(halfTrade.tradeID) : halfTrade.tradeID != null);
 
     }
 
+    /**
+     * This method when called is going to give us a hash (horrendous hash function- I am deeply
+     * offended) of the tradeID ID Object value. Allowing us to easily compare values.
+     * Why is that? Because a hash will make comparison very easy and small.
+     *
+     * @return Integer. THIS integer represents the hash of the tradeID ID object.
+     */
     @Override
     public int hashCode() {
         int result = tradeID != null ? tradeID.hashCode() : 0;

@@ -283,6 +283,11 @@ public class Elastic {
         Log.d("SKILLLLZ!", httpClient.post(uri, sb.toString()));
     }
 
+    /**
+     * Returns the List of all User Objects.
+     * @return List of User Objects.
+     * @throws IOException
+     */
     public List<User> getAllUsers() throws IOException {
         String resp = httpClient.get(baseUrl + "user/_search?size=9999999");
         Type getResponseType = new TypeToken<UserSearchResponse>() { }.getType();
@@ -293,6 +298,11 @@ public class Elastic {
         return hitsT;
     }
 
+    /**
+     * Return the list of ALL Skill objects for this application.
+     * @return List of Skill Objects.
+     * @throws IOException
+     */
     public List<Skill> getAllSkills() throws IOException {
         String resp = httpClient.get(baseUrl + "skill/_search?size=9999999");
         Type getResponseType = new TypeToken<SkillSearchResponse>() { }.getType();
@@ -306,6 +316,13 @@ public class Elastic {
 
     //The next three methods need to be separate because java's generics aren't real generics,
     //they are actually fake. But anyways, they get different types of documents from the database.
+
+    /**
+     * Will return the User Object related to the string ID given to the method.
+     * @param id String input.
+     * @return User Object.
+     * @throws IOException
+     */
     public User getDocumentUser(String id) throws IOException {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "user" + "/" + id);
@@ -313,6 +330,12 @@ public class Elastic {
         return ((GetResponse<User>)gson.fromJson(resp, getResponseType))._source;
     }
 
+    /**
+     * Will return the Skill Object related to the string ID given to the method.
+     * @param id String input.
+     * @return Skill Object.
+     * @throws IOException
+     */
     public Skill getDocumentSkill(String id) throws IOException {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "skill" + "/" + id);
@@ -320,6 +343,12 @@ public class Elastic {
         return ((GetResponse<Skill>)gson.fromJson(resp, getResponseType))._source;
     }
 
+    /**
+     * Will return the Trade Object related to the string ID given to the method.
+     * @param id String input.
+     * @return Trade Object.
+     * @throws IOException
+     */
     public Trade getDocumentTrade(String id) throws IOException {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "trade" + "/" + id);
@@ -327,6 +356,12 @@ public class Elastic {
         return ((GetResponse<Trade>)gson.fromJson(resp, getResponseType))._source;
     }
 
+    /**
+     * Returns the Image Object related to the string ID given to the method.
+     * @param id String input.
+     * @return Image Object.
+     * @throws IOException
+     */
     public Image getDocumentImage(String id) throws IOException {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "image" + "/" + id);
@@ -338,9 +373,9 @@ public class Elastic {
 
     /**
      * Deletes a document from elastic.
-     * @param type The type
-     * @param id The ID. If you don't know what these are by now, you should read the elastic docs.
-     * @throws IOException if the internet breaks.
+     * @param type String input for the type of the document.
+     * @param id String input for the ID of the document.
+     * @throws IOException
      */
     public void deleteDocument(String type, String id) throws IOException {
         type = URLEncoder.encode(type, "ISO-8859-1");

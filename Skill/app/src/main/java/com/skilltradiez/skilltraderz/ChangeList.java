@@ -19,6 +19,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +106,7 @@ class ChangeList {
 
     /**
      * Given a notification object, will add this notification object to the notifications list.
-     * @param newNote
+     * @param newNote Notification Object.
      */
     public void add(Notification newNote) {
         if (lock) newNotifications.add(newNote);
@@ -114,7 +115,7 @@ class ChangeList {
 
     /**
      * Given a notification object, will remove that object from the notifications list.
-     * @param note
+     * @param note Notification Object.
      */
     public void remove(Notification note) {
         if (lock) oldNotifications.add(note);
@@ -123,7 +124,7 @@ class ChangeList {
 
     /**
      * Returns the list of notifications.
-     * @return
+     * @return List of Notifications.
      */
     public List<Notification> getNotifications() {
         return notifications;
@@ -132,7 +133,7 @@ class ChangeList {
     /**
      * Returns the list of friends, based upon the friends being an instance of any notification
      * present in the notifications list.
-     * @return
+     * @return List of FriendsLists. (A lists of lists! How ... obfusticated.)
      */
     public List<FriendsList> getFriendsList() {
         List<FriendsList> friendsLists = new ArrayList<FriendsList>();
@@ -145,7 +146,7 @@ class ChangeList {
     /**
      * Returns the list of profiles, based upon the profiles being an instance of any notification
      * present in the notifications list.
-     * @return
+     * @return List of profiles.
      */
     public List<Profile> getProfiles() {
         List<Profile> profiles = new ArrayList<Profile>();
@@ -158,9 +159,8 @@ class ChangeList {
     /**
      * Returns the list of inventories, based upon the inventories being an instance of any
      * notification present in the notifications list.
-     * @return
+     * @return List of Inventories.
      */
-
     public List<Inventory> getInventory() {
         List<Inventory> inventories = new ArrayList<Inventory>();
         for (Notification note:notifications)
@@ -172,7 +172,7 @@ class ChangeList {
     /**
      * Returns the list of Skillz, based upon the Skillz being an instance of any notification
      * present in the notifications list.
-     * @return
+     * @return List of Skills.
      */
     public List<Skill> getSkillz() {
         List<Skill> skillz = new ArrayList<Skill>();
@@ -186,7 +186,7 @@ class ChangeList {
      * Returns the list of trades LISTS, based upon the trades being an instance of any notification
      * present in the notifications list.
      * Please do not confuse this with the getTrades method.
-     * @return
+     * @return List of Trade LISTS. (A list of lists! How.. obfusticated...)
      */
     public List<TradeList> getTradesList() {
         List<TradeList> tradeLists = new ArrayList<TradeList>();
@@ -200,7 +200,7 @@ class ChangeList {
      * Returns the list of INDIVIDUAL trades, based upon the profiles being an instance of any
      * notification present in the notifications list.
      * Please do not confuse this with the getTradesList method.
-     * @return
+     * @return A list of Trades.
      */
     public List<Trade> getTrades() {
         List<Trade> trades = new ArrayList<Trade>();
@@ -212,11 +212,12 @@ class ChangeList {
 
 
     /**
-     * Pushes all notifications to the internet through the User Database
+     * Pushes all notifications to the internet through the User Database.
      * - If the internet is not available or it is disconnected, the Notification
      * is not removed from the list
      * - If the commit is successful, then we remove the Notification
-     * @param userDB
+     * @param userDB UserDatabase Object.
+     * @throws IOException
      */
 
     public void push(UserDatabase userDB) {
