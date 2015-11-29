@@ -99,14 +99,11 @@ import android.widget.Toast;
  *      user and then we will have it so that the friendlists are updated with the mutual
  *      removal of each user from eachothers friends lists.
  *
- *
  *  8: BLOCKUNBLOCKEDUSER:
  *      This is going to be a mutual method where we have the ability to both
  *      block and unblock a particular user. This is going to update our block lists and when
  *      the user is already blocked we have this method UNblock the user and when the user is NOT YET
  *      blocked and we click this we then block the user.
- *
- *
  *
  *  9: CHECKUSER:
  *     This is going to return the ID of the user that we're looking at. Simple as that, allowing
@@ -116,7 +113,7 @@ import android.widget.Toast;
  *
  */
 
-public class ProfileActivity extends GeneralMenuActivity {
+public class ProfileActivity extends ButtonMenuActivity {
     static String UNIQUE_PARAM = "user_name_for_profile";
     private Bundle profileExtras;
     private String userProfileName;
@@ -126,7 +123,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
     private Context profileContext = this;
 
-    private Button addRemoveFriend, startTrade, viewInventory, friendListButton;
+    private Button viewInventory, friendListButton;
     private TextView userContactInfo, profileTitle;
     private CheckBox checkBox;
 
@@ -139,8 +136,6 @@ public class ProfileActivity extends GeneralMenuActivity {
         profileExtras = getIntent().getExtras();
         userProfileName = profileExtras.getString(UNIQUE_PARAM);
 
-        addRemoveFriend = (Button) findViewById(R.id.add_friend);
-        startTrade = (Button) findViewById(R.id.maketrade);
         viewInventory = (Button) findViewById(R.id.inventory);
         profileTitle = (TextView) findViewById(R.id.user_name);
         checkBox = (CheckBox) findViewById(R.id.auto_img);
@@ -187,22 +182,18 @@ public class ProfileActivity extends GeneralMenuActivity {
     public void enableButtons() {
         if (hasFriend) {
             //check if user is your friend you can make trade request
-            addRemoveFriend.setText(R.string.remove_friend);
-            startTrade.setVisibility(View.VISIBLE);
-
+            setRightText("Remove Friend");
+            activateLeftButton();
         } else {
             //do not show start trade button since not a friend
-            addRemoveFriend.setText(R.string.add_friend);
-            startTrade.setVisibility(View.INVISIBLE);
+            setRightText("Add Friend");
+            deactivateLeftButton();
         }
 
         // You can't be friends with yourself, go get some real friends
         if (masterController.getCurrentUser().equals(owner)) {
-            addRemoveFriend.setEnabled(false);
-            addRemoveFriend.setVisibility(View.INVISIBLE);
-
-            startTrade.setEnabled(false);
-            startTrade.setVisibility(View.INVISIBLE);
+            deactivateRightButton();
+            deactivateLeftButton();
 
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
@@ -222,6 +213,10 @@ public class ProfileActivity extends GeneralMenuActivity {
         startActivity(intent);
     }
 
+    protected void clickOnLeftButton(View v) {
+        startTrade(v);
+    }
+
     public void startTrade(View view){
         Intent intent = new Intent(profileContext, EditTradeActivity.class);
         intent.putExtra(EditTradeActivity.ACTIVE_PARAM, masterController.getCurrentUser().getUserID());
@@ -229,14 +224,18 @@ public class ProfileActivity extends GeneralMenuActivity {
         startActivity(intent);
     }
 
+    protected void clickOnRightButton(View v) {
+        addRemoveFriend(v);
+    }
+
     public void addRemoveFriend(View view){
         if(hasFriend){
             removeFriend();
             //do not show start trade button anymore since not a friend
-            startTrade.setVisibility(View.INVISIBLE);
+            deactivateLeftButton();
         }else{
             addFriend();
-            startTrade.setVisibility(View.VISIBLE);
+            activateLeftButton();
         }
         hasFriend = !hasFriend;
     }
@@ -256,7 +255,7 @@ public class ProfileActivity extends GeneralMenuActivity {
         toast.show();
 
         //Modify the displayed text to remove friend option.
-        addRemoveFriend.setText(R.string.remove_friend);
+        setRightText("Remove Friend");
     }
 
     /**
@@ -273,7 +272,7 @@ public class ProfileActivity extends GeneralMenuActivity {
         toast.show();
 
         //Modify the displayed text the user sees to keep them aware of their choices.
-        addRemoveFriend.setText(R.string.add_friend);
+        setRightText("Add Friend");
     }
 
     public void showFriendsList(View v) {

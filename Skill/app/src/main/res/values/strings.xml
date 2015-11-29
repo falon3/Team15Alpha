@@ -139,4 +139,6 @@
     <string name="category">Category</string>
     <string name="Name">Name</string>
     <string name="accept">Accept</string>
+    <string name="rating">Rating:</string>
+    <string name="category_title">Category:</string>
 </resources>

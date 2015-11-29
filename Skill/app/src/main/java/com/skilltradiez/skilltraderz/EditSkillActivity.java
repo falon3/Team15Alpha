@@ -213,6 +213,15 @@ public class EditSkillActivity extends CameraActivity {
         return true;
     }
 
+    public void initState() {
+        skillName.setText("");
+        skillDescription.setText("");
+        skillCategory.setSelection(0);
+        skillVisible.setChecked(true);
+        getImages().clear();
+        imageAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void addNewImage(View view) {
         super.addNewImage(view);
@@ -310,21 +319,16 @@ public class EditSkillActivity extends CameraActivity {
             return;
         }
 
+        Context context = getApplicationContext();
         if (skillToEdit == null) { // if we are creating a new skill
             //Make a new skill through the controller.
             masterController.makeNewSkill(name, category, description, isVisible, getImages());
             DatabaseController.save();
 
             //Toasty
-            Context context = getApplicationContext();
             Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
 
-            skillName.setText("");
-            skillDescription.setText("");
-            skillCategory.setSelection(0);
-            skillVisible.setChecked(true);
-            getImages().clear();
-            imageAdapter.notifyDataSetChanged();
+            initState();
         } else { // if we are editing an existing skill
             skillToEdit.setName(name);
             skillToEdit.setDescription(description);
@@ -334,10 +338,8 @@ public class EditSkillActivity extends CameraActivity {
             skillToEdit.setImages(getImages());
             DatabaseController.save();
 
-            Context context = getApplicationContext();
             Toast.makeText(context, "Skill saved!", Toast.LENGTH_SHORT).show();
-
-            finish();
         }
+        finish();
     }
 }

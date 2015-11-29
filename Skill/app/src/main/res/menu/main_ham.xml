@@ -33,7 +33,7 @@
         android:title="@string/your_friends"
         skillz:showAsAction="never" />
     <item
-        android:id="@+id/trade_history"
+        android:id="@+id/Trade_History"
         android:title="@string/trade_history"
         skillz:showAsAction="never" />
     <item

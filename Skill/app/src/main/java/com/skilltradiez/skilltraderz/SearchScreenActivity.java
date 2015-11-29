@@ -117,7 +117,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
 
         searchExtras = getIntent().getExtras();
         screenType = searchExtras.getInt(SEARCH_TYPE_PARAM);
-        //query = searchExtras.getInt(SEARCH_QUERY);
 
         setSearchParam(screenType);
 

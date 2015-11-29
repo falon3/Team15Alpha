@@ -70,17 +70,26 @@
     </HorizontalScrollView>
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="@string/desc"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#057777"
+        android:layout_below="@+id/imageScroller" />
+
+    <TextView
         android:id="@+id/skill_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_with_border"
         android:inputType="textMultiLine"
         android:text="@string/skill_description"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/imageScroller"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
         android:layout_above="@+id/add_remove_skill" />
 
     <Button
