@@ -173,7 +173,7 @@ public class EditSkillActivity extends CameraActivity {
     /**
      * When this method is invoked we will use the passed in view to identify the image, and then
      * we will pass this image into the database.
-     * 
+     *
      * The View here will be able to distinguish a given Image, that is why a View is passed.
      * This view will then be passed to the superclass (CameraActivity) method of addNewImage.
      * We then notify the adapter that there has been a change to the data set.
