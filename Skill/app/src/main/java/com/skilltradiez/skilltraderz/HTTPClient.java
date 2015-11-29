@@ -26,7 +26,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
@@ -42,11 +41,14 @@ import java.io.InputStreamReader;
  */
 
 public class HTTPClient {
+    private int timeout;
+    private static final int DEFAULT_TIMEOUT = 500;
+
     /**Class Variables:
      * 1: httpClient, when the constructor is invoked for this class we will assign this variable
      *    a new DefaultHttpClient object created the the httpParams given in the constructor.
      */
-    HttpClient httpClient;
+    private HttpClient httpClient;
 
     /**
      * This constructor when invoked will:
@@ -57,10 +59,27 @@ public class HTTPClient {
      *    passing in the newly created httpParams specified above.
      */
     public HTTPClient() {
-        HttpParams httpParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
-        HttpConnectionParams.setSoTimeout(httpParams, 5000);
-        httpClient = new DefaultHttpClient(httpParams);
+        httpClient = new DefaultHttpClient();
+        resetFailure();
+    }
+
+    /**
+     * Every time it fails, we fail faster!
+     */
+    public void failureHappened() {
+        timeout /= 2;
+        setTimeout();
+    }
+
+    public void resetFailure() {
+        timeout = DEFAULT_TIMEOUT;
+        setTimeout();
+    }
+
+    private void setTimeout() {
+        HttpParams httpParams = httpClient.getParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+        HttpConnectionParams.setSoTimeout(httpParams, timeout);
     }
 
 
@@ -80,8 +99,14 @@ public class HTTPClient {
      */
     public String get(String url) throws IOException {
         HttpGet get = new HttpGet(url);
-        HttpResponse response = httpClient.execute(get);
-        return read(response.getEntity());
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(get);
+            String strresp = read(response.getEntity());
+            return strresp;
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
 
@@ -104,8 +129,13 @@ public class HTTPClient {
         HttpPost post = new HttpPost(url);
         post.setHeader("Accept", "application/json");
         post.setEntity(new StringEntity(data));
-        HttpResponse response = httpClient.execute(post);
-        return read(response.getEntity());
+        try {
+            HttpResponse response = httpClient.execute(post);
+            String strresp = read(response.getEntity());
+            return strresp;
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
 
@@ -124,8 +154,13 @@ public class HTTPClient {
      */
     public String delete(String url) throws IOException {
         HttpDelete del = new HttpDelete(url);
-        HttpResponse response = httpClient.execute(del);
-        return read(response.getEntity());
+        try {
+            HttpResponse response = httpClient.execute(del);
+            String strresp = read(response.getEntity());
+            return strresp;
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     /**

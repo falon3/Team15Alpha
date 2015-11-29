@@ -36,7 +36,7 @@ import java.io.IOException;
 
 public class Image extends Notification {
 
-    /**LOCAL CLASS VARIABLES:
+    /**Class Variables:
      * 1: bitmap, will hold a Bitmap Object that corresponds to the image that the Image Object
      *     holds.
      * 2: id, will hold an ID Object that will correspond to the identification number of this

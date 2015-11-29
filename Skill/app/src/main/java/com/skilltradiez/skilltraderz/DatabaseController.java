@@ -386,16 +386,11 @@ public final class DatabaseController implements ControllerInterface{
         return getOnlineImageByID(id);
     }
 
-
-    /**
-     * Returns an Image object where the ID passed in matches an Image object.
-     * This IS GOING TO be looking at the elastic / online database information.
-     * @param id ID Object.
-     * @return Image Object.
-     * @throws IOException
-     */
-    private static Image getOnlineImageByID(ID id) {
+    public static Image forceGetImageByID(ID id) {
         Set<Image> images = MasterController.getUserDB().getImagez();
+        for (Image i : images)
+            if (i.getID().equals(id))
+                return i;
         Elastic elastic = MasterController.getUserDB().getElastic();
         Image i = null;
         try {
@@ -408,6 +403,20 @@ public final class DatabaseController implements ControllerInterface{
             e.printStackTrace();
         }
         return i;
+    }
+
+    /**
+     * Returns an Image object where the ID passed in matches an Image object.
+     * This IS GOING TO be looking at the elastic / online database information.
+     * @param id ID Object.
+     * @return Image Object.
+     * @throws IOException
+     */
+    private static Image getOnlineImageByID(ID id) {
+        if (!MasterController.getCurrentUser().getProfile().getShouldDownloadImages()) {
+            return null;
+        }
+        return forceGetImageByID(id);
     }
 
 

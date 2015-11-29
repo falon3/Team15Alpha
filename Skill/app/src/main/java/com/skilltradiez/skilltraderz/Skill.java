@@ -223,7 +223,7 @@ import java.util.Set;
  * -Set the description         --setDescription
  */
 public class Skill extends Stringeable {
-    private String name, category, description;
+    private String name, category, description, quality;
     private List<ID> images;
     private boolean visible;
     private ID skillID = ID.generateRandomID();
@@ -232,13 +232,14 @@ public class Skill extends Stringeable {
     /**
      * CONSTRUCTOR
      **/
-    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, List<Image> images) {
+    Skill(UserDatabase db, String skill_name, String category, String description, String quality, boolean isVisible, List<Image> images) {
         setName(skill_name);
         owners = new ArrayList<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
         setVisible(isVisible);
         setDescription(description);
+        setQuality(quality);
         this.images = new ArrayList<ID>();
         setImages(images);
 
@@ -255,6 +256,7 @@ public class Skill extends Stringeable {
         setCategory(skill.getCategory());
         setVisible(skill.isVisible());
         setDescription(skill.getDescription());
+        setQuality(skill.getQuality());
         images = skill.getImages();
 
         //TODO this probably shouldn't add itself to the database.
@@ -332,6 +334,15 @@ public class Skill extends Stringeable {
     public void setDescription(String description) {
         this.description = description;
         notifyDB();
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
+        notifyDB();
+    }
+
+    public String getQuality() {
+        return quality;
     }
 
     public int getTop() {
