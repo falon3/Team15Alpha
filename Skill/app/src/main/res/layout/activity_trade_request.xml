@@ -17,7 +17,6 @@
     *    You should have received a copy of the GNU General Public License
     *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,7 +25,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.skilltradiez.skilltraderz.TradeRequestActivity">
+    tools:context="com.skilltradiez.skilltraderz.EditTradeActivity"
+    android:id="@+id/">
 
     <TextView
         android:id="@+id/trading_with"
@@ -39,65 +39,122 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#057777" />
 
-    <TextView
-        android:id="@+id/offering"
-        android:layout_width="wrap_content"
+    <TableRow
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/trading_with"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/trading_with"
-        android:layout_marginTop="28dp"
-        android:text="@string/offering"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#057777" />
+        android:id="@+id/offerHeader"
+        android:layout_marginTop="10dp">
 
-    <ListView
-        android:id="@+id/offerList"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/offering"
-        android:layout_marginTop="27dp"
-        android:background="@drawable/button_with_border" />
+        <TextView
+            android:id="@+id/offering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offering"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#057777"
+            android:layout_weight="5" />
 
-    <TextView
-        android:id="@+id/trade_description"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/offerList"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/button_with_border"
-        android:text="@string/trade_notes"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:showDividers="beginning|middle|end"
+        android:id="@+id/Offers"
+        android:layout_below="@+id/offerHeader"
+        android:layout_alignParentLeft="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ListView
+                android:id="@+id/offerList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_with_border"
+                android:layout_column="0"
+                android:layout_weight="1" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestHeader"
+        android:clickable="true"
+        android:layout_below="@+id/Offers">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/requesting"
+            android:id="@+id/requesting"
+            android:singleLine="true"
+            android:textColor="#057777"
+            android:layout_weight="1" />
+
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/requestHeader"
+        android:showDividers="beginning|middle|end"
+        android:layout_above="@+id/sendTrade"
+        android:id="@+id/Requests">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2" >
+
+            <ListView
+                android:id="@+id/requestList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_with_border"
+                android:layout_column="0"
+                android:layout_weight="1" />
+
+        </TableRow>
+
+    </TableLayout>
 
     <Button
-        android:id="@+id/acceptTrade"
+        android:id="@+id/sendTrade"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/send_trade"
+        android:onClick="sendTrade"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/accept_trade"
-        android:onClick="acceptTrade"/>
-
-    <Button
-        android:id="@+id/counterTrade"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/trade_description"
-        android:layout_below="@+id/trade_description"
-        android:text="@string/counter_trade"
-        android:onClick="counterOffer"/>
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/deleteTrade"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/counterTrade"
+        android:layout_alignBottom="@+id/sendTrade"
         android:layout_alignParentStart="true"
         android:text="@string/delete_trade"
         android:onClick="deleteRequest"/>

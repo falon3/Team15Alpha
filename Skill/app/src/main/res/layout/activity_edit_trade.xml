@@ -25,7 +25,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.skilltradiez.skilltraderz.EditTradeActivity">
+    tools:context="com.skilltradiez.skilltraderz.EditTradeActivity"
+    android:id="@+id/">
 
     <TextView
         android:id="@+id/trading_with"
@@ -75,7 +76,8 @@
         android:layout_alignParentStart="true"
         android:showDividers="beginning|middle|end"
         android:id="@+id/Offers"
-        android:layout_below="@+id/offerHeader">
+        android:layout_below="@+id/offerHeader"
+        android:layout_alignParentLeft="true">
 
         <TableRow
             android:layout_width="match_parent"
