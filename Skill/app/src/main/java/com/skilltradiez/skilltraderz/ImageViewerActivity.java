@@ -29,7 +29,7 @@ public class ImageViewerActivity extends GeneralMenuActivity {
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
-        Image image = DatabaseController.getImageByID((ID) getIntent().getExtras().get(IMAGE_ID_PARAM));
+        Image image = DatabaseController.forceGetImageByID((ID) getIntent().getExtras().get(IMAGE_ID_PARAM));
         imageView.setImageBitmap(image.getBitmap());
     }
 
