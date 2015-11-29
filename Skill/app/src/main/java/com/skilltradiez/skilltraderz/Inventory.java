@@ -157,19 +157,30 @@ import java.util.List;
  * An inventory contains the the skills held by a user.
  */
 public class Inventory extends Notification {
+    /**LOCAL CLASS VARIABLES:
+     * 1: skillz, a list of ID Objects representing the Skillz in the inventory.
+     * 2: user, an ID Object that represents the ID of the user this Inventory Object belongs to.
+     */
     private ArrayList<ID> skillz;
     private ID user;
 
+    /**CONSTRUCTOR:
+     * Given an ID Object of a User, create a new Inventory Object.
+     * Assigns object's user variable to the passed in ID Object.
+     * Creates a new ArrayList of ID Object's used for Skills in the inventory.
+     * @param user ID Object of a User.
+     */
     public Inventory(ID user) {
         skillz = new ArrayList<ID>();
         this.user = user;
     }
 
     /**
-     * Gets a skill at a given index
-     *
-     * @param index the index
-     * @return the skill
+     * Given an index, provides the Skill Object associated with that index value.
+     * Returns null if the index does not have an associated Skill Object.
+     * @param userDB UserDatabase Object.
+     * @param index Integer Object.
+     * @return
      */
     public Skill get(UserDatabase userDB, Integer index) {
         if (index < skillz.size())
@@ -177,6 +188,12 @@ public class Inventory extends Notification {
         return null;
     }
 
+    /**
+     * Given an index, provides the ID Object of the skill associated with that index value.
+     * Returns null if the index does not have an associated Skill Object.
+     * @param index Integer Objcet.
+     * @return ID Object.
+     */
     public ID get(Integer index) {
         if (index < skillz.size())
             return skillz.get(index);
@@ -184,10 +201,9 @@ public class Inventory extends Notification {
     }
 
     /**
-     * Adds a new skill to the end of the list
-     *
-     * @param new_skill the skill to add.
-     * @return false if the skill was already in the list
+     * Given a Skill Object, adds the Skill Object to the inventory's list of Skill Objects.
+     * @param new_skill Skill Object.
+     * @return Boolean. True/False.
      */
     public Boolean add(Skill new_skill) {
         if (skillz.contains(new_skill.getSkillID())) return false;
@@ -196,10 +212,10 @@ public class Inventory extends Notification {
         return true;
     }
 
+
     /**
-     * Removes a skill from the list
-     *
-     * @param skill the skill to remove
+     * Remove from the Inventory's list of Skill Objects the skill associated with the given ID Object.
+     * @param skill ID Object of a Skill.
      */
     public void remove(ID skill) {
         skillz.remove(skill);
@@ -207,17 +223,19 @@ public class Inventory extends Notification {
     }
 
     /**
-     * Gets the number of skills on the list
+     * Returns an Integer Object of the size of the Inventory Object's list of Skill ID Objects.
+     * @return Integer Object
      */
     public Integer size() {
         return skillz.size();
     }
 
+
     /**
-     * Finds all skills with a particular name.
-     *
-     * @param name The skill name to search for
-     * @return a list of all skills matching the given name.
+     * Returns a list of Skill Objects associated with the name passed to the method.
+     * @param userDB UserDatabase Object.
+     * @param name String input of a name of a Skill.
+     * @return A List of Skill Objects
      */
     public List<Skill> findByName(UserDatabase userDB, String name) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
@@ -230,10 +248,10 @@ public class Inventory extends Notification {
     }
 
     /**
-     * Finds all skills with a particular category.
-     *
-     * @param category The skill category to search for
-     * @return a list of all skills matching the given category.
+     * Given a category, yields a list of Skill Objects that are associated with the string given.
+     * @param userDB UserDatabase Object.
+     * @param category String input of a category.
+     * @return List of Skill Objects
      */
     public List<Skill> findByCategory(UserDatabase userDB, String category) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
@@ -248,7 +266,9 @@ public class Inventory extends Notification {
     }
 
     /**
-     * Returns a copy of the list of skills, sorted ascending by name.
+     * When invoked will return a list of Skill Objects sorted by their name.
+     * @param userDB UserDatabase Object.
+     * @return List of Skill Objects.
      */
     public ArrayList<Skill> orderByName(UserDatabase userDB) {
         ArrayList<Skill> sorted = cloneSkillz(userDB);
@@ -262,7 +282,9 @@ public class Inventory extends Notification {
     }
 
     /**
-     * Returns a copy of the list of skills, sorted ascending by name.
+     * When invoked will return a list of Skill Objects sorted by their category.
+     * @param userDB UserDatabase Object.
+     * @return List of Skill Objects.
      */
     public ArrayList<Skill> orderByCategory(UserDatabase userDB) {
         ArrayList<Skill> sorted = cloneSkillz(userDB);
@@ -275,6 +297,12 @@ public class Inventory extends Notification {
         return sorted;
     }
 
+    /**
+     * Pass in a Skill Object to this method to return TRUE if the Inventory has the skill or
+     * FALSE if the inventory does not have that skill.
+     * @param skill Skill Object.
+     * @return Boolean. True/False.
+     */
     public Boolean hasSkill(Skill skill) {
         for (ID s:skillz)
             if (skill.getSkillID().equals(s))
@@ -282,6 +310,11 @@ public class Inventory extends Notification {
         return false;
     }
 
+    /**
+     * When invoked will produce a brand new list of Skill Objects and return this new list.
+     * @param userDB UserDatabase Object
+     * @return List of Skill Objects.
+     */
     public ArrayList<Skill> cloneSkillz(UserDatabase userDB) {
         ArrayList<Skill> newList = new ArrayList<Skill>();
         for (ID id:skillz)
