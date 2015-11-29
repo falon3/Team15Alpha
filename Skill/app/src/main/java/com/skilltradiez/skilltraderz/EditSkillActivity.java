@@ -103,6 +103,7 @@ public class EditSkillActivity extends CameraActivity {
         skillCategory = (Spinner) findViewById(R.id.category_spinner);
         skillVisible = (CheckBox) findViewById(R.id.is_visible);
         imageList = (ListView) findViewById(R.id.imageList);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
         // Images Setup
         imageAdapter = new ImageAdapter(this, getImages());
