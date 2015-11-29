@@ -18,6 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testAddSkill() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User owner = null;
         try {
@@ -47,7 +50,9 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testRemoveSkill() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User owner = null;
         try {
@@ -66,7 +71,9 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
 
     public void testSetSkillProperties() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User owner = null;
         try {
@@ -79,10 +86,10 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         inv.add(skill);
 
         // Testing modifying a skill in inventory
-        Image dog = new Image("dog chasing it's tail");
+        Image dog = new Image(Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8));
         Skill held_skill = inv.get(db, 0);
         held_skill.setDescription("I jumped and then got really tired");
-        held_skill.setImage(dog, 0);
+        held_skill.addImage(dog);
         held_skill.setVisible(false);
         assertTrue(dog.equals(held_skill.getImage()));
         assertTrue(held_skill.getDescription().equals("I jumped and then got really tired"));
@@ -90,7 +97,9 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSkillSorting() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User owner = null;
         try {
@@ -113,7 +122,9 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSearchSkills() {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User owner = null;
         try {

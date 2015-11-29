@@ -136,7 +136,7 @@ import java.util.List;
  *          application and therefore having differentiable URLs is absolutely a darling tactic
  *          to achieve isolation.
  *  BACK TO THE CONSTRUCTOR THOUGH. When the constructor for this object is called we're going
- *  to assign the attribute httpClient with a brand NEW object of SimpleHTTPClient (no params)
+ *  to assign the attribute httpClient with a brand NEW object of HTTPClient (no params)
  *  which will have allof it's own functionalities in correlation with that object.
  *  We will also then assign THIS object's attribute baseUrl (string) the value of the baseURL that
  *  is passed into the constructor. Allowing us reference to what is the exact URL that we're
@@ -229,11 +229,11 @@ import java.util.List;
  */
 
 public class Elastic {
-    SimpleHTTPClient httpClient;
+    HTTPClient httpClient;
     String baseUrl;
     Gson gson;
-    public Elastic(String baseUrl) {
-        httpClient = new SimpleHTTPClient();
+    public Elastic(String baseUrl, HTTPClient client) {
+        httpClient = client;
         this.baseUrl = baseUrl;
         gson = new Gson();
     }

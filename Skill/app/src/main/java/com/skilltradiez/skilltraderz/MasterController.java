@@ -26,68 +26,76 @@ import java.util.Set;
  * Activities should ideally never need to interact with the model directly.
  * This acts as a controller that facilitates the communication from the views to the models that
  * we possess.
- *
+ * <p/>
  * Assuming direct control.
  * --Sovereign, mass effect
  */
-public final class MasterController implements ControllerInterface{
+public final class MasterController implements ControllerInterface {
     private static DatabaseController databaseController;
 
-    /** DATABASE RELATED **/
+    /**
+     * DATABASE RELATED
+     **/
     //Initialize the master controller.
     //Absolutely core, this sets up the entire system of controllers.
-    public void initializeController(){
+    public void initializeController() {
         databaseController = new DatabaseController();
     }
 
     //Return the database object! Only available to other controller objects.
-    public static UserDatabase getUserDB(){
+    public static UserDatabase getUserDB() {
         return databaseController.getUserDB();
     }
 
-    /** USER RELATED **/
+    /**
+     * USER RELATED
+     **/
     //If we probe for the USER that is currently on the app... returns the USER object of that user.
     //NOT just the name. USER object.
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return getUserDB().getCurrentUser();
     }
 
     //Give the current username from the database.
-    public String getCurrentUserUsername(){
+    public String getCurrentUserUsername() {
         return getUserDB().getCurrentUser().getProfile().getUsername();
     }
 
-    public String getCurrentUserEmail(){
+    public String getCurrentUserEmail() {
         return getUserDB().getCurrentUser().getProfile().getEmail();
     }
 
     //Given a profile name we return a user
-    public User getUserByName(String userProfileName){
+    public User getUserByName(String userProfileName) {
         return DatabaseController.getAccountByUsername(userProfileName);
     }
 
-    public User getUserByID(ID userID){
+    public User getUserByID(ID userID) {
         return DatabaseController.getAccountByUserID(userID);
     }
 
-    /**FRIEND RELATED **/
+    /**
+     * FRIEND RELATED
+     **/
     //Do they have THIS friend in particular.
-    public boolean userHasFriend(User user){
-        return getCurrentUser().getFriendsList().hasFriend(user);
+    public boolean hasFriend(User friend) {
+        return getCurrentUser().getFriendsList().hasFriend(friend);
     }
 
-    public void addANewFriend(User currentUser){
-        getCurrentUser().getFriendsList().addFriend(currentUser);
+    public void addFriend(User friend) {
+        getCurrentUser().getFriendsList().addFriend(friend);
     }
 
-    public void removeThisFriend(User currentUser){
-        getCurrentUser().getFriendsList().removeFriend(currentUser);
+    public void removeFriend(User friend) {
+        getCurrentUser().getFriendsList().removeFriend(friend);
     }
 
-    /** SKILLZ RELATED FUNCTIONS **/
+    /**
+     * SKILLZ RELATED FUNCTIONS
+     **/
     //Clear the current List<Skill> of skillz!
     // this seems unnecessary
-    public void clearSkillzList(List<Skill> skillz){
+    public void clearSkillzList(List<Skill> skillz) {
         skillz.clear();
     }
 
@@ -96,15 +104,17 @@ public final class MasterController implements ControllerInterface{
     }
 
     //Obtain from the user database all of the current skills!
-    public Set<Skill> getAllSkillz(){
+    public Set<Skill> getAllSkillz() {
         return getUserDB().getSkills();
     }
 
-    public Set<User> getAllUserz(){
+    public Set<User> getAllUserz() {
         return getUserDB().getUsers();
     }
 
-    public Set<Trade> getAllTradez() {return getUserDB().getTrades();}
+    public Set<Trade> getAllTradez() {
+        return getUserDB().getTrades();
+    }
 
     public List<Trade> getAllTradezForCurrentUser() {
         ArrayList<Trade> trradees = new ArrayList<Trade>();
@@ -113,18 +123,20 @@ public final class MasterController implements ControllerInterface{
         return trradees;
     }
 
-    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images){
+    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
         getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, images));
         DatabaseController.save();
     }
 
-    /** SkillDescriptionActivity methods **/
-    public void removeCurrentSkill(Skill currentSkill){
+    /**
+     * SkillDescriptionActivity methods
+     **/
+    public void removeCurrentSkill(Skill currentSkill) {
         getCurrentUser().getInventory().remove(currentSkill.getSkillID());
         currentSkill.removeOwner(getCurrentUser().getUserID());
     }
 
-    public void addCurrentSkill(Skill currentSkill){
+    public void addCurrentSkill(Skill currentSkill) {
         getCurrentUser().getInventory().add(currentSkill);
         currentSkill.addOwner(getCurrentUser().getUserID());
     }
@@ -135,26 +147,28 @@ public final class MasterController implements ControllerInterface{
 
     public List<Skill> getSkillList(List<ID> ids) {
         List<Skill> skills = new ArrayList<Skill>();
-        for (ID id:ids)
+        for (ID id : ids)
             skills.add(DatabaseController.getSkillByID(id));
         return skills;
     }
 
     public List<Stringeable> getStringeableSkillList(List<ID> ids) {
         List<Stringeable> skills = new ArrayList<Stringeable>();
-        for (ID id:ids)
+        for (ID id : ids)
             skills.add(DatabaseController.getSkillByID(id));
         return skills;
     }
 
-    /** TradeRequestActivity methods **/
+    /**
+     * TradeRequestActivity methods
+     **/
     //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
-    public Trade getTradeByID(ID identifier){
+    public Trade getTradeByID(ID identifier) {
         return DatabaseController.getTradeByID(identifier);
     }
 
     //ACCEPT THE TRADE
-    public void acceptTheCurrentTrade(Trade trade){
+    public void acceptTheCurrentTrade(Trade trade) {
         trade.getHalfForUser(getCurrentUser()).setAccepted(true);
     }
 }

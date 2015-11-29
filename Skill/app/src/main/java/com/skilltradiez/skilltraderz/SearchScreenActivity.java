@@ -17,21 +17,12 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -155,7 +146,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -239,8 +229,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
             for (User u : onlineUsers)
                 if (u.getProfile().getUsername().toLowerCase().contains(search) &&
                         (category.equals("all") ||
-                                (category.equals("friends") && masterController.userHasFriend(u)) ||
-                                (category.equals("non-friends") && !masterController.userHasFriend(u))))
+                                (category.equals("friends") && masterController.hasFriend(u)) ||
+                                (category.equals("non-friends") && !masterController.hasFriend(u))))
                     items.add(u.getProfile());
         } else if (screenType == 2) { // Trade History
             List<Trade> trades = masterController.getAllTradezForCurrentUser();
