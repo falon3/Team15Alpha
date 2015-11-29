@@ -33,7 +33,8 @@
             android:text="SkillName"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:textColor="@color/tealTextColor" />
+            android:textColor="@color/tealTextColor"
+            android:background="#005151" />
 
         <TextView
             android:id="@+id/desc"
