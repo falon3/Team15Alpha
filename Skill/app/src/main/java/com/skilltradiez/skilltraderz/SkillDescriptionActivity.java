@@ -125,7 +125,10 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
                     startActivity(intent);
                 }
             });
-            iv.setImageBitmap(image.getBitmap());
+            if (image != null)
+                iv.setImageBitmap(image.getBitmap());
+            else
+                iv.setImageResource(R.drawable.sz_circle);
             imageView.addView(iv);
         }
     }

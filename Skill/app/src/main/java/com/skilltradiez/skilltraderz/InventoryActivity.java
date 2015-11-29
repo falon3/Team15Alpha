@@ -41,73 +41,36 @@ import java.util.List;
  * This is going to be the interactive framework that is going to allow the user to interact
  * with the inventory classes (and all of the things connected to said inventory class) in an
  * appropriate and managable format!
- *
- * ~~ACCESS:
- * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
- * we can have this class actually be accessed technically anywhere in the application that
- * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
- * an instance of the "InventoryActivity" activity.
- *
- *
- * ~~CONSTRUCTOR:
- * Upon calling the method onCreate() for this activity the android studio framework will
- * cause the android application to create an instance of this actvity and display it to the user.
- *
- * ~~ATTRIBUTES/METHODS:
- * 1: CATEGORYSPINNER:
- *     Suppose we want to have a way to go through the various categories, this is the way we will
- *     achieve this! This is more UI related so I'm keeping this description short and sweet.
- *
- * 2: SEARCHINVENTORY (ATTRIBUTE):
- *     Wouldn't it be ideal if through the framework we could actually interact with the
- *     inventory in a manner that does not seem overwhelming? Well that is why we implemented
- *     this string! We will take a user given string and then search through the entire inventory
- *     for things that match this string. UI-ish but it has relevance in the code. So I detailed it.
- *
- *
- * 3: STARTTRADE:
- *     Is it not critical to START a trade with another user? Well this is going to be how
- *     we actually start a trade with another user! This is going to be the method that is called
- *     when the UI is activated to cascade through a series of statements that will fully set up
- *     the entire trading process with another user.
- *
- *
- * 4: SEARCHINVENTORY (METHOD):
- *     This is associated with the searchInventory attribute mentioned above, in this instance
- *     we're going to take the user's inputted string (the attribute saves it) and then we will
- *     filter through the entire inventory and obtain the results in this fashion that are
- *     actually going to be related to this search string.
- *
- *
- * 5: REFINEINVENTORYBYCATEGORY:
- *     We'll take the input of the spinner and then associate it with the categories that our
- *     application supports and then present to the user the inventory sorted out by a particular
- *     category that they selected through the spinner.
- *
- *
- * 6: POPULATEINVENTORY:
- *     We want the user to be able to browse other users (or even themselves right?) where they
- *     have an inventory. So we utilize this method to begin the entire process of obtaining
- *     the entire inventory of a user and then we present this entire bulky thing to the user.
- *     It's like magic.
- *
- * 7: SKILLDETAILS:
- *     Suppose we have an inquisitive user who looks at the "cat bathing" skill ... yet they want
- *     to know MORE about this particular skill, when they inqurie about this skill THIS method
- *     is called that will represent to the user through this activity (and thus the android
- *     framework) all of the details that are currently saved within the database that are related
- *     to that particular skill.
- *
- *
  */
 
 public class InventoryActivity extends SearchMenuActivity {
+
+    /**Activity Class Variables:
+     * 1: USER_INVENTORY: Assigned a string of the same name used to pass a constant into methods.
+     * 2: ID_PARAM: Assigned the string "user_id" for use in method calls.
+     * 3: inventoryContext: The UI object of context for this particular Activity, helps preserve
+     *    information for use in methods being called.
+     * 4: currentUser: Stores the User Object of the current user that is on this application.
+     * 5: skillz: A list of Skill Objects that represent all skills in the user's inventory.
+     * 6: foundSkillz: A list of Stringeable Objects that allow simple database interactions.
+     * 7: searchButton: A Button that is used to invoke the search methods in this activity.
+     * 8: startTrade: A Button that when clicked will invoke the methods to start a trade.
+     * 9: searchField: An EditText that the user can use to input their search queries.
+     * 10: searchInventory: A string that is passed into methods with the search query
+     * 11: categorySpinner: A UI Spinner Object that shows to the user the various categories
+     *    that they may choose from, also has category pulled out to pass selected category into
+     *    methods.
+     * 12: inventoryList: A ListView Object that displays data in a listView-fashion to the user.
+     * 13: adapter: An ArrayAdapter of Stringeable Objects that will allow us to update the UI
+     *    of this activity when there are modifications to the dataset meant to be represented.
+     *
+     */
     static String USER_INVENTORY = "USER_INVENTORY",
                     ID_PARAM = "user_id";
 
     private Context inventoryContext = this;
     private User currentUser;
-    private List<Skill> skillz;//All skillz in inventory
+    private List<Skill> skillz;
     private List<Stringeable> foundSkillz;
 
     private Button searchButton, startTrade;
@@ -172,6 +135,14 @@ public class InventoryActivity extends SearchMenuActivity {
         searchInventory();
     }
 
+    /**
+     * Loads from the database all of the Inventory for the current user, then assigns the class
+     * variable skillz those Skill Objects.
+     *
+     * Obtains Inventory Object for the current user from the database.
+     * Assigns the class variable for this activity the clone of all of those Skill Objects.
+     * Creates a new ArrayList of Stringeables and assigns it to the class variable foundSkillz.
+     */
     private void loadSkillz() {
         Inventory inv = currentUser.getInventory();
         skillz = inv.cloneSkillz(masterController.getUserDB());
@@ -179,7 +150,12 @@ public class InventoryActivity extends SearchMenuActivity {
     }
 
     /**
-     * Begin the trade activity
+     * Begin the trade activity, will begin a new activity based upon the EditTradeActivity class.
+     *
+     * Given a View Object to differentiate where this method was called from, this method will
+     *    create a new Intent Object based upon the context of the given Inventory View Object
+     *    and the EditTradeActivity class.
+     *
      * @param view
      * @ TODO:
      */
@@ -190,18 +166,43 @@ public class InventoryActivity extends SearchMenuActivity {
         startActivity(intent);
     }
 
+
+    /**
+     * Begins a new search based upon a String passed into this method.
+     *
+     * Will quite literally invoke the searchInventory method with the query given.
+     * @param query A String representing what the user is searching for.
+     */
     public void startSearch(String query){
         searchInventory(query);
     }
 
     /**
      * Search through a user's inventory with a textual query to refine the number of items that
-     * are shown
+     * are shown.
      */
     public void searchInventory(){
         searchInventory("");
     }
 
+    /**
+     * Searches the inventory for Skills matching the string passed into this method, will however
+     * not return any value- instead will notify adapters and change the UI representation of the
+     * information.
+     *
+     * Obtain a String of the user's search string, the query. (Regex is a misnomer here.)
+     * Obtain a list of Skill Objects from the method refineInventoryByCategory.
+     * Obtain a second list of Skill Objects from the finding the User's inventory based upon
+     *    the findByName method by passing in the UserDatabase Object and the query string.
+     * Clears the default variable for the class of found skills to ensure a pristine search.
+     * Iterates through the SECOND list of Skill Objects and will append them to the default
+     *    variable for the class of found skills cleared above. But the skills will be appended only
+     *    if they are also present in the other list of Skill Objects we created in this method.
+     * We then notify the adapter for the UI that there has been a change in the data set that it is
+     *    meant to represent.
+     *
+     * @param query A String of what the user is searching for.
+     */
     public void searchInventory(String query){
         //searchfield = what you're searching for
         //update list of skills based on closest to search field
@@ -218,9 +219,19 @@ public class InventoryActivity extends SearchMenuActivity {
     }
 
     /**
-     * Refine the number of skills that are shown on screen based on the category that each skill
-     * belongs to
+     *  Returns back the List of Skill Objects being refined by a particular category dicated
+     *  by the spinner.
+     *
+     *  Obtain the category by pulling the string out from the spinner.
+     *  Have an if statement that if the spinner says all categories then we will be returning
+     *     a cloned list of Skill Objects from the current User's Inventory.
+     *  If the category, however, is NOT "all" then we will invoke the findByCategory method and
+     *  pass into that method the UserDatabase Object and the category pulled out from the spinner.
+     *  We then return the List of Skills.
+     *
+     * @return List of Skill Objects.
      */
+
     public List<Skill> refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
@@ -231,8 +242,10 @@ public class InventoryActivity extends SearchMenuActivity {
     }
 
     /**
-     * onClick for a chosen skill. Will bring a Skill Description activity
-     * @param skill
+     * Will display the details for a given Skill Object.
+     *
+     * Typically invoked here by an onClick method.
+     * @param skill Skill Object
      */
     public void skillDetails(Skill skill){
         Intent intent = new Intent(inventoryContext, SkillDescriptionActivity.class);

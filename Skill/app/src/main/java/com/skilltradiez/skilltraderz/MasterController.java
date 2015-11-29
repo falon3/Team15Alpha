@@ -117,14 +117,14 @@ public final class MasterController implements ControllerInterface {
     }
 
     public List<Trade> getAllTradezForCurrentUser() {
-        ArrayList<Trade> trradees = new ArrayList<Trade>();
+        ArrayList<Trade> trades = new ArrayList<Trade>();
         for (ID id : getCurrentUser().getTradeList().getTradesList())
-            trradees.add(getTradeByID(id));
-        return trradees;
+            trades.add(getTradeByID(id));
+        return trades;
     }
 
-    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
-        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, images));
+    public void makeNewSkill(String name, String category, String description, String quality, boolean isVisible, List<Image> images) {
+        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, quality, isVisible, images));
         DatabaseController.save();
     }
 
