@@ -222,33 +222,33 @@ public class SearchScreenActivity extends SearchMenuActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
-
-        String search = query, category = categorySpinner.getSelectedItem().toString();
+        String search = query.toLowerCase(),
+                category = categorySpinner.getSelectedItem().toString().toLowerCase();
 
         items.clear();
         if (screenType == 0) {
             // search skills
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
-                if (s.toString().contains(search) &&
-                        (s.getCategory().equals(category) || category.equals("All")) &&
+                if (s.toString().toLowerCase().contains(search) &&
+                        (s.getCategory().toLowerCase().equals(category) || category.equals("all")) &&
                         (s.isVisible() || masterController.userHasSkill(s)))
                     items.add(s);
         } else if (screenType == 1) { // Search users
             Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers)
-                if (u.getProfile().getUsername().contains(search) &&
-                        (category.equals("All") ||
-                                (category.equals("Friends") && masterController.userHasFriend(u)) ||
-                                (category.equals("Non-Friends") && !masterController.userHasFriend(u))))
+                if (u.getProfile().getUsername().toLowerCase().contains(search) &&
+                        (category.equals("all") ||
+                                (category.equals("friends") && masterController.userHasFriend(u)) ||
+                                (category.equals("non-friends") && !masterController.userHasFriend(u))))
                     items.add(u.getProfile());
         } else if (screenType == 2) { // Trade History
             List<Trade> trades = masterController.getAllTradezForCurrentUser();
             for (Trade t : trades) {
-                if (t.toString().contains(search) &&
-                        (category.equals("All") ||
-                                (category.equals("Active") && t.isActive()) ||
-                                (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
+                if (t.toString().toLowerCase().contains(search) &&
+                        (category.equals("all") ||
+                                (category.equals("active") && t.isActive()) ||
+                                (category.equals("inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
                     items.add(t);
             }
         }
