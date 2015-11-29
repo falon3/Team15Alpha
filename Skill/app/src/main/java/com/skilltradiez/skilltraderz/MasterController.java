@@ -18,6 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -105,6 +106,13 @@ public final class MasterController implements ControllerInterface{
 
     public Set<Trade> getAllTradez() {return getUserDB().getTrades();}
 
+    public List<Trade> getAllTradezForCurrentUser() {
+        ArrayList<Trade> trradees = new ArrayList<Trade>();
+        for (ID id : getCurrentUser().getTradeList().getTradesList())
+            trradees.add(getTradeByID(id));
+        return trradees;
+    }
+
     public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images){
         getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, isVisible, images));
         DatabaseController.save();
@@ -123,7 +131,7 @@ public final class MasterController implements ControllerInterface{
 
     /** TradeRequestActivity methods **/
     //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
-    public Trade getCurrentTradeByID(ID identifier){
+    public Trade getTradeByID(ID identifier){
         return DatabaseController.getTradeByID(identifier);
     }
 

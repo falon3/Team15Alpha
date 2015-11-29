@@ -21,6 +21,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -130,7 +131,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
         String filter = "All";
         if (searchExtras.containsKey(FILTER_PARAM))
             filter = searchExtras.getString(FILTER_PARAM);
-
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
@@ -243,13 +243,14 @@ public class SearchScreenActivity extends SearchMenuActivity {
                                 (category.equals("Non-Friends") && !masterController.userHasFriend(u))))
                     items.add(u.getProfile());
         } else if (screenType == 2) { // Trade History
-            Set<Trade> trades = masterController.getAllTradez();
-            for (Trade t : trades)
+            List<Trade> trades = masterController.getAllTradezForCurrentUser();
+            for (Trade t : trades) {
                 if (t.toString().contains(search) &&
                         (category.equals("All") ||
                                 (category.equals("Active") && t.isActive()) ||
                                 (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
                     items.add(t);
+            }
         }
         searchAdapter.notifyDataSetChanged();
     }
