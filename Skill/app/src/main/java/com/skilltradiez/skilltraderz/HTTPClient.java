@@ -82,9 +82,9 @@ import java.io.InputStreamReader;
 /**
  * A simple class for doing http things, that will probably only be useful for elastic.
  */
-public class SimpleHTTPClient {
+public class HTTPClient {
     HttpClient httpClient;
-    public SimpleHTTPClient() {
+    public HTTPClient() {
         HttpParams httpParams = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
         httpClient = new DefaultHttpClient(httpParams);

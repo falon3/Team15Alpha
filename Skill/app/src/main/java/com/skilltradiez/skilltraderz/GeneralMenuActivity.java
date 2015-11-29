@@ -128,7 +128,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
                 startActivity(intent);
                 return true;
-            // TODO: 11/28/2015
             case R.id.Go_To_Messages_Menu:
                 return true;
             case R.id.Go_Make_Skill:

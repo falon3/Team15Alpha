@@ -17,6 +17,9 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import android.content.Context;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -182,9 +185,6 @@ public final class DatabaseController implements ControllerInterface{
         image.notifyDB();
         save();
     }
-
-
-
     /**
      *When we have a new user... we call upon the controller here to interact with the database
      *in order to create a brand new user. Returns this brand new user!
@@ -192,13 +192,10 @@ public final class DatabaseController implements ControllerInterface{
      * @param emailGiven String input.
      * @return User Object
      */
-    public static User createNewUser(String usernameGiven, String emailGiven){
+    public static User createNewUser(String usernameGiven, String emailGiven) throws UserAlreadyExistsException {
         User new_guy = null;
-        try {
-            new_guy = createUser(usernameGiven);
-        } catch (UserAlreadyExistsException e) {
-            e.printStackTrace();
-        }
+        new_guy = createUser(usernameGiven);
+
         new_guy.getProfile().setEmail(emailGiven);
         DatabaseController.save();
 
@@ -241,7 +238,6 @@ public final class DatabaseController implements ControllerInterface{
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
             // No internet, no registration
-            //TODO catch this and tell the user about it.
             throw new RuntimeException();
         }
         return u;
