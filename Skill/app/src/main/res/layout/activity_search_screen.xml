@@ -55,7 +55,7 @@
             android:background="@drawable/spinner" />
 
         <Spinner
-            android:id="@+id/user_spinner"
+            android:id="@+id/sorting_spinner"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"

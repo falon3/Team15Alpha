@@ -84,7 +84,7 @@ public class EditSkillActivity extends CameraActivity {
     private CheckBox skillVisible;
     private Button addSkillToDB;
     private ImageAdapter imageAdapter;
-    private ArrayAdapter<CharSequence> adapter;
+    private SpinnerAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +108,11 @@ public class EditSkillActivity extends CameraActivity {
         imageAdapter = new ImageAdapter(this, getImages());
         imageList.setAdapter(imageAdapter);
 
-        //Android Developers
-        // http://developer.android.com/guide/topics/ui/controls/spinner.html
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
+        //Custom Spinner Adapter
+        CharSequence[] categories = getResources().getStringArray(R.array.category_spinner_strings);
+        adapter = new SpinnerAdapter<CharSequence>(this, categories);
+        //ArrayAdapter.createFromResource(this,
+                //R.array.category_spinner_strings, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);

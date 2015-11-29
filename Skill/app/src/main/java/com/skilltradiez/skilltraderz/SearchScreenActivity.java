@@ -98,7 +98,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
                 SEARCH_QUERY = "query";
     private int screenType;
 
-    private Spinner categorySpinner;
+    private Spinner categorySpinner, sortingSpinner;
     private Bundle searchExtras;
 
     private ListAdapter searchAdapter;
@@ -128,26 +128,50 @@ public class SearchScreenActivity extends SearchMenuActivity {
         searchAdapter = new ListAdapter(this, items);
 
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        sortingSpinner = (Spinner) findViewById(R.id.sorting_spinner);
 
-        ArrayAdapter<CharSequence> adapter;
+        SpinnerAdapter<CharSequence> adapter, sortAdapter;
+        CharSequence[] stringArray;
 
+        // Categories
         if (screenType == 0) {
-            adapter = ArrayAdapter.createFromResource(this, R.array.category_All, android.R.layout.simple_spinner_item);
+            stringArray = getResources().getStringArray(R.array.category_All);
         } else if (screenType == 1) {
-            adapter = ArrayAdapter.createFromResource(this, R.array.friends_All, android.R.layout.simple_spinner_item);
+            stringArray = getResources().getStringArray(R.array.friends_All);
         } else {
-            adapter = ArrayAdapter.createFromResource(this, R.array.trades_All, android.R.layout.simple_spinner_item);
+            stringArray = getResources().getStringArray(R.array.trades_All);
         }
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter = new SpinnerAdapter<CharSequence>(this, stringArray);
+
+        // Sorting
+        stringArray = getResources().getStringArray(R.array.sort);
+        sortAdapter = new SpinnerAdapter<CharSequence>(this, stringArray);
+
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setSelection(adapter.getPosition(filter));
+
+        sortingSpinner.setAdapter(sortAdapter);
+        sortingSpinner.setSelection(sortAdapter.getPosition(filter));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                refineSearch(getQuery());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Shouldn't need to be used
+            }
+        });
+
+        sortingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 refineSearch(getQuery());
@@ -243,14 +267,26 @@ public class SearchScreenActivity extends SearchMenuActivity {
                     items.add(t);
             }
         }
+        orderBySpinner(items);
         searchAdapter.notifyDataSetChanged();
+    }
+
+    public void orderBySpinner(List<Stringeable> items) {
+        String sort = sortingSpinner.getSelectedItem().toString();
+        if (sort.equals("Name")) {
+            orderByName(items);
+        } else if (sort.equals("Category")) {
+            orderByCategory(items);
+        } else if (sort.equals("Top Trader")) {
+            orderByTop(items);
+        }
+
     }
 
     /**
      * Returns a copy of the list of skills, sorted ascending by name.
      */
-    public List<Stringeable> orderByTop(UserDatabase userDB) {
-        List<Stringeable> sorted = cloneStringeable();
+    public List<Stringeable> orderByTop(List<Stringeable> sorted) {
         Collections.sort(sorted, new Comparator<Stringeable>() {
             @Override
             public int compare(Stringeable lhs, Stringeable rhs) {
@@ -263,8 +299,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
     /**
      * Returns a copy of the list of stringeables, sorted ascending by name.
      */
-    public List<Stringeable> orderByName(UserDatabase userDB) {
-        List<Stringeable> sorted = cloneStringeable();
+    public List<Stringeable> orderByName(List<Stringeable> sorted) {
         Collections.sort(sorted, new Comparator<Stringeable>() {
             @Override
             public int compare(Stringeable lhs, Stringeable rhs) {
@@ -277,8 +312,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
     /**
      * Returns a copy of the list of stringeables, sorted ascending by category.
      */
-    public List<Stringeable> orderByCategory(UserDatabase userDB) {
-        List<Stringeable> sorted = cloneStringeable();
+    public List<Stringeable> orderByCategory(List<Stringeable> sorted) {
         Collections.sort(sorted, new Comparator<Stringeable>() {
             @Override
             public int compare(Stringeable lhs, Stringeable rhs) {
