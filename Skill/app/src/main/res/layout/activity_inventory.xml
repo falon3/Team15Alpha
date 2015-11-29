@@ -66,9 +66,10 @@
         android:id="@+id/category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/spinner"
+        android:background="@drawable/spinnertransparent"
         android:spinnerMode="dropdown" />
 
 </RelativeLayout>

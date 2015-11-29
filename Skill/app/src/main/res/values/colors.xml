@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mainSkillAppColor">#057777</color>
-    <color name="tealTextColor">#8fdcdc</color>
+    <color name="mainSkillAppColor">#0776d2</color>
+    <color name="mainBackground">#113d61</color>
+    <color name="mainTextColor">#6aa0b9</color>
+    <color name="darkListViewYellow">#664e04</color>
+
     <color name="spinnerTeal">#6dc6c6</color>
-    <color name="greyTextColor">#8F8F8F</color>
     <color name="medGreyAccent">#383838</color>
     <color name="darkTealAccent">#005151</color>
     <color name="lightTealAccent">#438F8F</color>
-    <color name="darkGreyAccent">#202020</color>
 </resources>
