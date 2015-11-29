@@ -26,7 +26,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
@@ -83,12 +82,32 @@ import java.io.InputStreamReader;
  * A simple class for doing http things, that will probably only be useful for elastic.
  */
 public class HTTPClient {
-    HttpClient httpClient;
+    private HttpClient httpClient;
+    private int timeout;
+    private static final int DEFAULT_TIMEOUT = 500;
+
     public HTTPClient() {
-        HttpParams httpParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
-        HttpConnectionParams.setSoTimeout(httpParams, 5000);
-        httpClient = new DefaultHttpClient(httpParams);
+        httpClient = new DefaultHttpClient();
+        resetFailure();
+    }
+
+    /**
+     * Every time it fails, we fail faster!
+     */
+    public void failureHappened() {
+        timeout /= 2;
+        setTimeout();
+    }
+
+    public void resetFailure() {
+        timeout = DEFAULT_TIMEOUT;
+        setTimeout();
+    }
+
+    private void setTimeout() {
+        HttpParams httpParams = httpClient.getParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+        HttpConnectionParams.setSoTimeout(httpParams, timeout);
     }
 
     /**
@@ -96,8 +115,14 @@ public class HTTPClient {
      */
     public String get(String url) throws IOException {
         HttpGet get = new HttpGet(url);
-        HttpResponse response = httpClient.execute(get);
-        return read(response.getEntity());
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(get);
+            String strresp = read(response.getEntity());
+            return strresp;
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     /**
@@ -108,8 +133,13 @@ public class HTTPClient {
         HttpPost post = new HttpPost(url);
         post.setHeader("Accept", "application/json");
         post.setEntity(new StringEntity(data));
-        HttpResponse response = httpClient.execute(post);
-        return read(response.getEntity());
+        try {
+            HttpResponse response = httpClient.execute(post);
+            String strresp = read(response.getEntity());
+            return strresp;
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     /**
@@ -117,8 +147,13 @@ public class HTTPClient {
      */
     public String delete(String url) throws IOException {
         HttpDelete del = new HttpDelete(url);
-        HttpResponse response = httpClient.execute(del);
-        return read(response.getEntity());
+        try {
+            HttpResponse response = httpClient.execute(del);
+            String strresp = read(response.getEntity());
+            return strresp;
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     private String read(HttpEntity entity) throws IOException {
