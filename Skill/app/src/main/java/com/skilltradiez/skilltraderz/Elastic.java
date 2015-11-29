@@ -151,9 +151,14 @@ public class Elastic {
         String resp = httpClient.get(baseUrl + "user/_search?size=9999999");
         Type getResponseType = new TypeToken<UserSearchResponse>() { }.getType();
         UserSearchResponse searchResponse = gson.fromJson(resp, getResponseType);
+        if (searchResponse.hits == null) {
+            httpClient.failureHappened();
+            throw new IOException("Invalid response from elastic!");
+        }
         List<User> hitsT = new ArrayList<User>();
         for (UserSearchResponse.Hit hit : searchResponse.hits.hits)
             hitsT.add(hit._source);
+        httpClient.resetFailure();
         return hitsT;
     }
 
@@ -176,9 +181,14 @@ public class Elastic {
         Type getResponseType = new TypeToken<SkillSearchResponse>() { }.getType();
         SkillSearchResponse searchResponse = gson.fromJson(resp, getResponseType);
         List<Skill> hitsT = new ArrayList<Skill>();
+        if (searchResponse.hits == null) {
+            httpClient.failureHappened();
+            throw new IOException("Invalid response from elastic!");
+        }
         for (SkillSearchResponse.Hit hit : searchResponse.hits.hits)
             if (hit._source.isVisible())
                 hitsT.add(hit._source);
+        httpClient.resetFailure();
         return hitsT;
     }
 
@@ -201,7 +211,13 @@ public class Elastic {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "user" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<User>>() { }.getType();
-        return ((GetResponse<User>)gson.fromJson(resp, getResponseType))._source;
+        GetResponse<User> response = gson.fromJson(resp, getResponseType);
+        if (response == null) {
+            httpClient.failureHappened();
+            throw new IOException("Invalid response from elastic!");
+        }
+        httpClient.resetFailure();
+        return response._source;
     }
 
     /**
@@ -220,7 +236,13 @@ public class Elastic {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "skill" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<Skill>>() { }.getType();
-        return ((GetResponse<Skill>)gson.fromJson(resp, getResponseType))._source;
+        GetResponse<Skill> response = gson.fromJson(resp, getResponseType);
+        if (response == null) {
+            httpClient.failureHappened();
+            throw new IOException("Invalid response from elastic!");
+        }
+        httpClient.resetFailure();
+        return response._source;
     }
 
     /**
@@ -239,7 +261,13 @@ public class Elastic {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "trade" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<Trade>>() { }.getType();
-        return ((GetResponse<Trade>)gson.fromJson(resp, getResponseType))._source;
+        GetResponse<Trade> response = gson.fromJson(resp, getResponseType);
+        if (response == null) {
+            httpClient.failureHappened();
+            throw new IOException("Invalid response from elastic!");
+        }
+        httpClient.resetFailure();
+        return response._source;
     }
 
     /**
@@ -263,8 +291,14 @@ public class Elastic {
         id = URLEncoder.encode(id, "ISO-8859-1");
         String resp = httpClient.get(baseUrl + "image" + "/" + id);
         Type getResponseType = new TypeToken<GetResponse<Image.Imageb64>>() { }.getType();
-        Image.Imageb64 b64 = ((GetResponse<Image.Imageb64>)gson.fromJson(resp, getResponseType))._source;
+        GetResponse<Image.Imageb64> response = gson.fromJson(resp, getResponseType);
+        if (response == null || response._source == null) {
+            httpClient.failureHappened();
+            throw new IOException("Invalid response from elastic!");
+        }
+        Image.Imageb64 b64 = response._source;
         byte[] decodedByte = Base64.decode(b64.data, 0);
+        httpClient.resetFailure();
         return new Image(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length), new ID(Long.parseLong(id)));
     }
 
