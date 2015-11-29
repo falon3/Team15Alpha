@@ -76,7 +76,7 @@ public class InventoryActivity extends SearchMenuActivity {
     private Button searchButton, startTrade;
     private EditText searchField;
     private String searchInventory;
-    private Spinner categorySpinner;
+    private Spinner categorySpinner, sortingSpinner;
     private ListView inventoryList;
     private ArrayAdapter<Stringeable> adapter;
 
@@ -84,7 +84,7 @@ public class InventoryActivity extends SearchMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
-
+        
         masterController = new MasterController();
         currentUser = masterController.getUserByID((ID) getIntent().getExtras().get(ID_PARAM));
 
@@ -92,15 +92,18 @@ public class InventoryActivity extends SearchMenuActivity {
         searchField = (EditText) findViewById(R.id.search_bar);
         startTrade = (Button) findViewById(R.id.maketrade);
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        sortingSpinner = (Spinner) findViewById(R.id.sort_spinner);
         inventoryList = (ListView) findViewById(R.id.results_list);
 
         if (masterController.getCurrentUser().equals(currentUser))
             startTrade.setVisibility(View.INVISIBLE);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category_All, android.R.layout.simple_spinner_item);
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        //        R.array.category_All, android.R.layout.simple_spinner_item);
+        CharSequence[] strings = getResources().getStringArray(R.array.category_All);
+        SpinnerAdapter<CharSequence> adapter = new SpinnerAdapter<CharSequence>(this, strings);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -114,6 +117,25 @@ public class InventoryActivity extends SearchMenuActivity {
                 // Shouldn't need to be used
             }
         });
+
+        CharSequence[] strings2 = getResources().getStringArray(R.array.sort);
+        SpinnerAdapter<CharSequence> adapter2 = new SpinnerAdapter<CharSequence>(this, strings2);
+
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortingSpinner.setAdapter(adapter2);
+
+        sortingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                searchInventory(getQuery());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Shouldn't need to be used
+            }
+        });
+
         inventoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                 Skill skill = (Skill) adapter.getItemAtPosition(position);

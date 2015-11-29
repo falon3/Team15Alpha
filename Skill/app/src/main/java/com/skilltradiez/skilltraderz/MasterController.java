@@ -128,6 +128,12 @@ public final class MasterController implements ControllerInterface {
         DatabaseController.save();
     }
 
+    @Deprecated
+    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
+        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, "good enough", isVisible, images));
+        DatabaseController.save();
+    }
+
     /**
      * SkillDescriptionActivity methods
      **/
