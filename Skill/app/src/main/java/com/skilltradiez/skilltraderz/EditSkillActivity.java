@@ -179,7 +179,6 @@ public class EditSkillActivity extends CameraActivity {
         skillCategory.setAdapter(adapter);
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -195,29 +194,20 @@ public class EditSkillActivity extends CameraActivity {
             skillName.setText(skillToEdit.getName());
             skillDescription.setText(skillToEdit.getDescription());
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
-            List<Image> images = getImages();
-            images.clear();
-            for (ID id : skillToEdit.getImages())
-                images.add(DatabaseController.getImageByID(id));
+            addImages(skillToEdit.getImages());
             skillVisible.setChecked(skillToEdit.isVisible());
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
     }
 
-
     /** METHODS **/
-
-    /**
-     * Notifies the imageAdapter that there is a new image to display.
-     * @param view View Object. (UI related.)
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_ham, menu);
 
-        //disable add skill button from menubar when already in edit skill activity
+        //disable add skill button from menu bar when already in edit skill activity
         MenuItem item = menu.findItem(R.id.Go_Make_Skill);
         item.setEnabled(false);
         return true;
@@ -250,7 +240,6 @@ public class EditSkillActivity extends CameraActivity {
         super.retakeImage(view, toBeRemoved);
         imageAdapter.notifyDataSetChanged();
     }
-
 
     /**
      * Return the skillName EditText from the application UI.
@@ -291,7 +280,6 @@ public class EditSkillActivity extends CameraActivity {
     public CheckBox getSkillVisible() {
         return skillVisible;
     }
-
 
     /**
      * Will add a new skill to the model, however beneath the hood involves many controller method calls.

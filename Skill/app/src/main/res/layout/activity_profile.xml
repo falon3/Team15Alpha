@@ -72,7 +72,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/contact_button"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/user_name">
@@ -126,28 +125,5 @@
             android:layout_above="@+id/inventory"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Email"
-        android:id="@+id/contact_button"
-        android:background="@drawable/button_with_border"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:onClick="editContactInformation"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:hint="Edit Email"
-        android:id="@+id/edit_contact"
-        android:layout_alignTop="@+id/contact_button"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/contact_button"
-        android:layout_alignBottom="@+id/contact_button" />
 
 </RelativeLayout>
