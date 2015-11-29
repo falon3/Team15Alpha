@@ -156,7 +156,6 @@ public class UserDatabase {
 
     public void setHttpClient(HTTPClient client){
         elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", client);
-
     }
 
 
