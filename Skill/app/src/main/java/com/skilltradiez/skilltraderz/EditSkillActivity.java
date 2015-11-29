@@ -39,6 +39,8 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -142,6 +144,8 @@ public class EditSkillActivity extends CameraActivity {
 
     private ListView imageList;
     private EditText skillName, skillDescription;
+    private RadioGroup radioGroup;
+    private RadioButton epic, great, okay, mediocre, poor;
     private Spinner skillCategory;
     private CheckBox skillVisible;
     private Button addSkillToDB;
@@ -290,19 +294,38 @@ public class EditSkillActivity extends CameraActivity {
         return skillVisible;
     }
 
+    public String getQuality() {
+        // If one is checked, then the id will be > -1
+        if (radioGroup.getCheckedRadioButtonId() > -1) {
+            if (epic.isChecked()) {
+                return "EPIC";
+            } else if (great.isChecked()) {
+                return "Great";
+            } else if (okay.isChecked()) {
+                return "Okay";
+            } else if (mediocre.isChecked()) {
+                return "Mediocre";
+            } else if (poor.isChecked()) {
+                return "Poor";
+            }
+        }
+        return null;
+    }
+
     /**
      * Will add a new skill to the model, however beneath the hood involves many controller method calls.
      * @param view View Object.
      */
     public void addNewSkill(View view){
-        String name, description, category;
+        String name, description, category, quality;
         boolean isVisible = skillVisible.isChecked();
 
         name = skillName.getText().toString();
         description = skillDescription.getText().toString();
         category = skillCategory.getSelectedItem().toString();
+        quality = getQuality();
 
-        if (name.length() == 0 || description.length() == 0) {
+        if (name.length() == 0 || description.length() == 0 || quality == null) {
             // this makes a pop-up alert with a dismiss button.
             // source credit: http://stackoverflow.com/questions/2115758/how-to-display-alert-dialog-in-android
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -322,7 +345,7 @@ public class EditSkillActivity extends CameraActivity {
         Context context = getApplicationContext();
         if (skillToEdit == null) { // if we are creating a new skill
             //Make a new skill through the controller.
-            masterController.makeNewSkill(name, category, description, isVisible, getImages());
+            masterController.makeNewSkill(name, category, description, quality, isVisible, getImages());
             DatabaseController.save();
 
             //Toasty
@@ -333,6 +356,7 @@ public class EditSkillActivity extends CameraActivity {
             skillToEdit.setName(name);
             skillToEdit.setDescription(description);
             skillToEdit.setCategory(category);
+            skillToEdit.setQuality(quality);
             skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
             skillToEdit.setImages(getImages());
