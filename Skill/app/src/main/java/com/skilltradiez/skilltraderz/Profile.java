@@ -194,6 +194,16 @@ public class Profile extends Stringeable {
         return getUsername();
     }
 
+    public String getCategory(){
+        MasterController masterController = new MasterController();
+        if (masterController.getCurrentUser().getProfile().getName().equals(getUsername())) {
+            return "You";
+        } else if (masterController.userHasFriend(masterController.getUserByName(getUsername()))) {
+            return "Friend";
+        }
+        return "Non-Friend";
+    }
+
     public String getDescription() {
         return getLocation();
     }
