@@ -179,7 +179,9 @@ public class Trade extends Stringeable {
 
     public String getName() {
         //TITLE
-        return "TRADE: "+half1.getUser()+" -> "+half2.toString();
+        return DatabaseController.getAccountByUserID(half1.getUser()).getProfile().getName() +
+                " --> " +
+                DatabaseController.getAccountByUserID(half2.getUser()).getProfile().getName();
     }
 
     public String getCategory(){
@@ -191,7 +193,29 @@ public class Trade extends Stringeable {
 
     public String getDescription() {
         // SUBTITLE
-        return "I should REALLY find the user's names";
+        MasterController masterController = new MasterController();
+
+        String desc1 = "", desc2 = "";
+        List<Skill> offer = masterController.getSkillList(getHalf1().getOffer()),
+                request = masterController.getSkillList(getHalf2().getOffer());
+
+        if (!offer.isEmpty())
+            desc1 = offer.get(0).getName();
+
+        if (!request.isEmpty())
+            desc2 = request.get(0).getName();
+
+        for (int i=1;(i < 4) && ((i < offer.size()) || (i < request.size()));i++) {
+            if (i < offer.size())
+                desc1 += offer.get(i).getName() + ", ";
+            if (i < request.size())
+                desc2 += request.get(i).getName() + ", ";
+        }
+
+        if (offer.size() > 4) desc1 += "... ";
+        if (request.size() > 4) desc2 += "...";
+
+        return desc1 + "for " + desc2;
     }
 
     public Image getImage() {
