@@ -104,7 +104,11 @@ public class EditSkillActivity extends CameraActivity {
         skillVisible = (CheckBox) findViewById(R.id.is_visible);
         imageList = (ListView) findViewById(R.id.imageList);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-
+        epic = (RadioButton) findViewById(R.id.radioButton);
+        great = (RadioButton) findViewById(R.id.radioButton2);
+        okay = (RadioButton) findViewById(R.id.radioButton3);
+        mediocre = (RadioButton) findViewById(R.id.radioButton4);
+        poor = (RadioButton) findViewById(R.id.radioButton5);
         // Images Setup
         imageAdapter = new ImageAdapter(this, getImages());
         imageList.setAdapter(imageAdapter);
