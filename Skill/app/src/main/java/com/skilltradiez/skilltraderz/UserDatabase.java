@@ -132,7 +132,7 @@ public class UserDatabase {
 
         // Persistence API
         // Via ElasticSearch(Internet)
-        elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", new HTTPClient());
+        setHttpClient(new HTTPClient());
         // Via SD Card(Local)
         local = new Local();
 
@@ -153,6 +153,13 @@ public class UserDatabase {
         }
         getChangeList().push(this);
     }
+
+    public void setHttpClient(HTTPClient client){
+        elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", client);
+
+    }
+
+
 
     /** Model here only has the simple getter/setter methods that allow the controller to function
      * without some insane level of complexity.

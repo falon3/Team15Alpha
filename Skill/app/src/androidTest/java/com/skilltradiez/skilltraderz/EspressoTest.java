@@ -125,9 +125,9 @@ public class EspressoTest {
 
     @Test
     // Friends.AddFriend
-    public void testAddFriend() {
+    public void testAddFriend() throws UserAlreadyExistsException {
         //create friend
-        DatabaseController.createNewUser("Friend", "fri@end.ly");
+        DatabaseController.createUser("Friend");
 
         //login
         onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
@@ -150,7 +150,7 @@ public class EspressoTest {
 
     @Test
     // Friends.RemoveFriend
-    public void testRemoveFriend() {
+    public void testRemoveFriend() throws UserAlreadyExistsException {
         //add friend first
         testAddFriend();
 
@@ -163,7 +163,7 @@ public class EspressoTest {
     }
 
     @Test
-    public void testBrowseFriendProfile() {
+    public void testBrowseFriendProfile() throws UserAlreadyExistsException {
         //add friend first
         testAddFriend();
 
