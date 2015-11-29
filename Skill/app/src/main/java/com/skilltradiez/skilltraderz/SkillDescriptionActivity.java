@@ -72,7 +72,6 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private Skill currentSkill;
     private Button addRemoveSkill, editSkill;
     private TextView skillTitle, skillCategory, skillDescription;
-    private RatingBar rating;
     private Boolean hasSkill;
     private LinearLayout imageView;
     private Context context = this;
@@ -91,8 +90,6 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         skillCategory = (TextView) findViewById(R.id.skillCategory);
         editSkill = (Button) findViewById(R.id.edit_skill);
         imageView = (LinearLayout) findViewById(R.id.imageView);
-
-        rating = (RatingBar) findViewById(R.id.ratingBar2);
     }
 
     @Override
