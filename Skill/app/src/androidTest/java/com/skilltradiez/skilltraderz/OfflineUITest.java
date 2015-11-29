@@ -49,9 +49,15 @@ public class OfflineUITest {
         DatabaseController.deleteAllData();
     }
 
+    @After
+    public void deleteDatabaseAgain() {
+        DatabaseController.deleteAllData();
+    }
+
     @Test
     //create user before and login, then go offline and do stuff, see if persists
     public void testAddSkillz() {
+        deleteDatabase();
         //login
         onView(withId(R.id.usernameField)).perform(typeText("oFLINEUSER"), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText("off@line"), closeSoftKeyboard());
@@ -82,8 +88,7 @@ public class OfflineUITest {
         MasterController.getUserDB().setHttpClient(new HTTPClient());
         DatabaseController.refresh();
 
-        // TODO: MAYBE WE NEED TO PUT IN A DELAY HERE TO GET OUR TESTS TO ACTUALLY PASS.... NEED TIME TO CONNECT/UPDATE
-        onView(withId(R.id.go_to_profile)).perform(click());
+        onView(withId(R.id.Go_Profile_Menu)).perform(click());
         onView(withId(R.id.inventory)).perform(click());
 
         // click on the skill
@@ -95,11 +100,7 @@ public class OfflineUITest {
 
         //Also check directly in the database that it is the same as local
         assertTrue(((Skill)(MasterController.getUserDB().getSkillz().toArray()[0])).getName().equals("Poodle"));
-    }
-
-    @After
-    public void deleteDatabaseAgain() {
-        DatabaseController.deleteAllData();
+        deleteDatabase();
     }
 
     @Test
@@ -112,6 +113,7 @@ public class OfflineUITest {
         onView(withId(R.id.beginApp)).perform(click());
         //assert it didn't go to the main screen because no new account was made
         onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
+        deleteDatabase();
     }
     @Test
     public void testBrowseFriendInventory() throws UserAlreadyExistsException {

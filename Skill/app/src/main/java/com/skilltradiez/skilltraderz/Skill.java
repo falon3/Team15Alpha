@@ -380,7 +380,8 @@ public class Skill extends Stringeable {
         System.out.println("SKILL COMMIT");
         try {
             prev_version = ela.getDocumentSkill(skillID.toString());
-
+            if (prev_version == null)
+                prev_version = this;
             if (prev_version.isOwner(owner) && !hasOwners()) {
                 //if removed skill from inventory and no other owners had skill
                 userDB.getSkills().remove(prev_version);
