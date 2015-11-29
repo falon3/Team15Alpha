@@ -18,7 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**~~DESCRIPTION:
+/**
  * In this application we can have many sorts of exceptions,
  * it is our goal to handle these exceptions in the best way possible. And so we personally
  * went out of our own ways to make a specific exception for inactive trades!
@@ -33,24 +33,24 @@ public class InactiveTradeException extends Exception {
      * Here I make a constructor for basically anything you could ask this exception to do.
      */
 
-    /**CONSTRUCTOR 1:
+    /**
      * Given no parameters, call the superclass of this exception (Exception) with no params.
      */
     InactiveTradeException() {super();}
 
-    /**CONSTRUCTOR 2:
+    /**
      * Given only a string message as a parameter, invoke the superclass with the message String.
      * @param message String input of displayed message.
      */
     public InactiveTradeException(String message) {super(message);}
 
-    /**CONSTRUCTOR 3:
+    /**
      * Given only a throwable of the source of the error, invoke the superclass Exception with it.
      * @param errorSource
      */
     public InactiveTradeException(Throwable errorSource){ super(errorSource);}
 
-    /**CONSTRUCTOR 4:
+    /**
      * Given both a String message and a Throwable source of error, call the superclass with both.
      * @param message String Object message to display.
      * @param errorSource Throwable Object
