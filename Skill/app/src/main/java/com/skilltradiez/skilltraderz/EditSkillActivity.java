@@ -151,6 +151,16 @@ public class EditSkillActivity extends CameraActivity {
         return true;
     }
 
+    /**
+     * When invoked, will initialize all of the Skill elements to a default state.
+     *
+     * Set the text of Skill name to be empty.
+     * Set the description of the Skill to be empty.
+     * Make the Skill category 0.
+     * Make the Skill visible.
+     * Clear the images from the Skill.
+     * Notify the adapter tha the Skill data has changed.
+     */
     public void initState() {
         skillName.setText("");
         skillDescription.setText("");
@@ -160,6 +170,16 @@ public class EditSkillActivity extends CameraActivity {
         imageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * When this method is invoked we will use the passed in view to identify the image, and then
+     * we will pass this image into the database.
+     * 
+     * The View here will be able to distinguish a given Image, that is why a View is passed.
+     * This view will then be passed to the superclass (CameraActivity) method of addNewImage.
+     * We then notify the adapter that there has been a change to the data set.
+     *
+     * @param view View Object. (UI related.)
+     */
     @Override
     public void addNewImage(View view) {
         super.addNewImage(view);
