@@ -10,9 +10,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 /**
- * Created by Stephen on 2015-11-28.
+ * An abstract class that can be utilized in other classes.
+ * This class is purely based around giving us a generalizable set of tools that we can easily
+ * put into another class for buttons and text. This is widely seen across our application- this
+ * particular arrangement of buttons and text.
  */
 public abstract class ButtonMenuActivity extends GeneralMenuActivity {
+    /** Class Variables:
+     * 1: leftButton, in the UI we usually have a very distinct button on the left side. This
+     *    variable represents and holds the button.
+     * 2: rightButton, in the UI we usually have a very distinct button on the right side. Thios
+     *    variable represents and holds that button.
+     */
     protected Button leftButton, rightButton;
 
     @Override
@@ -31,31 +40,60 @@ public abstract class ButtonMenuActivity extends GeneralMenuActivity {
         rightButton = (Button) findViewById(R.id.right_button);
     }
 
+    /**
+     * Set the Left Button on the User Interface to be Visible.
+     */
     protected void activateLeftButton() {
         leftButton.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Set the Left Button on the User Interface to be Invisible.
+     */
     protected void deactivateLeftButton() {
         leftButton.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Set the Right Button on the User Interface to be Visible.
+     */
     protected void activateRightButton() {
         rightButton.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Set the Right Button on the User Interface to be Invisible.
+     */
     protected void deactivateRightButton() {
         rightButton.setVisibility(View.INVISIBLE);
     }
 
+
+    /**
+     * Set the Left Text on the User Interface to the given CharSequence
+     * @param text CharSequence Object of what to change the text to show.
+     */
     protected void setLeftText(CharSequence text) {
         leftButton.setText(text);
     }
 
+    /**
+     * Set the Right Text on the User Interface to the given CharSequence
+     * @param text CharSequence Object of what to change the text to show.
+     */
     protected void setRightText(CharSequence text) {
         rightButton.setText(text);
     }
 
+    /**
+     * Abstract function used for identifying when we click on the Right Button of the UI.
+     * @param view View Object.
+     */
     protected abstract void clickOnRightButton(View view);
 
+    /**
+     * Abstract function used for identifying when we click on the Left Button of the UI.
+     * @param view View Object.
+     */
     protected abstract void clickOnLeftButton(View view);
 }
