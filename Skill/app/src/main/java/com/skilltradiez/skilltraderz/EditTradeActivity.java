@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -209,6 +210,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
     public void sendTrade(View view){
         //TODO Send The Trade
         Trade trade = activeUser.getTradeList().createTrade(MasterController.getUserDB(), activeUser, passiveUser, offer, request);
+        DatabaseController.save();
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();

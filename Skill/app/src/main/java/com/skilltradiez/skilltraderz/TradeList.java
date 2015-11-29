@@ -145,7 +145,6 @@ public class TradeList extends Notification {
             return;
         trades.add(trade.getTradeID());
         newTrades.add(trade.getTradeID());
-        DatabaseController.addTrade(trade);
         notifyDB();
     }
 
@@ -180,6 +179,7 @@ public class TradeList extends Notification {
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User theUser = DatabaseController.getAccountByUserID(getOwnerID());
             otherUser.getTradeList().addTrade(userDB, trade);
+            theUser.getTradeList().addTrade(userDB, trade);
             try {
                 userDB.getElastic().updateDocument("user", otherUser.getProfile().getUsername(), otherUser.getTradeList(), "tradeList");
                 userDB.getElastic().updateDocument("user", theUser.getProfile().getUsername(), theUser.getTradeList(), "tradeList");
