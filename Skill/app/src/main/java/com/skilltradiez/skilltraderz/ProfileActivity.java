@@ -224,7 +224,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void populateProfile() {
         owner = masterController.getUserByName(userProfileName);
-        hasFriend = masterController.userHasFriend(owner);
+        hasFriend = masterController.hasFriend(owner);
     }
 
     /**
@@ -277,7 +277,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      */
     public void addFriend(){
         //Function call to the master controller to deal with all this!
-        masterController.addANewFriend(owner);
+        masterController.addFriend(owner);
 
         DatabaseController.save();
 
@@ -294,7 +294,7 @@ public class ProfileActivity extends GeneralMenuActivity {
      * Remove friend from user's friendlist
      */
     public void removeFriend(){
-        masterController.removeThisFriend(owner);
+        masterController.removeFriend(owner);
 
         DatabaseController.save();
 
