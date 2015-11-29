@@ -46,7 +46,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/maketrade"
         android:layout_marginTop="24dp"
-        android:background="@drawable/button_with_border" />
+        android:layout_above="@+id/category_spinner" />
 
     <Button
         android:id="@+id/maketrade"
@@ -60,38 +60,12 @@
         android:text="@string/make_trade"
         android:onClick="startTrade"/>
 
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/results_list"
-        android:layout_marginTop="28dp"
-        android:layout_toStartOf="@+id/maketrade"
-        android:layout_weight="0.75"
-        android:hint="@string/refine_search"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#629595" />
-
-    <Button
-        android:id="@+id/search_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/search_bar"
-        android:layout_alignEnd="@+id/results_list"
-        android:layout_alignTop="@+id/search_bar"
-        android:background="@drawable/button_with_border"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="@string/search_button"
-        android:onClick="searchInventory"/>
-
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/spinner"
         android:layout_alignParentStart="true"
         android:spinnerMode="dropdown" />
 

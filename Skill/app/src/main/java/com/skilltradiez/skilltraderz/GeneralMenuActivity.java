@@ -114,6 +114,11 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
+            case R.id.Go_To_Settings:
+                intent = new Intent(generalContext, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            //@todo maybe if already at home screen don't go anywhere
             case R.id.Go_Home_Menu:
                 intent = new Intent(generalContext, MainActivity.class);
                 startActivity(intent);

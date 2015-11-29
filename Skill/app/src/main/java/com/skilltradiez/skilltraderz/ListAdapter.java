@@ -75,6 +75,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.list_item, parent, false);
             viewHolder.name = (TextView) view.findViewById(R.id.name);
+            viewHolder.cat = (TextView) view.findViewById(R.id.category);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
             viewHolder.img = (ImageView) view.findViewById(R.id.img);
             view.setTag(viewHolder);
@@ -83,6 +84,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
         }
         // Populate the data into the template view using the data object
         viewHolder.name.setText(item.getName());
+        viewHolder.cat.setText(item.getCategory());
         viewHolder.desc.setText(item.getDescription());
         viewHolder.img.setImageBitmap(item.getImage().getBitmap());
         return view;
@@ -92,6 +94,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
     public class ViewHolder {
         TextView name;
         TextView desc;
+        TextView cat;
         ImageView img;
     }
 }
