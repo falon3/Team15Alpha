@@ -49,6 +49,54 @@ public class OfflineUITest {
         DatabaseController.deleteAllData();
     }
 
+    @Test
+    //create user before and login, then go offline and do stuff, see if persists
+    public void testAddSkillz() {
+        //login
+        onView(withId(R.id.usernameField)).perform(typeText("oFLINEUSER"), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText("off@line"), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //simulate losing connectivity with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+
+        // click add skill
+        onView(withId(R.id.add_a_new_skill)).perform(click());
+
+
+        // and set skill properties
+        onView(withId(R.id.new_skill_name)).perform(typeText("Poodle"), closeSoftKeyboard());
+        onView(withId(R.id.new_skill_description)).perform(typeText("Noodle"), closeSoftKeyboard());
+        //onView(withId(R.id.new_category)).perform(typeText("Moodle"), closeSoftKeyboard());
+        // Set visibility
+        //onView(withId(R.id.is_visible)).perform(click());
+
+        // add skill to db
+        onView(withId(R.id.add_skill_to_database)).perform(click());
+
+        // go back to home screen and then to profile and inventory
+        pressBack();
+
+        //resume connectivity on regular HTTPclient and see if things are still
+        // same and not overwritten with what was on DB previously
+        MasterController.getUserDB().setHttpClient(new HTTPClient());
+        DatabaseController.refresh();
+
+        // TODO: MAYBE WE NEED TO PUT IN A DELAY HERE TO GET OUR TESTS TO ACTUALLY PASS.... NEED TIME TO CONNECT/UPDATE
+        onView(withId(R.id.go_to_profile)).perform(click());
+        onView(withId(R.id.inventory)).perform(click());
+
+        // click on the skill
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // assert that the stuff is set current on screen
+        onView(withId(R.id.skillTitle)).check(matches(withText("Poodle")));
+        onView(withId(R.id.skill_description)).check(matches(withText("Noodle")));
+
+        //Also check directly in the database that it is the same as local
+        assertTrue(((Skill)(MasterController.getUserDB().getSkillz().toArray()[0])).getName().equals("Poodle"));
+    }
+
     @After
     public void deleteDatabaseAgain() {
         DatabaseController.deleteAllData();
