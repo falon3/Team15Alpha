@@ -121,11 +121,12 @@ import java.io.IOException;
 
 public class Profile extends Stringeable {
     private String username, email, location;
-    private Boolean shouldDownloadImages = true;
+    private Boolean shouldDownloadImages;
     private int successfulTrades;
 
     Profile(String username) {
         setUsername(username);
+        setShouldDownloadImages(true);
         successfulTrades = 0;
     }
 

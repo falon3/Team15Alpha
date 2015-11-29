@@ -11,18 +11,18 @@
 
 
     <TextView
-        android:id="@+id/settings_user_name"
+        android:id="@+id/settings_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/settings_username"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/tealTextColor"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="true"
+        android:background="@color/mainSkillAppColor"
+        android:text="@string/settings_username"
         android:textAlignment="center"
-        android:background="@color/mainSkillAppColor" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/tealTextColor" />
 
     <TextView
         android:id="@+id/settings_user_desc"
@@ -39,55 +39,56 @@
         android:id="@+id/settings_user_city_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="City"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/tealTextColor"
-        android:layout_alignTop="@+id/settings_user_desc"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/settings_user_desc" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/settings_user_desc"
+        android:hint="City"
+        android:inputType="textMultiLine"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/tealTextColor" />
 
     <TextView
+        android:id="@+id/settings_user_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/settings_usercontact"
-        android:id="@+id/settings_user_contact"
-        android:layout_marginTop="42dp"
-        android:textColor="@color/mainSkillAppColor"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/settings_user_city_field"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="48dp"
+        android:text="@string/settings_usercontact"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/mainSkillAppColor" />
 
     <EditText
+        android:id="@+id/settings_user_contact_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/settings_user_contact"
         android:hint="Email"
-        android:id="@+id/settings_user_contact_field"
-        android:layout_alignTop="@+id/settings_user_contact"
-        android:layout_alignEnd="@+id/settings_user_city_field"
-        android:layout_toEndOf="@+id/settings_user_contact" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/tealTextColor" />
 
     <CheckBox
+        android:id="@+id/settings_picture_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_download_pics"
-        android:id="@+id/settings_picture_checkbox"
-        android:layout_centerVertical="true"
         android:textColor="@color/mainSkillAppColor"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/settings_save_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="53dp" />
 
     <Button
+        android:id="@+id/settings_save_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings_save_changes"
-        android:id="@+id/settings_save_button"
-        android:layout_marginTop="41dp"
-        android:layout_below="@+id/settings_picture_checkbox"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:onClick="saveSettings"/>
+        android:layout_marginBottom="56dp"
+        android:onClick="saveSettings"
+        android:text="@string/settings_save_changes" />
 
 
 </RelativeLayout>
