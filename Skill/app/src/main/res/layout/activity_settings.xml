@@ -1,10 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.SettingsActivity">
 
+
+    <TextView
+        android:id="@+id/settings_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/settings_username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/tealTextColor"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:background="@color/mainSkillAppColor" />
+
+    <TextView
+        android:id="@+id/settings_user_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/settings_user_name"
+        android:layout_marginTop="36dp"
+        android:text="@string/settings_usercity"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/mainSkillAppColor" />
+
+    <EditText
+        android:id="@+id/settings_user_city_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="City"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/tealTextColor"
+        android:layout_alignTop="@+id/settings_user_desc"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/settings_user_desc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/settings_usercontact"
+        android:id="@+id/settings_user_contact"
+        android:layout_marginTop="42dp"
+        android:textColor="@color/mainSkillAppColor"
+        android:layout_below="@+id/settings_user_city_field"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="Email"
+        android:id="@+id/settings_user_contact_field"
+        android:layout_alignTop="@+id/settings_user_contact"
+        android:layout_alignEnd="@+id/settings_user_city_field"
+        android:layout_toEndOf="@+id/settings_user_contact" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_download_pics"
+        android:id="@+id/settings_picture_checkbox"
+        android:layout_centerVertical="true"
+        android:textColor="@color/mainSkillAppColor"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_save_changes"
+        android:id="@+id/settings_save_button"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/settings_picture_checkbox"
+        android:layout_alignParentStart="true"
+        android:onClick="saveSettings"/>
+
+
 </RelativeLayout>
+
+
