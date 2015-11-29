@@ -169,9 +169,12 @@ public class MainActivity extends GeneralMenuActivity {
         final Context context = getApplicationContext();
         final String username;
 
-        if(newUserName.getText().toString().isEmpty()){
+        if(newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")){
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-        }else {
+        }
+        else if (newUserEmail.getText().toString().isEmpty() || newUserEmail.getText().toString().equals(" ")){
+            Toast.makeText(context, "You need an email!", Toast.LENGTH_SHORT).show();
+        }else{
             username = newUserName.getText().toString();
 
             // Used for error checking
