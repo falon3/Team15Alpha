@@ -114,7 +114,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
-            //@todo maybe if already at home screen don't go anywhere
             case R.id.Go_Home_Menu:
                 intent = new Intent(generalContext, MainActivity.class);
                 startActivity(intent);
@@ -124,7 +123,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
                 startActivity(intent);
                 return true;
-            // TODO: 11/28/2015
             case R.id.Go_To_Messages_Menu:
                 return true;
             case R.id.Go_Make_Skill:
