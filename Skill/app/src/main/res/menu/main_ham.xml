@@ -33,10 +33,13 @@
         android:title="@string/your_friends"
         skillz:showAsAction="never" />
     <item
+        android:id="@+id/trade_history"
+        android:title="@string/trade_history"
+        skillz:showAsAction="never" />
+    <item
         android:id="@+id/Go_To_Settings"
         android:title="@string/go_to_settings"
         skillz:showAsAction="never" />
-
     <item
         android:id="@+id/Go_Home_Menu"
         android:icon="@drawable/ic_home"

@@ -26,6 +26,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -146,7 +148,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -213,37 +214,79 @@ public class SearchScreenActivity extends SearchMenuActivity {
         //get whatever is in searchField
         //apply it to the list of results
         //update view
-
-        String search = query, category = categorySpinner.getSelectedItem().toString();
+        String search = query.toLowerCase(),
+                category = categorySpinner.getSelectedItem().toString().toLowerCase();
 
         items.clear();
         if (screenType == 0) {
             // search skills
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
-                if (s.toString().contains(search) &&
-                        (s.getCategory().equals(category) || category.equals("All")) &&
+                if (s.toString().toLowerCase().contains(search) &&
+                        (s.getCategory().toLowerCase().equals(category) || category.equals("all")) &&
                         (s.isVisible() || masterController.userHasSkill(s)))
                     items.add(s);
         } else if (screenType == 1) { // Search users
             Set<User> onlineUsers = masterController.getAllUserz();
             for (User u : onlineUsers)
-                if (u.getProfile().getUsername().contains(search) &&
-                        (category.equals("All") ||
-                                (category.equals("Friends") && masterController.hasFriend(u)) ||
-                                (category.equals("Non-Friends") && !masterController.hasFriend(u))))
+                if (u.getProfile().getUsername().toLowerCase().contains(search) &&
+                        (category.equals("all") ||
+                                (category.equals("friends") && masterController.hasFriend(u)) ||
+                                (category.equals("non-friends") && !masterController.hasFriend(u))))
                     items.add(u.getProfile());
         } else if (screenType == 2) { // Trade History
             List<Trade> trades = masterController.getAllTradezForCurrentUser();
             for (Trade t : trades) {
-                if (t.toString().contains(search) &&
-                        (category.equals("All") ||
-                                (category.equals("Active") && t.isActive()) ||
-                                (category.equals("Inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
+                if (t.toString().toLowerCase().contains(search) &&
+                        (category.equals("all") ||
+                                (category.equals("active") && t.isActive()) ||
+                                (category.equals("inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
                     items.add(t);
             }
         }
         searchAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Returns a copy of the list of skills, sorted ascending by name.
+     */
+    public List<Stringeable> orderByTop(UserDatabase userDB) {
+        List<Stringeable> sorted = cloneStringeable();
+        Collections.sort(sorted, new Comparator<Stringeable>() {
+            @Override
+            public int compare(Stringeable lhs, Stringeable rhs) {
+                return rhs.getTop() - lhs.getTop();
+            }
+        });
+        return sorted;
+    }
+
+    /**
+     * Returns a copy of the list of stringeables, sorted ascending by name.
+     */
+    public List<Stringeable> orderByName(UserDatabase userDB) {
+        List<Stringeable> sorted = cloneStringeable();
+        Collections.sort(sorted, new Comparator<Stringeable>() {
+            @Override
+            public int compare(Stringeable lhs, Stringeable rhs) {
+                return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
+            }
+        });
+        return sorted;
+    }
+
+    /**
+     * Returns a copy of the list of stringeables, sorted ascending by category.
+     */
+    public List<Stringeable> orderByCategory(UserDatabase userDB) {
+        List<Stringeable> sorted = cloneStringeable();
+        Collections.sort(sorted, new Comparator<Stringeable>() {
+            @Override
+            public int compare(Stringeable lhs, Stringeable rhs) {
+                return lhs.getCategory().toLowerCase().compareTo(rhs.getCategory().toLowerCase());
+            }
+        });
+        return sorted;
     }
 
     public void clickOnUser(Profile u) {
@@ -261,6 +304,15 @@ public class SearchScreenActivity extends SearchMenuActivity {
     public void clickOnTrade(Trade t) {
         Intent intent = new Intent(this, TradeRequestActivity.class);
         intent.putExtra(TradeRequestActivity.TRADE_ID_PARAM, t.getTradeID());
+        intent.putExtra(TradeRequestActivity.ACTIVE_USER_ID_PARAM, masterController.getCurrentUser().getUserID());
+        intent.putExtra(TradeRequestActivity.PASSIVE_USER_ID_PARAM, t.getOppositeHalf(masterController.getCurrentUser()).getUser());
         startActivity(intent);
+    }
+
+    public List<Stringeable> cloneStringeable() {
+        List<Stringeable> stringeables = new ArrayList<Stringeable>();
+        for (Stringeable string:items)
+            stringeables.add(string);
+        return stringeables;
     }
 }

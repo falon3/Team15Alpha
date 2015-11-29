@@ -208,7 +208,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
     public void deleteRequest(View view){
         //TODO delete the trade
         if (trade != null)
-            masterController.deleteTrade(trade.getTradeID());
+            masterController.deleteTrade(trade);
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
@@ -217,6 +217,10 @@ public class EditTradeActivity extends GeneralMenuActivity {
     }
 
     public void sendTrade(View view) {
+        if (offer.size() == 0) {
+            Toast.makeText(getApplicationContext(), "You need to request at least one skill!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //TODO Send The Trade
         if (trade != null){
             trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);

@@ -129,7 +129,6 @@ public class ProfileActivity extends GeneralMenuActivity {
     private Button addRemoveFriend, startTrade, viewInventory, contactInfo, friendListButton;
     private TextView userContactInfo, profileTitle;
     private CheckBox checkBox;
-    private RatingBar ratingBar;
     private EditText newEmail;
 
     @Override
@@ -148,7 +147,6 @@ public class ProfileActivity extends GeneralMenuActivity {
         newEmail = (EditText) findViewById(R.id.edit_contact);
         profileTitle = (TextView) findViewById(R.id.user_name);
         checkBox = (CheckBox) findViewById(R.id.auto_img);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
     }
@@ -160,7 +158,6 @@ public class ProfileActivity extends GeneralMenuActivity {
         populateProfile();
         profileTitle.setText(owner.getProfile().getUsername());
         userContactInfo.setText(owner.getProfile().getEmail());
-        ratingBar.setRating(owner.getProfile().getRating());
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(false);
@@ -186,15 +183,7 @@ public class ProfileActivity extends GeneralMenuActivity {
 
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
-
-            ratingBar.setEnabled(false);
         } else {
-            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    owner.getProfile().addRating(masterController.getCurrentUserUsername(), new Float(rating).intValue());
-                }
-            });
             friendListButton.setVisibility(View.INVISIBLE);
             newEmail.setVisibility(View.INVISIBLE);
             contactInfo.setVisibility(View.INVISIBLE);

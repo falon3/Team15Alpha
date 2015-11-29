@@ -87,6 +87,7 @@ public class HTTPClient {
     public HTTPClient() {
         HttpParams httpParams = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
+        HttpConnectionParams.setSoTimeout(httpParams, 5000);
         httpClient = new DefaultHttpClient(httpParams);
     }
 

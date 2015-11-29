@@ -135,7 +135,7 @@ public class EspressoTest {
         onView(withId(R.id.beginApp)).perform(click());
 
         //find friend
-        onView(withId(R.id.browse_users)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
         onView(withId(R.id.search_bar)).perform(typeText("Friend"), closeSoftKeyboard());
         onView(withId(R.id.search_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
@@ -163,11 +163,12 @@ public class EspressoTest {
     }
 
     @Test
-    public void testBrowseFriendProfile() throws UserAlreadyExistsException {
+    public void testBrowseFriendInventory() throws UserAlreadyExistsException {
         //add friend first
         testAddFriend();
 
         // Check profile details
         onView(withId(R.id.user_name)).check(matches(withText("Friend")));
+
     }
 }

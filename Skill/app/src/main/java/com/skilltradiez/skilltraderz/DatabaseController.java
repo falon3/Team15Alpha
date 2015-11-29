@@ -144,6 +144,7 @@ public final class DatabaseController implements ControllerInterface{
             elastic.deleteDocument("user", "");
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
+            elastic.deleteDocument("image", "");
             local.deleteFile();
             MasterController.getUserDB().setCurrentUserToNull();
             users.clear();
@@ -153,7 +154,6 @@ public final class DatabaseController implements ControllerInterface{
             e.printStackTrace();
         }
     }
-
 
     /**
      * This method will take in a trade object and add it to the model in the application.
@@ -172,7 +172,6 @@ public final class DatabaseController implements ControllerInterface{
             e.printStackTrace();
         }
     }
-
 
     /**
      * Will take in an image object and it will add the image object to the model of the application
