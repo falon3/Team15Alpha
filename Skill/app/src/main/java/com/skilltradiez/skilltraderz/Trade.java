@@ -164,6 +164,8 @@ public class Trade extends Stringeable {
     public boolean checkIfComplete() {
         if (half1.hasChanged() || half2.hasChanged())
             notifyDB();
+        if (!isActive())
+            MasterController.getCurrentUser().getTradeList().tradeComplete(tradeID);
         return true;
     }
 
@@ -220,6 +222,11 @@ public class Trade extends Stringeable {
 
     public Image getImage() {
         return new NullImage();
+    }
+
+    // The other users Trader Ranking
+    public int getTop() {
+        return DatabaseController.getAccountByUserID(getOppositeHalf(MasterController.getCurrentUser()).getUser()).getProfile().getTop();
     }
 
     @Override

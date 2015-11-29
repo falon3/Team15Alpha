@@ -52,7 +52,7 @@ public final class MasterController implements ControllerInterface {
      **/
     //If we probe for the USER that is currently on the app... returns the USER object of that user.
     //NOT just the name. USER object.
-    public User getCurrentUser() {
+    public static User getCurrentUser() {
         return getUserDB().getCurrentUser();
     }
 

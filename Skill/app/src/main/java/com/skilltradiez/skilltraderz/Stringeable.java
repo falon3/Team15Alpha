@@ -21,9 +21,6 @@ package com.skilltradiez.skilltraderz;
  * DESCRIPTION: This class is going to be dedicated to making it so that we have more functionality
  * on the notification class. This is a subclass of the notification class that allows us to have
  * methods to get the name, descrption or image.
- *
- * Realize though that image is going to be an int, despite this being called stringable. The
- * other two are, as makes sense, strings.
  */
 /*
  * Intended to make this for polymorphism on ListAdapter
@@ -34,4 +31,7 @@ public abstract class Stringeable extends Notification {
     abstract String getCategory();
     abstract String getDescription();
     abstract Image getImage();
+
+    //A number to judge which is superior
+    abstract int getTop();
 }

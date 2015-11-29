@@ -262,7 +262,7 @@ public class Inventory extends Notification {
     }
 
     /**
-     * Returns a copy of the list of skills, sorted ascending by name.
+     * Returns a copy of the list of skills, sorted ascending by category.
      */
     public ArrayList<Skill> orderByCategory(UserDatabase userDB) {
         ArrayList<Skill> sorted = cloneSkillz(userDB);

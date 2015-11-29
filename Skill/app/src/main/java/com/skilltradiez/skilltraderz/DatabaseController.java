@@ -155,7 +155,6 @@ public final class DatabaseController implements ControllerInterface{
         }
     }
 
-
     /**
      * This method will take in a trade object and add it to the model in the application.
      * @param trade Trade Object.
@@ -173,7 +172,6 @@ public final class DatabaseController implements ControllerInterface{
             e.printStackTrace();
         }
     }
-
 
     /**
      * Will take in an image object and it will add the image object to the model of the application
