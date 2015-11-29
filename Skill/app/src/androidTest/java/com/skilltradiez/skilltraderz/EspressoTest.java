@@ -163,11 +163,12 @@ public class EspressoTest {
     }
 
     @Test
-    public void testBrowseFriendProfile() throws UserAlreadyExistsException {
+    public void testBrowseFriendInventory() throws UserAlreadyExistsException {
         //add friend first
         testAddFriend();
 
         // Check profile details
         onView(withId(R.id.user_name)).check(matches(withText("Friend")));
+
     }
 }

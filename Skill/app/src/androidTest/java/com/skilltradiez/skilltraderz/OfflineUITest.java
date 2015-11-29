@@ -113,4 +113,31 @@ public class OfflineUITest {
         //assert it didn't go to the main screen because no new account was made
         onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
     }
+    @Test
+    public void testBrowseFriendInventory() throws UserAlreadyExistsException {
+        //create friend
+        DatabaseController.createUser("Friend for a minute");
+
+        //login
+        onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //find friend
+        onView(withId(R.id.browse_users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText("Friend for a minute"), closeSoftKeyboard());
+        onView(withId(R.id.search_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //add friend
+        onView(withId(R.id.add_friend)).perform(click());
+
+        //simulate going offline with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+        DatabaseController.refresh();
+
+        //browse friend inventory now while offline
+        
+
+    }
 }
