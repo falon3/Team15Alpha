@@ -37,7 +37,7 @@
         <activity
             android:name=".ProfileActivity"
             android:label=""
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".SearchScreenActivity"
             android:label=""
@@ -50,32 +50,32 @@
         <activity
             android:name=".InventoryActivity"
             android:label=""
-            android:parentActivityName=".ProfileActivity"></activity>
+            android:parentActivityName=".ProfileActivity"/>
         <activity
             android:name=".TradeRequestActivity"
             android:label=""
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".SkillDescriptionActivity"
             android:label=""
-            android:parentActivityName=".SearchScreenActivity"></activity>
+            android:parentActivityName=".SearchScreenActivity"/>
         <activity
             android:name=".EditTradeActivity"
             android:label=""
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".EditSkillActivity"
             android:label=""
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".GeneralMenuActivity"
-            android:theme="@android:style/Theme.NoDisplay"></activity>
+            android:theme="@android:style/Theme.NoDisplay"/>
         <activity
             android:name=".ImageViewerActivity"
-            android:label="@string/title_activity_image_viewer"></activity>
+            android:label=""/>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="" >
         </activity>
     </application>
 

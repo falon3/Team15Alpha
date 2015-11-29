@@ -2,6 +2,7 @@
 <resources>
     <color name="mainSkillAppColor">#057777</color>
     <color name="tealTextColor">#8fdcdc</color>
+    <color name="spinnerTeal">#6dc6c6</color>
     <color name="greyTextColor">#8F8F8F</color>
     <color name="medGreyAccent">#383838</color>
     <color name="darkTealAccent">#005151</color>

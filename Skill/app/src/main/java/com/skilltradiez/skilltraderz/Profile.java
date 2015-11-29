@@ -121,11 +121,12 @@ import java.io.IOException;
 
 public class Profile extends Stringeable {
     private String username, email, location;
-    private Boolean shouldDownloadImages = true;
+    private Boolean shouldDownloadImages;
     private Rating rating;
 
     Profile(String username) {
         setUsername(username);
+        setShouldDownloadImages(true);
         rating = new Rating("user", username);
     }
 
@@ -198,7 +199,7 @@ public class Profile extends Stringeable {
         MasterController masterController = new MasterController();
         if (masterController.getCurrentUser().getProfile().getName().equals(getUsername())) {
             return "You";
-        } else if (masterController.userHasFriend(masterController.getUserByName(getUsername()))) {
+        } else if (masterController.hasFriend(masterController.getUserByName(getUsername()))) {
             return "Friend";
         }
         return "Non-Friend";

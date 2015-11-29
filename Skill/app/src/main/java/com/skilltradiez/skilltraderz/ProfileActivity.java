@@ -151,9 +151,14 @@ public class ProfileActivity extends GeneralMenuActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
 
         populateProfile();
-        profileTitle.setText(userProfileName);
+        profileTitle.setText(owner.getProfile().getUsername());
         userContactInfo.setText(owner.getProfile().getEmail());
         ratingBar.setRating(owner.getProfile().getRating());
 
@@ -209,12 +214,6 @@ public class ProfileActivity extends GeneralMenuActivity {
         MenuItem item = menu.findItem(R.id.Go_Profile_Menu);
         item.setEnabled(false);
         return true;
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        populateProfile();
     }
 
     /**
