@@ -53,7 +53,7 @@
     <string name="counter_trade">Counter Offer</string>
     <string name="delete_trade">Delete Request</string>
     <string name="note_for_trade">Describe your request!</string>
-
+    <string name="desc">Description:</string>
     <string name="trade_history">Trade History</string>
 
     <!-- String related to the Profile layout -->
@@ -133,5 +133,6 @@
         <item>Inactive</item>
     </string-array>
 
-    <string name="desc">Description:</string>
+    <!-- Strings for Image viewer -->
+    <string name="title_activity_image_viewer">ImageViewerActivity</string>
 </resources>

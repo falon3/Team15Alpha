@@ -18,38 +18,35 @@
     *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_height="wrap_content" >
 
         <ImageView android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_action_arrow_left"
-            android:id="@+id/img" />
+            android:id="@+id/img"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="78dp">
 
             <TextView
-                android:id="@+id/skillName"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SkillName"
-                android:textAppearance="@color/tealTextColor"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/tealTextColor" />
 
             <TextView
                 android:id="@+id/desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CoolCategory" />
+                android:text="CoolCategory"
+                android:textAlignment="center" />
         </TableLayout>
-    </TableRow>
-
-</LinearLayout>
+</RelativeLayout>

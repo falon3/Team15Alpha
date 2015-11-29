@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -115,6 +116,13 @@ public class EditTradeActivity extends GeneralMenuActivity {
 
         requestList = (ListView) findViewById(R.id.requestList);
         otherInvList = (ListView) findViewById(R.id.other_invList);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
+        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "'s Inventory:");
 
         offerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -164,19 +172,12 @@ public class EditTradeActivity extends GeneralMenuActivity {
             }
         });
 
+        loadItems();
+
         offerList.setAdapter(offerAdapter);
         yourInvList.setAdapter(yourInvAdapter);
         requestList.setAdapter(requestAdapter);
         otherInvList.setAdapter(otherInvAdapter);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
-        otherInvTitle.setText(passiveUser.getProfile().getUsername() + "/'s Inventory:");
-
-        loadItems();
 
         offerAdapter.notifyDataSetChanged();
         yourInvAdapter.notifyDataSetChanged();
@@ -209,6 +210,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
     public void sendTrade(View view){
         //TODO Send The Trade
         Trade trade = activeUser.getTradeList().createTrade(MasterController.getUserDB(), activeUser, passiveUser, offer, request);
+        DatabaseController.save();
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Trade Request Sent", Toast.LENGTH_SHORT).show();
