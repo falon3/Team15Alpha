@@ -224,7 +224,7 @@ public class Inventory extends Notification {
         Skill temp;
         for (ID s : skillz) {
             temp = DatabaseController.getSkillByID(s);
-            if (temp.getName().contains(name) && temp.isVisible()) matching.add(temp);
+            if (temp.getName().toLowerCase().contains(name.toLowerCase()) && temp.isVisible()) matching.add(temp);
         }
         return matching;
     }
@@ -240,7 +240,7 @@ public class Inventory extends Notification {
         Skill temp;
         for (ID s : skillz) {
             temp = DatabaseController.getSkillByID(s);
-            if (temp.getCategory().contains(category) &&
+            if (temp.getCategory().toLowerCase().contains(category.toLowerCase()) &&
                     (temp.isVisible() || DatabaseController.getAccountByUserID(user).getInventory().hasSkill(temp)))
                 matching.add(temp);
         }
@@ -269,7 +269,7 @@ public class Inventory extends Notification {
         Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
-                return lhs.getCategory().compareTo(rhs.getCategory());
+                return lhs.getCategory().toLowerCase().compareTo(rhs.getCategory().toLowerCase());
             }
         });
         return sorted;

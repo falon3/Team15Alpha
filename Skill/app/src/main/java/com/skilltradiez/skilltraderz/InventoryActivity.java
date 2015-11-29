@@ -218,7 +218,6 @@ public class InventoryActivity extends SearchMenuActivity {
         adapter.notifyDataSetChanged();
     }
 
-
     /**
      * Refine the number of skills that are shown on screen based on the category that each skill
      * belongs to
@@ -226,8 +225,8 @@ public class InventoryActivity extends SearchMenuActivity {
     public List<Skill> refineInventoryByCategory(){
         //inflate the spinner category. Populate it with a list of categories
         //refine skill list based on the category
-        String category = categorySpinner.getSelectedItem().toString();
-        if (category.equals("All"))
+        String category = categorySpinner.getSelectedItem().toString().toLowerCase();
+        if (category.equals("all"))
             return currentUser.getInventory().cloneSkillz(masterController.getUserDB());
         return currentUser.getInventory().findByCategory(masterController.getUserDB(), category);
     }
