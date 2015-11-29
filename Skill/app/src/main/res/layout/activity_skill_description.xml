@@ -48,6 +48,22 @@
         android:layout_below="@+id/skillTitle"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:id="@+id/skillQuality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/good"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#057777"
+        android:layout_below="@+id/skillTitle"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:layout_toEndOf="@id/skillCategory"
+        android:layout_alignParentRight="false"
+        android:textAlignment="viewEnd"
+        android:singleLine="false"
+        android:layout_toStartOf="@+id/edit_skill" />
+
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="75dp"
