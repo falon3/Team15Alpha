@@ -232,6 +232,9 @@ public class Skill extends Stringeable {
     /**
      * CONSTRUCTOR
      **/
+    Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, List<Image> images) {
+        this(db, skill_name, category, description, "test quality", isVisible, images);
+    }
     Skill(UserDatabase db, String skill_name, String category, String description, String quality, boolean isVisible, List<Image> images) {
         setName(skill_name);
         owners = new ArrayList<ID>();
