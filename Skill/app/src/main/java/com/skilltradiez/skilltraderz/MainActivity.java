@@ -134,6 +134,7 @@ public class MainActivity extends GeneralMenuActivity {
                 }
             }
         });
+        thread.start();
     }
 
     @Override
