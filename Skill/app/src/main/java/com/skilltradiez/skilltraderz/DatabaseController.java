@@ -144,6 +144,7 @@ public final class DatabaseController implements ControllerInterface{
             elastic.deleteDocument("user", "");
             elastic.deleteDocument("skill", "");
             elastic.deleteDocument("trade", "");
+            elastic.deleteDocument("image", "");
             local.deleteFile();
             MasterController.getUserDB().setCurrentUserToNull();
             users.clear();

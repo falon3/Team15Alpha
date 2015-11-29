@@ -138,4 +138,5 @@
     <string name="counterTrade">Counter Request</string>
     <string name="category">Category</string>
     <string name="Name">Name</string>
+    <string name="accept">Accept</string>
 </resources>

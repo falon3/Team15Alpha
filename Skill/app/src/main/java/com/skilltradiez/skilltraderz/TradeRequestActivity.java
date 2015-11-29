@@ -96,7 +96,8 @@ import java.util.List;
 //TODO EVERYTHING: this is more the result, not the action; of trading
 public class TradeRequestActivity extends GeneralMenuActivity {
     static String TRADE_ID_PARAM = "trade_id",
-                ACTIVE_USER_ID_PARAM = "user_id";
+                ACTIVE_USER_ID_PARAM = "user_id",
+                PASSIVE_USER_ID_PARAM = "puser_id";
     private Context tradeContext = this;
 
     private Button sendTrade, counterTrade, cancelTrade;
@@ -123,6 +124,8 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         trade = DatabaseController.getTradeByID(tradeID);
         ID userID = (ID)profileExtras.get(ACTIVE_USER_ID_PARAM);
         activeUser = DatabaseController.getAccountByUserID(userID);
+        userID = (ID)profileExtras.get(PASSIVE_USER_ID_PARAM);
+        passiveUser = DatabaseController.getAccountByUserID(userID);
 
         //Init Lists
         offer = masterController.getStringeableSkillList(trade.getHalfForUser(activeUser).getOffer());
@@ -187,7 +190,7 @@ public class TradeRequestActivity extends GeneralMenuActivity {
     }
 
     public void deleteRequest(View view){
-        masterController.deleteTrade(trade.getTradeID());
+        masterController.deleteTrade(trade);
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
