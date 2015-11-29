@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**~~DESCRIPTION:
+/**
  * When we want to have something saved locally this is going to be the class instantiated
  * through the application. This is going to be the entire process of making the local save
  * within the actual device of the user and then things will be alright afterwards.
@@ -31,71 +31,34 @@ import java.util.List;
  * notifications associated with this all.
  *
  * The methods are truly just traditional getters and setters in typical java fashion.
- *
- * ~~ACCESS:
- * This is a public access class meaning that objects of this class can be (1) instantiated
- * anywhere throughout the program (2) they can, once instantiated, have the methods
- * of this class called anywhere throughout the application. This allows the entire application
- * full access to this class.
- *
- * ~~CONSTRUCTOR:
- * This is going to only have a single type of constructor (no overloading here) where the object
- * is created and has no parameters assocaited with itself where the constructor is going
- * to create a series of brand new ArrayList lists and then we wil have this object interact
- * through the methods to modify these into actually reasonably functional and logical
- * things that are good and awesome.
- *
- * ~~ATTRIBUTES/METHODS:
- * 1: CURRENTUSER:
- *     It is core to the functionality to keep track of just who the current user of this
- *     application is, this is going to be assigned to this object through settters.
- *
- *     METHODS PROVIDED:
- *     -getter (traditional)  --getCurrentUser
- *     -setter (tradtiional)  --setCurrentUser
- *
- * 2: USERS:
- *     This is going to be the attribute where we maintain a list of all of the user objects
- *     that are relevant to this application and we will always have this avalaible.
- *
- *     METHODS PROVIDED:
- *     -getter (traditional)  --getUsers
- *     -setter (tradtiional)  --setUsers
- * 3: SKILLZ:
- *     This is going to be all of the skillz that are present within the inventories that we
- *     would love to make a cache of within the local device.
- *
- * *    METHODS PROVIDED:
- *     -getter (traditional)  --getSkillz
- *     -setter (tradtiional)  --setSkillz
- * 4: TRADES:
- *     This is going to be the cached information on the trades that the user is currently
- *     somehow assocaited with and will be maintained through this object and stored locally
- *     for permanent potentail accesses.
- *
- *     METHODS PROVIDED:
- *     -getter (traditional)  --getTrades
- *     -setter (tradtiional)  --setTrades
- *
- * 5: NOTIFICATIONS:
- *     This is going to be the list that maintains ALL the notifications of the application.
- *     If something happens within the applicaiton that we find relevant then we will need to
- *     activate this list of notifications for that user and so we're going to just make damn
- *     sure that we save all of these notification objects within the user's locally
- *     stored information.
- *
- *     METHODS PROVIDED:
- *     -getter (traditional)  --getNotifications
- *     -setter (tradtiional)  --setNotifications
- *
- *
  */
 
 public class LocalPersistentObject {
-    private User currentUser; // Profile, Inventory, Friendslist
-    private Collection<User> users; // Friends Profiles, Inventories
-    private Collection<Skill> skillz; // Skillz that are found in the User and Friend's Inventories
-    private Collection<Trade> trades; // User's Trade History
+    /**Class Variables:
+     * 1: currentUser: Represents the current user of the application. Includes Profile, Inventory
+     *      and the current user's FriendList.
+     * 2: users: A Collection of User Objects that includes Friends, Profiles and Inventories.
+     * 3: skillz: A Collection of Skill Objects. Includes the Skill Objects that are in the
+     *      current user's inventory as well as those in the current user's friend's inventories.
+     * 4: trades: A collection of Trades that represent the current user's trade history.
+     * 5: notifications: A List of Notification Objects that represent any sort of changes that
+     *      the application should keep track of. Eg: Skill changes, Trade changes.
+     * 6: changedFriends: A Collection os FriendsLists that keeps track of changes to these
+     *      FriendsList objects.
+     * 7: changedProfile: A collection of Profile objects that maintains track of changes to the
+     *      Profile Objects.
+     * 8: changedInventory: A collection of Inventory objects that keeps track of changes made to
+     *      the Inventory objects through the application.
+     * 9: changedSkillz: A collection of Skill objects that will keep track of any changes to the
+     *      Skill objects across the application.
+     * 10: changedTradesList: A collection of TradeList objects that will maintain what TradeList
+     *      objects have been modified throughout the application. Changes to TradeLists. Not Trades
+     * 11: changedTrades: Similar to above, but for individual Trade objects and not TradeLists.
+     */
+    private User currentUser;
+    private Collection<User> users;
+    private Collection<Skill> skillz;
+    private Collection<Trade> trades;
     //private List<Notification> notifications; // Skill changes, Trade Changes
     private Collection<FriendsList> changedFriends;
     private Collection<Profile> changedProfile;
@@ -104,6 +67,10 @@ public class LocalPersistentObject {
     private Collection<TradeList> changedTradesList;
     private Collection<Trade> changedTrades;
 
+    /**
+     * This constructor is heavy on initializations, creates a large amount of new objects and
+     * associates these objects with itself by assigning it's variables to these new objects.
+     */
     LocalPersistentObject() {
         currentUser = null;
         users = new ArrayList<User>();
@@ -118,36 +85,93 @@ public class LocalPersistentObject {
         this.changedTrades = new ArrayList<Trade>();
     }
 
+    /**
+     * Classical getter method where we return to the caller the User Object that represents the
+     * current user of the applciation.
+     *
+     * @return User Object.
+     */
     public User getCurrentUser () { return currentUser;}
 
+    /**
+     * Classical setter method where we assign the currentUser of this Object to be the current
+     * user of the application. I know it probably sounds bogus, but this is necessary for
+     * complete and proper functioning.
+     *
+     * @param currentUser User Object.
+     */
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Classical getter method that will return this Object's currently assigned Collection of
+     * User Objects to the caller.
+     *
+     * @return Collection of User Objects.
+     */
     public Collection<User> getUsers() {
         return users;
     }
 
+    /**
+     * Classical setter method that takes as a parameter a Collection of User Objects and
+     * will assign this Object's users variable to ths passed in parameter.
+     *
+     * @param users Collection of User Objects.
+     */
     public void setUsers(Collection<User> users) {
         this.users = users;
     }
 
+    /**
+     * Classical getter method where we return this Object's currently assigned collection of
+     * Skill Objects.
+     *
+     * @return Collection of Skill Objects.
+     */
     public Collection<Skill> getSkillz() {
         return skillz;
     }
 
+    /**
+     * Classical setter method where we set this Object's skillz variable to the Collection of
+     * Skill Objects passed into this method.
+     *
+     * @param skillz Collection of Skill Objects.
+     */
     public void setSkillz(Collection<Skill> skillz) {
         this.skillz = skillz;
     }
 
+    /**
+     * Classical getter method where we return the Collection of Trade Objects that this Object
+     * has.
+     *
+     * @return Collection of Trade Objects.
+     */
     public Collection<Trade> getTrades() {
         return trades;
     }
 
+    /**
+     * Classical setter method that assigns this Object's trades variable to the Collection
+     * of Trade Objects that are passed into this method.
+     *
+     * @param trades Collection of Trade Objects.
+     */
     public void setTrades(Collection<Trade> trades) {
         this.trades = trades;
     }
 
+    /**
+     * Classical getter method to obtain the Notification Objects for this application.
+     *
+     * Goes through each of the changed variables (eg: changedFriends) and then adds them
+     *    to the notifications through the Notification class's addAll method.
+     * Returns this as a Collection of Notification Objects.
+     * @return Collection of Notification Objects.
+     */
     public Collection<Notification> getNotifications() {
         Collection<Notification> notifications = new ArrayList<Notification>();
         notifications.addAll(changedFriends);
@@ -159,6 +183,15 @@ public class LocalPersistentObject {
         return notifications;
     }
 
+    /**
+     * Given a ChangeList of notifications, will then assign this object's variables to be
+     * the variables within the passed in ChangeList Object's variables.
+     *
+     * This method goes one-by-one through the ChangeList Object's variables and assigns this
+     * LocalPersistentObject's variables to be those variables.
+     *
+     * @param notifications ChangeList Object.
+     */
     public void setNotifications(ChangeList notifications) {
         this.changedFriends = notifications.getFriendsList();
         this.changedProfile = notifications.getProfiles();
