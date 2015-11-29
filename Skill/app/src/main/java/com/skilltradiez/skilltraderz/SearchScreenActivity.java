@@ -304,6 +304,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
     public void clickOnTrade(Trade t) {
         Intent intent = new Intent(this, TradeRequestActivity.class);
         intent.putExtra(TradeRequestActivity.TRADE_ID_PARAM, t.getTradeID());
+        intent.putExtra(TradeRequestActivity.ACTIVE_USER_ID_PARAM, masterController.getCurrentUser().getUserID());
+        intent.putExtra(TradeRequestActivity.PASSIVE_USER_ID_PARAM, t.getOppositeHalf(masterController.getCurrentUser()).getUser());
         startActivity(intent);
     }
 

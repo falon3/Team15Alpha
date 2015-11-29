@@ -141,8 +141,11 @@ public final class MasterController implements ControllerInterface {
         currentSkill.addOwner(getCurrentUser().getUserID());
     }
 
-    public void deleteTrade(ID tradeID) {
-        DatabaseController.deleteDocumentTrade(tradeID);
+    public void deleteTrade(Trade trade) {
+        DatabaseController.deleteDocumentTrade(trade.getTradeID());
+        getUserDB().getTrades().remove(trade);
+        getUserByID(trade.getHalf1().getUser()).getTradeList().delete(trade);
+        getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
     }
 
     public List<Skill> getSkillList(List<ID> ids) {

@@ -208,7 +208,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
     public void deleteRequest(View view){
         //TODO delete the trade
         if (trade != null)
-            masterController.deleteTrade(trade.getTradeID());
+            masterController.deleteTrade(trade);
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
