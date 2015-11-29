@@ -31,11 +31,21 @@ public class CameraActivity extends GeneralMenuActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         images = new ArrayList<Image>();
     }
 
+
     /** Methods **/
+
+    // adds a list of images to the current image list
+    public void addImages(List<ID> prevImages) {
+        List<Image> images = new ArrayList<Image>();
+        for (ID id : prevImages)
+            images.add(DatabaseController.getImageByID(id));
+        this.images = images;
+    }
+
+
     /**
      * Will invoke the method to start taking an image.
      *
@@ -61,7 +71,6 @@ public class CameraActivity extends GeneralMenuActivity {
      */
     public void retakeImage(View view, Image toBeRemoved) {
         deleteImage(view, toBeRemoved);
-
         addNewImage(view);
     }
 
@@ -123,5 +132,4 @@ public class CameraActivity extends GeneralMenuActivity {
     public List<Image> getImages() {
         return images;
     }
-
 }

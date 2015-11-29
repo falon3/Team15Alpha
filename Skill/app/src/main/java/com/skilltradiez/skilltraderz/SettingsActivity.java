@@ -45,6 +45,8 @@ public class SettingsActivity extends GeneralMenuActivity {
         user.setEmail(emailSettings.getText().toString());
         user.setShouldDownloadImages(downloadPics.isChecked());
         user.setLocation(citySettings.getText().toString());
+
+        DatabaseController.save();
         finish();
     }
 

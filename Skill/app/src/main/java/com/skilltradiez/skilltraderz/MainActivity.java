@@ -90,12 +90,7 @@ import android.widget.Toast;
  */
 
 public class MainActivity extends GeneralMenuActivity {
-    private Context mainContext = this;
-
     //Main screen
-    private Button searchAllSkillzButton;
-    private Button searchAllUsersButton;
-    private Button goToProfile;
     public static boolean connected;
 
     //First time user screen
@@ -119,13 +114,6 @@ public class MainActivity extends GeneralMenuActivity {
         } else {
             setContentView(R.layout.first_time_user);
         }
-
-        // mainActivity
-        //searchButton = (Button) findViewById(R.id.search_button);
-        //searchField = (EditText) findViewById(R.id.search_bar);
-        searchAllSkillzButton = (Button) findViewById(R.id.browse_skillz);
-        searchAllUsersButton = (Button) findViewById(R.id.browse_users);
-        goToProfile = (Button) findViewById(R.id.go_to_profile);
 
         // first_time (login)
         newUserName = (EditText) findViewById(R.id.usernameField);
@@ -162,11 +150,10 @@ public class MainActivity extends GeneralMenuActivity {
     /**
      * Create a new user when you first open up the app.
      */
-    //TODO Check why this is static and outside the method?
-    private static User new_guy = null;
     public void newUser(View view){
         final Context context = getApplicationContext();
         final String username;
+        User new_guy = null;
 
         if(newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")){
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
@@ -195,42 +182,6 @@ public class MainActivity extends GeneralMenuActivity {
                 // Do nothing
             }
         }
-    }
-
-    /**
-     * Browse all skillz or users in the database. Might be able to combine this with refined search
-     * for better code reuse. EEDIT
-     * @param view
-     */
-    public void beginAllSearch(View view){
-        Intent intent = new Intent(mainContext, SearchScreenActivity.class);
-        if(view.getId() == R.id.browse_skillz){
-            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
-        } else if (view.getId() == R.id.browse_users) {
-            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
-        } else {
-            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
-        }
-        startActivity(intent);
-    }
-
-    /**
-     * Take user to their own profile when "Your Profile" button is pressed
-     * @param view
-     */
-    public void showProfile(View view){
-        Intent intent = new Intent(mainContext, ProfileActivity.class);
-        intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
-        startActivity(intent);
-    }
-
-    /**
-     * Sends user to the EditSkill activity to make a new skill
-     * @param view
-     */
-    public void createNewSkill(View view){
-        Intent intent = new Intent(mainContext, EditSkillActivity.class);
-        startActivity(intent);
     }
 
     public void deleteDatabase(View view) {

@@ -190,7 +190,6 @@ public class InventoryActivity extends SearchMenuActivity {
         startActivity(intent);
     }
 
-
     public void startSearch(String query){
         searchInventory(query);
     }

@@ -47,6 +47,7 @@ import android.widget.Toast;
 public class GeneralMenuActivity extends ActionBarActivity {
 
     /**Activity Class Variables:
+
      * 1: generalContext: Assign a Context to a variable to be used generally.
      * 2: masterController: Create the ever-critical MasterController object that acts
      *    as the most core controller for the entire application.
@@ -66,8 +67,8 @@ public class GeneralMenuActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setIcon(R.drawable.ic_search);
 
@@ -115,11 +116,15 @@ public class GeneralMenuActivity extends ActionBarActivity {
                 intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
                 startActivity(intent);
                 return true;
+            case R.id.Trade_History:
+                intent = new Intent(generalContext, SearchScreenActivity.class);
+                intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
+                startActivity(intent);
+                return true;
             case R.id.Go_To_Settings:
                 intent = new Intent(generalContext, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-            //@todo maybe if already at home screen don't go anywhere
             case R.id.Go_Home_Menu:
                 intent = new Intent(generalContext, MainActivity.class);
                 startActivity(intent);
@@ -149,6 +154,7 @@ public class GeneralMenuActivity extends ActionBarActivity {
         SEARCH_PARAM = NEW_PARAM;
     }
 
+
     /**
      * Given a string of what the user wants to search for, we treat this as query and start a
      * new activity class based upon this search.
@@ -177,7 +183,6 @@ public class GeneralMenuActivity extends ActionBarActivity {
         return searchBar.getText().toString();
     }
 
-    //@todo clean up strings if there is time
     //@todo parent activity for enabling the back button on action bar needs work
 
     /**
