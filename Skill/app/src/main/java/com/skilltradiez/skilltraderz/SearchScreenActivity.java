@@ -17,21 +17,12 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -239,8 +230,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
             for (User u : onlineUsers)
                 if (u.getProfile().getUsername().contains(search) &&
                         (category.equals("All") ||
-                                (category.equals("Friends") && masterController.userHasFriend(u)) ||
-                                (category.equals("Non-Friends") && !masterController.userHasFriend(u))))
+                                (category.equals("Friends") && masterController.hasFriend(u)) ||
+                                (category.equals("Non-Friends") && !masterController.hasFriend(u))))
                     items.add(u.getProfile());
         } else if (screenType == 2) { // Trade History
             List<Trade> trades = masterController.getAllTradezForCurrentUser();
