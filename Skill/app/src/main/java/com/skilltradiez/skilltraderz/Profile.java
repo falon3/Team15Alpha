@@ -214,5 +214,6 @@ public class Profile extends Stringeable {
 
     public void tradeSuccess() {
         successfulTrades++;
+        notifyDB();
     }
 }
