@@ -32,64 +32,69 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**~~DESCRIPTION:
+/**
+ * ~~DESCRIPTION:
  * We want an android framework that will support the ability for the user to interact
  * with our application in a very logical and easy way. So we're going to create an activity
  * that is associated with just the activities with the user. This activity is going to be
  * associated purely with the entire skill description process that the user will need to interact
  * with through our application.
- *
+ * <p/>
  * ~~ACCESS:
  * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
  * we can have this class actually be accessed technically anywhere in the application that
  * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
  * an instance of the "EditTradeActivity" object.
- *
+ * <p/>
  * Instead what is happening is that we are having this activity be called by the onCreate() method
  * as is traditionally done in the android studio framework for android applications. In this
  * instance we're going to create this activity and then we'll have an onstart() method following
  * this which is going to make it so that we have this activate a cascade of events that are all
  * interelated with the main primary goal of allowing us to have a screen where we edit the
  * trading activity!
- *
- *~~CONSTRUCTOR:
+ * <p/>
+ * ~~CONSTRUCTOR:
  * Upon calling the method onCreate() for this activity the android studio framework will
  * cause the android application to create an instance of this actvity and display it to the user.
- *
+ * <p/>
  * ~~ATTRIBUTES/METHODS:
  * 1: MAKESEARCHTHREAD:
- *     This is going to grant the user the ability to make a search thread for searching
- *     through various things through our application such as profiles, friends, skills,
- *     inventories.
- *
+ * This is going to grant the user the ability to make a search thread for searching
+ * through various things through our application such as profiles, friends, skills,
+ * inventories.
+ * <p/>
  * 2: NEWUSER:
- *     This is going to be how we actually add a new user to our application and our application
- *     database. Without this UI element and method tied to the UI we would no doubt have
- *     a complete and utter failure of this application.
- *
- *
+ * This is going to be how we actually add a new user to our application and our application
+ * database. Without this UI element and method tied to the UI we would no doubt have
+ * a complete and utter failure of this application.
+ * <p/>
+ * <p/>
  * 3: BEGINALLSEARCH:
- *     This is going to be how we're going to actually begin all of the potential searches
- *     within this application. We let it begin a potential search options from this UI option
- *     which invokes this UI method.
- *
+ * This is going to be how we're going to actually begin all of the potential searches
+ * within this application. We let it begin a potential search options from this UI option
+ * which invokes this UI method.
+ * <p/>
  * 4: BEGINREFINEDSEARCH:
- *     Suppose the user of the application wants a furhter refined search with more speficic options
- *     that are tied to the search process. This is going to be the method called and then we will
- *     provide all of the search options to the various users.
- *
+ * Suppose the user of the application wants a furhter refined search with more speficic options
+ * that are tied to the search process. This is going to be the method called and then we will
+ * provide all of the search options to the various users.
+ * <p/>
  * 5: SHOWPROFILE
- *     This is going to be the method called when the user clicks on the UI where we will
- *     successfully have all of the profile of what they clicked on through this method.
- *
+ * This is going to be the method called when the user clicks on the UI where we will
+ * successfully have all of the profile of what they clicked on through this method.
+ * <p/>
  * 6: CREATENEWSKILL:
- *     Suppose we have the user wanting to create a new skill for our application. This is going
- *     to be the method that is called through the UI when the UI is clicked that will prompt
- *     for the entire cascade of what is going to be produced through the entire cascaded process.
- *
+ * Suppose we have the user wanting to create a new skill for our application. This is going
+ * to be the method that is called through the UI when the UI is clicked that will prompt
+ * for the entire cascade of what is going to be produced through the entire cascaded process.
  */
 
 public class MainActivity extends GeneralMenuActivity {
+
+    private Context mainContext = this;
+
+    //Main screen
+    private Button searchAllSkillzButton, searchAllUsersButton, tradeHistory, myFriends;
     //Main screen
     public static boolean connected;
 
@@ -119,12 +124,17 @@ public class MainActivity extends GeneralMenuActivity {
         newUserName = (EditText) findViewById(R.id.usernameField);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
+        // mainActivity
+
+        searchAllSkillzButton = (Button) findViewById(R.id.All_Skillz);
+        searchAllUsersButton = (Button) findViewById(R.id.All_Users);
+        goToProfile = (Button) findViewById(R.id.go_to_profile);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     connected = isConnected();
                     try {
                         Thread.sleep(1000);
@@ -137,7 +147,7 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_ham, menu);
 
@@ -150,17 +160,16 @@ public class MainActivity extends GeneralMenuActivity {
     /**
      * Create a new user when you first open up the app.
      */
-    public void newUser(View view){
+    public void newUser(View view) {
         final Context context = getApplicationContext();
         final String username;
         User new_guy = null;
 
-        if(newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")){
+        if (newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")) {
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-        }
-        else if (newUserEmail.getText().toString().isEmpty() || newUserEmail.getText().toString().equals(" ")){
+        } else if (newUserEmail.getText().toString().isEmpty() || newUserEmail.getText().toString().equals(" ")) {
             Toast.makeText(context, "You need an email!", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             username = newUserName.getText().toString();
 
             // Used for error checking
@@ -183,6 +192,48 @@ public class MainActivity extends GeneralMenuActivity {
             }
         }
     }
+
+    /**
+     * Browse all skillz or users in the database. Might be able to combine this with refined search
+     * for better code reuse. EEDIT
+     *
+     * @param view
+     */
+    public void beginAllSearch(View view) {
+        Intent intent = new Intent(mainContext, SearchScreenActivity.class);
+        if (view.getId() == R.id.browse_skillz) {
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
+        } else if (view.getId() == R.id.browse_users) {
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
+        } else {
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
+        }
+        startActivity(intent);
+    }
+
+    -
+
+    /**
+     * Take user to their own profile when "Your Profile" button is pressed
+     *
+     * @param view
+     */
+    public void showProfile(View view) {
+        Intent intent = new Intent(mainContext, ProfileActivity.class);
+        intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
+        startActivity(intent);
+    }
+
+    /**
+     * Sends user to the EditSkill activity to make a new skill
+     *
+     * @param view
+     */
+    public void createNewSkill(View view) {
+        Intent intent = new Intent(mainContext, EditSkillActivity.class);
+        startActivity(intent);
+    }
+
 
     public void deleteDatabase(View view) {
         DatabaseController.deleteAllData();

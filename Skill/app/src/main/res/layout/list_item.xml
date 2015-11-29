@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="HomeTown"
                 android:textAlignment="textStart"
-                android:textColor="@color/darkListViewYellow"
+                android:textColor="@color/ListViewYellow"
                 android:layout_toRightOf="@+id/img"
                 android:layout_below="@+id/category"
                 android:layout_alignBottom="@+id/img"
