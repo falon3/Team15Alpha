@@ -68,6 +68,8 @@ public class HTTPClient {
      */
     public void failureHappened() {
         timeout /= 2;
+        if (timeout < 100)
+            timeout = 100;
         setTimeout();
     }
 
