@@ -138,7 +138,7 @@ public class FriendsList extends Notification {
      * @return String "FriendsList"
      */
     public String getType() {
-        return "FriendsList";
+        return DatabaseController.getAccountByUserID(owner).getProfile().getName()+"'s FriendsList";
     }
 
     /**

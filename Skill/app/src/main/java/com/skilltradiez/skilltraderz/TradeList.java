@@ -281,7 +281,7 @@ public class TradeList extends Notification {
      * @return String "TradesList"
      */
     public String getType() {
-        return "TradesList";
+        return DatabaseController.getAccountByUserID(owner).getProfile().getName()+"'s TradesList";
     }
 
     /**
