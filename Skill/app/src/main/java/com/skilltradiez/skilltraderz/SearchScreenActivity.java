@@ -260,8 +260,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
             for (Trade t : trades) {
                 if (t.toString().toLowerCase().contains(search) &&
                         (category.equals("all") ||
-                                (category.equals("active") && t.isActive()) ||
-                                (category.equals("inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
+                                (category.equals("in-progress") && t.isActive()) ||
+                                (category.equals("complete") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
                     items.add(t);
             }
         }

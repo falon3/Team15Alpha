@@ -114,16 +114,6 @@ public class HalfTrade extends Notification {
     }
 
     /**
-     * Calls the superclass (Trade) notifyDB method and then utilizes the DatabaseController's
-     * notifyDB method to inform the database that there have been changes to the half trade.
-     */
-    @Override
-    public void notifyDB() {
-        super.notifyDB();
-        DatabaseController.getTradeByID(tradeID).notifyDB();
-    }
-
-    /**
      * Will commit all of the current HalfTrade Object's data located within the model to the DB.
      * @param userDB UserDatabase Object.
      * @return Boolean. True/False.

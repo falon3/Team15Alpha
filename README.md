@@ -10,6 +10,7 @@
    2. [Code Documentation: brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
    3. [Javadoc interface documentation](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
    4. [Test Cases](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
+      FOR UI TESTING: PLEASE MAKE SURE YOU HAVE ESPRESSO INSTALLED SO THAT IT WILL WORK 
    5. [Requirement Specifications](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
    6. [Object-Oriented Design](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
    7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
