@@ -72,9 +72,8 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         userID = (ID)profileExtras.get(PASSIVE_USER_ID_PARAM);
         passiveUser = DatabaseController.getAccountByUserID(userID);
 
-        //Init Lists
-        offer = masterController.getStringeableSkillList(trade.getHalfForUser(activeUser).getOffer());
-        request = masterController.getStringeableSkillList(trade.getHalfForUser(passiveUser).getOffer());
+        offer = new ArrayList<Stringeable>();
+        request = new ArrayList<Stringeable>();
 
         // Get UI elements
         sendTrade = (Button) findViewById(R.id.sendTrade);
@@ -126,6 +125,12 @@ public class TradeRequestActivity extends GeneralMenuActivity {
             counterTrade.setEnabled(false);
             counterTrade.setText("TRADE COMPLETE");
         }
+
+        //Init Lists
+        offer = masterController.getStringeableSkillList(trade.getHalfForUser(activeUser).getOffer());
+        request = masterController.getStringeableSkillList(trade.getHalfForUser(passiveUser).getOffer());
+        offerAdapter.notifyDataSetChanged();
+        requestAdapter.notifyDataSetChanged();
     }
 
     public void clickOnSkill(Skill skill) {

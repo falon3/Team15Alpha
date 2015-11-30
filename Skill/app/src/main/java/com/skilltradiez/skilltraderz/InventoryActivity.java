@@ -150,6 +150,8 @@ public class InventoryActivity extends SearchMenuActivity {
 
         loadSkillz();
 
+        startTrade.setVisibility(MasterController.getCurrentUser().getFriendsList().hasFriend(currentUser) ? View.VISIBLE : View.INVISIBLE);
+
         adapter = new ListAdapter(this, foundSkillz);
         inventoryList.setAdapter(adapter);
 
@@ -179,9 +181,9 @@ public class InventoryActivity extends SearchMenuActivity {
      * @ TODO:
      */
     public void startTrade(View view){
-        //need to check that you are friends with this person
-        //then un-grey out the 'make trade' button
-        Intent intent = new Intent(inventoryContext, EditTradeActivity.class);
+        Intent intent = new Intent(this, EditTradeActivity.class);
+        intent.putExtra(EditTradeActivity.ACTIVE_PARAM, masterController.getCurrentUser().getUserID());
+        intent.putExtra(EditTradeActivity.PASSIVE_PARAM, currentUser.getUserID());
         startActivity(intent);
     }
 
