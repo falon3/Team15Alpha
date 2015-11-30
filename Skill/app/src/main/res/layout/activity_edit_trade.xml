@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -19,14 +18,14 @@
     -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.skilltradiez.skilltraderz.EditTradeActivity"
-    android:id="@+id/rel_layout">
+    tools:context="com.skilltradiez.skilltraderz.EditTradeActivity">
 
     <TextView
         android:id="@+id/trading_with"
@@ -35,49 +34,51 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/titlebar"
+        android:paddingLeft="5dp"
         android:text="@string/trading_with_xyz"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#057777" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/mainBackground" />
 
     <TableRow
+        android:id="@+id/offerHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/trading_with"
-        android:id="@+id/offerHeader"
         android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/offering"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="5"
             android:text="@string/offering"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#057777"
-            android:layout_weight="5" />
+            android:textColor="@color/mainTextColor" />
 
         <TextView
             android:id="@+id/your_inv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="@string/offer_inv"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#057777"
-            android:layout_weight="2" />
+            android:textColor="@color/mainTextColor" />
     </TableRow>
 
     <TableLayout
+        android:id="@+id/Offers"
         android:layout_width="match_parent"
         android:layout_height="170dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/offerHeader"
+        android:layout_centerHorizontal="true"
         android:baselineAligned="false"
         android:clickable="false"
         android:focusable="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:showDividers="beginning|middle|end"
-        android:id="@+id/Offers"
-        android:layout_below="@+id/offerHeader"
-        android:layout_alignParentLeft="true">
+        android:showDividers="beginning|middle|end">
 
         <TableRow
             android:layout_width="match_parent"
@@ -88,83 +89,83 @@
                 android:id="@+id/offerList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_with_border"
                 android:layout_column="0"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/trade_req" />
 
             <ListView
                 android:id="@+id/your_invList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_with_border"
                 android:layout_column="1"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/trade_req" />
         </TableRow>
 
     </TableLayout>
 
     <TableRow
+        android:id="@+id/requestHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/requestHeader"
-        android:clickable="true"
-        android:layout_below="@+id/Offers">
+        android:layout_below="@+id/Offers"
+        android:clickable="true">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/requesting"
             android:id="@+id/requesting"
-            android:singleLine="true"
-            android:textColor="#057777"
-            android:layout_weight="1" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/request_inv"
-            android:id="@+id/other_inv"
+            android:layout_weight="1"
             android:singleLine="true"
-            android:textColor="#057777"
-            android:layout_weight="0" />
+            android:text="@string/requesting"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/mainTextColor" />
+
+        <TextView
+            android:id="@+id/other_inv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:singleLine="true"
+            android:text="@string/request_inv"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/mainTextColor" />
     </TableRow>
 
     <TableLayout
+        android:id="@+id/Requests"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:baselineAligned="false"
-        android:clickable="false"
-        android:focusable="false"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/sendTrade"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/requestHeader"
-        android:showDividers="beginning|middle|end"
-        android:layout_above="@+id/sendTrade"
-        android:id="@+id/Requests">
+        android:layout_centerHorizontal="true"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:showDividers="beginning|middle|end">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2" >
+            android:layout_weight="2">
 
             <ListView
                 android:id="@+id/requestList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_with_border"
                 android:layout_column="0"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/trade_req" />
 
             <ListView
                 android:id="@+id/other_invList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_with_border"
                 android:layout_column="1"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/trade_req" />
         </TableRow>
 
     </TableLayout>
@@ -174,11 +175,15 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/send_trade"
-        android:onClick="sendTrade"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:singleLine="true" />
+        android:background="@drawable/button"
+        android:onClick="sendTrade"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:text="@string/send_trade"
+        android:textColor="@color/listLightYellow" />
 
     <Button
         android:id="@+id/deleteTrade"
@@ -187,7 +192,11 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/sendTrade"
         android:layout_alignParentStart="true"
+        android:background="@drawable/button"
+        android:onClick="deleteRequest"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/delete_trade"
-        android:onClick="deleteRequest"/>
+        android:textColor="@color/listLightYellow" />
 
 </RelativeLayout>

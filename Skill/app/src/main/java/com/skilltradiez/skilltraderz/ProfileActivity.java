@@ -79,7 +79,6 @@ public class ProfileActivity extends ButtonMenuActivity {
 
         viewInventory = (Button) findViewById(R.id.inventory);
         profileTitle = (TextView) findViewById(R.id.user_name);
-        checkBox = (CheckBox) findViewById(R.id.auto_img);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
     }
@@ -151,8 +150,6 @@ public class ProfileActivity extends ButtonMenuActivity {
             deactivateRightButton();
             deactivateLeftButton();
 
-            checkBox.setVisibility(View.VISIBLE);
-            checkBox.setChecked(owner.getProfile().getShouldDownloadImages());
         } else {
             friendListButton.setVisibility(View.INVISIBLE);
         }
