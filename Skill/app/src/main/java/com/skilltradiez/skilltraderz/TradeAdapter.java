@@ -66,7 +66,7 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
 
     /**
      * This method is a UI heavy caretaker that will handle all of the specific details of setting
-     * up the TradeAdapter with a View- and will return the View after it is finished. 
+     * up the TradeAdapter with a View- and will return the View after it is finished.
      * @param position Integer of position on UI.
      * @param view View Object.
      * @param parent ViewGroup Object.
