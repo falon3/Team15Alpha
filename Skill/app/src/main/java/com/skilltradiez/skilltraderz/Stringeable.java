@@ -18,7 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * DESCRIPTION: This class is going to be dedicated to making it so that we have more functionality
+ * This class is going to be dedicated to making it so that we have more functionality
  * on the notification class. This is a subclass of the notification class that allows us to have
  * methods to get the name, descrption or image.
  */

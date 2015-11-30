@@ -26,96 +26,156 @@ import java.util.Set;
  * Activities should ideally never need to interact with the model directly.
  * This acts as a controller that facilitates the communication from the views to the models that
  * we possess.
- * <p/>
+ *
  * Assuming direct control.
  * --Sovereign, mass effect
  */
 public final class MasterController implements ControllerInterface {
+
+    /**Class Variables:
+     * 1: databaseController: Holds a copy of the databaseController, kept static so that the
+     *      controller for the database will always keep it's same database.
+     */
     private static DatabaseController databaseController;
 
     /**
-     * DATABASE RELATED
-     **/
-    //Initialize the master controller.
-    //Absolutely core, this sets up the entire system of controllers.
+     * Initialize the master controller.
+     * Absolutely core, this sets up the entire system of controllers.
+     */
     public void initializeController() {
         databaseController = new DatabaseController();
     }
 
-    //Return the database object! Only available to other controller objects.
+    /**
+     * Return the database object! Only available to other controller objects.
+     * @return UserDatabase Object.
+     */
     public static UserDatabase getUserDB() {
         return databaseController.getUserDB();
     }
 
+
     /**
-     * USER RELATED
-     **/
-    //If we probe for the USER that is currently on the app... returns the USER object of that user.
-    //NOT just the name. USER object.
+     * If we probe for the USER that is currently on the app... returns the USER object of that user.
+     * NOT just the name. USER object.
+     * @return User Object.
+     */
     public static User getCurrentUser() {
         return getUserDB().getCurrentUser();
     }
 
-    //Give the current username from the database.
+    /**
+     * Get the username of the current user from the database.
+     * @return String of the current user username.
+     */
     public String getCurrentUserUsername() {
         return getUserDB().getCurrentUser().getProfile().getUsername();
     }
 
+    /**
+     * Get the email of the current user from the database.
+     * @return String of the current user email.
+     */
     public String getCurrentUserEmail() {
         return getUserDB().getCurrentUser().getProfile().getEmail();
     }
 
-    //Given a profile name we return a user
+    /**
+     * Given a profile name we return a user
+     * @param userProfileName String input of a user's profile name.
+     * @return User Object.
+     */
     public User getUserByName(String userProfileName) {
         return DatabaseController.getAccountByUsername(userProfileName);
     }
 
+    /**
+     * Given an ID Object, return the User Object from the database.
+     * @param userID ID Object.
+     * @return User Object.
+     */
     public User getUserByID(ID userID) {
         return DatabaseController.getAccountByUserID(userID);
     }
 
+
     /**
-     * FRIEND RELATED
-     **/
-    //Do they have THIS friend in particular.
+     * Answers the question "Do they have THIS friend in particular?!" when given a User as a
+     * parameter to this method.
+     * @param friend User Object of the profile in question.
+     * @return Boolean. True/False.
+     */
     public boolean hasFriend(User friend) {
         return getCurrentUser().getFriendsList().hasFriend(friend);
     }
 
+    /**
+     * Adds a given User Object as a friend of the current user.
+     * @param friend User Object of the User to add as a friend.
+     */
     public void addFriend(User friend) {
         getCurrentUser().getFriendsList().addFriend(friend);
     }
 
+    /**
+     * Removes a given User Object from the current user's friend list.
+     * @param friend User Object of the friend to be removed (OWCH!)!
+     */
     public void removeFriend(User friend) {
         getCurrentUser().getFriendsList().removeFriend(friend);
     }
 
+
     /**
-     * SKILLZ RELATED FUNCTIONS
-     **/
-    //Clear the current List<Skill> of skillz!
-    // this seems unnecessary
+     * Clear the current List<Skill> of skillz!
+     * @param skillz List of Skill Objects.
+     */
     public void clearSkillzList(List<Skill> skillz) {
         skillz.clear();
     }
 
+    /**
+     * This method answers the question "Does this user have THIS skill or not?" with a boolean,
+     * pass in the Skill Object to be checked.
+     * @param skill Skill Object.
+     * @return Boolean. True/False.
+     */
     public boolean userHasSkill(Skill skill) {
         return getCurrentUser().getInventory().hasSkill(skill);
     }
 
-    //Obtain from the user database all of the current skills!
+    /**
+     * Obtain from the user database all of the current skills!
+     * @return Set of Skill Objects.
+     */
     public Set<Skill> getAllSkillz() {
         return getUserDB().getSkills();
     }
 
+    /**
+     * Basic getter method that will return the list of all Users of the application from the
+     * database.
+     * @return Set of User Objects.
+     */
     public Set<User> getAllUserz() {
         return getUserDB().getUsers();
     }
 
+
+    /**
+     * Basic getter method that will return the list of ALL Trades of the application from the
+     * database- do not confuse this with getAllTradezForCurrentUser method!
+     * @return Set of Trade Objects.
+     */
     public Set<Trade> getAllTradez() {
         return getUserDB().getTrades();
     }
 
+    /**
+     * Basic getter method that will return the list of Trades Objects of the current user from the
+     * database.
+     * @return List of Trade Objects.
+     */
     public List<Trade> getAllTradezForCurrentUser() {
         ArrayList<Trade> trades = new ArrayList<Trade>();
         for (ID id : getCurrentUser().getTradeList().getTradesList())
@@ -123,29 +183,56 @@ public final class MasterController implements ControllerInterface {
         return trades;
     }
 
+    /**
+     * Create a new Skill Object with the given parameters.
+     * @param name String input.
+     * @param category String input.
+     * @param description String input.
+     * @param quality String input.
+     * @param isVisible Boolean Flag.
+     * @param images List of Image Objects.
+     */
     public void makeNewSkill(String name, String category, String description, String quality, boolean isVisible, List<Image> images) {
         addCurrentSkill(new Skill(getUserDB(), name, category, description, quality, isVisible, images));
         DatabaseController.save();
     }
 
+    /**
+     * Create a new Skill Object with the given parameters.
+     * @param name String input.
+     * @param category String input.
+     * @param description String input.
+     * @param isVisible Boolean Flag.
+     * @param images List of Image Objects.
+     */
     @Deprecated
     public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
         makeNewSkill(name, category, description, "good enough", isVisible, images);
     }
 
+
     /**
-     * SkillDescriptionActivity methods
-     **/
+     * Remove a Skill Object from the current user.
+     * @param currentSkill Skill Object to remove.
+     */
     public void removeCurrentSkill(Skill currentSkill) {
         getCurrentUser().getInventory().remove(currentSkill.getSkillID());
         currentSkill.removeOwner(getCurrentUser().getUserID());
     }
 
+    /**
+     * Add a Skill Object to the current user.
+     * @param currentSkill Skill Object to add.
+     */
     public void addCurrentSkill(Skill currentSkill) {
         getCurrentUser().getInventory().add(currentSkill);
         currentSkill.addOwner(getCurrentUser().getUserID());
     }
 
+    /**
+     * Delete the Trade Object passed in as a parameter from the current user.
+     * @param trade Trade Object to delete.
+     */
     public void deleteTrade(Trade trade) {
         DatabaseController.deleteDocumentTrade(trade.getTradeID());
         getUserDB().getTrades().remove(trade);
@@ -153,6 +240,12 @@ public final class MasterController implements ControllerInterface {
         getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
     }
 
+    /**
+     * Given a list of ID Objects, returns the corresponding Skill Objects to those ID Objects
+     * passed in as parameters.
+     * @param ids List of ID Objects.
+     * @return List of Skill Objects.
+     */
     public List<Skill> getSkillList(List<ID> ids) {
         List<Skill> skills = new ArrayList<Skill>();
         for (ID id : ids)
@@ -160,6 +253,11 @@ public final class MasterController implements ControllerInterface {
         return skills;
     }
 
+    /**
+     * Given a List of ID Objects, return a list of Stringeable Objects.
+     * @param ids List of ID Objects.
+     * @return List of Stringeable Objects.
+     */
     public List<Stringeable> getStringeableSkillList(List<ID> ids) {
         List<Stringeable> skills = new ArrayList<Stringeable>();
         for (ID id : ids)
@@ -167,15 +265,21 @@ public final class MasterController implements ControllerInterface {
         return skills;
     }
 
+
     /**
-     * TradeRequestActivity methods
-     **/
-    //Given the ID of a trade, we will now RETURN a TRADE OBJECT to the caller of this method.
+     * Given the ID of a trade, we will return the corresponding Trade Object to the caller of
+     * this method.
+     * @param identifier ID Object.
+     * @return Trade Object.
+     */
     public Trade getTradeByID(ID identifier) {
         return DatabaseController.getTradeByID(identifier);
     }
 
-    //ACCEPT THE TRADE
+    /**
+     * Given a Trade Object as a parameter, this method will confirm the Trade as being accepted.
+     * @param trade Trade Object to be accepted.
+     */
     public void acceptTheCurrentTrade(Trade trade) {
         trade.getHalfForUser(getCurrentUser()).setAccepted(true);
     }
