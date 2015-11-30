@@ -70,7 +70,6 @@ public class InventoryActivity extends SearchMenuActivity {
 
     private Context inventoryContext = this;
     private User currentUser;
-    private List<Skill> skillz;
     private List<Stringeable> foundSkillz;
 
     private Button searchButton, startTrade;
@@ -166,8 +165,6 @@ public class InventoryActivity extends SearchMenuActivity {
      * Creates a new ArrayList of Stringeables and assigns it to the class variable foundSkillz.
      */
     private void loadSkillz() {
-        Inventory inv = currentUser.getInventory();
-        skillz = inv.cloneSkillz(masterController.getUserDB());
         foundSkillz = new ArrayList<Stringeable>();
     }
 
