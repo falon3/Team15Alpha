@@ -59,13 +59,14 @@ public class ProfileActivity extends ButtonMenuActivity {
      *      be downloaded or not.
      */
     static String UNIQUE_PARAM = "user_name_for_profile";
+    static String CITY_PARAM = "Go to settings to input a city!";
     private Bundle profileExtras;
     private String userProfileName;
     private User owner;
     private Boolean hasFriend;
     private Context profileContext = this;
     private Button viewInventory, friendListButton;
-    private TextView userContactInfo, profileTitle;
+    private TextView userContactInfo, profileTitle, userCityInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class ProfileActivity extends ButtonMenuActivity {
         viewInventory = (Button) findViewById(R.id.inventory);
         profileTitle = (TextView) findViewById(R.id.user_name);
         userContactInfo = (TextView) findViewById(R.id.user_description);
+        userCityInfo = (TextView) findViewById(R.id.user_city);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
     }
 
@@ -117,6 +119,13 @@ public class ProfileActivity extends ButtonMenuActivity {
 
         profileTitle.setText(owner.getProfile().getUsername());
         userContactInfo.setText(owner.getProfile().getEmail());
+
+        if(owner.getProfile().getLocation()==null){
+            userCityInfo.setText(CITY_PARAM);
+        } else {
+            userCityInfo.setText(owner.getProfile().getLocation());
+        }
+        System.out.println("Location?" + owner.getProfile().getLocation());
     }
 
     /**
