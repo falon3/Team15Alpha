@@ -167,6 +167,7 @@ public final class DatabaseController implements ControllerInterface{
             MasterController.getUserDB().getElastic().addDocument("trade", trade.getTradeID().toString(), trade);
         } catch (IOException e) {
             //TODO this is bad and the user won't even know
+            //actually, it's probably fine, it's on the changelist
             e.printStackTrace();
         }
     }
