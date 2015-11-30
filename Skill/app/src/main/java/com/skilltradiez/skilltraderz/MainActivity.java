@@ -18,12 +18,14 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.skilltradiez.skilltraderz.R;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -71,7 +73,8 @@ public class MainActivity extends GeneralMenuActivity {
         super.onCreate(savedInstanceState);
 
         masterController = new MasterController();
-        masterController.initializeController();
+        if (masterController.getDatabaseController() == null)
+            masterController.initializeController();
 
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -79,6 +82,12 @@ public class MainActivity extends GeneralMenuActivity {
 
         if (DatabaseController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
+
+            recentActivities = (ListView) findViewById(R.id.activitiesList);
+            notifications = new ArrayList<Notification>();
+            adapter = new RecentActivityAdapter(this, notifications);
+
+            recentActivities.setAdapter(adapter);
         } else {
             setContentView(R.layout.first_time_user);
 
@@ -87,12 +96,6 @@ public class MainActivity extends GeneralMenuActivity {
             newUserEmail = (EditText) findViewById(R.id.emailField);
             makeNewUser = (Button) findViewById(R.id.beginApp);
         }
-
-        recentActivities = (ListView) findViewById(R.id.activitiesList);
-        notifications = new ArrayList<Notification>();
-        adapter = new RecentActivityAdapter(this, notifications);
-
-        recentActivities.setAdapter(adapter);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -125,9 +128,12 @@ public class MainActivity extends GeneralMenuActivity {
     @Override
     public void onResume() {
         super.onResume();
-        notifications.clear();
-        notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
-        adapter.notifyDataSetChanged();
+        System.out.println("Mainactivity onresume");
+        if (DatabaseController.isLoggedIn()) {
+            notifications.clear();
+            notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -168,6 +174,12 @@ public class MainActivity extends GeneralMenuActivity {
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
                 setContentView(R.layout.activity_main);
+
+                recentActivities = (ListView) findViewById(R.id.activitiesList);
+                notifications = new ArrayList<Notification>();
+                adapter = new RecentActivityAdapter(this, notifications);
+
+                recentActivities.setAdapter(adapter);
             } else {
                 Toast.makeText(context, username + " Already Exists!", Toast.LENGTH_SHORT).show();
                 // Do nothing

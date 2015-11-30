@@ -125,7 +125,8 @@ class ChangeList {
         List<Notification> notifications = getNotificationsAsList(),
                 changed = new ArrayList<Notification>();
         for (Notification note: notifications)
-            if (note.isSticky()) {
+            if (note.isSticky() && note.relatesToUser(MasterController.getCurrentUser().getUserID())) {
+                note.setSticky(false);
                 changed.add(note);
             }
         return changed;

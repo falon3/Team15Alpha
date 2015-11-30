@@ -130,12 +130,9 @@ public class SearchScreenActivity extends SearchMenuActivity {
         sortingSpinner.setSelection(sortAdapter.getPosition(filter2));
     }
 
-    /**
-     * Handles UI Affairs.
-     */
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -175,6 +172,14 @@ public class SearchScreenActivity extends SearchMenuActivity {
                 }
             }
         });
+    }
+
+    /**
+     * Handles UI Affairs.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
 
         loadItems();
         resultsList.setAdapter(searchAdapter);
@@ -253,7 +258,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
         } else if (screenType == 2) { // Trade History
             List<Trade> trades = masterController.getAllTradezForCurrentUser();
             for (Trade t : trades) {
-                if (t.toString().toLowerCase().contains(search) &&
+                if (t != null &&
+                        t.toString().toLowerCase().contains(search) &&
                         (category.equals("all") ||
                                 (category.equals("active") && t.isActive()) ||
                                 (category.equals("inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)

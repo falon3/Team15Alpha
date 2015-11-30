@@ -120,6 +120,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -139,7 +140,7 @@ public class Skill extends Stringeable {
     private List<ID> images;
     private boolean visible;
     private ID skillID = ID.generateRandomID();
-    private ArrayList<ID> owners;
+    private Set<ID> owners;
 
     /**
      * Creates a new skill with the parameters passed into this constructor.
@@ -167,7 +168,7 @@ public class Skill extends Stringeable {
      */
     Skill(UserDatabase db, String skill_name, String category, String description, String quality, boolean isVisible, List<Image> images) {
         setName(skill_name);
-        owners = new ArrayList<ID>();
+        owners = new HashSet<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
         setVisible(isVisible);
@@ -190,7 +191,7 @@ public class Skill extends Stringeable {
      */
     Skill(UserDatabase db, Skill skill) {
         setName(skill.getName());
-        owners = new ArrayList<ID>();
+        owners = new HashSet<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(skill.getCategory());
         setVisible(skill.isVisible());
@@ -442,7 +443,7 @@ public class Skill extends Stringeable {
                 System.out.println(prev_version.isOwner(owner));
                 System.out.println(prev_version.getNumOwners());
                 // i think this happens when the user isn't a previous owner!
-                throw new RuntimeException();
+                return true; // give up
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -497,6 +498,11 @@ public class Skill extends Stringeable {
         return !owners.isEmpty();
     }
 
+    public void removeAllOwners() {
+        owners.clear();
+        notifyDB();
+    }
+
     /**
      * Will take in an Object (any ol object...) of the Object type; and will then compare the
      * current object with the object passed into the method. If they are equal return true. If
@@ -524,6 +530,13 @@ public class Skill extends Stringeable {
     @Override
     public int hashCode() {
         return skillID != null ? skillID.hashCode() : 0;
+    }
+
+    public boolean relatesToUser(ID userID) {
+        for (ID id:owners)
+            if (userID.equals(id))
+               return true;
+        return false;
     }
 
     public String getType() {

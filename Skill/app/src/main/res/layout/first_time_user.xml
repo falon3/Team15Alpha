@@ -28,13 +28,17 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textColor="#057777"
+        android:background="@drawable/titlebar"
+        android:textColor="@color/mainBackground"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/welcome_to_app"
         android:id="@+id/welcomeMessage"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -44,6 +48,7 @@
         android:id="@+id/usernameField"
         android:maxLength="15"
         android:layout_marginBottom="57dp"
+        android:textColor="@color/mainTextColor"
         android:layout_alignEnd="@+id/emailField"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -66,6 +71,7 @@
         android:inputType="textEmailAddress"
         android:hint="@string/what_is_your_email"
         android:id="@+id/emailField"
+        android:textColor="@color/mainTextColor"
         android:layout_centerInParent="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
@@ -76,6 +82,9 @@
         android:layout_height="wrap_content"
         android:text="Delete entire database"
         android:id="@+id/deleteDatabase"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="deleteDatabase" />

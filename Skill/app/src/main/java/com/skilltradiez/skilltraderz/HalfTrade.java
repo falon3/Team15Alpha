@@ -197,4 +197,9 @@ public class HalfTrade extends Notification {
     public String getDescription() {
         return "";
     }
+
+    public boolean relatesToUser(ID userID) {
+        // I DON'T CARE
+        return false;
+    }
 }

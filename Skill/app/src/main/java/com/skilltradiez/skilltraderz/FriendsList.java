@@ -138,7 +138,7 @@ public class FriendsList extends Notification {
      * @return String "FriendsList"
      */
     public String getType() {
-        return "FriendsList";
+        return DatabaseController.getAccountByUserID(owner).getProfile().getName()+"'s FriendsList";
     }
 
     /**
@@ -157,5 +157,9 @@ public class FriendsList extends Notification {
      */
     public String getDescription() {
         return "";
+    }
+
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(owner);
     }
 }

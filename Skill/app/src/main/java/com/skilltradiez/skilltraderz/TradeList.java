@@ -244,7 +244,7 @@ public class TradeList extends Notification {
                 tradePartner.getTradeList().delete(trade);
             }
             //IF the tradeId is in the current user's list then delete it.
-            else if (currentUser.getTradeList().contains(tradeId)){
+            if (currentUser.getTradeList().contains(tradeId)){
                 currentUser.getTradeList().delete(trade);
             }
 
@@ -272,12 +272,16 @@ public class TradeList extends Notification {
         MasterController.getCurrentUser().getProfile().tradeSuccess();
     }
 
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(owner);
+    }
+
     /**
      * Basic getter method that returns the type of the TradeList Object.
      * @return String "TradesList"
      */
     public String getType() {
-        return "TradesList";
+        return DatabaseController.getAccountByUserID(owner).getProfile().getName()+"'s TradesList";
     }
 
     /**

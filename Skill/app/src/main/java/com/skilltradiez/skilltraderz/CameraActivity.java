@@ -62,10 +62,8 @@ public class CameraActivity extends GeneralMenuActivity {
      * @param prevImages List of ID Objects related to Images.
      */
     public void addImages(List<ID> prevImages) {
-        List<Image> images = new ArrayList<Image>();
         for (ID id : prevImages)
             images.add(DatabaseController.getImageByID(id));
-        this.images = images;
     }
 
     /**
