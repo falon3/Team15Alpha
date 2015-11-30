@@ -44,17 +44,19 @@ public class TradeRequestActivity extends GeneralMenuActivity {
                 ACTIVE_USER_ID_PARAM = "user_id",
                 PASSIVE_USER_ID_PARAM = "puser_id";
     private Context tradeContext = this;
-
     private Button sendTrade, counterTrade, cancelTrade;
     private TextView tradeTitle, offerer, requestee;
     private ListView offerList, requestList;
-
     private ListAdapter offerAdapter, requestAdapter;
-
     private Trade trade;
     private User activeUser, passiveUser;
     private List<Stringeable> offer, request;
 
+    /**
+     * Android Standard onCreate method, involved in setting up most of the UI aspects of
+     * the application.
+     * @param savedInstanceState Bundle Object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +93,10 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         requestAdapter = new ListAdapter(this, request);
     }
 
+    /**
+     * Android Standard onStart method, involved in setting up the UI elements for the
+     * application to run in this Activity.
+     */
     @Override
     public void onStart(){
         super.onStart();
@@ -133,12 +139,22 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         requestAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * This method takes in a Skill Object and will start a new SkillDescriptionActivity
+     * Intent with the skill when clicked.
+     * @param skill Skill Object.
+     */
     public void clickOnSkill(Skill skill) {
         Intent intent = new Intent(this, SkillDescriptionActivity.class);
         intent.putExtra(SkillDescriptionActivity.ID_PARAM, skill.getSkillID());
         startActivity(intent);
     }
 
+    /**
+     * Delete the current Request from the application.
+     * Provides an adorable little toast message to confirm success!
+     * @param view View Object.
+     */
     public void deleteRequest(View view){
         masterController.deleteTrade(trade);
 
@@ -148,6 +164,11 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         finish();
     }
 
+    /**
+     * Begins a new activity for the user of the application to go to the EditTradeActivity page,
+     * as a plethora of extra information passed along to this activity to allow specificity.
+     * @param view View Object.
+     */
     public void counterRequest(View view) {
         Intent intent = new Intent(tradeContext, EditTradeActivity.class);
         intent.putExtra(EditTradeActivity.ACTIVE_PARAM, activeUser.getUserID());
@@ -156,6 +177,10 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         startActivity(intent);
     }
 
+    /**
+     * Accept a Trade Request.
+     * @param view View Object.
+     */
     public void acceptRequest(View view){
         trade.getHalfForUser(activeUser).setAccepted(true);
         trade.checkIfComplete();
