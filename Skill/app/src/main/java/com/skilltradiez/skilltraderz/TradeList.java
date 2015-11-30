@@ -244,7 +244,7 @@ public class TradeList extends Notification {
                 tradePartner.getTradeList().delete(trade);
             }
             //IF the tradeId is in the current user's list then delete it.
-            else if (currentUser.getTradeList().contains(tradeId)){
+            if (currentUser.getTradeList().contains(tradeId)){
                 currentUser.getTradeList().delete(trade);
             }
 
