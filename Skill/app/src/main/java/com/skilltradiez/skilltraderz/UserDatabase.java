@@ -186,6 +186,13 @@ public class UserDatabase {
         //TODO THIS IS BAD!!!!!!!!!!!
         //THIS INVALIDATES EVERY USER OBJECT EVERYWHERE!
         //NEED TO COPY IN THE DATA INSTEAD.
+        if (this.currentUser != null) {
+            getChangeList().remove(this.currentUser.getFriendsList());
+            getChangeList().remove(this.currentUser.getTradeList());
+            getChangeList().remove(this.currentUser.getProfile());
+            getChangeList().remove(this.currentUser.getInventory());
+        }
+
         this.currentUser = currentUser;
 
         getChangeList().add(currentUser.getFriendsList());
