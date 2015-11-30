@@ -120,6 +120,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -139,7 +140,7 @@ public class Skill extends Stringeable {
     private List<ID> images;
     private boolean visible;
     private ID skillID = ID.generateRandomID();
-    private ArrayList<ID> owners;
+    private Set<ID> owners;
 
     /**
      * Creates a new skill with the parameters passed into this constructor.
@@ -167,7 +168,7 @@ public class Skill extends Stringeable {
      */
     Skill(UserDatabase db, String skill_name, String category, String description, String quality, boolean isVisible, List<Image> images) {
         setName(skill_name);
-        owners = new ArrayList<ID>();
+        owners = new HashSet<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(category);
         setVisible(isVisible);
@@ -190,7 +191,7 @@ public class Skill extends Stringeable {
      */
     Skill(UserDatabase db, Skill skill) {
         setName(skill.getName());
-        owners = new ArrayList<ID>();
+        owners = new HashSet<ID>();
         owners.add(db.getCurrentUser().getUserID());
         setCategory(skill.getCategory());
         setVisible(skill.isVisible());
@@ -495,6 +496,11 @@ public class Skill extends Stringeable {
      */
     public boolean hasOwners() {
         return !owners.isEmpty();
+    }
+
+    public void removeAllOwners() {
+        owners.clear();
+        notifyDB();
     }
 
     /**
