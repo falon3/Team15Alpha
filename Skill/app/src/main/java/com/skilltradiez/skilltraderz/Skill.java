@@ -443,7 +443,7 @@ public class Skill extends Stringeable {
                 System.out.println(prev_version.isOwner(owner));
                 System.out.println(prev_version.getNumOwners());
                 // i think this happens when the user isn't a previous owner!
-                throw new RuntimeException();
+                return true; // give up
             }
         } catch (IOException e) {
             e.printStackTrace();
