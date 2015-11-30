@@ -270,7 +270,6 @@ public class TradeList extends Notification {
      */
     public void tradeComplete(ID tradeID) {
         MasterController.getCurrentUser().getProfile().tradeSuccess();
-        delete(tradeID);
     }
 
     public String getType() {
