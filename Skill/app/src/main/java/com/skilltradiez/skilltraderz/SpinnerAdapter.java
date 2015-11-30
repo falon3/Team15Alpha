@@ -45,10 +45,25 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         setDropDownViewResource(R.layout.spinner_item);
     }
 
+    /**
+     * Returns a View with a drop down view, specifically by invoking the getView method and
+     * returning the result of that method.
+     * @param position Integer value.
+     * @param convertView View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return getView(position, convertView, parent);
     }
 
+    /**
+     * Takes in a set of parameters and greates a new specialized UI view for the dropdown view.
+     * @param position Integer value.
+     * @param view View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     public View getView(int position, View view, ViewGroup parent) {
         T item = itemList.get(position);
 
@@ -68,7 +83,9 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         return view;
     }
 
-    // Acting As A Struct
+    /**
+     * This class is acting in a similar manner to a struct here.
+     */
     public class ViewHolder {
         TextView item;
     }
