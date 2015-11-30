@@ -6,13 +6,15 @@
   3. Implement more use cases. 
 
 ####Part 5 Requirements
-   1. Code Base of Prototype: have a [code base](https://github.com/CMPUT301F15T15/Team15Alpha)
-   2. Demonstrate something tangible [video](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
-   3. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
-   Javadoc interface documentation: [Javadocs of glory](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
+   1. Code Base of Prototype: [have a code base](https://github.com/CMPUT301F15T15/Team15Alpha)
+   2. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
+   3. Javadoc interface documentation: [Javadocs of glory](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
    4. Test Cases: [All 37 complete successfully](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
-   5. Object-Oriented Design: Our [UML](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
-   6. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
+   5. [Requirement Specifications](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
+   6. Object-Oriented Design: Our [UML](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
+   7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
+   8. [Reuse Statement](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Reuse-Statement)
+   9. [Demonstrate something tangible](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
 
 
 ## License 
