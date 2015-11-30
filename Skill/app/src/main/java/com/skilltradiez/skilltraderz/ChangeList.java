@@ -230,6 +230,7 @@ class ChangeList {
                         note.notifyDB();
             } catch (Exception e2) {
                 // if exception then also fails to commit
+                e2.printStackTrace();
                 note.notifyDB();
             }
         }
