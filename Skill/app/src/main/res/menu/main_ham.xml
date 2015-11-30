@@ -22,6 +22,10 @@
     xmlns:skillz="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:title=""
+        android:id="@+id/BLANK_SPACE"
+        skillz:showAsAction="always" />
+    <item
         android:id="@+id/Go_Profile_Menu"
         android:icon="@drawable/ic_person"
         android:title="@string/go_profile"
@@ -40,6 +44,10 @@
         android:id="@+id/Go_To_Settings"
         android:title="@string/go_to_settings"
         android:icon="@drawable/ic_settings"
+        skillz:showAsAction="always" />
+    <item
+        android:title=""
+        android:id="@+id/BLANK_SPACE2"
         skillz:showAsAction="always" />
 
 </menu>

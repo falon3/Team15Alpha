@@ -256,7 +256,10 @@ public class TradeList extends Notification {
      * @param tradeID ID Object.
      */
     public void tradeComplete(ID tradeID) {
-        MasterController.getCurrentUser().getProfile().tradeSuccess();
+        Trade t = DatabaseController.getTradeByID(tradeID);
+        DatabaseController.getAccountByUserID(t.getHalf1().getUser()).getProfile().tradeSuccess();
+        DatabaseController.getAccountByUserID(t.getHalf2().getUser()).getProfile().tradeSuccess();
+        DatabaseController.save();
     }
 
     public boolean relatesToUser(ID userID) {

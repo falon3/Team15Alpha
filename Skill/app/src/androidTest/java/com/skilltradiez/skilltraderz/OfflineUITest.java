@@ -136,7 +136,7 @@ public class OfflineUITest {
 
     }
     @Test
-    public void testBrowseFriendInventory() throws UserAlreadyExistsException {
+    public void testBrowseFriendInventory() throws UserAlreadyExistsException, NoInternetException {
         String friend = "Fr_Of" + TestUtilities.getRandomString();
         String username = "User" + TestUtilities.getRandomString();
         String email = "eTest" + TestUtilities.getRandomString();
@@ -175,7 +175,7 @@ public class OfflineUITest {
     }
     // should be able to start a trade offline
     @Test
-    public void testStartTrade() throws UserAlreadyExistsException {
+    public void testStartTrade() throws UserAlreadyExistsException, NoInternetException {
         String tradeFriend = "Al" + TestUtilities.getRandomString();
         String tradeUsername = "Bo" + TestUtilities.getRandomString();
         String tradeEmail = "Em" + TestUtilities.getRandomString();

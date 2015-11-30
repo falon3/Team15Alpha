@@ -38,7 +38,6 @@ import java.util.List;
  * through our application.
  */
 
-//TODO EVERYTHING: this is more the result, not the action; of trading
 public class TradeRequestActivity extends GeneralMenuActivity {
     static String TRADE_ID_PARAM = "trade_id",
                 ACTIVE_USER_ID_PARAM = "user_id",

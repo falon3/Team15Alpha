@@ -1,6 +1,6 @@
 <resources>
     <!-- App name and Activity titles -->
-    <string name="app_name">Skill Traderz</string>
+    <string name="app_name">SkillTradiez</string>
     <string name="action_settings">Action Settings</string>
     <string name="title_activity_search_results">SearchResults</string>
     <string name="title_activity_search_screen">SearchScreenActivity</string>

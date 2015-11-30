@@ -69,6 +69,17 @@
                 android:textAlignment="textEnd" />
 
             <TextView
+                android:id="@+id/topNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/desc"
+                android:text="TopNum: "
+                android:textAlignment="textStart"
+                android:textColor="@color/ListViewYellow"
+                android:paddingTop="5dp"
+                android:layout_alignRight="@+id/desc" />
+
+            <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

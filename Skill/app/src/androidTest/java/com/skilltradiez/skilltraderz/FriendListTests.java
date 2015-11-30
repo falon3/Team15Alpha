@@ -26,7 +26,7 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.FriendListTests.class);
     }
 
-    public void testAddFriend() throws UserAlreadyExistsException {
+    public void testAddFriend() throws UserAlreadyExistsException, NoInternetException {
         UserDatabase db = new UserDatabase();
         DatabaseController.deleteAllData();
 
@@ -39,7 +39,7 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         assertTrue(user2.getFriendsList().hasFriend(user1));
     }
 
-    public void testRemoveFriend() throws UserAlreadyExistsException {
+    public void testRemoveFriend() throws UserAlreadyExistsException, NoInternetException {
         UserDatabase db = new UserDatabase();
         DatabaseController.deleteAllData();
 

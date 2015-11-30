@@ -84,7 +84,6 @@ public class EditTradeActivity extends ButtonMenuActivity {
     private ListView offerList, yourInvList, requestList, otherInvList;
 
     private TextView tradeTitle, otherInvTitle;
-    private Button sendTrade, cancelTrade;
 
     private ArrayList<Skill> offer, yourInv, request, otherInv;
     private User activeUser, passiveUser;
@@ -115,9 +114,6 @@ public class EditTradeActivity extends ButtonMenuActivity {
         otherInv = new ArrayList<Skill>();
 
         // Get UI elements
-        sendTrade = (Button) findViewById(R.id.sendTrade);
-        cancelTrade = (Button) findViewById(R.id.deleteTrade);
-
         tradeTitle = (TextView) findViewById(R.id.trading_with);
         otherInvTitle = (TextView) findViewById(R.id.other_inv);
 
@@ -209,6 +205,11 @@ public class EditTradeActivity extends ButtonMenuActivity {
     private void loadItems() {
         DatabaseController.refresh();
 
+        yourInv.clear();
+        otherInv.clear();
+        offer.clear();
+        request.clear();
+
         // Fill two Lists
         yourInv.addAll(activeUser.getInventory().cloneSkillz());
         otherInv.addAll(passiveUser.getInventory().cloneSkillz());
@@ -247,7 +248,6 @@ public class EditTradeActivity extends ButtonMenuActivity {
      * @param view View Object of the EditTradeActivity.
      */
     public void deleteRequest(View view){
-        //TODO delete the trade
         if (trade != null)
             masterController.deleteTrade(trade);
 
@@ -274,6 +274,7 @@ public class EditTradeActivity extends ButtonMenuActivity {
         }
         if (trade != null){
             trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);
+            DatabaseController.addTrade(trade);
         } else {
             trade = activeUser.getTradeList().createTrade(masterController.getUserDB(), activeUser, passiveUser, offer, request);
         }
