@@ -256,16 +256,29 @@ public class Trade extends Stringeable {
         return string;
     }
 
+    /**
+     * The most basic getter method ever. Returns "Trade". Literally. "Trade".
+     * @return String of the type... which will be "Trade". Literally.
+     */
     public String getType() {
         return "Trade";
     }
 
+    /**
+     * Basic getter method that returns either that the trade is "Complete" or "In-Progress".
+     * @return String, either "Complete" or "In-Progress".
+     */
     public String getStatus() {
         if (!isActive())
             return "Complete";
         return "In-Progress";
     }
 
+    /**
+     * Basic getter method that returns a formatted string of the first user appended with a fancy
+     * format string and then appended onto that the second username.
+     * @return String that is formatted like "Username1 has begun a trade with Username2".
+     */
     public String getDescription() {
         return DatabaseController.getAccountByUserID(half1.getUser()).getProfile().getUsername() +
                 " has begun a trade with " +
