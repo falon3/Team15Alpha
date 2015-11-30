@@ -120,18 +120,7 @@ public class EditSkillActivity extends CameraActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skillCategory.setAdapter(adapter);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        setAddImageCallback(new Runnable() {
-            @Override
-            public void run() {
-                imageAdapter.notifyDataSetChanged();
-            }
-        });
-        // We need to be able to edit an existing skill
         if (getIntent().hasExtra(ID_PARAM)) {
             skillToEdit = DatabaseController.getSkillByID((ID) getIntent().getExtras().get(ID_PARAM));
             skillName.setText(skillToEdit.getName());
@@ -141,10 +130,15 @@ public class EditSkillActivity extends CameraActivity {
             skillVisible.setChecked(skillToEdit.isVisible());
             setQuality(skillToEdit.getQuality());
             addSkillToDB.setText("Save changes");
+            imageAdapter.notifyDataSetChanged();
         }
-        imageAdapter.notifyDataSetChanged();
+        setAddImageCallback(new Runnable() {
+            @Override
+            public void run() {
+                imageAdapter.notifyDataSetChanged();
+            }
+        });
     }
-
 
     /**
      * Notifies the imageAdapter that there is a new image to display.
@@ -330,14 +324,20 @@ public class EditSkillActivity extends CameraActivity {
             //Toasty
             Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
         } else { // if we are editing an existing skill
+            if (skillToEdit.getNumOwners() > 1) {
+                MasterController.getCurrentUser().getInventory().remove(skillToEdit.getSkillID());
+                skillToEdit = new Skill(MasterController.getUserDB(), skillToEdit);
+                skillToEdit.removeAllOwners();
+                skillToEdit.addOwner(MasterController.getCurrentUser().getUserID());
+                MasterController.getCurrentUser().getInventory().add(skillToEdit);
+            }
             skillToEdit.setName(name);
             skillToEdit.setDescription(description);
             skillToEdit.setCategory(category);
             skillToEdit.setQuality(quality);
             skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
-            skillToEdit.setImages(getImages());
-
+            DatabaseController.addSkill(skillToEdit);
             DatabaseController.save();
 
             Toast.makeText(context, "Skill saved!", Toast.LENGTH_SHORT).show();
