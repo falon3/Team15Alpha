@@ -210,14 +210,27 @@ public class Profile extends Stringeable {
         notifyDB();
     }
 
+    /**
+     * Basic getter method that returns a string of the type of the Profile Object.
+     * @return String "Your Profile"
+     */
     public String getType() {
         return "Your Profile";
     }
 
+    /**
+     * Basic getter method that returns a string of the status of the Profile Objekt.
+     * @return String "Edited"
+     */
     public String getStatus() {
         return "Edited";
     }
 
+    /**
+     * Basic getter method that returns formatted string of the description of the email
+     * and location.
+     * @return String formatted of "email, location."
+     */
     public String getDescription() {
         return email+(location == null ? "" : ", "+location+".");
     }

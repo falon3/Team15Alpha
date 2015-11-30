@@ -272,14 +272,26 @@ public class TradeList extends Notification {
         MasterController.getCurrentUser().getProfile().tradeSuccess();
     }
 
+    /**
+     * Basic getter method that returns the type of the TradeList Object.
+     * @return String "TradesList"
+     */
     public String getType() {
         return "TradesList";
     }
 
+    /**
+     * Basic getter method that returns the status of the TradeList Object.
+     * @return String of the Status of the TradeList Object.
+     */
     public String getStatus() {
         return "";
     }
 
+    /**
+     * Basic getter method that returns the description of the TradeList Object.
+     * @return String description of TradeList Object.
+     */
     public String getDescription() {
         return "A trade has occured.";
     }

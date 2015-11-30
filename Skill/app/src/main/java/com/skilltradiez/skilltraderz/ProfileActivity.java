@@ -169,6 +169,11 @@ public class ProfileActivity extends ButtonMenuActivity {
         startActivity(intent);
     }
 
+    /**
+     * This method activates when the left button on the UI is clicked. This will cause the
+     * startTrade method to be invoked with the View
+     * @param v View Object.
+     */
     @Override
     public void clickOnLeftButton(View v) {
         startTrade(v);
