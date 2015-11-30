@@ -83,11 +83,10 @@ public class Trade extends Stringeable {
     }
 
     public void set(UserDatabase userDB, User user1, User user2, List<Skill> offer, List<Skill> request){
-        Trade t = new Trade(userDB, user1, user2);
-        t.getHalfForUser(user1).setOffer(offer);
-        t.getHalfForUser(user1).setAccepted(true);
-        t.getHalfForUser(user2).setOffer(request);
-        t.getHalfForUser(user2).setAccepted(false);
+        getHalfForUser(user1).setOffer(offer);
+        getHalfForUser(user1).setAccepted(true);
+        getHalfForUser(user2).setOffer(request);
+        getHalfForUser(user2).setAccepted(false);
     }
 
     @Override
@@ -188,7 +187,6 @@ public class Trade extends Stringeable {
 
     @Override
     public String toString() {
-        MasterController msCont = new MasterController();
         String string = half1.getUser().toString() + " " + half2.getUser().toString() + " ";
 
         // Skill Names: Might be a bit much
