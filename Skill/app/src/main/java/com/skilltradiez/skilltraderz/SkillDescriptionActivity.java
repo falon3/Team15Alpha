@@ -27,43 +27,12 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-/**~~DESCRIPTION:
+/**
  * We want an android framework that will support the ability for the user to interact
  * with our application in a very logical and easy way. So we're going to create an activity
  * that is associated with just the activities with the user. This activity is going to be
  * associated purely with the entire skill description process that the user will need to interact
  * with through our application.
- *
- * ~~ACCESS:
- * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
- * we can have this class actually be accessed technically anywhere in the application that
- * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
- * an instance of the "EditTradeActivity" object.
- *
- * Instead what is happening is that we are having this activity be called by the onCreate() method
- * as is traditionally done in the android studio framework for android applications. In this
- * instance we're going to create this activity and then we'll have an onstart() method following
- * this which is going to make it so that we have this activate a cascade of events that are all
- * interelated with the main primary goal of allowing us to have a screen where we edit the
- * trading activity!
- *
- *~~CONSTRUCTOR:
- * Upon calling the method onCreate() for this activity the android studio framework will
- * cause the android application to create an instance of this actvity and display it to the user.
- *
- * ~~ATTRIBUTES/METHODS:
- * 1: SETSKILLTITLE:
- *     This is more of a UI element but this will allow us to actually set the value of the title
- *     for this particular skill description for the particular application.
- * 2: SETSKILLDESCRIPTION:
- *     Suppose we want to have the user modify the skill description, through the UI this
- *     method will be invoked that will allow the user to actually set their skill description
- *     for the rest of the application.
- *
- * 3: ADDREMOVESKILL:
- *     This is going to be the entire process of adding or removing a skill from a skill description
- *     when we actually have the user interact with the UI to call this method that will
- *     allow them to add or remove a damn skill.
  */
 
 public class SkillDescriptionActivity extends GeneralMenuActivity {

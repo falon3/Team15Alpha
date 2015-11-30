@@ -38,91 +38,31 @@ import android.widget.Toast;
  * that is associated with just the activities with the user. This activity is going to be
  * associated purely with the profile process that the user will need to interact
  * with through our application.
- *
- * ~~ACCESS:
- * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
- * we can have this class actually be accessed technically anywhere in the application that
- * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
- * an instance of the "EditTradeActivity" object.
- *
- * Instead what is happening is that we are having this activity be called by the onCreate() method
- * as is traditionally done in the android studio framework for android applications. In this
- * instance we're going to create this activity and then we'll have an onstart() method following
- * this which is going to make it so that we have this activate a cascade of events that are all
- * interelated with the main primary goal of allowing us to have a screen where we edit the
- * trading activity!
- *
- *~~CONSTRUCTOR:
- * Upon calling the method onCreate() for this activity the android studio framework will
- * cause the android application to create an instance of this actvity and display it to the user.
- *
- * ~~ATTRIBUTES/METHODS:
- * 1: VIEWEDUSER:
- *     Suppose we view a user, we want to keep track of this, and so we are going to store
- *     this as a very basic User object class. This is assigned early on in the creation
- *     of this activity.
- *
- *
- * 2: VIEWINGUSER:
- *     When we are currently viewing a user we will maintain a record of that user and this is
- *     going to be stored as a User attribute where we maintain the user that we're currently
- *     ordering the UI to actually make us look at.
- *
- * 3: SETUSERDESCRIPTION:
- *     This is the method that will be called when the user interacts with the UI in order
- *     to change their description of the user. This will activate a series of statements
- *     that will grant the ability for the user to modify their user description.
- *
- * 4: CHECKINVENTORY:
- *     This is going to be the UI method called that when the user wants to check the inventory
- *     of another user they will then have the inventory of the other user appear on their screen.
- *     And then we have things update and modify themselves and change around.
- *
- * 5: STARTTRADE:
- *     This is the method called when the user clicks in the userinterface for the goal of starting
- *     a trade with the other user. This is going to invoke a cascade of methods that will
- *     then initiate a trade request.
- *
- *
- * 6: ADDFRIEND:
- *     This is going to be the method called when the user is on another user's profile
- *     and they want to add them as a friend and then this will make a series of functional
- *     calls where the user who's profile we're currently on is going to be udpdated on the
- *     friends list with a friend request.
- *
- *     Of course until this is accepted you are NOT the other user's friend.
- *     Mean girls pls.
- *
- *  7:REMOVEFRIEND:
- *      This is how we interact with the other user's profile to actualyl remove the user from
- *      our friendslist. This is going to be located on the profile of an ALREADY ADDED/FRIENDED
- *      user and then we will have it so that the friendlists are updated with the mutual
- *      removal of each user from eachothers friends lists.
- *
- *  8: BLOCKUNBLOCKEDUSER:
- *      This is going to be a mutual method where we have the ability to both
- *      block and unblock a particular user. This is going to update our block lists and when
- *      the user is already blocked we have this method UNblock the user and when the user is NOT YET
- *      blocked and we click this we then block the user.
- *
- *  9: CHECKUSER:
- *     This is going to return the ID of the user that we're looking at. Simple as that, allowing
- *     us to see just who this particular user is!
- *
- *
- *
  */
 
 public class ProfileActivity extends ButtonMenuActivity {
+    /**Activity Class Variables:
+     * 1: UNIQUE_PARAM: A constant string that is passed into methods to maintain consistency.
+     * 2: profileExtras: A Bundle variable that is involved in the UI.
+     * 3: userProfileName: The current Profile's username.
+     * 4: owner: The username of the owner of the Profile being viewed.
+     * 5: hasFriend: A boolean flag stating if this profile's user is or is not a friend of the
+     *      current user.
+     * 6: profileContext: A variable that is involved in the UI.
+     * 7: viewInventory: A Button that the user may click to view inventories.
+     * 8: friendListButton: A Button that the user may click to view the friendslist.
+     * 9: userContactInfo: A TextView Object that allows the user to see the contact info of
+     *      the profile.
+     * 10: profileTitle A TextView Object that lets the current user view the Profile's title.
+     * 11: checkBox: A CheckBox Object that lets the user decide if they want to let images
+     *      be downloaded or not.
+     */
     static String UNIQUE_PARAM = "user_name_for_profile";
     private Bundle profileExtras;
     private String userProfileName;
-
     private User owner;
     private Boolean hasFriend;
-
     private Context profileContext = this;
-
     private Button viewInventory, friendListButton;
     private TextView userContactInfo, profileTitle;
     private CheckBox checkBox;
@@ -151,10 +91,21 @@ public class ProfileActivity extends ButtonMenuActivity {
         enableButtons();
     }
 
+    /**
+     * When this method is called it will reverse the state of if images are automatically
+     * downloaded. If they are enabled this sets them to disabled, if they are disabled then
+     * they will be enabled.
+     * @param v View Object.
+     */
     public void toggleAutoImgDownloads(View v) {
         owner.getProfile().setShouldDownloadImages(checkBox.isChecked());
     }
 
+    /**
+     * Sets up the UI for the Menu of this Activity.
+     * @param menu Menu Object.
+     * @return Boolean. True/False.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -179,6 +130,10 @@ public class ProfileActivity extends ButtonMenuActivity {
         userContactInfo.setText(owner.getProfile().getEmail());
     }
 
+    /**
+     * Enable all of the buttons (UI elements) that are present on the Profile.
+     * Basically this is a method that just sets up the entire UI for Profiles.
+     */
     public void enableButtons() {
         if (hasFriend) {
             //check if user is your friend you can make trade request
@@ -205,7 +160,7 @@ public class ProfileActivity extends ButtonMenuActivity {
     /**
      * Begins the inventory activity, and shows the inventory specific to the user whose profile
      * you are browsing
-     * @param view
+     * @param view View Objeckt.
      */
     public void checkInventory(View view){
         Intent intent = new Intent(profileContext, InventoryActivity.class);
@@ -218,6 +173,11 @@ public class ProfileActivity extends ButtonMenuActivity {
         startTrade(v);
     }
 
+    /**
+     * When called this method will trigger the activities related to Trading with a user that they
+     * are viewing.
+     * @param view View Object.
+     */
     public void startTrade(View view){
         Intent intent = new Intent(profileContext, EditTradeActivity.class);
         intent.putExtra(EditTradeActivity.ACTIVE_PARAM, masterController.getCurrentUser().getUserID());
@@ -225,11 +185,22 @@ public class ProfileActivity extends ButtonMenuActivity {
         startActivity(intent);
     }
 
+    /**
+     * When the button to remove/add a friend is clicked will invoke the addRemoveFriend method.
+     * @param v View Object.
+     */
     @Override
     public void clickOnRightButton(View v) {
         addRemoveFriend(v);
     }
 
+    /**
+     * This method is a double-edged sword. It will reverse whatever the boolean flag is for
+     * the particular profile the current user is viewing. Either they are a friend and will
+     * be given the option to remove them from their friend's list OR they are not friends and
+     * the current user will be given the option to add the user to their friend's list.
+     * @param view View Object.
+     */
     public void addRemoveFriend(View view){
         if(hasFriend){
             removeFriend();
@@ -243,7 +214,8 @@ public class ProfileActivity extends ButtonMenuActivity {
     }
 
     /**
-     * Add a user as a friend.
+     * When the current user is on the profile of a non-friendd, this method can be called to add
+     * that user to the current user's friends list.
      */
     public void addFriend(){
         //Function call to the master controller to deal with all this!
@@ -261,7 +233,8 @@ public class ProfileActivity extends ButtonMenuActivity {
     }
 
     /**
-     * Remove friend from user's friendlist
+     * When the current user is on the profile of a friend, this method can be called to remove
+     * that user from the current user's friends list.
      */
     public void removeFriend(){
         masterController.removeFriend(owner);
@@ -277,6 +250,10 @@ public class ProfileActivity extends ButtonMenuActivity {
         setRightText("Add Friend");
     }
 
+    /**
+     * Show the friends list for the current user on the UI.
+     * @param v View Object.
+     */
     public void showFriendsList(View v) {
         Intent intent = new Intent(this, SearchScreenActivity.class);
         intent.putExtra(SearchScreenActivity.FILTER_PARAM, "Friends");
