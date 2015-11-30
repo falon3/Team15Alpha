@@ -118,35 +118,9 @@ public class Trade extends Stringeable {
     }
 
     /**
-     * Will take in an Object (any ol object...) of the Object type; and will then compare the
-     * current object with the object passed into the method. If they are equal return true. If
-     * they are not equal, then return false.
-     * @param inputObject Object Object.
-     * @return Boolean. True/False.
+     * Basic getter method that returns the ID Object associated with the Trade Object.
+     * @return ID Object.
      */
-    @Override
-    public boolean equals(Object inputObject) {
-        if (this == inputObject) return true;
-        if (inputObject == null || getClass() != inputObject.getClass()) return false;
-
-        Trade trade = (Trade) inputObject;
-
-        return !(tradeID != null ? !tradeID.equals(trade.tradeID) : trade.tradeID != null);
-
-    }
-
-    /**
-     * This method when called is going to give us a hash (horrendous hash function- I am deeply
-     * offended) of the tradeID ID Object value. Allowing us to easily compare values.
-     * Why is that? Because a hash will make comparison very easy and small.
-     *
-     * @return Integer. THIS integer represents the hash of the tradeID ID object.
-     */
-    @Override
-    public int hashCode() {
-        return tradeID != null ? tradeID.hashCode() : 0;
-    }
-
     public ID getTradeID() {
         return tradeID;
     }
@@ -279,5 +253,35 @@ public class Trade extends Stringeable {
             string += DatabaseController.getSkillByID(skillID).getName() + " ";
 
         return string;
+    }
+
+    /**
+     * Will take in an Object (any ol object...) of the Object type; and will then compare the
+     * current object with the object passed into the method. If they are equal return true. If
+     * they are not equal, then return false.
+     * @param inputObject Object Object.
+     * @return Boolean. True/False.
+     */
+    @Override
+    public boolean equals(Object inputObject) {
+        if (this == inputObject) return true;
+        if (inputObject == null || getClass() != inputObject.getClass()) return false;
+
+        Trade trade = (Trade) inputObject;
+
+        return !(tradeID != null ? !tradeID.equals(trade.tradeID) : trade.tradeID != null);
+
+    }
+
+    /**
+     * This method when called is going to give us a hash (horrendous hash function- I am deeply
+     * offended) of the tradeID ID Object value. Allowing us to easily compare values.
+     * Why is that? Because a hash will make comparison very easy and small.
+     *
+     * @return Integer. THIS integer represents the hash of the tradeID ID object.
+     */
+    @Override
+    public int hashCode() {
+        return tradeID != null ? tradeID.hashCode() : 0;
     }
 }

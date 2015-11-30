@@ -47,6 +47,11 @@ public class User {
     private TradeList tradeList;
     private ID id = ID.generateRandomID();
 
+    /**
+     * Constructor accepts a String for the username variable for the object, will instantiate
+     * a new Profile, Inventory, FriendsList and TradeList associated with this new User Object.
+     * @param username String input.
+     */
     User(String username) {
         profile = new Profile(username);
         inventory = new Inventory(id); // Empty
@@ -54,43 +59,81 @@ public class User {
         tradeList = new TradeList(id); // Empty
     }
 
+    /**
+     * Basic getter method that returns the Profile Object.
+     * @return Profile Object.
+     */
     public Profile getProfile() {
         return profile;
     }
 
+    /**
+     * Basic getter method that returns the Inventory Object.
+     * @return Inventory Object.
+     */
     public Inventory getInventory() {
         return inventory;
     }
 
+    /**
+     * Basic getter method that returns the FriendsList Object.
+     * @return FriendsList Object.
+     */
     public FriendsList getFriendsList() {
         return friendsList;
     }
 
+    /**
+     * Basic getter method that returns the TradeList Object.
+     * @return TradeList Object.
+     */
     public TradeList getTradeList() {
         return tradeList;
     }
 
+    /**
+     * Basic getter method that returns the ID Object for the User.
+     * @return ID Object.
+     */
     public ID getUserID() {
         return id;
     }
 
+    /**
+     * Special String method that will return a String of the username.
+     * @return String of the username.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public String toString() {
+        return profile.getUsername();
+    }
 
-        User user = (User) o;
+    /**
+     * Will take in an Object (any ol object...) of the Object type; and will then compare the
+     * current object with the object passed into the method. If they are equal return true. If
+     * they are not equal, then return false.
+     * @param inputObject Object Object.
+     * @return Boolean. True/False.
+     */
+    @Override
+    public boolean equals(Object inputObject) {
+        if (this == inputObject) return true;
+        if (inputObject == null || getClass() != inputObject.getClass()) return false;
+
+        User user = (User) inputObject;
 
         return !(id != null ? !id.equals(user.id) : user.id != null);
     }
 
+    /**
+     * This method when called is going to give us a hash (horrendous hash function- I am deeply
+     * offended) of the tradeID ID Object value. Allowing us to easily compare values.
+     * Why is that? Because a hash will make comparison very easy and small.
+     *
+     * @return Integer. THIS integer represents the hash of the tradeID ID object.
+     */
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return profile.getUsername();
     }
 }
