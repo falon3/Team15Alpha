@@ -113,6 +113,10 @@ public class HalfTrade extends Notification {
         notifyDB();
     }
 
+    /**
+     * Calls the superclass (Trade) notifyDB method and then utilizes the DatabaseController's
+     * notifyDB method to inform the database that there have been changes to the half trade.
+     */
     @Override
     public void notifyDB() {
         super.notifyDB();
@@ -167,16 +171,29 @@ public class HalfTrade extends Notification {
         return result;
     }
 
+    /**
+     * Getter method that returns a formatted string of the half trade.
+     * @return String formatted like "User1 part's Half-Trade"
+     */
     public String getType() {
         return "User"+part+"'s Half-Trade";
     }
 
+    /**
+     * Getter method that returns a String based upon the current status of the HalfTrade,
+     * either it is "Offered" or it is "Updated".
+     * @return String of the status, either "Offered" or "Updated".
+     */
     public String getStatus() {
         if (isAccepted())
             return "Offered";
         return "Updated";
     }
 
+    /**
+     * Getter method that returns tht description of the HalfTrade Object in question.
+     * @return String of the Description of the HalfTrade Object.
+     */
     public String getDescription() {
         return "";
     }

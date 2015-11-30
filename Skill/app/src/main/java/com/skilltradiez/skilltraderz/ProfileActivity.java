@@ -20,6 +20,7 @@ package com.skilltradiez.skilltraderz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -81,12 +82,14 @@ public class ProfileActivity extends ButtonMenuActivity {
         checkBox = (CheckBox) findViewById(R.id.auto_img);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
+
     }
 
     @Override
     public void onResume(){
         super.onResume();
-
+        DatabaseController.refresh();
+        owner = masterController.getUserByName(userProfileName);
         populateProfile();
         enableButtons();
     }
@@ -123,7 +126,6 @@ public class ProfileActivity extends ButtonMenuActivity {
      * added them already or not.
      */
     public void populateProfile() {
-        owner = masterController.getUserByName(userProfileName);
         hasFriend = masterController.hasFriend(owner);
 
         profileTitle.setText(owner.getProfile().getUsername());
@@ -169,6 +171,11 @@ public class ProfileActivity extends ButtonMenuActivity {
         startActivity(intent);
     }
 
+    /**
+     * This method activates when the left button on the UI is clicked. This will cause the
+     * startTrade method to be invoked with the View
+     * @param v View Object.
+     */
     @Override
     public void clickOnLeftButton(View v) {
         startTrade(v);

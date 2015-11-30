@@ -62,7 +62,6 @@ public class MainActivity extends GeneralMenuActivity {
     private EditText newUserName;
     private EditText newUserEmail;
     private Button makeNewUser;
-
     private ListView recentActivities;
     private RecentActivityAdapter adapter;
     private List<Notification> notifications;
@@ -180,7 +179,6 @@ public class MainActivity extends GeneralMenuActivity {
      * Deletes the database. This is a method primarily based around testing.
      * @param view View Object.
      */
-
     public void beginAllSearch(View view) {
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         if (view.getId() == R.id.All_Skillz) {
@@ -198,7 +196,6 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Take user to their own profile when "Your Profile" button is pressed
-     *
      * @param view
      */
     public void showProfile(View view) {
@@ -209,7 +206,6 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Sends user to the EditSkill activity to make a new skill
-     *
      * @param view
      */
     public void createNewSkill(View view) {
@@ -225,7 +221,6 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Basic getter method that returns the EditText associated with the username.
-     *
      * @return EditText UI Element
      */
     public EditText getNameField() {
@@ -260,14 +255,12 @@ public class MainActivity extends GeneralMenuActivity {
         });
     }
 
-
     /**
      * Checks if the device connected to internet
      * source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
      * Returns true if connectivity is available, False otherwise.
      * @return Boolean. True/False.
      */
-
     public boolean isConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -26,11 +26,33 @@ package com.skilltradiez.skilltraderz;
  */
 
 public abstract class Stringeable extends Notification {
+    /**
+     * Abstract basic getter method for the name of the Stringeable Object.
+     * @return String of the name.
+     */
     abstract String getName();
+
+    /**
+     * Abstract basic getter category for the name of the Stringeable Object.
+     * @return String of the category.
+     */
     abstract String getCategory();
+
+    /**
+     * Abstract basic getter method for the description of the Stringeable Object.
+     * @return String of the description.
+     */
     abstract String getDescription();
+
+    /**
+     * Abstract basic getter method for the Image of the Stringeable Object.
+     * @return ImageObject.
+     */
     abstract Image getImage();
 
-    //A number to judge which is superior
+    /**
+     * Abstract basic getter method that returns the integer value of the Top
+     * @return Integer value of the top.
+     */
     abstract int getTop();
 }

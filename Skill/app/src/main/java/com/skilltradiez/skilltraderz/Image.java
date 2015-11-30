@@ -189,14 +189,28 @@ public class Image extends Notification {
         return id != null ? id.hashCode() : 0;
     }
 
+    /**
+     * Returns the Type of this object, which will forever be "Image" because well... it is an
+     * Image Object.
+     * @return String of the Type of this Object, which will be "Image".
+     */
     public String getType() {
         return "Image";
     }
 
+    /**
+     * Getter method that returns as a String the current state of the Image Object.
+     * Eg: A new image will return "New" for this method.
+     * @return String of the Status. Eg: "New" for a new image.
+     */
     public String getStatus() {
         return "New";
     }
 
+    /**
+     * Getter method that returns the description of the image.
+     * @return String of the Description of the Image. It looks like heresy.
+     */
     public String getDescription() {
         return "Looks good.";
     }

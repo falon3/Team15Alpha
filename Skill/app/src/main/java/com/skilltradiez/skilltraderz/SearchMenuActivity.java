@@ -58,4 +58,8 @@ public abstract class SearchMenuActivity extends GeneralMenuActivity {
      * @param query String of what is being obtained by the user's inquisiton.
      */
     protected abstract void startSearch(String query);
+
+    protected void setHint(String hint) {
+        searchBar.setHint(hint);
+    }
 }
