@@ -89,12 +89,14 @@ public class MainActivity extends GeneralMenuActivity {
 
             recentActivities.setAdapter(adapter);
         } else {
+            goToFirstTimeUser();
+            /*
             setContentView(R.layout.first_time_user);
 
             // first_time (login)
             newUserName = (EditText) findViewById(R.id.usernameField);
             newUserEmail = (EditText) findViewById(R.id.emailField);
-            makeNewUser = (Button) findViewById(R.id.beginApp);
+            makeNewUser = (Button) findViewById(R.id.beginApp);*/
         }
 
         // Checks internet connectivity every second on separate thread
@@ -112,6 +114,15 @@ public class MainActivity extends GeneralMenuActivity {
             }
         });
         thread.start();
+    }
+
+    public void goToFirstTimeUser(){
+        setContentView(R.layout.first_time_user);
+
+        // first_time (login)
+        newUserName = (EditText) findViewById(R.id.usernameField);
+        newUserEmail = (EditText) findViewById(R.id.emailField);
+        makeNewUser = (Button) findViewById(R.id.beginApp);
     }
 
     @Override

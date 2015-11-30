@@ -73,8 +73,20 @@ public class EspressoTest {
         MasterController.getUserDB().getLocal().deleteFile();
     }
 
+    public void logOut(){
+        final MainActivity activity = (MainActivity) getActivityInstance();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.goToFirstTimeUser();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+    }
+
     @Test
-    public void testCreateUser() {
+    public void testCreateUser() throws InterruptedException {
+        logOut();
         String username = TestUtilities.getRandomString();
         String email = TestUtilities.getRandomString();
 
@@ -85,7 +97,7 @@ public class EspressoTest {
         onView(withId(R.id.user_name)).check(matches(withText(username)));
     }
     @Test
-    public void testConfigureProfileDetails(){
+    public void testConfigureProfileDetails() throws InterruptedException {
         testCreateUser();
         onView(withId(R.id.Go_To_Settings)).perform(click());
         onView(withId(R.id.settings_user_contact_field)).perform(typeText("NewEmail@phony.com"), closeSoftKeyboard());
@@ -120,6 +132,7 @@ public class EspressoTest {
     public String email;
     @Test
     public void testAddSkillz() {
+        logOut();
         username = "Drew" + TestUtilities.getRandomString();
         email = "E" + TestUtilities.getRandomString();
         //login
@@ -189,6 +202,7 @@ public class EspressoTest {
         //create friend
         DatabaseController.createUser(friendAddfriend);
 
+        logOut();
         //login
         onView(withId(R.id.usernameField)).perform(typeText(usernameAddfriend), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText(emailAddfriend), closeSoftKeyboard());
@@ -322,6 +336,7 @@ public class EspressoTest {
 
     @Test
     public void sortFriendInventoryByText() throws UserAlreadyExistsException, NoInternetException {
+        logOut();
         // create a user and login and add friend
         String tradeFriend = "Al" + TestUtilities.getRandomString();
         String tradeUsername = "Bo" + TestUtilities.getRandomString();
@@ -360,6 +375,7 @@ public class EspressoTest {
     */
     @Test
     public void testStartTrade() throws UserAlreadyExistsException, NoInternetException {
+        logOut();
         tradeFriend = "Al" + TestUtilities.getRandomString();
         tradeUsername = "Bo" + TestUtilities.getRandomString();
         tradeEmail = "Em" + TestUtilities.getRandomString();
@@ -415,6 +431,7 @@ public class EspressoTest {
     public Trade trade;
     @Test
     public void testHelperTradeRequest() throws UserAlreadyExistsException, NoInternetException {
+        logOut();
         tradeFriend = "Pal" + TestUtilities.getRandomString();
         tradeUsername = "Dee" + TestUtilities.getRandomString();
         tradeEmail = "E" + TestUtilities.getRandomString();
@@ -465,9 +482,9 @@ public class EspressoTest {
         onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.Trade_History)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
-        // accept the trade
+        // delete the trade
         onView(withId(R.id.deleteTrade)).perform(click());
-        assertFalse(trade.isActive());
+        assertFalse(MasterController.getUserDB().getTrades().contains(trade));
     }
     @Test
     //
@@ -497,6 +514,171 @@ public class EspressoTest {
 
         // verify that offer list now includes the skill you just added
         onData(anything()).inAdapterView(allOf(withId(R.id.offerList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
+    }
+
+    @Test
+    //create user before and login, then go offline and do stuff, see if persists
+    public void testOfflneAddSkillz() throws IOException {
+        String username = "Off U" +TestUtilities.getRandomString();
+        String email = "Off E" + TestUtilities.getRandomString();
+
+        logOut();
+        //login
+        onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //simulate losing connectivity with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+
+        // click add skill
+        onView(withId(R.id.Go_Make_Skill)).perform(click());
+
+
+        // and set skill properties
+        onView(withId(R.id.new_skill_name)).perform(typeText("Poodle"), closeSoftKeyboard());
+        onView(withId(R.id.new_skill_description)).perform(typeText("Noodle"), closeSoftKeyboard());
+        onView(withId(R.id.radioButton)).perform(click());
+        // Set visibility
+        onView(withId(R.id.is_visible)).perform(click());
+
+        // add skill to db
+        onView(withId(R.id.add_skill_to_database)).perform(click());
+
+        //resume connectivity on regular HTTPclient and see if things are still
+        // same and not overwritten with what was on DB previously
+        MasterController.getUserDB().setHttpClient(new HTTPClient());
+        DatabaseController.refresh();
+
+        // go back to to profile and inventory
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Go_Profile_Menu)).perform(click());
+        onView(withId(R.id.inventory)).perform(click());
+
+        // click on the skill
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // assert that the stuff is set current on screen
+        onView(withId(R.id.skillTitle)).check(matches(withText("Poodle")));
+        onView(withId(R.id.skill_description)).check(matches(withText("Noodle")));
+
+        //Also check directly in the database that it is the same as local
+        assertTrue(((Skill) (MasterController.getUserDB().getSkillz().toArray()[0])).getName().equals("Poodle"));
+    }
+
+    @Test
+    // Login.CreateAccount.... can't do this offline
+    public void testOfflineCreateUser() {
+        logOut();
+        String username = "Fo" + TestUtilities.getRandomString();
+        String email = "Em" + TestUtilities.getRandomString();
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+
+        onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+        //assert it didn't go to the main screen because no new account was made
+        onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
+
+    }
+    @Test
+    public void testOfflineBrowseFriendInventory() throws UserAlreadyExistsException, NoInternetException {
+        String friend = "Fr_Of" + TestUtilities.getRandomString();
+        String username = "User" + TestUtilities.getRandomString();
+        String email = "eTest" + TestUtilities.getRandomString();
+        //create friend
+        DatabaseController.createUser(friend);
+
+        logOut();
+        //login
+        onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //browse all users then select friend and view inventory
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(friend), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //add friend
+        onView(withId(R.id.right_button)).perform(click());
+
+        //simulate going offline with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+        DatabaseController.refresh();
+
+        //browse all users then select friend and view inventory
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText("Friend for a minute"), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //browse friend inventory now while offline
+        onView(withId(R.id.inventory)).perform(click());
+        //Doesn't break... success!
+    }
+    // should be able to start a trade offline
+    @Test
+    public void testOfflineStartTrade() throws UserAlreadyExistsException, NoInternetException {
+        String tradeFriend = "Al" + TestUtilities.getRandomString();
+        String tradeUsername = "Bo" + TestUtilities.getRandomString();
+        String tradeEmail = "Em" + TestUtilities.getRandomString();
+        //create friend, make sure they have a skill, add them
+        DatabaseController.createUser(tradeFriend);
+        GeneralMenuActivity g_activity = (GeneralMenuActivity) getActivityInstance();
+        g_activity.getMasterController().makeNewSkill("miscellaneous", "stupid trade test", "High", true, new ArrayList<Image>());
+
+        logOut();
+        //login and add friend
+        onView(withId(R.id.usernameField)).perform(typeText(tradeUsername), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(tradeEmail), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //return home to browse users find friend
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(tradeFriend), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //add friend
+        onView(withId(R.id.right_button)).perform(click());
+
+        //lose connectivity and start trade
+        //simulate going offline with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+        DatabaseController.refresh();
+
+        // start trade
+        onView(withId(R.id.left_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.other_invList)).atPosition(0).perform(click());
+        onView(withId(R.id.sendTrade)).perform(click());
+
+        //return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // check that a trade was added
+        onData(anything()).inAdapterView(allOf(withId(R.id.requestList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
+
+        //resume connectivity on regular HTTPclient and make sure things don't break
+        MasterController.getUserDB().setHttpClient(new HTTPClient());
+        DatabaseController.refresh();
+
+        //Also check again to see that local changes weren't overwritten by database info
+        // so check if trade still exists
+
+        //return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // check that a trade was added
+        onData(anything()).inAdapterView(allOf(withId(R.id.requestList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
     }
 
     @Test
