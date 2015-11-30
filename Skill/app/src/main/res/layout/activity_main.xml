@@ -48,25 +48,26 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/recentActs"
+        android:background="@drawable/titlebar2"
         android:id="@+id/recentActivities"
+        android:textColor="@color/spinnerTextColor"
         android:layout_marginTop="10dp"
         android:longClickable="false"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
         android:layout_below="@+id/icon_holder"
         android:layout_alignLeft="@+id/activitiesList"
-        android:layout_alignRight="@+id/activitiesList" />
+        android:layout_alignRight="@+id/activitiesList"
+        android:paddingLeft="5dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activitiesList"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@+id/recentActivities"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp" />
+        android:layout_alignParentEnd="true" />
 
     <LinearLayout
         android:id="@+id/rainbowcat"
