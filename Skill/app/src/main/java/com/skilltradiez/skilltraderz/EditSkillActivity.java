@@ -214,7 +214,7 @@ public class EditSkillActivity extends CameraActivity {
     }
 
     /**
-     * Return the skillName EditText from the application UI.
+     * Return the skillName EditText froma the application UI.
      * @return EditText Object. (UI)
      */
     public EditText getSkillName() {
