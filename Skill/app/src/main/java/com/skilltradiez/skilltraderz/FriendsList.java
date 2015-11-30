@@ -133,16 +133,28 @@ public class FriendsList extends Notification {
         return true;
     }
 
+    /**
+     * The most simple getter ever. Literally returns "FriendsList".
+     * @return String "FriendsList"
+     */
     public String getType() {
         return "FriendsList";
     }
 
+    /**
+     * Basic getter method that returns either "Removed Friend" or "Changed"
+     * @return String "Removed Friend" or "Changed".
+     */
     public String getStatus() {
         if (friendsList.isEmpty())
             return "Removed Friend";
         return "Changed";
     }
 
+    /**
+     * This method, when invoked, will return the description for the FriendsList.
+     * @return String of the description.
+     */
     public String getDescription() {
         return "";
     }

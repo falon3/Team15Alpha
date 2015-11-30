@@ -41,12 +41,26 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
     private final Activity context;
     private final List<Stringeable> items;
 
+    /**
+     * Takes in a context and list of items and will assign the ListAdapter Object's variables
+     * to these passed in parameters.
+     * @param context Activity.
+     * @param itemList List of Stringeable Objects.
+     */
     public ListAdapter(Activity context, List<Stringeable> itemList) {
         super(context, R.layout.list_item, itemList);
         this.context = context;
         this.items = itemList;
     }
 
+    /**
+     * This method will be focused upon setting up the UserInterface elements of this
+     * ListAdapter Object for use in other parts of the application.
+     * @param position Integer value.
+     * @param view View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         Stringeable item = getItem(position);
@@ -73,7 +87,11 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
         return view;
     }
 
-    // Acting As A Struct
+    /**
+     * This class acts as a struct, having four variables that it will bind together.
+     * Three TextView objects, the name, description and category. Fourthly, and finally,
+     * an ImageView object of the image.
+     */
     public class ViewHolder {
         TextView name;
         TextView desc;

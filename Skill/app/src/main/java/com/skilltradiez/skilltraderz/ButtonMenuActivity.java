@@ -31,6 +31,7 @@ import android.widget.Button;
  * particular arrangement of buttons and text.
  */
 public abstract class ButtonMenuActivity extends GeneralMenuActivity {
+
     /** Class Variables:
      * 1: leftButton, in the UI we usually have a very distinct button on the left side. This
      *    variable represents and holds the button.

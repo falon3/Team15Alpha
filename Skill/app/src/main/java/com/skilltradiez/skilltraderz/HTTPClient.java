@@ -64,7 +64,7 @@ public class HTTPClient {
     }
 
     /**
-     * Every time it fails, we fail faster!
+     * Every time it fails, we fail faster! YAY!~ WHEEEE!!!!!!!!!!!!~
      */
     public void failureHappened() {
         timeout /= 2;
@@ -73,11 +73,19 @@ public class HTTPClient {
         setTimeout();
     }
 
+    /**
+     * When invoked, this method will assign the timeout variable to be equal to the default
+     * timeout for connection timeouts- the value of 500.
+     */
     public void resetFailure() {
         timeout = DEFAULT_TIMEOUT;
         setTimeout();
     }
 
+    /**
+     * This method sets the amount of time till timeout of connection to the variable timeout
+     * that is in the HTTPClient Object.
+     */
     private void setTimeout() {
         HttpParams httpParams = httpClient.getParams();
         HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
