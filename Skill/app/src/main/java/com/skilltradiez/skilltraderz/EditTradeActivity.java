@@ -205,8 +205,8 @@ public class EditTradeActivity extends GeneralMenuActivity {
         DatabaseController.refresh();
 
         // Fill two Lists
-        yourInv.addAll(activeUser.getInventory().cloneSkillz(MasterController.getUserDB()));
-        otherInv.addAll(passiveUser.getInventory().cloneSkillz(MasterController.getUserDB()));
+        yourInv.addAll(activeUser.getInventory().cloneSkillz());
+        otherInv.addAll(passiveUser.getInventory().cloneSkillz());
         //offer and request begin empty
 
         //... unless we are editing an existing trade

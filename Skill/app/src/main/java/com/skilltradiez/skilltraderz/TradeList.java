@@ -33,6 +33,14 @@ public class TradeList extends Notification {
     private ID owner;
     private List<ID> trades, newTrades, deletedTrades;
 
+    /**
+     * Given an ID Object as a parameter, this constructor will assign the owner of this TradeList
+     * Object to that ID and then create three new ArrayList of ID Objects.
+     * One for all trades.
+     * One for only new trades made after the most recent commit.
+     * One for only old trades before or on the last commit.
+     * @param id ID Object.
+     */
     TradeList(ID id) {
         owner = id;
         trades = new ArrayList<ID>();
@@ -40,26 +48,51 @@ public class TradeList extends Notification {
         deletedTrades = new ArrayList<ID>();
     }
 
+    /**
+     * Basic getter method that returns the List of Trade Objects that have not been commited yet.
+     * @return List of ID Objects.
+     */
     public List<ID> getPendingTradesList(){
         return newTrades;
     }
 
+    /**
+     * Basic getter method that returns the List of Trade Objects that have been commited
+     * previously.
+     * @return List of ID Objects.
+     */
     public List<ID> getDeletedTradesList(){
         return deletedTrades;
     }
 
+    /**
+     * Basic getter method that returns the List of ID Objects of ALL Trades that have occured.
+     * @return List of ID Objects.
+     */
     public List<ID> getTradesList(){
         return trades;
     }
 
-
+    /**
+     * Basic getter method that returns the ID Object associated with the owner of this TradeList
+     * Object.
+     * @return ID Object.
+     */
     public ID getOwnerID() {
         return owner;
     }
 
-    /* This is only deprecated to discourage its use.
-    *  - Used a considerable amount by tests
-    */
+    /**
+     * This method is used to create a new Trade Object, being passed in a volume of parameters
+     * that will be utilized to specify the Trade.
+     *  NOTE: This is only deprecated to discourage its use.
+     *   NOTE: Used a considerable amount by tests
+     * @param userDB UserDatabase Object.
+     * @param user1 User Object.
+     * @param user2 User Object.
+     * @param offer List of Skill Objects.
+     * @return Trade Object.
+     */
     @Deprecated
     public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer) {
         Trade t = new Trade(userDB, user1, user2);
@@ -70,6 +103,18 @@ public class TradeList extends Notification {
         return t;
     }
 
+    /**
+     * Will create a new Trade Object based upon the supplied parameters to this method.
+     * This method is overloading the "createTrade" method so that it may accept more parameters,
+     * in particular this takes in the additional parameter of a List of Skill Objects that are
+     * meant to represent the request of the trade.
+     * @param userDB UserDatabase Object.
+     * @param user1 User Object.
+     * @param user2 User Object.
+     * @param offer List of Skill Objects.
+     * @param request List of Skill Objects.
+     * @return Trade Object.
+     */
     public Trade createTrade(UserDatabase userDB, User user1, User user2, List<Skill> offer, List<Skill> request) {
         Trade trade = createTrade(userDB, user1, user2, offer);
         // User1 set this offer, so user2 hasn't accepted
@@ -77,6 +122,13 @@ public class TradeList extends Notification {
         return trade;
     }
 
+    /**
+     * This method will be passed a ID Object and then return if the ID Object is present or not
+     * in the TradeList.
+     * Will follow basic iteration over the TradeList Object's contents.
+     * @param identification ID Object.
+     * @return Boolean. True/False.
+     */
     //Iterate through the entire trades list to see IF something is present.
     //More used to prevent a null pointer exception then anything.
     public boolean contains(ID identification){
@@ -95,6 +147,11 @@ public class TradeList extends Notification {
 
     }
 
+    /**
+     * This method will take in a Trade Object to be added to the TradeList Object.
+     * @param db UserDatabase Object.
+     * @param trade Trade Object.
+     */
     public void addTrade(UserDatabase db, Trade trade) {
         if (trades.contains(trade.getTradeID()))
             return;
@@ -103,6 +160,11 @@ public class TradeList extends Notification {
         notifyDB();
     }
 
+    /**
+     * Returns a List of Trade Objects that are identified as being active by their boolean flag.
+     * @param userDB UserDatabase Object.
+     * @return List of Trade Objects.
+     */
     public List<Trade> getActiveTrades(UserDatabase userDB) {
         List<Trade> activeTrades = new ArrayList<Trade>();
         Trade trade;
@@ -116,21 +178,41 @@ public class TradeList extends Notification {
         return activeTrades;
     }
 
+    /**
+     * Removes a Trade Object, supplied as a parameter to this method, from the TradeList.
+     * @param trade Trade Object.
+     */
     public void delete(Trade trade) {
         delete(trade.getTradeID());
     }
 
+    /**
+     * Removes a Trade Object from the TradeList, identified by it's particular ID Object which is
+     * supplied into this method as a parameter.
+     * @param tradeID ID Object.
+     */
     public void delete(ID tradeID) {
         trades.remove(tradeID);
         deletedTrades.add(tradeID);
         notifyDB();
     }
 
+    /**
+     * When invoked, this method will return the most recent trade within the TradeList Object.
+     * @param userDB UserDatabase Object.
+     * @return Trade Object.
+     */
     public Trade getMostRecentTrade(UserDatabase userDB) {
         if (trades.isEmpty()) return null;
         return DatabaseController.getTradeByID(trades.get(trades.size()-1));
     }
 
+    /**
+     * When invoked, this method will take all of the data from the TradeList model and will place
+     * it into the database.
+     * @param userDB UserDatabase Object.
+     * @return Boolean. True/False.
+     */
     @Override
     public boolean commit(UserDatabase userDB)  {
         for (ID tradeId : newTrades) {
@@ -180,8 +262,11 @@ public class TradeList extends Notification {
         return true;
     }
 
-    /*
-     * This happens when any trade completes successfully
+
+    /**
+     * When invoked, this method will set the Trade Object's flag of success to being True.
+     * This is typically called by other methods that signal successful completion of a trade.
+     * @param tradeID ID Object.
      */
     public void tradeComplete(ID tradeID) {
         MasterController.getCurrentUser().getProfile().tradeSuccess();

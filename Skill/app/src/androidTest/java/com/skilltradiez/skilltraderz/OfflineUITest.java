@@ -17,8 +17,10 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import org.junit.After;
@@ -28,7 +30,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.Collection;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -37,6 +41,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.anything;
 import static android.support.test.espresso.Espresso.onView;
@@ -69,8 +74,8 @@ public class OfflineUITest {
     @Test
     //create user before and login, then go offline and do stuff, see if persists
     public void testAddSkillz() throws IOException {
-        String username = TestUtilities.getRandomString();
-        String email = TestUtilities.getRandomString();
+        String username = "Off U" +TestUtilities.getRandomString();
+        String email = "Off E" + TestUtilities.getRandomString();
         //login
         onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
@@ -86,9 +91,9 @@ public class OfflineUITest {
         // and set skill properties
         onView(withId(R.id.new_skill_name)).perform(typeText("Poodle"), closeSoftKeyboard());
         onView(withId(R.id.new_skill_description)).perform(typeText("Noodle"), closeSoftKeyboard());
-        //onView(withId(R.id.new_category)).perform(typeText("Moodle"), closeSoftKeyboard());
+        onView(withId(R.id.radioButton)).perform(click());
         // Set visibility
-        //onView(withId(R.id.is_visible)).perform(click());
+        onView(withId(R.id.is_visible)).perform(click());
 
         // add skill to db
         onView(withId(R.id.add_skill_to_database)).perform(click());
@@ -99,6 +104,7 @@ public class OfflineUITest {
         DatabaseController.refresh();
 
         // go back to to profile and inventory
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.Go_Profile_Menu)).perform(click());
         onView(withId(R.id.inventory)).perform(click());
 
@@ -116,8 +122,8 @@ public class OfflineUITest {
     @Test
     // Login.CreateAccount.... can't do this offline
     public void testCreateUser() {
-        String username = TestUtilities.getRandomString();
-        String email = TestUtilities.getRandomString();
+        String username = "Fo" + TestUtilities.getRandomString();
+        String email = "Em" + TestUtilities.getRandomString();
         MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
 
         onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
@@ -129,9 +135,9 @@ public class OfflineUITest {
     }
     @Test
     public void testBrowseFriendInventory() throws UserAlreadyExistsException {
-        String friend = TestUtilities.getRandomString();
-        String username = TestUtilities.getRandomString();
-        String email = TestUtilities.getRandomString();
+        String friend = "Fr_Of" + TestUtilities.getRandomString();
+        String username = "User" + TestUtilities.getRandomString();
+        String email = "eTest" + TestUtilities.getRandomString();
         //create friend
         DatabaseController.createUser(friend);
 
@@ -143,8 +149,8 @@ public class OfflineUITest {
         //browse all users then select friend and view inventory
         onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.All_Users)).perform(click());
-        onView(withId(R.id.search_bar)).perform(typeText("Friend for a minute"), closeSoftKeyboard());
-        onView(withId(R.id.search_button)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(friend), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
         //add friend
@@ -158,7 +164,7 @@ public class OfflineUITest {
         onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.All_Users)).perform(click());
         onView(withId(R.id.search_bar)).perform(typeText("Friend for a minute"), closeSoftKeyboard());
-        onView(withId(R.id.search_button)).perform(click());
+        onView(withId(R.id.search_bar_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
         //browse friend inventory now while offline

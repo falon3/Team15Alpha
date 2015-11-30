@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
-import android.provider.ContactsContract;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -89,8 +88,8 @@ public class EspressoTest {
     // Inventory.AddSkillz + ExamineSkillz (examines after adding)
     @Test
     public void testAddSkillz() {
-        String username = TestUtilities.getRandomString();
-        String email = TestUtilities.getRandomString();
+        String username = "Drew" + TestUtilities.getRandomString();
+        String email = "E" + TestUtilities.getRandomString();
         //login
         onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
         onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
@@ -102,7 +101,7 @@ public class EspressoTest {
         // set skill properties
         onView(withId(R.id.new_skill_name)).perform(typeText("Sname"), closeSoftKeyboard());
         onView(withId(R.id.new_skill_description)).perform(typeText("Sdesc"), closeSoftKeyboard());
-        //onView(withId(R.id.new_category)).perform(typeText("Scate"), closeSoftKeyboard());
+        onView(withId(R.id.radioButton)).perform(click());
         // Set visibility
         //onView(withId(R.id.is_visible)).perform(click());
 
@@ -110,7 +109,7 @@ public class EspressoTest {
         onView(withId(R.id.add_skill_to_database)).perform(click());
 
         // go back to home screen and then to profile and inventory
-        pressBack();
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.Go_Profile_Menu)).perform(click());
         onView(withId(R.id.inventory)).perform(click());
 
@@ -147,9 +146,9 @@ public class EspressoTest {
     @Test
     // Friends.AddFriend
     public void testAddFriend() throws UserAlreadyExistsException {
-        friendAddfriend = TestUtilities.getRandomString();
-        usernameAddfriend = TestUtilities.getRandomString();
-        emailAddfriend = TestUtilities.getRandomString();
+        friendAddfriend = "temp_f" + TestUtilities.getRandomString();
+        usernameAddfriend = "Sam" + TestUtilities.getRandomString();
+        emailAddfriend = "E" + TestUtilities.getRandomString();
         //create friend
         DatabaseController.createUser(friendAddfriend);
 
@@ -162,7 +161,7 @@ public class EspressoTest {
         onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.All_Users)).perform(click());
         onView(withId(R.id.search_bar)).perform(typeText(friendAddfriend), closeSoftKeyboard());
-        onView(withId(R.id.search_button)).perform(click());
+        onView(withId(R.id.search_bar_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
         //add friend
@@ -198,9 +197,9 @@ public class EspressoTest {
     }
     @Test
     public void testStartTrade() throws UserAlreadyExistsException {
-        String tradeFriend = TestUtilities.getRandomString();
-        String tradeUsername = TestUtilities.getRandomString();
-        String tradeEmail = TestUtilities.getRandomString();
+        String tradeFriend = "Al" + TestUtilities.getRandomString();
+        String tradeUsername = "Bo" + TestUtilities.getRandomString();
+        String tradeEmail = "Em" + TestUtilities.getRandomString();
         //create friend, make sure they have a skill, add them
         DatabaseController.createUser(tradeFriend);
         GeneralMenuActivity g_activity = (GeneralMenuActivity) getActivityInstance();
@@ -214,8 +213,8 @@ public class EspressoTest {
         //return home to browse users find friend
         onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.All_Users)).perform(click());
-        onView(withId(R.id.search_bar)).perform(typeText(friendAddfriend), closeSoftKeyboard());
-        onView(withId(R.id.search_button)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(tradeFriend), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
         //add friend
