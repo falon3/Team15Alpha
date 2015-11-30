@@ -119,6 +119,7 @@ public class TradeList extends Notification {
         Trade trade = createTrade(userDB, user1, user2, offer);
         // User1 set this offer, so user2 hasn't accepted
         trade.getHalfForUser(user2).setOffer(request);
+        notifyDB();
         return trade;
     }
 
