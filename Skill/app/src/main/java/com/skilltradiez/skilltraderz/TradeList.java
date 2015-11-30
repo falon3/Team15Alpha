@@ -173,8 +173,6 @@ public class TradeList extends Notification {
                 e.printStackTrace();
                 return false;
             }
-            if (!trade.commit(userDB))
-                return false;
         }
 
         //Cleanse the deletedTrades list to be empty again.

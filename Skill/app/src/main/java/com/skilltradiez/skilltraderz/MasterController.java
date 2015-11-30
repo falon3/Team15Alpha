@@ -238,6 +238,7 @@ public final class MasterController implements ControllerInterface {
         getUserDB().getTrades().remove(trade);
         getUserByID(trade.getHalf1().getUser()).getTradeList().delete(trade);
         getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
+        DatabaseController.save();
     }
 
     /**
