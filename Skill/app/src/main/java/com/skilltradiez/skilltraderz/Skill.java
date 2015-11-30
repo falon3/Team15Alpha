@@ -404,6 +404,10 @@ public class Skill extends Stringeable {
             prev_version = ela.getDocumentSkill(skillID.toString());
             if (prev_version == null)
                 prev_version = this;
+            if (!isOwner(owner) && !prev_version.isOwner(owner)) {
+                System.out.println("shouldnt' happen");
+                return true;
+            }
             if (prev_version.isOwner(owner) && !hasOwners()) {
                 //if removed skill from inventory and no other owners had skill
                 userDB.getSkills().remove(prev_version);
@@ -434,7 +438,9 @@ public class Skill extends Stringeable {
                 System.out.println("dated skill");
             } else {
                 //TODO what if this happened??
-                System.out.println("MAYBE BROKEN, FIXME!!!");
+                System.out.println(owner);
+                System.out.println(prev_version.isOwner(owner));
+                System.out.println(prev_version.getNumOwners());
                 // i think this happens when the user isn't a previous owner!
                 throw new RuntimeException();
             }

@@ -21,11 +21,10 @@ package com.skilltradiez.skilltraderz;
  * This class is going to be dedicated to making it so that we have more functionality
  * on the notification class. This is a subclass of the notification class that allows us to have
  * methods to get the name, descrption or image.
- */
-/*
+ *
  * Intended to make this for polymorphism on ListAdapter
- * Success?
  */
+
 public abstract class Stringeable extends Notification {
     abstract String getName();
     abstract String getCategory();

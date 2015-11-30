@@ -259,10 +259,9 @@ public class EditTradeActivity extends GeneralMenuActivity {
             Toast.makeText(getApplicationContext(), "You need to request at least one skill!", Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO Send The Trade
         if (trade != null){
             trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);
-            activeUser.getTradeList().addTrade(masterController.getUserDB(), trade);
+            DatabaseController.save();
         } else {
             trade = activeUser.getTradeList().createTrade(masterController.getUserDB(), activeUser, passiveUser, offer, request);
         }

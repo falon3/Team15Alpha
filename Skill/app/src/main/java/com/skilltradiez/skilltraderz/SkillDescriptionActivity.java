@@ -181,7 +181,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
 
     /**
      * When invoked, this method will change the current activity over to the EditSkillActivity
-     * Activity with the currentSkill being looked at in this activity. 
+     * Activity with the currentSkill being looked at in this activity.
      * @param view View Object.
      */
     public void editSkill(View view){

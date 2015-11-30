@@ -20,7 +20,9 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * What is life without change?
@@ -57,9 +59,9 @@ class ChangeList {
      * 4: lock, a boolean involved in whether we have the method use the overall notifications list
      *    or whether we have it in an old or new notifications list.
      */
-    private List<Notification> notifications;
-    private List<Notification> newNotifications;
-    private List<Notification> oldNotifications;
+    private Set<Notification> notifications;
+    private Set<Notification> newNotifications;
+    private Set<Notification> oldNotifications;
     private boolean lock;
 
     /**
@@ -72,9 +74,9 @@ class ChangeList {
      * Return: Creates a ChangeList object.
      */
     ChangeList() {
-        notifications = new ArrayList<Notification>();
-        newNotifications = new ArrayList<Notification>();
-        oldNotifications = new ArrayList<Notification>();
+        notifications = new HashSet<Notification>();
+        newNotifications = new HashSet<Notification>();
+        oldNotifications = new HashSet<Notification>();
     }
 
 
@@ -101,7 +103,7 @@ class ChangeList {
      * Returns the list of notifications.
      * @return List of Notifications.
      */
-    public List<Notification> getNotifications() {
+    public Set<Notification> getNotifications() {
         return notifications;
     }
 
