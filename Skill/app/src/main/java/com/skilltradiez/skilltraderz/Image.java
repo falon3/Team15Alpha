@@ -188,4 +188,16 @@ public class Image extends Notification {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
+    public String getType() {
+        return "Image";
+    }
+
+    public String getStatus() {
+        return "New";
+    }
+
+    public String getDescription() {
+        return "Looks good.";
+    }
 }

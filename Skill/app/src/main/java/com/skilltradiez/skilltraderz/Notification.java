@@ -63,4 +63,9 @@ public abstract class Notification {
      * @return Boolean. True/False.
      */
     abstract boolean commit(UserDatabase userDB);
+
+    abstract String getType();
+    abstract String getStatus();
+    abstract String getDescription();
 }
+

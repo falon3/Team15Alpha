@@ -107,6 +107,12 @@ class ChangeList {
         return notifications;
     }
 
+    public List<Notification> getNotificationsAsList() {
+        List<Notification> notifications = new ArrayList<Notification>();
+        notifications.addAll(this.notifications);
+        return notifications;
+    }
+
     /**
      * Returns the list of friends, based upon the friends being an instance of any notification
      * present in the notifications list.

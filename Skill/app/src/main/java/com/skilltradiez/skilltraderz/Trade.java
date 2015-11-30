@@ -193,7 +193,7 @@ public class Trade extends Stringeable {
      * Return is of the format: "description1 for description2"
      * @return String of the HalfTrade descriptions.
      */
-    public String getDescription() {
+    /*public String getDescription() {
         // SUBTITLE
         MasterController masterController = new MasterController();
 
@@ -218,7 +218,7 @@ public class Trade extends Stringeable {
         if (request.size() > 4) desc2 += "...";
 
         return desc1 + "for " + desc2;
-    }
+    }*/
 
     /**
      * Getter method that when invoked will return the Image from the Skill.
@@ -253,6 +253,22 @@ public class Trade extends Stringeable {
             string += DatabaseController.getSkillByID(skillID).getName() + " ";
 
         return string;
+    }
+
+    public String getType() {
+        return "Trade";
+    }
+
+    public String getStatus() {
+        if (!isActive())
+            return "Complete";
+        return "In-Progress";
+    }
+
+    public String getDescription() {
+        return DatabaseController.getAccountByUserID(half1.getUser()).getProfile().getUsername() +
+                " has begun a trade with " +
+                DatabaseController.getAccountByUserID(half2.getUser()).getProfile().getUsername();
     }
 
     /**

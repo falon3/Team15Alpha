@@ -166,4 +166,18 @@ public class HalfTrade extends Notification {
         result = 31 * result + part;
         return result;
     }
+
+    public String getType() {
+        return "User"+part+"'s Half-Trade";
+    }
+
+    public String getStatus() {
+        if (isAccepted())
+            return "Offered";
+        return "Updated";
+    }
+
+    public String getDescription() {
+        return "";
+    }
 }
