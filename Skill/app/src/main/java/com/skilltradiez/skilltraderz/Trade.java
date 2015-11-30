@@ -115,6 +115,7 @@ public class Trade extends Stringeable {
         getHalfForUser(user1).setAccepted(true);
         getHalfForUser(user2).setOffer(request);
         getHalfForUser(user2).setAccepted(false);
+        notifyDB();
     }
 
     /**

@@ -133,8 +133,10 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         }
 
         //Init Lists
-        offer = masterController.getStringeableSkillList(trade.getHalfForUser(activeUser).getOffer());
-        request = masterController.getStringeableSkillList(trade.getHalfForUser(passiveUser).getOffer());
+        offer.clear();
+        request.clear();
+        offer.addAll(masterController.getStringeableSkillList(trade.getHalfForUser(activeUser).getOffer()));
+        request.addAll(masterController.getStringeableSkillList(trade.getHalfForUser(passiveUser).getOffer()));
         offerAdapter.notifyDataSetChanged();
         requestAdapter.notifyDataSetChanged();
     }
