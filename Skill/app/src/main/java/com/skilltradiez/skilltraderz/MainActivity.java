@@ -90,7 +90,7 @@ public class MainActivity extends GeneralMenuActivity {
 
         recentActivities = (ListView) findViewById(R.id.activitiesList);
         //TODO check if reload adds changes
-        adapter = new RecentActivityAdapter(this, masterController.getUserDB().getChangeList().getNotificationsAsList());
+        adapter = new RecentActivityAdapter(this, masterController.getUserDB().getChangeList().getChangedNotifications());
 
         recentActivities.setAdapter(adapter);
 
@@ -126,6 +126,8 @@ public class MainActivity extends GeneralMenuActivity {
     public void onStart() {
         super.onStart();
         //TODO may have to update notifications
+        //TODO so uncomment if you dare
+        //adapter = new RecentActivityAdapter(this, masterController.getUserDB().getChangeList().getChangedNotifications());
         adapter.notifyDataSetChanged();
     }
 
