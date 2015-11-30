@@ -31,92 +31,6 @@ import java.io.IOException;
  * of this application! Essentially this is going to be the core hub of functionalities that
  * are related to the user's profile. We will allow the values within the profile to be modified,
  * deleted, updated, changed and represent the user mroe appropriately upon the fly!
- *
- * ~~ACCESS:
- * This class is a public class that will implement the notification interface, which the
- * notification interface is going to specify the requirements of various functions that are
- * within this application (detailed below).
- *
- * ~~CONSTRUCTORS:
- * This class is constructed by only one particular constructor (NO METHOD OVERLOARDING!)
- * In this instance when we are suppplied by the parameters of the string of the username
- * of the profile and then the string of the password for the user then we will create a brand
- * new shiny profile object! Glorious!
- *
- * ATTRIBUTES/METHODS:
- * In this object we specify a lot of attributes that are related to the core of what the user
- * wants to have represented about his/herself and so we have the following:
- *
- * 1: USERNAME.
- *     This is going to be the name of the user who is going to be presented by this particular
- *     profile! In this instance we FORCE the profile to have a particular username associated
- *     with the particular profile! In this case the username will be granted the status of being
- *     the single primary key that is used to identify the user (obviously following the rest
- *     of our code!). So this is manditory.
- *
- *     WE PROVIDE THE METHODS TO:
- *         None! THIS attribute (username) is obtained ONCE and ONLY ONCE and this is when we
- *         call the constructor to make a new instance of the profile class!
- *
- * 2: NICKNAME:
- *     This string value is going to be the potential representation that the user MAY OR MAY NOT
- *     opt to represent themselves with. This is NOT going to be ambiguous with the username.
- *     The username is THE key and is the primary identifier for any particular user of this
- *     application! This nickname is a relatively kind/soft method to allow the user to rename
- *     themselves in a fashion that they deem appropriate. We do not censor this, so we may
- *     have some... potentially hilarious names result from this chaos.
- *
- *
- *     WE PROVIDE THE METHODS TO:
- *         -Get the nickname of the particular user's profile      --getNickname
- *         -Set the nickname o the particular user's proile        --setNickname
- *
- * 3: EMAIL:
- *     This string value is the representation of how the other users will be able to contact the
- *     user through their profile page. Initially set by the CONSTRUCTOR that recieves the user's
- *     email during the process. The constructor calls upon the method of setEmail and then
- *     uses the string supplied by the user to set an e-mail for the user.
- *
- *     WE PROVIDE THE METHODS TO:
- *         -Get the email of the particular user's profile       -getEmail
- *         -Set the email of the user's profile (change email)   -setEmail
- *
- * 4: PASSWORD:
- *     This is the paramount and absolutely essential part of the user that we...
- *     are.... told... to... NOT.... DO!!!!!!!!!!!!!!!!
- *     PLS
- *
- * 5: SHOULDDOWNLOADIMAGES:
- *     This is going to be the private boolean value that the user has access to through
- *     their profile in which the user will allow the downloading of images from their profile
- *     (or.... not, although in reality in the world of screenshots goodluck honey!).
- *
- *     WE PROVIDE THE METHDOS TO:
- *        -get shouldDownloadImages                   --getShouldDownloadImages
- *        -set shouldDownload Images                  --setShouldDownloadImages
- *
- *  6: AVATAR:
- *      This is going to be one layer of the peronalization of the profile that is dear to many
- *      users of this application. This is the image that will represent the user to all other
- *      users of this application! Through the use of this image we will grant the user the
- *      ability to represent an image that will ideally capture their self envisioned self
- *      where the image is totally "them". And fabulous, cannot have a good image without
- *      it being downright fabulous.
- *
- *      WE PROVIDE THE METHODS TO:
- *          -get the avatar, to represent it          --getAvatar
- *          -set the avatar to something new          --setAvatar
- *          -delete the avatar (going to default)     --deteleAvatar
- *
- *
- *  METHODS NOT RELATED TO ATTRIBUTES:
- *
- *  1: COMMIT:
- *      This method is going to be the method that is called out by extrnal classes/parts of this
- *      application in order to fully "commit" the profile information to the database/local
- *      memory located within the device itself! Think of it like a "save button" that is linked
- *      to all the data within this class. It is glorious, it is beautiful. Love it.
- *
  */
 
 public class Profile extends Stringeable {
@@ -124,16 +38,31 @@ public class Profile extends Stringeable {
     private Boolean shouldDownloadImages;
     private int successfulTrades;
 
+    /**
+     * The constructor for a profile will take in a string as a parameter and assign it to be the
+     *    username of the Profile, by default will set the ability to download images to be true and
+     *    will set successfulTrades to zero.
+     * @param username String input
+     */
     Profile(String username) {
         setUsername(username);
         setShouldDownloadImages(true);
         successfulTrades = 0;
     }
 
+    /**
+     * Basic getter method to obtain the location variable from a Profile Object.
+     * @return String of the Location.
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Basic setter method to set the location variable within this Profile Object to the passed
+     *    in parameter.
+     * @param location String input
+     */
     public void setLocation(String location) {
         if (location.length() > 50)
             throw new IllegalArgumentException();
@@ -141,10 +70,19 @@ public class Profile extends Stringeable {
         notifyDB();
     }
 
+    /**
+     * Basic getter method that gets the username from the particular Profile Object.
+     * @return String of the username
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * Basic setter method that sets the username for the Profile Object
+     * @param name String input
+     * @throws IllegalArgumentException
+     */
     private void setUsername(String name) throws IllegalArgumentException {
         if (name.length() > 50)
             throw new IllegalArgumentException();
@@ -152,10 +90,20 @@ public class Profile extends Stringeable {
         notifyDB();
     }
 
+    /**
+     * Basic getter method that gets the String of the email from the particular Profile Object.
+     * @return String of the email.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Basic setter method that sets the email of the profile Object to the String passed as
+     * a parameter to this method.
+     * @param email String input.
+     * @throws IllegalArgumentException.
+     */
     public void setEmail(String email) throws IllegalArgumentException {
         if (email.length() > 50)
             throw new IllegalArgumentException();
@@ -163,15 +111,30 @@ public class Profile extends Stringeable {
         notifyDB();
     }
 
+    /**
+     * Basic getter from the user Profile's setting if images should be downloaded or not.
+     * True = should be able to download images.
+     * False = should NOT be able to download images.
+     * @return Boolean. True/False.
+     */
     public Boolean getShouldDownloadImages() {
         return shouldDownloadImages;
     }
 
+    /**
+     * Basic setter for if the user's profile should allow image downloading or not.
+     * @param shouldDownloadImages Boolean flag.
+     */
     public void setShouldDownloadImages(Boolean shouldDownloadImages) {
         this.shouldDownloadImages = shouldDownloadImages;
         notifyDB();
     }
 
+    /**
+     * When evoked, will commit the Profile Object to the database.
+     * @param userDB UserDatabase Object.
+     * @return Boolean. True/False.
+     */
     public boolean commit(UserDatabase userDB) {
         try {
             userDB.getElastic().updateDocument("user", username, this, "profile");
@@ -182,10 +145,21 @@ public class Profile extends Stringeable {
         return true;
     }
 
+    /**
+     * Basic getter method that will return the username of the Profile Object.
+     * @return String of the username.
+     */
     public String getName() {
         return getUsername();
     }
 
+    /**
+     * When evoked, will look at the database and see if the current user and the profile
+     * being viewed are friends, not friends, or the user themselves. Returns string values of
+     * strict definition to allow all three options.
+     *
+     * @return String of either "You", "Friend", or "Non-Friend" for identification.
+     */
     public String getCategory(){
         MasterController masterController = new MasterController();
         if (masterController.getCurrentUser().getProfile().getName().equals(getUsername())) {
@@ -196,22 +170,42 @@ public class Profile extends Stringeable {
         return "Non-Friend";
     }
 
+    /**
+     * Basic getter method that returns a String of the Profile Object's description.
+     * @return String of the description.
+     */
     public String getDescription() {
         return getLocation();
     }
 
+    /**
+     * Basic getter method that returns a new default image. (Default is NullImage).
+     * @return Image Object.
+     */
     public Image getImage() {
         return new NullImage();
     }
 
+    /**
+     * Basic getter method that returns the number of successful trades this profile has had.
+     * @return Integer
+     */
     public int getTop() {
         return getSuccessfulTrades();
     }
 
+    /**
+     * Basic getter method that returns the number of successful trades this profile has had.
+     * @return Integer
+     */
     public int getSuccessfulTrades() {
         return successfulTrades;
     }
 
+    /**
+     * This method, when invoked, will add 1 to the counter of successful trades that this
+     * particular Profile Object has had.
+     */
     public void tradeSuccess() {
         successfulTrades++;
         notifyDB();
