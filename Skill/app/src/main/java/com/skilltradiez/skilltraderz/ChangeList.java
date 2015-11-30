@@ -113,10 +113,21 @@ class ChangeList {
         return notifications;
     }
 
+    public List<Notification> getChangedNotifications() {
+        List<Notification> notifications = getNotificationsAsList(),
+                changed = new ArrayList<Notification>();
+        for (Notification note: notifications)
+            if (note.hasChanged()) {
+                note.notifyDB();
+                changed.add(note);
+            }
+        return changed;
+    }
+
     /**
      * Returns the list of friends, based upon the friends being an instance of any notification
      * present in the notifications list.
-     * @return List of FriendsLists. (A lists of lists! How ... obfusticated.)
+     * @return List of FriendsLists. (A lists of lists! How ... obfuscated.)
      */
     public List<FriendsList> getFriendsList() {
         List<FriendsList> friendsLists = new ArrayList<FriendsList>();
