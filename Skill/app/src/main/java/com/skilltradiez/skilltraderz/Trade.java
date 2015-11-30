@@ -140,10 +140,17 @@ public class Trade extends Stringeable {
      * @return Boolean. True/False.
      */
     public boolean checkIfComplete() {
-        if (half1.hasChanged() || half2.hasChanged())
+        if (half1.hasChanged()) {
             notifyDB();
-        if (!isActive())
+            half1.notifyDB();
+        }
+        if (half2.hasChanged()) {
+            notifyDB();
+            half2.notifyDB();
+        }
+        if (!isActive()) {
             MasterController.getCurrentUser().getTradeList().tradeComplete(tradeID);
+        }
         return true;
     }
 
