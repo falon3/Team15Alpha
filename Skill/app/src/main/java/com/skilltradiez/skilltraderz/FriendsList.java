@@ -158,4 +158,8 @@ public class FriendsList extends Notification {
     public String getDescription() {
         return "";
     }
+
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(owner);
+    }
 }

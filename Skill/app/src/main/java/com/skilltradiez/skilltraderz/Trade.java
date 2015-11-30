@@ -189,39 +189,6 @@ public class Trade extends Stringeable {
     }
 
     /**
-     * Getter method that when evoked on the Trade Object, will give us the description of each
-     * side of the trade involved in the complete Object as a String.
-     * Return is of the format: "description1 for description2"
-     * @return String of the HalfTrade descriptions.
-     */
-    /*public String getDescription() {
-        // SUBTITLE
-        MasterController masterController = new MasterController();
-
-        String desc1 = "", desc2 = "";
-        List<Skill> offer = masterController.getSkillList(getHalf1().getOffer()),
-                request = masterController.getSkillList(getHalf2().getOffer());
-
-        if (!offer.isEmpty())
-            desc1 = offer.get(0).getName();
-
-        if (!request.isEmpty())
-            desc2 = request.get(0).getName();
-
-        for (int i=1;(i < 4) && ((i < offer.size()) || (i < request.size()));i++) {
-            if (i < offer.size())
-                desc1 += offer.get(i).getName() + ", ";
-            if (i < request.size())
-                desc2 += request.get(i).getName() + ", ";
-        }
-
-        if (offer.size() > 4) desc1 += "... ";
-        if (request.size() > 4) desc2 += "...";
-
-        return desc1 + "for " + desc2;
-    }*/
-
-    /**
      * Getter method that when invoked will return the Image from the Skill.
      * @return Image Object.
      */
@@ -313,5 +280,9 @@ public class Trade extends Stringeable {
     @Override
     public int hashCode() {
         return tradeID != null ? tradeID.hashCode() : 0;
+    }
+
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(half1.getUser()) || userID.equals(half2.getUser());
     }
 }

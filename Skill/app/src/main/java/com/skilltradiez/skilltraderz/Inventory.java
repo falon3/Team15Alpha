@@ -279,4 +279,8 @@ public class Inventory extends Notification {
     public String getDescription() {
         return "Something was added or removed.";
     }
+
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(user);
+    }
 }
