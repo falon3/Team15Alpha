@@ -323,8 +323,6 @@ public class EditSkillActivity extends CameraActivity {
 
             //Toasty
             Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
-
-            initState();
         } else { // if we are editing an existing skill
             if (skillToEdit.getNumOwners() > 1) {
                 MasterController.getCurrentUser().getInventory().remove(skillToEdit.getSkillID());
