@@ -17,6 +17,11 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * This class is based upon the premise that Trades are a little involved to implement, so we're
+ * better off in the long run to have the TradeAdapter class stated here for simplicity's sake so
+ * that implementing an adapter for Trades is less intensive elsewhere.
+ */
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +36,13 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
     private final List<Skill> items;
     private final boolean offer;
 
+    /**
+     * Accepts an activity that the TradeAdapter is working on and a List of Skill Objects in order
+     * to flesh out some useful UI elements. Also assigns the basic boolean "offer" to be true,
+     * as in we will have this TradeAdapter have an offer associated with it.
+     * @param context Activity Class.
+     * @param itemList List of Skill Objects.
+     */
     public TradeAdapter(Activity context, List<Skill> itemList) {
         super(context, R.layout.trade_offer, itemList);
         this.context = context;
@@ -38,6 +50,12 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
         offer = true;
     }
 
+    /**
+     * This constructor takes in one more parameter than the one above, the inventory boolean.
+     * @param context Activity Class.
+     * @param itemList List of Skill Objects.
+     * @param inventory BOOLEAN (NO! NOT AN INVENTORY OBJECT!)
+     */
     @SuppressWarnings("unused") // boolean is used to identify arrow direction
     public TradeAdapter(Activity context, List<Skill> itemList, boolean inventory) {
         super(context, R.layout.trade_inv, itemList);
@@ -46,6 +64,14 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
         offer = false;
     }
 
+    /**
+     * This method is a UI heavy caretaker that will handle all of the specific details of setting
+     * up the TradeAdapter with a View- and will return the View after it is finished. 
+     * @param position Integer of position on UI.
+     * @param view View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         Skill item = getItem(position);
@@ -70,7 +96,10 @@ public class TradeAdapter extends ArrayAdapter<Skill> {
         return view;
     }
 
-    // Acting As A Struct
+    /**
+     * This class is acting as if it were a struct. Holding the variables name and desc that are
+     * both Textview variables.
+     */
     public class ViewHolder {
         TextView name;
         TextView desc;
