@@ -51,6 +51,33 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#057777" />
 
+    <TextView
+        android:id="@+id/Desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/mainBackground"
+        android:background="@drawable/titlebar"
+        android:text="@string/desc"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/new_skill_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/new_skill_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/new_skill_description"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/mainTextColor"
+        android:layout_below="@+id/Desc"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
     <CheckBox
         android:id="@+id/is_visible"
         android:layout_width="wrap_content"
@@ -59,7 +86,7 @@
         android:layout_alignParentEnd="true"
         android:checked="true"
         android:text="@string/is_visible"
-        android:textColor="#057777" />
+        android:textColor="@color/mainTextColor" />
 
     <Button
         android:id="@+id/add_skill_to_database"
@@ -78,36 +105,36 @@
         android:id="@+id/Category_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/category_spinner"
-        android:layout_alignParentEnd="true"
         android:textColor="@color/mainBackground"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="2dp"
         android:background="@drawable/titlebar"
         android:text="@string/category_title"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/new_skill_description"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/add_skill_to_database"
-        android:layout_alignParentStart="true"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/Category_Title"
+        android:layout_alignParentEnd="true" />
 
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollingcats"
-        android:layout_toStartOf="@+id/is_visible"
-        android:layout_below="@+id/new_skill_name"
-        android:layout_alignEnd="@+id/Category_Title"
-        android:layout_above="@+id/Category_Title">
+        android:layout_below="@+id/category_spinner"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/add_skill_to_database">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/Category_Title"
+            android:layout_alignParentEnd="true">
 
             <TextView
                 android:id="@+id/Rating"
@@ -116,7 +143,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="false"
                 android:textColor="@color/mainBackground"
-                android:layout_below="@+id/new_skill_description"
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/imageList"
                 android:background="@drawable/titlebar"
@@ -127,10 +153,10 @@
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Rating"
                 android:layout_toRightOf="@+id/imageList"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true">
+                android:layout_below="@+id/Rating">
 
                 <RadioButton
                     android:id="@+id/radioButton"
@@ -172,12 +198,12 @@
                 android:id="@+id/takeImage"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/Desc"
                 android:background="@drawable/titlebar"
                 android:contentDescription="@string/photo_alt"
                 android:onClick="addNewImage"
                 android:paddingBottom="5dp"
-                android:src="@drawable/ic_action_image_camera_alt" />
+                android:src="@drawable/ic_action_image_camera_alt"
+                android:layout_alignTop="@+id/Rating" />
 
             <ListView
                 android:id="@+id/imageList"
@@ -190,34 +216,6 @@
                 android:background="@drawable/photoview"
                 android:layout_alignBottom="@+id/radioGroup" />
 
-            <TextView
-                android:id="@+id/Desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="false"
-                android:textColor="@color/mainBackground"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/takeImage"
-                android:background="@drawable/titlebar"
-                android:text="@string/desc"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/new_skill_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="false"
-                android:layout_below="@+id/Desc"
-                android:layout_toRightOf="@+id/imageList"
-                android:hint="@string/new_skill_description"
-                android:inputType="textMultiLine"
-                android:maxLines="4"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#057777" />
         </RelativeLayout>
     </ScrollView>
 
