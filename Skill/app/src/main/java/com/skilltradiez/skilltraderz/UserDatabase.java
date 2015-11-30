@@ -46,6 +46,20 @@ public class UserDatabase {
     private Elastic elastic;
     private Local local;
 
+    /**
+     * This should only ever be called once in the application, this constructs THE database
+     * for the entire application. Instntiates a new set of hashes for users, trades, skills,
+     * images and ChangeList.
+     *
+     * We will also create a newHTTPClient and invoke the setHttpClient method with this, giving
+     * this database a particular HTTPClient that it will be utilizing extensively through the
+     * application process.
+     *
+     * Another part of this constructor is that we will obtain all of the LocalPersistentObject
+     * data (if it is there) and then we will shuttle this into the database.
+     *
+     * Finally we close with a push to the changelist, updating the database.
+     */
     UserDatabase() {
         users = new HashSet<User>();
         trades = new HashSet<Trade>();
@@ -77,45 +91,96 @@ public class UserDatabase {
         getChangeList().push(this);
     }
 
+    /**
+     * Sets the elastic variable of the UserDatabase Object to a new Elastic Object based upon
+     * the client parameter passed into this method.
+     * @param client HTTPClient Object
+     */
     public void setHttpClient(HTTPClient client){
         elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", client);
     }
 
-
-
-    /** Model here only has the simple getter/setter methods that allow the controller to function
-     * without some insane level of complexity.
-     *
-     * All of those huge functions from before were just outright modified and put into the
-     * controller itself. Those don't belong in a true model class following MVC.
-     */
     /**
-     * This is unfortunately necessary
+     * Basic setter method that sets the current user value to null.
      */
     public void setCurrentUserToNull(){ currentUser = null; }
 
+    /**
+     * Basic getter method that returns the Set of Skill Objects from the database.
+     * @return Set of Skill Objects.
+     */
     public Set<Skill> getSkillz(){ return skillz; }
 
+    /**
+     * Basic getter method that returns the ChangeList Object from the database.
+     * @return ChangeList Object.
+     */
     public ChangeList getChangeList() { return toBePushed; }
 
+    /**
+     * Basic getter method that returns the Elastic Object from the database.
+     * @return Elastic Object.
+     */
     public Elastic getElastic() { return elastic; }
 
+    /**
+     * Basic getter method that returns the Local Object from the database.
+     * @return Local Object.
+     */
     public Local getLocal() { return local; }
 
+    /**
+     * Basic getter method that returns current user User Oject from the database.
+     * @return User Object.
+     */
     public User getCurrentUser() { return currentUser; }
 
+    /**
+     * Basic getter method that returns the complete set of User Objects from the database.
+     * @return Set of User Objects.
+     */
     public Set<User> getUsers() {
         return users;
     }
 
+    /**
+     * Basic getter method that returns the complete set of Skill Objects from the database.
+     * @return Set of Skill Objects.
+     */
     public Set<Skill> getSkills() {
         return skillz;
     }
 
+    /**
+     * Basic getter method that returns the complete set of Trade Objects from the database.
+     * @return Set of Trade Objects.
+     */
     public Set<Trade> getTrades() {
         return trades;
     }
 
+    /**
+     * Basic getter method that returns the complete set of Image Objects from the database.
+     * @return Set of Image Objects.
+     */
+    public Set<Image> getImagez() {
+        return imagez;
+    }
+
+    /**
+     * Sets the UserDatabase imagez variable to the supplied Set of Image Objects supplied through
+     * the method's parameter.
+     * @param imagez Set of Image Objects
+     */
+    public void setImagez(Set<Image> imagez) {
+        this.imagez = imagez;
+    }
+
+    /**
+     * Sets the current user of the application across various aspects of the ChangeList Object
+     * assocaited with the database.
+     * @param currentUser User Object.
+     */
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
         getChangeList().add(currentUser.getFriendsList());
@@ -124,11 +189,5 @@ public class UserDatabase {
         getChangeList().add(currentUser.getInventory());
     }
 
-    public Set<Image> getImagez() {
-        return imagez;
-    }
 
-    public void setImagez(Set<Image> imagez) {
-        this.imagez = imagez;
-    }
 }
