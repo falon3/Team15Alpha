@@ -111,8 +111,7 @@
         android:paddingTop="5dp"
         android:text="@string/skill_description"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/ListViewYellow"
-        android:paddingRight="10dp" />
+        android:textColor="@color/ListViewYellow"/>
 
     <Button
         android:id="@+id/add_remove_skill"

@@ -168,7 +168,6 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
             masterController.addCurrentSkill(currentSkill);
         }
         hasSkill = !hasSkill;
-        currentSkill.notifyDB();
         DatabaseController.save();
     }
 
