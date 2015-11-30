@@ -200,7 +200,7 @@ public final class DatabaseController {
      * @param emailGiven String input.
      * @return User Object
      */
-    public static User createNewUser(String usernameGiven, String emailGiven) throws UserAlreadyExistsException {
+    public static User createNewUser(String usernameGiven, String emailGiven) throws UserAlreadyExistsException, NoInternetException {
         User new_guy = null;
         new_guy = createUser(usernameGiven);
 
@@ -231,7 +231,7 @@ public final class DatabaseController {
      * @throws UserAlreadyExistsException
      * @throws IOException
      */
-    public static User createUser(String username) throws UserAlreadyExistsException {
+    public static User createUser(String username) throws UserAlreadyExistsException, NoInternetException {
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
 
@@ -245,8 +245,9 @@ public final class DatabaseController {
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
+            e.printStackTrace();
             // No internet, no registration
-            throw new RuntimeException();
+            throw new NoInternetException();
         }
         return u;
     }

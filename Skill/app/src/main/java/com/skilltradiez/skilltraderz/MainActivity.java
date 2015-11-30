@@ -166,10 +166,10 @@ public class MainActivity extends GeneralMenuActivity {
                 new_guy = DatabaseController.createNewUser(username, newUserEmail.getText().toString());
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
-            } catch (RuntimeException ex) {
+            } catch (NoInternetException ex) {
                 Toast.makeText(context, "Need to be online to create an account!" + username, Toast.LENGTH_SHORT).show();
+                return;
             }
-            DatabaseController.save();
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
