@@ -19,7 +19,6 @@ import java.util.List;
 public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
     private Context context;
     private List<T> itemList;
-
     SpinnerAdapter(Context context, T itemList[]) {
         this(context, Arrays.asList(itemList));
     }
