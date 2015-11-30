@@ -159,7 +159,8 @@ public class FriendsList extends Notification {
      * @return String of the description.
      */
     public String getDescription() {
-        return "";
+        if (mostRecentFriend == null) return "how did this happen???";
+        return DatabaseController.getAccountByUserID(mostRecentFriend).getProfile().getName()+" was added or removed.";
     }
 
     public boolean relatesToUser(ID userID) {
