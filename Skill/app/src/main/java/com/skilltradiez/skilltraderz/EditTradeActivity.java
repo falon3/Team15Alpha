@@ -53,7 +53,7 @@ import java.util.List;
  * for any sort of decent user experience. Without it we are in trouble! Big... big trouble!
  */
 
-public class EditTradeActivity extends GeneralMenuActivity {
+public class EditTradeActivity extends ButtonMenuActivity {
     /**Activity Class Variables:
      * 1: ACTIVE_PARAM, involved with holding the static string "active_id" which will be utilized
      *     in being passed to methods where we need to differentiate IDs given.
@@ -193,6 +193,11 @@ public class EditTradeActivity extends GeneralMenuActivity {
         yourInvAdapter.notifyDataSetChanged();
         requestAdapter.notifyDataSetChanged();
         otherInvAdapter.notifyDataSetChanged();
+
+        activateLeftButton();
+
+        setLeftText("Delete Request");
+        setRightText("Send Request");
     }
 
     /**
@@ -231,6 +236,10 @@ public class EditTradeActivity extends GeneralMenuActivity {
         otherInvAdapter = new TradeAdapter(this, otherInv, true);
     }
 
+    public void clickOnLeftButton(View v) {
+        deleteRequest(v);
+    }
+
     /**
      * Given a View Object (to identify the trade), this method will remove the Trade Object
      * associated with the given View Object. It will then display a brief message to the user
@@ -246,6 +255,10 @@ public class EditTradeActivity extends GeneralMenuActivity {
         Toast.makeText(context, "Deleted your request", Toast.LENGTH_SHORT).show();
 
         finish();
+    }
+
+    public void clickOnRightButton(View v) {
+        sendTrade(v);
     }
 
     /**

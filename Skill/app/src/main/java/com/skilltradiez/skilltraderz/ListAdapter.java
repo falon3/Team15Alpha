@@ -40,7 +40,6 @@ import java.util.List;
 public class ListAdapter extends ArrayAdapter<Stringeable> {
     private final Activity context;
     private final List<Stringeable> items;
-
     /**
      * Takes in a context and list of items and will assign the ListAdapter Object's variables
      * to these passed in parameters.
@@ -73,6 +72,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
             viewHolder.name = (TextView) view.findViewById(R.id.name);
             viewHolder.cat = (TextView) view.findViewById(R.id.category);
             viewHolder.desc = (TextView) view.findViewById(R.id.desc);
+            viewHolder.topNum = (TextView) view.findViewById(R.id.topNum);
             viewHolder.img = (ImageView) view.findViewById(R.id.img);
             view.setTag(viewHolder);
         } else {
@@ -82,6 +82,17 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
         viewHolder.name.setText(item.getName());
         viewHolder.cat.setText(item.getCategory());
         viewHolder.desc.setText(item.getDescription());
+
+        String pre="";
+        if (item instanceof Skill) {
+            pre = "NumOwners:";
+        } else if (item instanceof Trade) {
+            pre="Other Guy's Successful Trades:";
+        } else {
+            pre="Successful Trades:";
+        }
+
+        viewHolder.topNum.setText(pre+item.getTop());
         if (item.getImage() != null)
             viewHolder.img.setImageBitmap(item.getImage().getBitmap());
         return view;
@@ -95,6 +106,7 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
     public class ViewHolder {
         TextView name;
         TextView desc;
+        TextView topNum;
         TextView cat;
         ImageView img;
     }
