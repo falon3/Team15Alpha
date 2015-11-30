@@ -106,10 +106,13 @@ public class SearchScreenActivity extends SearchMenuActivity {
 
         // Categories
         if (screenType == 0) {
+            setHint("Search Skills");
             stringArray = getResources().getStringArray(R.array.category_All);
         } else if (screenType == 1) {
+            setHint("Search Users");
             stringArray = getResources().getStringArray(R.array.friends_All);
         } else {
+            setHint("Search Trade History");
             stringArray = getResources().getStringArray(R.array.trades_All);
         }
 
