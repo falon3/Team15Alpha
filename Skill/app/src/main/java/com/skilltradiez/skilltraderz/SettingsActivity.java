@@ -20,6 +20,9 @@ package com.skilltradiez.skilltraderz;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -68,6 +71,22 @@ public class SettingsActivity extends GeneralMenuActivity {
         citySettings.setText(user.getProfile().getLocation());
         downloadPics.setChecked(user.getProfile().getShouldDownloadImages());
 
+    }
+
+    /**
+     * Sets up the UI for the Menu of this Activity.
+     * @param menu Menu Object.
+     * @return Boolean. True/False.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_ham, menu);
+
+        //disable go to settings button from menubar when already in settings
+        MenuItem item = menu.findItem(R.id.Go_To_Settings);
+        item.setEnabled(false);
+        return true;
     }
 
 

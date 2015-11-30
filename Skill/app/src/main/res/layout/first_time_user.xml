@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -19,76 +18,78 @@
     -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:background="@drawable/titlebar"
-        android:textColor="@color/mainBackground"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/welcome_to_app"
         android:id="@+id/welcomeMessage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/titlebar"
+        android:text="@string/welcome_to_app"
         android:textAlignment="center"
-        android:background="@color/lightTealAccent" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/mainBackground" />
 
     <EditText
+        android:id="@+id/usernameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint="@string/make_a_user_name"
-        android:id="@+id/usernameField"
-        android:maxLength="15"
-        android:layout_marginBottom="57dp"
-        android:textColor="@color/mainTextColor"
+        android:layout_above="@+id/emailField"
         android:layout_alignEnd="@+id/emailField"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="57dp"
+        android:hint="@string/make_a_user_name"
+        android:maxLength="15"
         android:textAlignment="center"
-        android:layout_above="@+id/emailField" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/mainTextColor" />
 
     <Button
+        android:id="@+id/beginApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/begin_app"
-        android:id="@+id/beginApp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="71dp"
-        android:onClick="newUser"/>
+        android:background="@drawable/button"
+        android:onClick="newUser"
+        android:text="@string/begin_app" />
 
     <EditText
+        android:id="@+id/emailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="@string/what_is_your_email"
-        android:id="@+id/emailField"
-        android:textColor="@color/mainTextColor"
-        android:layout_centerInParent="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:textAlignment="center" />
+        android:layout_centerInParent="true"
+        android:hint="@string/what_is_your_email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor" />
 
     <Button
+        android:id="@+id/deleteDatabase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete entire database"
-        android:id="@+id/deleteDatabase"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:background="@drawable/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="deleteDatabase" />
+        android:background="@drawable/button"
+        android:onClick="deleteDatabase"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Delete entire database" />
 
 
 </RelativeLayout>
