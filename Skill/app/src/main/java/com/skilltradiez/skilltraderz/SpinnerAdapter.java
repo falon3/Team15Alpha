@@ -17,17 +17,8 @@ import java.util.List;
 public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
     private Context context;
     private List<T> itemList;
-    SpinnerAdapter(Context context, T[] itemList) {
-        super(context, R.layout.spinner_item);
-        this.context = context;
-
-        this.itemList = new ArrayList<T>();
-        for (T item:itemList)
-            this.itemList.add(item);
-    }
-
     SpinnerAdapter(Context context, List<T> itemList) {
-        super(context, R.layout.spinner_item);
+        super(context, R.layout.spinner_item, itemList);
         this.context = context;
         this.itemList = itemList;
 
