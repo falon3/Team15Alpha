@@ -1,5 +1,4 @@
 package com.skilltradiez.skilltraderz;
-
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)

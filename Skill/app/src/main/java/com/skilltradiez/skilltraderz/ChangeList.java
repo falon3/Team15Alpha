@@ -1,5 +1,4 @@
 package com.skilltradiez.skilltraderz;
-
 /*
  *    Team15Alpha
  *    AppName: SkillTradiez (Subject to change)
@@ -49,8 +48,6 @@ import java.util.Set;
  * to let the user actually have a method that lets them push ALL of this to a particular user's
  * database! Now that is glorious, and majestic.
  */
-
-
 
 class ChangeList {
     /** Class Variables:
