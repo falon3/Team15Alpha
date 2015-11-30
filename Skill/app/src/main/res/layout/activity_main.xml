@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/icon_holder"
         android:src="@drawable/mainbutton"
-        android:layout_alignBottom="@+id/rainbowcat"
         android:layout_alignParentTop="true" />
 
     <TextView
@@ -50,11 +49,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/recentActs"
         android:id="@+id/recentActivities"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:longClickable="false"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
-        android:layout_below="@+id/browncat"
+        android:layout_below="@+id/icon_holder"
         android:layout_alignLeft="@+id/activitiesList"
         android:layout_alignRight="@+id/activitiesList" />
 
@@ -83,35 +82,38 @@
             android:id="@+id/All_Users"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_person"
+            android:src="@drawable/ic_public"
             android:onClick="beginAllSearch"
             android:text="@string/browse_users"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1"
-            android:background="#00000000" />
+            android:background="#00000000"
+            android:paddingTop="5dp" />
 
         <ImageButton
             android:id="@+id/All_Skillz"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/sk_plus"
+            android:src="@drawable/ic_pool_black_36dp"
             android:onClick="beginAllSearch"
             android:text="@string/browse_skillz"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1"
-            android:background="#00000000" />
+            android:background="#00000000"
+            android:paddingTop="5dp" />
 
         <ImageButton
             android:id="@+id/My_Friends"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_social_group"
+            android:src="@drawable/ic_group"
             android:onClick="beginAllSearch"
             android:text="@string/your_friends"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1"
             android:background="#00000000"
-            android:baselineAlignBottom="false" />
+            android:baselineAlignBottom="false"
+            android:paddingTop="5dp" />
 
         <ImageButton
             android:id="@+id/Trade_History"
@@ -121,7 +123,8 @@
             android:onClick="beginAllSearch"
             android:text="@string/trade_history"
             android:textColor="@color/ListViewYellow"
-            android:background="#00000000" />
+            android:background="#00000000"
+            android:paddingTop="5dp" />
 
     </LinearLayout>
 
@@ -133,8 +136,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:focusableInTouchMode="false"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="17dp">
+        android:layout_alignParentTop="true">
 
         <TextView
             android:layout_width="75dp"
@@ -170,7 +172,8 @@
             android:text="Trades"
             android:id="@+id/m_trades"
             android:layout_weight="1"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:paddingRight="15dp" />
 
     </LinearLayout>
 

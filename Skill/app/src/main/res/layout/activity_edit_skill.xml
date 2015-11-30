@@ -118,13 +118,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false"
         android:textColor="@color/listLightYellow"
-        android:background="@drawable/button"
+        android:background="@drawable/button_with_border"
         android:onClick="addNewSkill"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="@string/add_skill" />
+        android:text="@string/add_skill"
+        android:layout_alignEnd="@+id/imageList"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/Category_Title"

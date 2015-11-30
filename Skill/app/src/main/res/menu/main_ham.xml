@@ -20,45 +20,26 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:skillz="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/All_Users"
-        android:title="@string/browse_users"
-        skillz:showAsAction="never" />
-    <item
-        android:id="@+id/All_Skillz"
-        android:title="@string/browse_skillz"
-        skillz:showAsAction="never" />
-    <item
-        android:id="@+id/My_Friends"
-        android:title="@string/your_friends"
-        skillz:showAsAction="never" />
-    <item
-        android:id="@+id/Trade_History"
-        android:title="@string/trade_history"
-        skillz:showAsAction="never" />
-    <item
-        android:id="@+id/Go_To_Settings"
-        android:title="@string/go_to_settings"
-        skillz:showAsAction="never" />
-    <item
-        android:id="@+id/Go_Home_Menu"
-        android:icon="@drawable/ic_home"
-        android:title="@string/go_home_menu"
-        skillz:showAsAction="always" />
+
     <item
         android:id="@+id/Go_Profile_Menu"
         android:icon="@drawable/ic_person"
         android:title="@string/go_profile"
         skillz:showAsAction="always" />
     <item
-        android:id="@+id/Go_To_Messages_Menu"
-        android:title="@string/go_messages"
-        android:icon="@drawable/ic_mail"
+        android:id="@+id/Go_Home_Menu"
+        android:icon="@drawable/ic_home"
+        android:title="@string/go_home_menu"
         skillz:showAsAction="always" />
     <item
         android:id="@+id/Go_Make_Skill"
         android:title="@string/go_make_skill"
         android:icon="@drawable/sk_plus"
+        skillz:showAsAction="always" />
+    <item
+        android:id="@+id/Go_To_Settings"
+        android:title="@string/go_to_settings"
+        android:icon="@drawable/ic_settings"
         skillz:showAsAction="always" />
 
 </menu>
