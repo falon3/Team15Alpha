@@ -218,7 +218,7 @@ public class TradeList extends Notification {
         for (ID tradeId : newTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
-            User theUser = DatabaseController.getAccountByUserID(getOwnerID());
+            User theUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
             otherUser.getTradeList().addTrade(userDB, trade);
             theUser.getTradeList().addTrade(userDB, trade);
             try {
