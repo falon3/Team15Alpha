@@ -177,9 +177,12 @@ public final class MasterController {
      * @return List of Trade Objects.
      */
     public List<Trade> getAllTradezForCurrentUser() {
-        ArrayList<Trade> trades = new ArrayList<Trade>();
-        for (ID id : getCurrentUser().getTradeList().getTradesList())
-            trades.add(getTradeByID(id));
+        List<Trade> trades = new ArrayList<Trade>();
+        TradeList tradeList = getCurrentUser().getTradeList();
+        Trade trade;
+
+        for (ID id : tradeList.getTradesList())
+            trade = getTradeByID(id);
         return trades;
     }
 

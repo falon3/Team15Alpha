@@ -19,6 +19,9 @@ package com.skilltradiez.skilltraderz;
  */
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -84,6 +87,7 @@ public final class DatabaseController {
         Set<Trade> trades = MasterController.getUserDB().getTrades();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         ChangeList changes = MasterController.getUserDB().getChangeList();
+        TradeList tradeList = MasterController.getCurrentUser().getTradeList();
 
         try {
             List<User> onlineUsers = elastic.getAllUsers();
@@ -98,9 +102,10 @@ public final class DatabaseController {
                 skillz.add(s);
                 changes.add(s);
             }
-            for (ID id : MasterController.getCurrentUser().getTradeList().getTradesList()) {
+            for (ID id : tradeList.getTradesList()) {
                 Trade t = getTradeByID(id);
                 trades.remove(t);
+
                 trades.add(t);
                 changes.add(t);
             }
@@ -117,6 +122,7 @@ public final class DatabaseController {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
         toBePushed.push(MasterController.getUserDB());
+
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();

@@ -156,6 +156,7 @@ public class UserDatabase {
      * @return Set of Trade Objects.
      */
     public Set<Trade> getTrades() {
+
         return trades;
     }
 

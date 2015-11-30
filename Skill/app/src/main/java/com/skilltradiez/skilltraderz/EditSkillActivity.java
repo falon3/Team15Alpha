@@ -337,6 +337,7 @@ public class EditSkillActivity extends CameraActivity {
             skillToEdit.setImages(getImages());
             skillToEdit.setVisible(isVisible);
             skillToEdit.setImages(getImages());
+
             DatabaseController.save();
 
             Toast.makeText(context, "Skill saved!", Toast.LENGTH_SHORT).show();
