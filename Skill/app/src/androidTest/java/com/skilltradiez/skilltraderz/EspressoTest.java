@@ -23,12 +23,20 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import android.app.Activity;
+import android.provider.ContactsContract;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.test.suitebuilder.annotation.LargeTest;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -42,6 +50,8 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
+import static android.support.test.runner.lifecycle.Stage.RESUMED;
+
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -54,31 +64,36 @@ public class EspressoTest {
             MainActivity.class);
 
     @Before
-    public void deleteDatabase(){
-        DatabaseController.deleteAllData();
+    public void deleteLocal() throws IOException {
+        MasterController.getUserDB().getLocal().deleteFile();
     }
 
     @After
-    public void deleteDatabaseAgain() {
-        DatabaseController.deleteAllData();
+    public void deleteLocalAgain() throws IOException {
+        MasterController.getUserDB().getLocal().deleteFile();
     }
 
     @Test
     // Login.CreateAccount
     public void testCreateUser() {
-        onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
-        onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        String username = TestUtilities.getRandomString();
+        String email = TestUtilities.getRandomString();
+
+        onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
         onView(withId(R.id.beginApp)).perform(click());
         onView(withId(R.id.Go_Profile_Menu)).perform(click());
-        onView(withId(R.id.user_name)).check(matches(withText("Elyse")));
+        onView(withId(R.id.user_name)).check(matches(withText(username)));
     }
 
     // Inventory.AddSkillz + ExamineSkillz (examines after adding)
     @Test
     public void testAddSkillz() {
+        String username = TestUtilities.getRandomString();
+        String email = TestUtilities.getRandomString();
         //login
-        onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
-        onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        onView(withId(R.id.usernameField)).perform(typeText(username), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(email), closeSoftKeyboard());
         onView(withId(R.id.beginApp)).perform(click());
 
         // click add skill
@@ -125,21 +140,28 @@ public class EspressoTest {
         assertTrue(false);
     }
 
+    public String usernameAddfriend;
+    public String friendAddfriend;
+    public String emailAddfriend;
+
     @Test
     // Friends.AddFriend
     public void testAddFriend() throws UserAlreadyExistsException {
+        friendAddfriend = TestUtilities.getRandomString();
+        usernameAddfriend = TestUtilities.getRandomString();
+        emailAddfriend = TestUtilities.getRandomString();
         //create friend
-        DatabaseController.createUser("Friend");
+        DatabaseController.createUser(friendAddfriend);
 
         //login
-        onView(withId(R.id.usernameField)).perform(typeText("Elyse"), closeSoftKeyboard());
-        onView(withId(R.id.emailField)).perform(typeText("Elyse"), closeSoftKeyboard());
+        onView(withId(R.id.usernameField)).perform(typeText(usernameAddfriend), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(emailAddfriend), closeSoftKeyboard());
         onView(withId(R.id.beginApp)).perform(click());
 
-        //find friend
-        openContextualActionModeOverflowMenu();
+        //return home to browse users find friend
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
         onView(withId(R.id.All_Users)).perform(click());
-        onView(withId(R.id.search_bar)).perform(typeText("Friend"), closeSoftKeyboard());
+        onView(withId(R.id.search_bar)).perform(typeText(friendAddfriend), closeSoftKeyboard());
         onView(withId(R.id.search_button)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
 
@@ -148,7 +170,7 @@ public class EspressoTest {
 
         //check that friend was added
         MasterController mc = new MasterController();
-        assertTrue(mc.getUserByName("Elyse").getFriendsList().hasFriend(mc.getUserByName("Friend")));
+        assertTrue(mc.getUserByName(usernameAddfriend).getFriendsList().hasFriend(mc.getUserByName(friendAddfriend)));
     }
 
     @Test
@@ -162,7 +184,7 @@ public class EspressoTest {
 
         //check that friend was removed
         MasterController mc = new MasterController();
-        assertFalse(mc.getUserByName("Elyse").getFriendsList().hasFriend(mc.getUserByName("Friend")));
+        assertFalse(mc.getUserByName(usernameAddfriend).getFriendsList().hasFriend(mc.getUserByName(friendAddfriend)));
     }
 
     @Test
@@ -171,7 +193,60 @@ public class EspressoTest {
         testAddFriend();
 
         // Check profile details
-        onView(withId(R.id.user_name)).check(matches(withText("Friend")));
+        onView(withId(R.id.user_name)).check(matches(withText(friendAddfriend)));
 
+    }
+    @Test
+    public void testStartTrade() throws UserAlreadyExistsException {
+        String tradeFriend = TestUtilities.getRandomString();
+        String tradeUsername = TestUtilities.getRandomString();
+        String tradeEmail = TestUtilities.getRandomString();
+        //create friend, make sure they have a skill, add them
+        DatabaseController.createUser(tradeFriend);
+        GeneralMenuActivity g_activity = (GeneralMenuActivity) getActivityInstance();
+        g_activity.getMasterController().makeNewSkill("miscellaneous", "stupid trade test", "High", true, new ArrayList<Image>());
+
+        //login and add friend
+        onView(withId(R.id.usernameField)).perform(typeText(tradeUsername), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(tradeEmail), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //return home to browse users find friend
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(friendAddfriend), closeSoftKeyboard());
+        onView(withId(R.id.search_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //add friend
+        onView(withId(R.id.right_button)).perform(click());
+
+        // start trade
+        onView(withId(R.id.left_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.other_invList)).atPosition(0).perform(click());
+        onView(withId(R.id.sendTrade)).perform(click());
+
+        //return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // check that a trade was added
+        onData(anything()).inAdapterView(allOf(withId(R.id.requestList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
+
+    }
+
+    Activity currentActivity;
+    public Activity getActivityInstance(){
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
+                if (resumedActivities.iterator().hasNext()){
+                    currentActivity = (Activity) resumedActivities.iterator().next();
+                }
+            }
+        });
+
+        return currentActivity;
     }
 }
