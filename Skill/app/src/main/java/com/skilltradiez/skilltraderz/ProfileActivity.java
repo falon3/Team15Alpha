@@ -168,7 +168,8 @@ public class ProfileActivity extends ButtonMenuActivity {
         startActivity(intent);
     }
 
-    protected void clickOnLeftButton(View v) {
+    @Override
+    public void clickOnLeftButton(View v) {
         startTrade(v);
     }
 
@@ -188,7 +189,8 @@ public class ProfileActivity extends ButtonMenuActivity {
      * When the button to remove/add a friend is clicked will invoke the addRemoveFriend method.
      * @param v View Object.
      */
-    protected void clickOnRightButton(View v) {
+    @Override
+    public void clickOnRightButton(View v) {
         addRemoveFriend(v);
     }
 

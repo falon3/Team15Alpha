@@ -236,7 +236,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
      * @param view View Object of the EditTradeActivity.
      */
     public void sendTrade(View view) {
-        if (offer.size() == 0) {
+        if (request.size() == 0) {
             Toast.makeText(getApplicationContext(), "You need to request at least one skill!", Toast.LENGTH_SHORT).show();
             return;
         }
