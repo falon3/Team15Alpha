@@ -39,7 +39,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     static String ID_PARAM = "skill_id";
     private Skill currentSkill;
     private Button addRemoveSkill, editSkill;
-    private TextView skillTitle, skillCategory, skillDescription;
+    private TextView skillTitle, skillCategory, skillDescription, skillQuality;
     private Boolean hasSkill;
     private LinearLayout imageView;
     private Context context = this;
@@ -60,6 +60,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         skillDescription = (TextView) findViewById(R.id.skill_description);
         skillTitle = (TextView) findViewById(R.id.skillTitle);
         skillCategory = (TextView) findViewById(R.id.skillCategory);
+        skillQuality = (TextView) findViewById(R.id.skillQuality);
         editSkill = (Button) findViewById(R.id.edit_skill);
         imageView = (LinearLayout) findViewById(R.id.imageView);
     }
@@ -83,6 +84,7 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         setSkillTitle(currentSkill.getName());
         setSkillCategory(currentSkill.getCategory());
         setSkillDescription(currentSkill.getDescription());
+        skillQuality.setText(currentSkill.getQuality());
 
         User user = masterController.getCurrentUser();
         Inventory inv = user.getInventory();

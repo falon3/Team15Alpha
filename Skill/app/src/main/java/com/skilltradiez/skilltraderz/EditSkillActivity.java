@@ -139,6 +139,7 @@ public class EditSkillActivity extends CameraActivity {
             skillCategory.setSelection(adapter.getPosition(skillToEdit.getCategory()));
             addImages(skillToEdit.getImages());
             skillVisible.setChecked(skillToEdit.isVisible());
+            setQuality(skillToEdit.getQuality());
             addSkillToDB.setText("Save changes");
         }
         imageAdapter.notifyDataSetChanged();
@@ -175,6 +176,7 @@ public class EditSkillActivity extends CameraActivity {
         skillDescription.setText("");
         skillCategory.setSelection(0);
         skillVisible.setChecked(true);
+        setQuality("Good");
         getImages().clear();
         imageAdapter.notifyDataSetChanged();
     }
@@ -273,6 +275,19 @@ public class EditSkillActivity extends CameraActivity {
             }
         }
         return null;
+    }
+
+    public void setQuality(String quality) {
+        if (quality.equals("EPIC"))
+            epic.setChecked(true);
+        else if (quality.equals("Great"))
+            great.setChecked(true);
+        else if (quality.equals("Okay"))
+            okay.setChecked(true);
+        else if (quality.equals("Mediocre"))
+            mediocre.setChecked(true);
+        else if (quality.equals("Poor"))
+            poor.setChecked(true);
     }
 
     /**
