@@ -236,4 +236,16 @@ public class Inventory extends Notification {
         }
         return true;
     }
+
+    public String getType() {
+        return "Your Inventory";
+    }
+
+    public String getStatus() {
+        return "Changed";
+    }
+
+    public String getDescription() {
+        return "Something was added or removed.";
+    }
 }

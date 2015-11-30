@@ -525,4 +525,12 @@ public class Skill extends Stringeable {
     public int hashCode() {
         return skillID != null ? skillID.hashCode() : 0;
     }
+
+    public String getType() {
+        return "Skill: "+getName();
+    }
+
+    public String getStatus() {
+        return "Edited";
+    }
 }

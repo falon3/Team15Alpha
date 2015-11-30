@@ -187,4 +187,16 @@ public class TradeList extends Notification {
         MasterController.getCurrentUser().getProfile().tradeSuccess();
         delete(tradeID);
     }
+
+    public String getType() {
+        return "TradesList";
+    }
+
+    public String getStatus() {
+        return "";
+    }
+
+    public String getDescription() {
+        return "A trade has occured.";
+    }
 }

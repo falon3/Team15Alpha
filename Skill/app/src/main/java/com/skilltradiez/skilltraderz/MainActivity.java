@@ -30,7 +30,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -58,6 +63,9 @@ public class MainActivity extends GeneralMenuActivity {
     private EditText newUserEmail;
     private Button makeNewUser;
 
+    private ListView recentActivities;
+    private RecentActivityAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +79,6 @@ public class MainActivity extends GeneralMenuActivity {
 
         if (DatabaseController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
-
-            
         } else {
             setContentView(R.layout.first_time_user);
 
@@ -81,6 +87,12 @@ public class MainActivity extends GeneralMenuActivity {
             newUserEmail = (EditText) findViewById(R.id.emailField);
             makeNewUser = (Button) findViewById(R.id.beginApp);
         }
+
+        recentActivities = (ListView) findViewById(R.id.activitiesList);
+        //TODO check if reload adds changes
+        adapter = new RecentActivityAdapter(this, masterController.getUserDB().getChangeList().getNotificationsAsList());
+
+        recentActivities.setAdapter(adapter);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -108,6 +120,13 @@ public class MainActivity extends GeneralMenuActivity {
         MenuItem item = menu.findItem(R.id.Go_Home_Menu);
         item.setEnabled(false);
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //TODO may have to update notifications
+        adapter.notifyDataSetChanged();
     }
 
     /**
