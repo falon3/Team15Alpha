@@ -197,7 +197,7 @@ public class MainActivity extends GeneralMenuActivity {
         startActivity(intent);
     }
 
-    
+
     public void deleteDatabase(View view) {
         DatabaseController.deleteAllData();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
