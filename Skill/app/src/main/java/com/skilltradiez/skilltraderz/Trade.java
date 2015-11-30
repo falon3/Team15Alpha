@@ -156,11 +156,15 @@ public class Trade extends Stringeable {
      */
     public boolean commit(UserDatabase userDB) {
         if (half1.hasChanged())
-            if (!half1.commit(userDB))
+            if (!half1.commit(userDB)) {
+                half1.notifyDB();
                 return false;
+            }
         if (half2.hasChanged())
-            if (!half2.commit(userDB))
+            if (!half2.commit(userDB)) {
+                half2.notifyDB();
                 return false;
+            }
         return true;
     }
 
@@ -201,7 +205,9 @@ public class Trade extends Stringeable {
      * @return Integer of the top traders.
      */
     public int getTop() {
-        return DatabaseController.getAccountByUserID(getOppositeHalf(MasterController.getCurrentUser()).getUser()).getProfile().getTop();
+        return DatabaseController.getAccountByUserID(
+                getOppositeHalf(MasterController.getCurrentUser())
+                        .getUser()).getProfile().getTop();
     }
 
     /**

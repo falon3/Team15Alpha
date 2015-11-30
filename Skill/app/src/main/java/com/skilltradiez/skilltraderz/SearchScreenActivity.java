@@ -258,7 +258,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
         } else if (screenType == 2) { // Trade History
             List<Trade> trades = masterController.getAllTradezForCurrentUser();
             for (Trade t : trades) {
-                if (t.toString().toLowerCase().contains(search) &&
+                if (t != null &&
+                        t.toString().toLowerCase().contains(search) &&
                         (category.equals("all") ||
                                 (category.equals("active") && t.isActive()) ||
                                 (category.equals("inactive") && !t.isActive())))// && t.getHalfForUser(masterController.getCurrentUser()) != null)
