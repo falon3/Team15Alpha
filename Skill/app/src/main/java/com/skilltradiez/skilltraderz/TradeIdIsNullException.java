@@ -48,7 +48,7 @@ public class TradeIdIsNullException extends Exception {
      * @param errorSource Throwable Object.
      */
     public TradeIdIsNullException(Throwable errorSource){ super(errorSource);}
-    
+
     /**
      * Given both a String message and a Throwable source of error, call the superclass with both.
      * @param message String Object message to display.
