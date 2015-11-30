@@ -84,8 +84,8 @@ public class ProfileActivity extends ButtonMenuActivity {
     }
 
     @Override
-    public void onStart(){
-        super.onStart();
+    public void onResume(){
+        super.onResume();
 
         populateProfile();
         enableButtons();
