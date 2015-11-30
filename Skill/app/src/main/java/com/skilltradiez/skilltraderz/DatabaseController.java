@@ -17,8 +17,6 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.content.Context;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +30,7 @@ import java.util.Set;
  * This area will take care of anything and everything the rest of the program may possibly want
  * to do with the database.
  */
-public final class DatabaseController implements ControllerInterface{
+public final class DatabaseController {
 
     /** Class Variables:
      * 1: userDB, this is going to be the single core database object created for the entire

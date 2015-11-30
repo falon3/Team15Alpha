@@ -30,7 +30,7 @@ import java.util.Set;
  * Assuming direct control.
  * --Sovereign, mass effect
  */
-public final class MasterController implements ControllerInterface {
+public final class MasterController {
 
     /**Class Variables:
      * 1: databaseController: Holds a copy of the databaseController, kept static so that the
