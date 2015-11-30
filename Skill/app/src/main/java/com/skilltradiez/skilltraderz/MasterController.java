@@ -183,10 +183,9 @@ public final class MasterController {
     public List<Trade> getAllTradezForCurrentUser() {
         List<Trade> trades = new ArrayList<Trade>();
         TradeList tradeList = getCurrentUser().getTradeList();
-        Trade trade;
 
         for (ID id : tradeList.getTradesList())
-            trade = getTradeByID(id);
+            trades.add(getTradeByID(id));
         return trades;
     }
 
