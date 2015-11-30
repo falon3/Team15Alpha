@@ -6,10 +6,10 @@
   3. Implement more use cases. 
 
 ####Part 5 Requirements
-   1. Code Base of Prototype: [have a code base](https://github.com/CMPUT301F15T15/Team15Alpha)
-   2. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
-   3. Javadoc interface documentation: [Javadocs of glory](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
-   4. Test Cases: [All 37 complete successfully](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
+   1. [Code Base of Prototype:](https://github.com/CMPUT301F15T15/Team15Alpha)have a code base
+   2. [Code Documentation: brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
+   3. [Javadoc interface documentation](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
+   4. [Test Cases](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
    5. [Requirement Specifications](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
    6. Object-Oriented Design: Our [UML](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
    7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
