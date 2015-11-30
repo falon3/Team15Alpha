@@ -181,7 +181,7 @@ public class EspressoTest {
 
     @Test
     // Friends.AddFriend
-    public void testAddFriend() throws UserAlreadyExistsException {
+    public void testAddFriend() throws UserAlreadyExistsException, NoInternetException {
         friendAddfriend = "temp_f" + TestUtilities.getRandomString();
         usernameAddfriend = "Sam" + TestUtilities.getRandomString();
         emailAddfriend = "E" + TestUtilities.getRandomString();
@@ -210,7 +210,7 @@ public class EspressoTest {
 
     @Test
     // Friends.RemoveFriend
-    public void testRemoveFriend() throws UserAlreadyExistsException {
+    public void testRemoveFriend() throws UserAlreadyExistsException, NoInternetException {
         //add friend first
         testAddFriend();
 
@@ -277,7 +277,7 @@ public class EspressoTest {
     }
 
     @Test
-    public void testBrowseFriendInventory() throws UserAlreadyExistsException {
+    public void testBrowseFriendInventory() throws UserAlreadyExistsException, NoInternetException {
         //add friend first
         testAddFriend();
 
@@ -288,7 +288,7 @@ public class EspressoTest {
     }
 
     @Test
-    public void testBrowseFriendProfile() throws UserAlreadyExistsException {
+    public void testBrowseFriendProfile() throws UserAlreadyExistsException, NoInternetException {
         // create account login and add a friend
         testAddFriend();
 
@@ -326,7 +326,7 @@ public class EspressoTest {
     }
 
     @Test
-    public void sortFriendInventoryByText() throws UserAlreadyExistsException {
+    public void sortFriendInventoryByText() throws UserAlreadyExistsException, NoInternetException {
         // create a user and login and add friend
         String tradeFriend = "Al" + TestUtilities.getRandomString();
         String tradeUsername = "Bo" + TestUtilities.getRandomString();
@@ -364,7 +364,7 @@ public class EspressoTest {
     if there is any new trade activity after trade started
     */
     @Test
-    public void testStartTrade() throws UserAlreadyExistsException {
+    public void testStartTrade() throws UserAlreadyExistsException, NoInternetException {
         tradeFriend = "Al" + TestUtilities.getRandomString();
         tradeUsername = "Bo" + TestUtilities.getRandomString();
         tradeEmail = "Em" + TestUtilities.getRandomString();
@@ -417,5 +417,4 @@ public class EspressoTest {
 
         return currentActivity;
     }
-
 }
