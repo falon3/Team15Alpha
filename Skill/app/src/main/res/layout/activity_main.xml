@@ -39,8 +39,35 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:src="@drawable/mainbutton" />
+        android:id="@+id/icon_holder"
+        android:src="@drawable/mainbutton"
+        android:layout_alignBottom="@+id/rainbowcat"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/recentActs"
+        android:id="@+id/recentActivities"
+        android:layout_marginTop="40dp"
+        android:longClickable="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/browncat"
+        android:layout_alignLeft="@+id/activitiesList"
+        android:layout_alignRight="@+id/activitiesList" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activitiesList"
+        android:layout_below="@+id/recentActivities"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp" />
 
     <LinearLayout
         android:id="@+id/rainbowcat"
@@ -147,10 +174,4 @@
 
     </LinearLayout>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
