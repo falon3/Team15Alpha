@@ -3,10 +3,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
 
-    <solid android:color="#629595" />
+    <solid android:color="@color/buttonDark" />
 
     <stroke
         android:width="3dp"
-        android:color="#057777" />
+        android:color="@color/listLightYellow" />
 
 </shape>

@@ -28,11 +28,26 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         this.context = context;
         this.itemList = itemList;
 
-        setDropDownViewResource(R.layout.spinner_item);
+        setDropDownViewResource(R.layout.spinner_drop_item);
     }
 
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position, convertView, parent);
+    public View getDropDownView(int position, View view, ViewGroup parent) {
+        T item = itemList.get(position);
+
+        // Check if an existing view is being reused, otherwise inflate the view
+        ViewHolder viewHolder; // view lookup cache stored in tag
+        if (view == null) {
+            viewHolder = new ViewHolder();
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            view = inflater.inflate(R.layout.spinner_drop_item, parent, false);
+            viewHolder.item = (TextView) view.findViewById(R.id.item);
+            view.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) view.getTag();
+        }
+        // Populate the data into the template view using the data object
+        viewHolder.item.setText(item.toString());
+        return view;
     }
 
     public View getView(int position, View view, ViewGroup parent) {

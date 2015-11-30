@@ -9,10 +9,10 @@
         android:text="@string/category"
         android:id="@+id/item"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/spinner"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/spinnerLightOrange"
+        android:textColor="@color/spinnerTextColor"
+        android:background="@color/spinnerLightOrange"
         android:textAlignment="center" />
 
 </RelativeLayout>
