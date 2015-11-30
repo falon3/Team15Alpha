@@ -136,7 +136,7 @@ public class MainActivity extends GeneralMenuActivity {
             System.out.println("Mainactivity onresume ADAPTERUPDATE: "+notifications.toString());
 
             //Safety Catch-All
-            DatabaseController.save();
+            //DatabaseController.save();
         }
     }
 

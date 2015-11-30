@@ -127,6 +127,7 @@ class ChangeList {
         for (Notification note: notifications)
             if (note.isSticky() && note.relatesToUser(MasterController.getCurrentUser().getUserID())) {
                 note.setSticky(false);
+                if (changed.contains(note)) System.out.println("WHAT THE HELL!? "+note.getType()+" "+note.getDescription());
                 changed.add(note);
             }
         return changed;
