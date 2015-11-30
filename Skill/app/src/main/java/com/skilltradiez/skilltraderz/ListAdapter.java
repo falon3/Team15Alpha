@@ -49,24 +49,6 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        /* TODO FIGURE THIS OUT .... maybe unnecessary???
-        LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.list_item, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
-
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
-        Skill here = skillz.get(position);
-
-        txtTitle.setText(here.getName());//.toString());
-
-        // If we have received an array of ints
-        //imageView.setImageResource(imageId[position]);
-        // or If Drawable has been set by constructor
-        //imageView.setImageDrawable(getResources().getDrawable(R.drawable.iconshape));
-        // or a better If Drawable has been set by constructor
-        imageView.setImageResource(here.getImage());
-        return rowView;*/
-
         Stringeable item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag

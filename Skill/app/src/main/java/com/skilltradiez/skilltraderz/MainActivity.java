@@ -49,9 +49,6 @@ public class MainActivity extends GeneralMenuActivity {
      * 3: newUserEmail: A string associated with user input for a new user email.
      * 4: makeNewUser: A UI Button that when clicked prompts method calls.
      */
-
-
-
     private Context mainContext = this;
     //Main screen
     public static boolean connected;
@@ -74,14 +71,16 @@ public class MainActivity extends GeneralMenuActivity {
 
         if (DatabaseController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
+
+            
         } else {
             setContentView(R.layout.first_time_user);
-        }
 
-        // first_time (login)
-        newUserName = (EditText) findViewById(R.id.usernameField);
-        newUserEmail = (EditText) findViewById(R.id.emailField);
-        makeNewUser = (Button) findViewById(R.id.beginApp);
+            // first_time (login)
+            newUserName = (EditText) findViewById(R.id.usernameField);
+            newUserEmail = (EditText) findViewById(R.id.emailField);
+            makeNewUser = (Button) findViewById(R.id.beginApp);
+        }
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
