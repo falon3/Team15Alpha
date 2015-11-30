@@ -34,10 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
+        android:background="@drawable/titlebar"
         android:layout_alignParentTop="true"
         android:text="@string/trading_with_xyz"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#057777" />
+        android:textColor="@color/mainBackground" />
 
     <TableRow
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:text="@string/offering"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#057777"
+            android:textColor="@color/mainTextColor"
             android:layout_weight="5" />
 
     </TableRow>
@@ -75,7 +76,7 @@
             android:id="@+id/offerList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_with_border"
+            android:background="@drawable/descriptionbox"
             android:layout_weight="1" />
 
     </TableLayout>
@@ -94,7 +95,7 @@
             android:text="@string/requesting"
             android:id="@+id/requesting"
             android:singleLine="true"
-            android:textColor="#057777"
+            android:textColor="@color/mainTextColor"
             android:layout_weight="1" />
 
     </TableRow>
@@ -117,7 +118,7 @@
             android:id="@+id/requestList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_with_border"
+            android:background="@drawable/descriptionbox"
             android:layout_weight="1" />
 
     </TableLayout>

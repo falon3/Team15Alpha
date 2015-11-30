@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -34,55 +33,57 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/titlebar"
+        android:paddingLeft="5dp"
         android:text="@string/skill_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#057777" />
+        android:textColor="@color/mainBackground" />
 
     <TextView
         android:id="@+id/skillCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/skillTitle"
         android:text="@string/skill_category"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#057777"
-        android:layout_below="@+id/skillTitle"
-        android:layout_alignParentStart="true" />
+        android:textColor="@color/mainTextColor" />
 
     <TextView
         android:id="@+id/skillQuality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/good"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#057777"
-        android:layout_below="@+id/skillTitle"
-        android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
-        android:layout_toEndOf="@id/skillCategory"
         android:layout_alignParentRight="false"
-        android:textAlignment="viewEnd"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/skillTitle"
+        android:layout_toEndOf="@id/skillCategory"
+        android:layout_toStartOf="@+id/edit_skill"
         android:singleLine="false"
-        android:layout_toStartOf="@+id/edit_skill" />
+        android:text="@string/good"
+        android:textAlignment="viewEnd"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/mainTextColor" />
 
     <HorizontalScrollView
+        android:id="@+id/imageScroller"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
-        android:id="@+id/imageScroller"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/skillCategory"
-        android:background="@drawable/button_with_border"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="5dp"
+        android:background="@drawable/descriptionbox">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="75dp"
-            android:layout_below="@+id/skillCategory"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp"
             android:layout_alignParentEnd="true"
-            android:id="@+id/imageView"></LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/skillCategory"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"></LinearLayout>
     </HorizontalScrollView>
 
     <TextView
@@ -90,30 +91,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageScroller"
         android:text="@string/desc"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#057777"
-        android:layout_below="@+id/imageScroller" />
+        android:textColor="@color/mainTextColor" />
 
     <TextView
         android:id="@+id/skill_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_with_border"
+        android:layout_above="@+id/add_remove_skill"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:background="@drawable/descriptionbox"
         android:inputType="textMultiLine"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
         android:text="@string/skill_description"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/add_remove_skill" />
+        android:textColor="@color/ListViewYellow" />
 
     <Button
         android:id="@+id/add_remove_skill"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/skill_description"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="25dp"
         android:background="@drawable/button_with_border"
@@ -121,8 +126,7 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="@string/add_skill"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:textColor="@color/listLightYellow" />
 
     <Button
         android:id="@+id/edit_skill"
@@ -132,8 +136,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/button_with_border"
+        android:onClick="editSkill"
         android:text="@string/edit_skill"
-        android:visibility="invisible"
-        android:onClick="editSkill"/>
+        android:visibility="invisible" />
 
 </RelativeLayout>

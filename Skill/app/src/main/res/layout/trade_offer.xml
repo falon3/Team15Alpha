@@ -34,13 +34,14 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textColor="@color/mainBackground"
-            android:background="#005151" />
+            android:background="@color/mainTextColor" />
 
         <TextView
             android:id="@+id/desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:textColor="@color/ListViewYellow"
             android:text="CoolCategory" />
     </TableLayout>
 
