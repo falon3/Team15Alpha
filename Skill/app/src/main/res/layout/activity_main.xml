@@ -36,18 +36,26 @@
         android:layout_centerVertical="true"
         android:src="@drawable/sz_circle" />
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/mainbutton" />
+
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/rainbowcat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="4"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/browncat">
 
         <ImageButton
             android:id="@+id/All_Users"
             android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_person"
             android:onClick="beginAllSearch"
             android:text="@string/browse_users"
@@ -58,7 +66,7 @@
         <ImageButton
             android:id="@+id/All_Skillz"
             android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/sk_plus"
             android:onClick="beginAllSearch"
             android:text="@string/browse_skillz"
@@ -69,7 +77,7 @@
         <ImageButton
             android:id="@+id/My_Friends"
             android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_action_social_group"
             android:onClick="beginAllSearch"
             android:text="@string/your_friends"
@@ -81,7 +89,7 @@
         <ImageButton
             android:id="@+id/Trade_History"
             android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_mail"
             android:onClick="beginAllSearch"
             android:text="@string/trade_history"
@@ -90,16 +98,54 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/browncat"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_alignEnd="@+id/linearLayout2"
-        android:layout_alignTop="@+id/linearLayout2"
-        android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_alignBottom="@+id/linearLayout2"
-        android:layout_alignRight="@+id/linearLayout2"
-        android:src="@drawable/mainbutton" />
+        android:weightSum="4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="17dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Users"
+            android:id="@+id/m_users"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Skillz"
+            android:id="@+id/m_skills"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Friends"
+            android:id="@+id/m_friends"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Trades"
+            android:id="@+id/m_trades"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 
     <ListView
         android:layout_width="wrap_content"
