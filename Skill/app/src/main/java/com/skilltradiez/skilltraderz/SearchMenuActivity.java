@@ -9,9 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 /**
- * Created by Stephen on 2015-11-28.
+ * This is an abstract class that will provide the outline for functionality of a search menu.
+ * The core of this class is to set up a variety of User Interface elements to be utilized across
+ * other parts of the application and implemented with relative ease.
  */
 public abstract class SearchMenuActivity extends GeneralMenuActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,5 +35,10 @@ public abstract class SearchMenuActivity extends GeneralMenuActivity {
         });
     }
 
+    /**
+     * Provides the framework for a search to be started, given a String of the user's search
+     * query as a parameter.
+     * @param query String of what is being obtained by the user's inquisiton.
+     */
     protected abstract void startSearch(String query);
 }

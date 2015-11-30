@@ -31,81 +31,42 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-/**~~DESCRIPTION:
+/**
  * We want an android framework that will support the ability for the user to interact
  * with our application in a very logical and easy way. So we're going to create an activity
  * that is associated with just the activities with the user. This activity is going to be
  * associated purely with the entire search activity process that the user will need to interact
  * with through our application.
- *
- * ~~ACCESS:
- * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
- * we can have this class actually be accessed technically anywhere in the application that
- * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
- * an instance of the "EditTradeActivity" object.
- *
- * Instead what is happening is that we are having this activity be called by the onCreate() method
- * as is traditionally done in the android studio framework for android applications. In this
- * instance we're going to create this activity and then we'll have an onstart() method following
- * this which is going to make it so that we have this activate a cascade of events that are all
- * interelated with the main primary goal of allowing us to have a screen where we search the
- * actual screen of activities.
- *
- *~~CONSTRUCTOR:
- * Upon calling the method onCreate() for this activity the android studio framework will
- * cause the android application to create an instance of this actvity and display it to the user.
- *
- * ~~ATTRIBUTES/METHODS:
- * 1: SKILLS:
- *     We have a ton of skills involved in our application that are assocaited with every and
- *     any potential user. We're just going to store here in the activity a skill. Considering
- *     how our application is based around these skills, it is rather critical that we have
- *     a way of actually displaying this and letting the user actually do this.
- *
- * 2: USERS:
- *     Is it not essential to keep track of the users? Well it is! So we're going to maintain
- *     an attribute of the users that is going to actually have the users that are involved
- *     within this current search!
- *
- *
- *~~ MISC METHODS:
- * 1: REFINESEARCH:
- *     Suppose we want to refine a search, this method will be invoked when the user interacts
- *     with the UI with the intention to modify the search and then we have the user enter
- *     a string of what they want to search and this method will be invoked and search through
- *     all of the things and then update all views.
- *
- *
- * 2: CHANGECATEGORY:
- *     This will allow the user to actually be able to choose a particular category that they are
- *     interesting in viewing through the user interface, following this the app will go through
- *     a cascade of statements here that will allow the user to modify all of the search in order
- *     to be tailored to something that is directly related to the category of the user's
- *     choosing!
- *
- * 3: POPULATESEARCHRESULTS:
- *     Is it not critical to actually populate a pool of search results? Yes? YES IT IS!
- *     Without a pool of results for a user TO be sorted there is NO point in having a search screen
- *     and so when this activity is called and presenting the UI to the user we will actually
- *     be giving the UUI the method to actually populate the application being shown through
- *     the UI to the user through this particular method.
- *
  */
-
 public class SearchScreenActivity extends SearchMenuActivity {
+    /**Activity Class Variables:
+     * 1: SEARCH_TYPE_PARAM: A constant string that is passed into methods to specify search type.
+     * 2: FILTER_PARAM: A constant string that is passed into methods.
+     * 3: SEARCH_QUERY: A constant string that signals that there is a query.
+     * 4: screenType: An integer that indicates what sort of screen the application is on.
+     * 5: categorySpinner: A Spinner Object that the user can interact with in order to select
+     *      a category to search for.
+     * 6: sortingSpinner: A Spinner Object that the user can interact with to choose how the
+     *      data presented on the screen will be sorted.
+     * 7: searchExtras: A Bundle Object that will allow extra searches.
+     * 8: searchAdapter: An Adapter Object that will help represent the data onto the UI.
+     * 9: items: A List of Stringeable Objects that can be displayed on the UI.
+     * 10: resultsList: A ListView Object that represents all of the results to the user on the UI.
+     */
     static String SEARCH_TYPE_PARAM = "All_search",
                 FILTER_PARAM = "filter",
                 SEARCH_QUERY = "query";
     private int screenType;
-
     private Spinner categorySpinner, sortingSpinner;
     private Bundle searchExtras;
-
     private ListAdapter searchAdapter;
     private List<Stringeable> items;
-
     private ListView resultsList;
 
+    /**
+     * Handles UI affairs.
+     * @param savedInstanceState Bundle Object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +117,9 @@ public class SearchScreenActivity extends SearchMenuActivity {
         sortingSpinner.setSelection(sortAdapter.getPosition(filter));
     }
 
+    /**
+     * Handles UI Affairs.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -204,6 +168,9 @@ public class SearchScreenActivity extends SearchMenuActivity {
         searchAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Loads items from the database of the application to be displayed on this SearchScreenActivity
+     */
     public void loadItems() {
         //Refresh the database :D
         DatabaseController.refresh();
@@ -222,16 +189,28 @@ public class SearchScreenActivity extends SearchMenuActivity {
         }
     }
 
+    /**
+     * This method when invoked with a query String of the user's search will call the
+     * method to refineSearch with that query.
+     * @param query String of what is being obtained by the user's inquisiton.
+     */
     protected void startSearch(String query) {
         refineSearch(query);
     }
 
+    /**
+     * Provides a refined search with no parameters given and thus no string.
+     */
     protected void refineSearch() {
         refineSearch("");
     }
 
+
     /**
-     * Take a string and refine the list of Users/Skills
+     * Provides a refined search to the user, passed in the user's search query as a parameter.
+     * Doesn't return anything in particular, however just updates the User Interface to display
+     * the changes.
+     * @param query String input.
      */
     public void refineSearch(String query){
         //get whatever is in searchField
@@ -271,6 +250,10 @@ public class SearchScreenActivity extends SearchMenuActivity {
         searchAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Orders the List of Stringeable Objects (Skills) passed in by the selected spinner option.
+     * @param items List of Stringeable Objects!
+     */
     public void orderBySpinner(List<Stringeable> items) {
         String sort = sortingSpinner.getSelectedItem().toString();
         if (sort.equals("Name")) {
@@ -285,6 +268,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
 
     /**
      * Returns a copy of the list of skills, sorted ascending by name.
+     * @param sorted List of Stringeable Objects (Skill Objects)
+     * @return List of Stringeable Objects
      */
     public List<Stringeable> orderByTop(List<Stringeable> sorted) {
         Collections.sort(sorted, new Comparator<Stringeable>() {
@@ -298,6 +283,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
 
     /**
      * Returns a copy of the list of stringeables, sorted ascending by name.
+     * @param sorted List of Stringeable Objects (Skill Objects)
+     * @return List of Stringeable Objects
      */
     public List<Stringeable> orderByName(List<Stringeable> sorted) {
         Collections.sort(sorted, new Comparator<Stringeable>() {
@@ -311,6 +298,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
 
     /**
      * Returns a copy of the list of stringeables, sorted ascending by category.
+     * @param sorted List of Stringeable Objects
+     * @return List of Stringeable Objects
      */
     public List<Stringeable> orderByCategory(List<Stringeable> sorted) {
         Collections.sort(sorted, new Comparator<Stringeable>() {
@@ -322,18 +311,30 @@ public class SearchScreenActivity extends SearchMenuActivity {
         return sorted;
     }
 
+    /**
+     * This method, when invoked by clicking on a user, will start the new activity for Profiles.
+     * @param u Profile Object.
+     */
     public void clickOnUser(Profile u) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra(ProfileActivity.UNIQUE_PARAM, u.getUsername());
         startActivity(intent);
     }
 
+    /**
+     * This method, when invoked by clicking on a skill, will start the new activity for Skills.
+     * @param s Skill Object.
+     */
     public void clickOnSkill(Skill s) {
         Intent intent = new Intent(this, SkillDescriptionActivity.class);
         intent.putExtra(SkillDescriptionActivity.ID_PARAM, s.getSkillID());
         startActivity(intent);
     }
 
+    /**
+     * This method, when invoked by clicking on a trade, will start the new activity for Trades.
+     * @param t Trade Object.
+     */
     public void clickOnTrade(Trade t) {
         Intent intent = new Intent(this, TradeRequestActivity.class);
         intent.putExtra(TradeRequestActivity.TRADE_ID_PARAM, t.getTradeID());
@@ -342,6 +343,11 @@ public class SearchScreenActivity extends SearchMenuActivity {
         startActivity(intent);
     }
 
+    /**
+     * This method will clone Stringeable Objects into a new List of Stringeable Objects and
+     * return said List of Stringeable Objects to the caller.
+     * @return List of Stringeable Objects.
+     */
     public List<Stringeable> cloneStringeable() {
         List<Stringeable> stringeables = new ArrayList<Stringeable>();
         for (Stringeable string:items)
