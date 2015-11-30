@@ -55,6 +55,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
      */
     static String SEARCH_TYPE_PARAM = "All_search",
                 FILTER_PARAM = "filter",
+                FILTER2_PARAM = "filter2",
                 SEARCH_QUERY = "query";
     private int screenType;
     private Spinner categorySpinner, sortingSpinner;
@@ -85,6 +86,10 @@ public class SearchScreenActivity extends SearchMenuActivity {
         if (searchExtras.containsKey(FILTER_PARAM))
             filter = searchExtras.getString(FILTER_PARAM);
 
+        String filter2 = "Name";
+        if (searchExtras.containsKey(FILTER2_PARAM))
+            filter2 = searchExtras.getString(FILTER2_PARAM);
+
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
 
@@ -114,7 +119,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
         categorySpinner.setSelection(adapter.getPosition(filter));
 
         sortingSpinner.setAdapter(sortAdapter);
-        sortingSpinner.setSelection(sortAdapter.getPosition(filter));
+        sortingSpinner.setSelection(sortAdapter.getPosition(filter2));
     }
 
     /**
@@ -217,7 +222,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
         //apply it to the list of results
         //update view
         String search = query.toLowerCase(),
-                category = categorySpinner.getSelectedItem().toString().toLowerCase();
+               category = categorySpinner.getSelectedItem().toString().toLowerCase();
 
         items.clear();
         if (screenType == 0) {
