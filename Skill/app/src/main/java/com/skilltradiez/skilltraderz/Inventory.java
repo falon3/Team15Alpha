@@ -43,6 +43,7 @@ public class Inventory extends Notification {
      * 2: user, an ID Object that represents the ID of the user this Inventory Object belongs to.
      */
     private ArrayList<ID> skillz;
+    private ID mostRecentSkill;
     private ID user;
 
     /**
@@ -89,6 +90,7 @@ public class Inventory extends Notification {
     public Boolean add(Skill new_skill) {
         if (skillz.contains(new_skill.getSkillID())) return false;
         skillz.add(new_skill.getSkillID());
+        mostRecentSkill = new_skill.getSkillID();
         notifyDB();
         return true;
     }
@@ -100,6 +102,7 @@ public class Inventory extends Notification {
      */
     public void remove(ID skill) {
         skillz.remove(skill);
+        mostRecentSkill = skill;
         notifyDB();
     }
 
@@ -261,7 +264,7 @@ public class Inventory extends Notification {
      * @return String "Your Inventory"
      */
     public String getType() {
-        return "Your Inventory";
+        return DatabaseController.getAccountByUserID(user).getProfile().getName()+"'s Inventory";
     }
 
     /**
@@ -277,7 +280,8 @@ public class Inventory extends Notification {
      * @return String of the Description of this Inventory.
      */
     public String getDescription() {
-        return "Something was added or removed.";
+        if (mostRecentSkill == null) return "how did this happen???";
+        return DatabaseController.getSkillByID(mostRecentSkill).getName()+" was added or removed.";
     }
 
     public boolean relatesToUser(ID userID) {

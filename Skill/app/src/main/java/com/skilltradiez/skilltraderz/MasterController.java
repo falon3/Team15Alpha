@@ -46,6 +46,10 @@ public final class MasterController {
         databaseController = new DatabaseController();
     }
 
+    public DatabaseController getDatabaseController() {
+        return databaseController;
+    }
+
     /**
      * Return the database object! Only available to other controller objects.
      * @return UserDatabase Object.
@@ -177,8 +181,10 @@ public final class MasterController {
      * @return List of Trade Objects.
      */
     public List<Trade> getAllTradezForCurrentUser() {
-        ArrayList<Trade> trades = new ArrayList<Trade>();
-        for (ID id : getCurrentUser().getTradeList().getTradesList())
+        List<Trade> trades = new ArrayList<Trade>();
+        TradeList tradeList = getCurrentUser().getTradeList();
+
+        for (ID id : tradeList.getTradesList())
             trades.add(getTradeByID(id));
         return trades;
     }
@@ -238,6 +244,10 @@ public final class MasterController {
         getUserDB().getTrades().remove(trade);
         getUserByID(trade.getHalf1().getUser()).getTradeList().delete(trade);
         getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
+
+        getUserDB().getChangeList().getTrades().remove(trade);
+        getUserDB().getChangeList().getTradesList().remove(trade);
+
         DatabaseController.save();
     }
 

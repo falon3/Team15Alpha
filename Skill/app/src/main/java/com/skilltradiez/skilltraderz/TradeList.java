@@ -218,7 +218,7 @@ public class TradeList extends Notification {
         for (ID tradeId : newTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
-            User theUser = DatabaseController.getAccountByUserID(getOwnerID());
+            User theUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
             otherUser.getTradeList().addTrade(userDB, trade);
             theUser.getTradeList().addTrade(userDB, trade);
             try {
@@ -236,15 +236,15 @@ public class TradeList extends Notification {
         newTrades.clear();
         for (ID tradeId : deletedTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
-            User currentUser = DatabaseController.getAccountByUserID(getOwnerID());
             User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
+            User currentUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
 
             //IF the tradeId is in the trade partners list then delete it.
             if (tradePartner.getTradeList().contains(tradeId)){
                 tradePartner.getTradeList().delete(trade);
             }
             //IF the tradeId is in the current user's list then delete it.
-            else if (currentUser.getTradeList().contains(tradeId)){
+            if (currentUser.getTradeList().contains(tradeId)){
                 currentUser.getTradeList().delete(trade);
             }
 
@@ -281,7 +281,7 @@ public class TradeList extends Notification {
      * @return String "TradesList"
      */
     public String getType() {
-        return "TradesList";
+        return DatabaseController.getAccountByUserID(owner).getProfile().getName()+"'s TradesList";
     }
 
     /**

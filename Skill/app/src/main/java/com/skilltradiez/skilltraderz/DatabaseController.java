@@ -19,6 +19,9 @@ package com.skilltradiez.skilltraderz;
  */
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -81,8 +84,10 @@ public final class DatabaseController {
         Elastic elastic = MasterController.getUserDB().getElastic();
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
+        Set<Trade> trades = MasterController.getUserDB().getTrades();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         ChangeList changes = MasterController.getUserDB().getChangeList();
+        TradeList tradeList = MasterController.getCurrentUser().getTradeList();
 
         try {
             List<User> onlineUsers = elastic.getAllUsers();
@@ -91,12 +96,18 @@ public final class DatabaseController {
                 users.remove(u);
                 users.add(u);
             }
-            //TODO CATCH IOExceptions //Done?
             List<Skill> skills = elastic.getAllSkills();
             for (Skill s : skills) {
                 skillz.remove(s);
                 skillz.add(s);
                 changes.add(s);
+            }
+            for (ID id : tradeList.getTradesList()) {
+                Trade t = getTradeByID(id);
+                trades.remove(t);
+
+                trades.add(t);
+                changes.add(t);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -111,6 +122,7 @@ public final class DatabaseController {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
         toBePushed.push(MasterController.getUserDB());
+
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
@@ -188,7 +200,7 @@ public final class DatabaseController {
      * @param emailGiven String input.
      * @return User Object
      */
-    public static User createNewUser(String usernameGiven, String emailGiven) throws UserAlreadyExistsException {
+    public static User createNewUser(String usernameGiven, String emailGiven) throws UserAlreadyExistsException, NoInternetException {
         User new_guy = null;
         new_guy = createUser(usernameGiven);
 
@@ -219,7 +231,7 @@ public final class DatabaseController {
      * @throws UserAlreadyExistsException
      * @throws IOException
      */
-    public static User createUser(String username) throws UserAlreadyExistsException {
+    public static User createUser(String username) throws UserAlreadyExistsException, NoInternetException {
         Elastic elastic = MasterController.getUserDB().getElastic();
         Set<User> users = MasterController.getUserDB().getUsers();
 
@@ -233,8 +245,9 @@ public final class DatabaseController {
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
+            e.printStackTrace();
             // No internet, no registration
-            throw new RuntimeException();
+            throw new NoInternetException();
         }
         return u;
     }

@@ -73,7 +73,8 @@ public class MainActivity extends GeneralMenuActivity {
         super.onCreate(savedInstanceState);
 
         masterController = new MasterController();
-        masterController.initializeController();
+        if (masterController.getDatabaseController() == null)
+            masterController.initializeController();
 
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -127,6 +128,7 @@ public class MainActivity extends GeneralMenuActivity {
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("Mainactivity onresume");
         if (DatabaseController.isLoggedIn()) {
             notifications.clear();
             notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
@@ -164,10 +166,10 @@ public class MainActivity extends GeneralMenuActivity {
                 new_guy = DatabaseController.createNewUser(username, newUserEmail.getText().toString());
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
-            } catch (RuntimeException ex) {
+            } catch (NoInternetException ex) {
                 Toast.makeText(context, "Need to be online to create an account!" + username, Toast.LENGTH_SHORT).show();
+                return;
             }
-            DatabaseController.save();
 
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
