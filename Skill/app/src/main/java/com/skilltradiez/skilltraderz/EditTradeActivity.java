@@ -261,10 +261,10 @@ public class EditTradeActivity extends GeneralMenuActivity {
         }
         if (trade != null){
             trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);
-            DatabaseController.save();
         } else {
             trade = activeUser.getTradeList().createTrade(masterController.getUserDB(), activeUser, passiveUser, offer, request);
         }
+        MasterController.getCurrentUser().getTradeList().addTrade(MasterController.getUserDB(), trade);
         DatabaseController.save();
 
         Context context = getApplicationContext();

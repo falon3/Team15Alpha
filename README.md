@@ -1,61 +1,21 @@
-# Team15Alpha
+## Team15Alpha
 ####Project Deliverables 
-Project Part 5 - DUE NOVEMBER 30th! 
-
-## Addressing Feedback From Part 4:
+####Addressing Feedback From Part 4:
   1. [Create JUnit Tests for UI](https://github.com/evhill/Team15Alpha/blob/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz/EspressoTest.java)
   2. Implement exception handling as much as possible.
-    *We did as much as we could 
-  
-  3. Implement more use cases
-    ####Cases Completed (16/32 as per the number of use cases we had before additional ones were required):
-     * Create User
-     * Add Skillz
-     * Remove Skillz
-     * Examine Skillz
-     * Change Skill Visibility
-     * Search For Skillz By Textual Query
-     * Search Skills by category
-     * Add Friend
-     * Remove Friend
-     * Set contact info
-     * Browse Friends Profile
-     * Browse Friends Offline (may need to wait to time out)
-     * Inventory Changes Offline (may need to wait to time out)
-     * Browse Friends Inventory
-     * Filter Friends Inventory By Text and Category
-     * Initiate Trade with Friend
+  3. Implement more use cases. 
 
-## Relevant To Part 4 Of Our Project
-Part 4 requirements:
+####Part 5 Requirements
+   1. [Code Base of Prototype:](https://github.com/CMPUT301F15T15/Team15Alpha)have a code base
+   2. [Code Documentation: brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
+   3. [Javadoc interface documentation](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
+   4. [Test Cases](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
+   5. [Requirement Specifications](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
+   6. [Object-Oriented Design](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
+   7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
+   8. [Reuse Statement](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Reuse-Statement)
+   9. [Demonstrate something tangible](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
 
-
-   1. Code Base of Prototype: have a [code base](https://github.com/CMPUT301F15T15/Team15Alpha)
-
-
-   2. Demonstrate something tangible [video](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
-   
-   
-   3. Code Documentation: [brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
-   
-   Javadoc interface documentation: [Javadocs of glory](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
-
-   4. Test Cases: [All 37 complete successfully](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
-   
-
-   5. Object-Oriented Design: Our [UML](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
-
-   6. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
-
-
-##Reuse Statement 
-  Third party libraries we used in our app include:
-  
-  * ElasticSearch (https://www.elastic.co/guide/en/elasticsearch/reference/1.4/docs.html)
-  * Junit(http://junit.org/)
-  * Gson(https://github.com/google/gson)
-  * Espresso(http://developer.android.com/training/testing/ui-testing/espresso-testing.html#setup)
-  * Hamcrest(https://code.google.com/p/hamcrest/)
 
 ## License 
 ####   __SkillTradiez__ -- _The lost adventures_
