@@ -1,61 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/holder"
-        android:src="@drawable/sz_list" />
-
-    <RelativeLayout
-        android:orientation="horizontal"
+    <TableRow
+        android:id="@+id/catinthehat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:background="@drawable/sz_list">
+
+    </TableRow>
+
+    <RelativeLayout
+        android:id="@+id/Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:id="@+id/Header">
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Notification"
             android:id="@+id/type"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="true" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="In Progress"
-            android:id="@+id/status"
+            android:layout_alignParentEnd="false"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="186dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:text="Notification"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/mainBackground"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="186dp"
+            android:layout_marginTop="5dp"
+            android:text="In Progress"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/mainBackground"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="This is a test."
-        android:id="@+id/desc"
-        android:layout_below="@+id/Header"
+        android:layout_alignBottom="@+id/catinthehat"
         android:layout_alignLeft="@+id/Header"
         android:layout_alignRight="@+id/Header"
-        android:layout_alignBottom="@+id/holder"
-        android:layout_marginBottom="20dp" />
+        android:layout_below="@+id/Header"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:text="This is a test."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/ListViewYellow"
+        android:textSize="15sp" />
 
 </RelativeLayout>
