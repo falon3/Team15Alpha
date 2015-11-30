@@ -50,7 +50,7 @@
             android:layout_height="75dp"
             android:background="@drawable/mainButton"
             android:src="@drawable/ic_person"
-            android:onClick=""
+            android:onClick="beginAllSearch"
             android:text="@string/browse_users"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1" />
@@ -61,7 +61,7 @@
             android:layout_height="75dp"
             android:src="@drawable/sk_plus"
             android:background="@drawable/mainButton"
-            android:onClick=""
+            android:onClick="beginAllSearch"
             android:text="@string/browse_skillz"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1" />
@@ -72,7 +72,7 @@
             android:layout_height="75dp"
             android:src="@drawable/ic_person"
             android:background="@drawable/mainButton"
-            android:onClick=""
+            android:onClick="beginAllSearch"
             android:text="@string/your_friends"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1" />
@@ -83,7 +83,7 @@
             android:layout_height="75dp"
             android:src="@drawable/ic_mail"
             android:background="@drawable/mainButton"
-            android:onClick=""
+            android:onClick="beginAllSearch"
             android:text="@string/trade_history"
             android:textColor="@color/ListViewYellow" />
 
