@@ -241,6 +241,10 @@ public final class MasterController {
         getUserDB().getTrades().remove(trade);
         getUserByID(trade.getHalf1().getUser()).getTradeList().delete(trade);
         getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
+
+        getUserDB().getChangeList().getTrades().remove(trade);
+        getUserDB().getChangeList().getTradesList().remove(trade);
+
         DatabaseController.save();
     }
 
