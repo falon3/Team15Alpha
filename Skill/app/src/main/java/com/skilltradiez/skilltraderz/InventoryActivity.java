@@ -84,7 +84,7 @@ public class InventoryActivity extends SearchMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
-        
+
         masterController = new MasterController();
         currentUser = masterController.getUserByID((ID) getIntent().getExtras().get(ID_PARAM));
 

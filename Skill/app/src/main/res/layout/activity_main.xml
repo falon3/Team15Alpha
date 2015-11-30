@@ -38,70 +38,55 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="2">
-
-        <Button
-            android:id="@id/All_Users"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:background="@drawable/mainButton"
-            android:gravity="left"
-            android:onClick=""
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:text="@string/browse_users"
-            android:textColor="@color/ListViewYellow" />
-
-        <Button
-            android:id="@id/All_Skillz"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:background="@drawable/mainButton"
-            android:gravity="left"
-            android:onClick=""
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:text="@string/browse_skillz"
-            android:textColor="@color/ListViewYellow" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:weightSum="4"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout2"
-        android:orientation="horizontal">
+        android:layout_alignParentEnd="true">
 
-        <Button
+        <ImageButton
+            android:id="@id/All_Users"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/mainButton"
+            android:src="@drawable/ic_person"
+            android:onClick=""
+            android:text="@string/browse_users"
+            android:textColor="@color/ListViewYellow"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@id/All_Skillz"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/sk_plus"
+            android:background="@drawable/mainButton"
+            android:onClick=""
+            android:text="@string/browse_skillz"
+            android:textColor="@color/ListViewYellow"
+            android:layout_weight="1" />
+
+        <ImageButton
             android:id="@id/My_Friends"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_person"
             android:background="@drawable/mainButton"
-            android:gravity="left"
             android:onClick=""
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
             android:text="@string/your_friends"
-            android:textColor="@color/ListViewYellow" />
+            android:textColor="@color/ListViewYellow"
+            android:layout_weight="1" />
 
-        <Button
+        <ImageButton
             android:id="@id/Trade_History"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_mail"
             android:background="@drawable/mainButton"
-            android:gravity="left"
             android:onClick=""
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
             android:text="@string/trade_history"
             android:textColor="@color/ListViewYellow" />
+
     </LinearLayout>
 
 
