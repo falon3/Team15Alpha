@@ -81,6 +81,7 @@ public final class DatabaseController {
         Elastic elastic = MasterController.getUserDB().getElastic();
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
+        Set<Trade> trades = MasterController.getUserDB().getTrades();
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         ChangeList changes = MasterController.getUserDB().getChangeList();
 
@@ -91,12 +92,17 @@ public final class DatabaseController {
                 users.remove(u);
                 users.add(u);
             }
-            //TODO CATCH IOExceptions //Done?
             List<Skill> skills = elastic.getAllSkills();
             for (Skill s : skills) {
                 skillz.remove(s);
                 skillz.add(s);
                 changes.add(s);
+            }
+            for (ID id : MasterController.getCurrentUser().getTradeList().getTradesList()) {
+                Trade t = getTradeByID(id);
+                trades.remove(t);
+                trades.add(t);
+                changes.add(t);
             }
         } catch (IOException e) {
             e.printStackTrace();
