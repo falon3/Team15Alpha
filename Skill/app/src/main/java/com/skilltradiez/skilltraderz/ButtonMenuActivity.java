@@ -58,28 +58,28 @@ public abstract class ButtonMenuActivity extends GeneralMenuActivity {
     /**
      * Set the Left Button on the User Interface to be Visible.
      */
-    protected void activateLeftButton() {
+    public void activateLeftButton() {
         leftButton.setVisibility(View.VISIBLE);
     }
 
     /**
      * Set the Left Button on the User Interface to be Invisible.
      */
-    protected void deactivateLeftButton() {
+    public void deactivateLeftButton() {
         leftButton.setVisibility(View.INVISIBLE);
     }
 
     /**
      * Set the Right Button on the User Interface to be Visible.
      */
-    protected void activateRightButton() {
+    public void activateRightButton() {
         rightButton.setVisibility(View.VISIBLE);
     }
 
     /**
      * Set the Right Button on the User Interface to be Invisible.
      */
-    protected void deactivateRightButton() {
+    public void deactivateRightButton() {
         rightButton.setVisibility(View.INVISIBLE);
     }
 
@@ -88,7 +88,7 @@ public abstract class ButtonMenuActivity extends GeneralMenuActivity {
      * Set the Left Text on the User Interface to the given CharSequence
      * @param text CharSequence Object of what to change the text to show.
      */
-    protected void setLeftText(CharSequence text) {
+    public void setLeftText(CharSequence text) {
         leftButton.setText(text);
     }
 
@@ -96,7 +96,7 @@ public abstract class ButtonMenuActivity extends GeneralMenuActivity {
      * Set the Right Text on the User Interface to the given CharSequence
      * @param text CharSequence Object of what to change the text to show.
      */
-    protected void setRightText(CharSequence text) {
+    public void setRightText(CharSequence text) {
         rightButton.setText(text);
     }
 
@@ -104,11 +104,11 @@ public abstract class ButtonMenuActivity extends GeneralMenuActivity {
      * Abstract function used for identifying when we click on the Right Button of the UI.
      * @param view View Object.
      */
-    protected abstract void clickOnRightButton(View view);
+    public abstract void clickOnRightButton(View view);
 
     /**
      * Abstract function used for identifying when we click on the Left Button of the UI.
      * @param view View Object.
      */
-    protected abstract void clickOnLeftButton(View view);
+    public abstract void clickOnLeftButton(View view);
 }

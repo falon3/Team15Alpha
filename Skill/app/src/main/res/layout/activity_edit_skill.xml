@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -29,61 +28,64 @@
     tools:context="com.skilltradiez.skilltraderz.EditSkill">
 
     <TextView
+        android:id="@+id/Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/name"
-        android:id="@+id/Name"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:background="#005151" />
+        android:background="@drawable/titlebar"
+        android:textColor="@color/mainBackground"
+        android:text="@string/name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/new_skill_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/Name"
         android:hint="@string/new_skill_name"
         android:maxLength="40"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#057777"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/Name" />
+        android:textColor="#057777" />
 
     <ImageButton
+        android:id="@+id/takeImage"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:id="@+id/takeImage"
-        android:onClick="addNewImage"
-        android:src="@drawable/ic_action_image_camera_alt"
         android:layout_alignTop="@+id/Desc"
+        android:background="@drawable/titlebar"
         android:contentDescription="@string/photo_alt"
-        android:background="#005151" />
+        android:onClick="addNewImage"
+        android:paddingBottom="5dp"
+        android:src="@drawable/ic_action_image_camera_alt" />
 
     <ListView
+        android:id="@+id/imageList"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:id="@+id/imageList"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/takeImage"
-        android:layout_below="@+id/takeImage"
-        android:layout_alignRight="@+id/takeImage"
         android:layout_above="@+id/Category_Title"
-        android:background="#438F8F" />
+        android:layout_alignLeft="@+id/takeImage"
+        android:layout_alignRight="@+id/takeImage"
+        android:layout_below="@+id/takeImage"
+        android:layout_centerVertical="true"
+        android:background="@drawable/photoview" />
 
     <TextView
+        android:id="@+id/Desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/desc"
-        android:id="@+id/Desc"
-        android:layout_alignParentStart="false"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/takeImage"
+        android:layout_alignParentStart="false"
+        android:textColor="@color/mainBackground"
         android:layout_below="@+id/new_skill_name"
-        android:background="#005151"
-        android:layout_marginLeft="2dp" />
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/takeImage"
+        android:background="@drawable/titlebar"
+        android:text="@string/desc"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/new_skill_description"
@@ -91,113 +93,129 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="false"
+        android:layout_below="@+id/Desc"
+        android:layout_toRightOf="@+id/imageList"
         android:hint="@string/new_skill_description"
         android:inputType="textMultiLine"
+        android:maxLines="4"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#057777"
-        android:maxLines="4"
-        android:layout_below="@+id/Desc"
-        android:layout_toRightOf="@+id/imageList" />
+        android:textColor="#057777" />
 
     <CheckBox
+        android:id="@+id/is_visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/is_visible"
-        android:id="@+id/is_visible"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:checked="true"
+        android:text="@string/is_visible"
         android:textColor="#057777" />
 
     <Button
         android:id="@+id/add_skill_to_database"
         android:layout_width="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_with_border"
         android:layout_alignParentStart="false"
+        android:textColor="@color/listLightYellow"
+        android:background="@drawable/button"
         android:onClick="addNewSkill"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="@string/add_skill" />
 
     <TextView
+        android:id="@+id/Category_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/category_title"
-        android:id="@+id/Category_Title"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:background="#005151"
         android:layout_above="@+id/category_spinner"
-        android:layout_marginTop="2dp" />
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/mainBackground"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/titlebar"
+        android:text="@string/category_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
         android:layout_above="@+id/add_skill_to_database"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:spinnerMode="dropdown" />
 
     <TextView
+        android:id="@+id/Rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/rating"
-        android:id="@+id/Rating"
-        android:layout_alignParentStart="false"
         android:layout_alignParentEnd="true"
-        android:background="#005151"
-        android:layout_marginLeft="2dp"
+        android:layout_alignParentStart="false"
+        android:textColor="@color/mainBackground"
         android:layout_below="@+id/new_skill_description"
-        android:layout_toRightOf="@+id/imageList" />
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/imageList"
+        android:background="@drawable/titlebar"
+        android:text="@string/rating"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="match_parent"
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_toEndOf="@+id/add_skill_to_database"
+        android:layout_alignParentEnd="false"
         android:layout_below="@+id/Rating"
         android:layout_toRightOf="@+id/imageList"
         android:layout_above="@+id/Category_Title">
 
-        <RadioButton
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EPIC"
-            android:id="@+id/radioButton"
-            android:textColor="#057777" />
+            android:layout_above="@+id/Category_Title"
+            android:layout_below="@+id/Rating"
+            android:layout_toRightOf="@+id/imageList">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Great"
-            android:id="@+id/radioButton2"
-            android:textColor="#057777" />
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EPIC"
+                android:textColor="@color/listLightYellow" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Okay"
-            android:id="@+id/radioButton3"
-            android:textColor="#057777" />
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Great"
+                android:textColor="@color/listLightYellow" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mediocre"
-            android:id="@+id/radioButton4"
-            android:textColor="#057777" />
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Okay"
+                android:textColor="@color/listLightYellow" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Poor"
-            android:id="@+id/radioButton5"
-            android:textColor="#057777" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mediocre"
+                android:textColor="@color/listLightYellow" />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Poor"
+                android:textColor="@color/listLightYellow" />
+        </RadioGroup>
+    </ScrollView>
 
 </RelativeLayout>

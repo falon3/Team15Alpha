@@ -34,7 +34,10 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Since trading is THE major selling point of this application it would only make sense for
@@ -201,10 +204,26 @@ public class EditTradeActivity extends GeneralMenuActivity {
     private void loadItems() {
         DatabaseController.refresh();
 
-        // Fill four Lists
+        // Fill two Lists
         yourInv.addAll(activeUser.getInventory().cloneSkillz(MasterController.getUserDB()));
         otherInv.addAll(passiveUser.getInventory().cloneSkillz(MasterController.getUserDB()));
         //offer and request begin empty
+
+        //... unless we are editing an existing trade
+        if (trade != null) {
+            List<ID> offerids = trade.getHalfForUser(activeUser).getOffer();
+            for (ID id : offerids) {
+                Skill s = DatabaseController.getSkillByID(id);
+                offer.add(s);
+                yourInv.remove(s);
+            }
+            List<ID> requestids = trade.getHalfForUser(passiveUser).getOffer();
+            for (ID id : requestids) {
+                Skill s = DatabaseController.getSkillByID(id);
+                request.add(s);
+                otherInv.remove(s);
+            }
+        }
 
         offerAdapter = new TradeAdapter(this, offer);
         requestAdapter = new TradeAdapter(this, request);
@@ -236,7 +255,7 @@ public class EditTradeActivity extends GeneralMenuActivity {
      * @param view View Object of the EditTradeActivity.
      */
     public void sendTrade(View view) {
-        if (offer.size() == 0) {
+        if (request.size() == 0) {
             Toast.makeText(getApplicationContext(), "You need to request at least one skill!", Toast.LENGTH_SHORT).show();
             return;
         }

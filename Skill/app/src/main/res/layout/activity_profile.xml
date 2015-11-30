@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     *    Team15Alpha
     *    AppName: SkillTradiez (Subject to change)
     *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
@@ -19,80 +18,83 @@
     -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.skilltradiez.skilltraderz.ProfileActivity">
 
     <TextView
+        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#057777"
-        android:text="@string/user_name"
-        android:id="@+id/user_name"
-        android:textAlignment="center"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="24dp"
+        android:text="@string/user_name"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#057777" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/user_name">
 
         <TextView
+            android:id="@+id/user_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textAlignment="center"
-            android:text="@string/user_description"
-            android:id="@+id/user_description"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/user_description"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_inventory"
-            android:background="@drawable/button_with_border"
             android:id="@+id/inventory"
-            android:layout_alignParentStart="true"
-            android:onClick="checkInventory"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/friend_list_button" />
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/friend_List"
-            android:id="@+id/friend_list_button"
+            android:layout_above="@+id/friend_list_button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:background="@drawable/button_with_border"
+            android:onClick="checkInventory"
+            android:text="@string/user_inventory" />
+
+        <Button
+            android:id="@+id/friend_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/user_name"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/maketrade"
-            android:layout_alignEnd="@+id/user_name"
+            android:background="@drawable/button_with_border"
             android:onClick="showFriendsList"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:text="@string/friend_List" />
 
         <CheckBox
+            android:id="@+id/auto_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/auto_img"
-            android:id="@+id/auto_img"
+            android:layout_above="@+id/inventory"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:checked="true"
-            android:visibility="invisible"
             android:clickable="true"
             android:enabled="true"
             android:onClick="toggleAutoImgDownloads"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/inventory"
-            android:layout_alignParentEnd="true" />
+            android:text="@string/auto_img"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </RelativeLayout>
