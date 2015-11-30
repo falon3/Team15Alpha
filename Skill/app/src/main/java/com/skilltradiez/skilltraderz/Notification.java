@@ -73,8 +73,22 @@ public abstract class Notification {
      */
     abstract boolean commit(UserDatabase userDB);
 
+    /**
+     * Abstract getter method that returns the type of the Objeckt.
+     * @return String of the type.
+     */
     abstract String getType();
+
+    /**
+     * Abstract getter method that returns the status of the Objeckt.
+     * @return String of the status.
+     */
     abstract String getStatus();
+
+    /**
+     * Abstract getter method that returns the description of the Objeckt.
+     * @return String of the description.
+     */
     abstract String getDescription();
 }
 

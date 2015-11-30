@@ -18,12 +18,14 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.skilltradiez.skilltraderz.R;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -62,7 +64,6 @@ public class MainActivity extends GeneralMenuActivity {
     private EditText newUserName;
     private EditText newUserEmail;
     private Button makeNewUser;
-
     private ListView recentActivities;
     private RecentActivityAdapter adapter;
     private List<Notification> notifications;
@@ -80,6 +81,12 @@ public class MainActivity extends GeneralMenuActivity {
 
         if (DatabaseController.isLoggedIn()) {
             setContentView(R.layout.activity_main);
+
+            recentActivities = (ListView) findViewById(R.id.activitiesList);
+            notifications = new ArrayList<Notification>();
+            adapter = new RecentActivityAdapter(this, notifications);
+
+            recentActivities.setAdapter(adapter);
         } else {
             setContentView(R.layout.first_time_user);
 
@@ -88,12 +95,6 @@ public class MainActivity extends GeneralMenuActivity {
             newUserEmail = (EditText) findViewById(R.id.emailField);
             makeNewUser = (Button) findViewById(R.id.beginApp);
         }
-
-        recentActivities = (ListView) findViewById(R.id.activitiesList);
-        notifications = new ArrayList<Notification>();
-        adapter = new RecentActivityAdapter(this, notifications);
-
-        recentActivities.setAdapter(adapter);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -126,9 +127,11 @@ public class MainActivity extends GeneralMenuActivity {
     @Override
     public void onResume() {
         super.onResume();
-        notifications.clear();
-        notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
-        adapter.notifyDataSetChanged();
+        if (DatabaseController.isLoggedIn()) {
+            notifications.clear();
+            notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -180,7 +183,6 @@ public class MainActivity extends GeneralMenuActivity {
      * Deletes the database. This is a method primarily based around testing.
      * @param view View Object.
      */
-
     public void beginAllSearch(View view) {
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         if (view.getId() == R.id.All_Skillz) {
@@ -198,7 +200,6 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Take user to their own profile when "Your Profile" button is pressed
-     *
      * @param view
      */
     public void showProfile(View view) {
@@ -209,7 +210,6 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Sends user to the EditSkill activity to make a new skill
-     *
      * @param view
      */
     public void createNewSkill(View view) {
@@ -225,7 +225,6 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Basic getter method that returns the EditText associated with the username.
-     *
      * @return EditText UI Element
      */
     public EditText getNameField() {
@@ -260,14 +259,12 @@ public class MainActivity extends GeneralMenuActivity {
         });
     }
 
-
     /**
      * Checks if the device connected to internet
      * source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
      * Returns true if connectivity is available, False otherwise.
      * @return Boolean. True/False.
      */
-
     public boolean isConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

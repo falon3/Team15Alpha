@@ -50,6 +50,7 @@ import java.util.Set;
  */
 
 class ChangeList {
+
     /** Class Variables:
      * Notifications are: FriendsList, Profile, Inventory, Skill, TradeList, Trade
      *
@@ -79,7 +80,6 @@ class ChangeList {
         oldNotifications = new HashSet<Notification>();
     }
 
-
     /** Methods **/
     /**
      * Given a notification object, will add this notification object to the notifications list.
@@ -107,12 +107,20 @@ class ChangeList {
         return notifications;
     }
 
+    /**
+     * Return the Notification Objects as a List.
+     * @return List of Notification Objects.
+     */
     public List<Notification> getNotificationsAsList() {
         List<Notification> notifications = new ArrayList<Notification>();
         notifications.addAll(this.notifications);
         return notifications;
     }
 
+    /**
+     * This method returns the List of Notification Objects that have been modified.
+     * @return List of Notification Objects.
+     */
     public List<Notification> getChangedNotifications() {
         List<Notification> notifications = getNotificationsAsList(),
                 changed = new ArrayList<Notification>();
@@ -203,7 +211,6 @@ class ChangeList {
         return trades;
     }
 
-
     /**
      * Pushes all notifications to the internet through the User Database.
      * - If the internet is not available or it is disconnected, the Notification
@@ -212,7 +219,6 @@ class ChangeList {
      * @param userDB UserDatabase Object.
      * @throws IOException
      */
-
     public void push(UserDatabase userDB) {
         lock = true;
         for (Notification note : notifications) {

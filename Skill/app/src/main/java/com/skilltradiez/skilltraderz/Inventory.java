@@ -256,14 +256,26 @@ public class Inventory extends Notification {
         return true;
     }
 
+    /**
+     * Getter method that will return the type of this Object.
+     * @return String "Your Inventory"
+     */
     public String getType() {
         return "Your Inventory";
     }
 
+    /**
+     * Getter method that will return the status of this Object.
+     * @return String of the status of this Inventory. Eg: "Changed".
+     */
     public String getStatus() {
         return "Changed";
     }
 
+    /**
+     * Getter method that will return the description of this activity as a string.
+     * @return String of the Description of this Inventory.
+     */
     public String getDescription() {
         return "Something was added or removed.";
     }

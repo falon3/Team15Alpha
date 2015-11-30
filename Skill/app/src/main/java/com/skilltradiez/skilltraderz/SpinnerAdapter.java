@@ -49,7 +49,7 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
      * Returns a View with a drop down view, specifically by invoking the getView method and
      * returning the result of that method.
      * @param position Integer value.
-     * @param convertView View Object.
+     * @param view View Object.
      * @param parent ViewGroup Object.
      * @return View Object.
      */
