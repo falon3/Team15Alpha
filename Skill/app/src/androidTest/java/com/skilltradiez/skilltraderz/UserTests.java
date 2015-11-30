@@ -25,7 +25,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.User.class);
     }
 
-    public void testGetProfile() {
+    public void testGetProfile() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         DatabaseController.deleteAllData();
@@ -39,7 +39,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
         assertNotNull(user.getProfile());
     }
 
-    public void testGetInventory() {
+    public void testGetInventory() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         DatabaseController.deleteAllData();
@@ -53,7 +53,7 @@ public class UserTests extends ActivityInstrumentationTestCase2 {
         assertNotNull(user.getInventory());
     }
 
-    public void testGetFriendsList() {
+    public void testGetFriendsList() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         DatabaseController.deleteAllData();

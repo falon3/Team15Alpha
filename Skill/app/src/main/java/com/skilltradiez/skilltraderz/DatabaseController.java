@@ -66,13 +66,6 @@ public final class DatabaseController {
         return userDB;
     }
 
-
-    /**
-     * Downloads all online data into a local cache
-     * TODO: debug why local changes offline don't persist once back online... not sure if problem is here
-     */
-
-
     /**
      * This method when invoked will take all of the current various parts of the model of
      * the application and put them into the database.
@@ -177,8 +170,7 @@ public final class DatabaseController {
         try {
             MasterController.getUserDB().getElastic().addDocument("trade", trade.getTradeID().toString(), trade);
         } catch (IOException e) {
-            //TODO this is bad and the user won't even know
-            //actually, it's probably fine, it's on the changelist
+            //it's probably fine, it's on the changelist
             e.printStackTrace();
         }
     }

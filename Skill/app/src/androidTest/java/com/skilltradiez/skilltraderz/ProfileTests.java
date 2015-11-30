@@ -28,7 +28,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
     }
     // tests for ConfigureProfileDetails
 
-    public void testSetUsername() {
+    public void testSetUsername() throws NoInternetException {
         try {
             UserDatabase db = new UserDatabase();
             DatabaseController.deleteAllData();
@@ -43,7 +43,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testSetLocation() {
+    public void testSetLocation() throws NoInternetException {
         try {
             UserDatabase db = new UserDatabase();
             DatabaseController.deleteAllData();
@@ -62,7 +62,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testSetEmail() {
+    public void testSetEmail() throws NoInternetException {
         try {
             UserDatabase db = new UserDatabase();
             DatabaseController.deleteAllData();
@@ -81,7 +81,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testFieldsTooLong() {
+    public void testFieldsTooLong() throws NoInternetException {
         try {
             UserDatabase db = new UserDatabase();
             DatabaseController.deleteAllData();
@@ -106,7 +106,7 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testSetDownloadImages() {
+    public void testSetDownloadImages() throws NoInternetException {
         try {
             UserDatabase db = new UserDatabase();
             DatabaseController.deleteAllData();

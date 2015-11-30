@@ -28,7 +28,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.Trade.class);
     }
 
-    public void testInitTrade() {
+    public void testInitTrade() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -49,7 +49,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testAcceptTradeRequest() {
+    public void testAcceptTradeRequest() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -69,7 +69,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testRefuseTradeRequest() {
+    public void testRefuseTradeRequest() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -95,7 +95,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testCounterOfferTradeRequest() {
+    public void testCounterOfferTradeRequest() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -122,7 +122,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testModifyActiveTrade() {
+    public void testModifyActiveTrade() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -155,7 +155,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testBrowseTradeHistory() {
+    public void testBrowseTradeHistory() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();

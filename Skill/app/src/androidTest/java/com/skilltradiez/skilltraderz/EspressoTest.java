@@ -31,6 +31,7 @@ import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -302,12 +303,6 @@ public class EspressoTest {
         //check we are now browsing our friend's profile
         onView(withId(R.id.user_name)).check(matches(withText(friendAddfriend)));
     }
-
-    @Test
-    public void sortSkillsByCategory(){
-        // This works you can see by trying it.... but how to navigate a category spinner UI test with
-        // Espresso is not clear and Google has failed me....
-    }
     @Test
     public void sortSkillsByText(){
         // create a user and login and create a skill
@@ -416,5 +411,110 @@ public class EspressoTest {
         });
 
         return currentActivity;
+    }
+    public Trade trade;
+    @Test
+    public void testHelperTradeRequest() throws UserAlreadyExistsException, NoInternetException {
+        tradeFriend = "Pal" + TestUtilities.getRandomString();
+        tradeUsername = "Dee" + TestUtilities.getRandomString();
+        tradeEmail = "E" + TestUtilities.getRandomString();
+        //create friend, make sure they have a skill, add them
+        User friend = DatabaseController.createUser(tradeFriend);
+        GeneralMenuActivity g_activity = (GeneralMenuActivity) getActivityInstance();
+        Skill skill = g_activity.getMasterController().makeNewSkill("miscellaneous", "stupid test trade accept", "High", true, new ArrayList<Image>());
+        ArrayList<Skill> request = new ArrayList<Skill>();
+        request.add(skill);
+
+        //create user and login
+        onView(withId(R.id.usernameField)).perform(typeText(tradeUsername), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(tradeEmail), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+        //return home to browse users find friend
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(tradeFriend), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+        //add friend
+        onView(withId(R.id.right_button)).perform(click());
+
+        // make the trade behind the scenes and save it, update the TradeHistory
+        trade = friend.getTradeList().createTrade(MasterController.getUserDB(), friend,
+                DatabaseController.getAccountByUsername(tradeUsername), new ArrayList<Skill>(), request);
+        MasterController.getCurrentUser().getTradeList().addTrade(MasterController.getUserDB(), trade);
+        DatabaseController.save();
+    }
+
+    @Test
+    public void testBrowseHistoryAndAcceptTrade() throws UserAlreadyExistsException, NoInternetException {
+        testHelperTradeRequest();
+        //now we can accept the trade Request. First return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+        // accept the trade
+        onView(withId(R.id.sendTrade)).perform(click());
+        assertFalse(trade.isActive());
+
+    }
+    @Test
+    //
+    public void testDeclineDeleteTrade() throws UserAlreadyExistsException, NoInternetException {
+        testHelperTradeRequest();
+        //now we can decline/delete the trade Request. First return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+        // accept the trade
+        onView(withId(R.id.deleteTrade)).perform(click());
+        assertFalse(trade.isActive());
+    }
+    @Test
+    //
+    public void testEditOrCounterActiveTrade() throws UserAlreadyExistsException, NoInternetException {
+        testHelperTradeRequest();
+        //now we can edit the active trade
+
+        // click add skill so can add it to the trade
+        onView(withId(R.id.Go_Make_Skill)).perform(click());
+
+        // set skill properties
+        onView(withId(R.id.new_skill_name)).perform(typeText("Badass programming skills"), closeSoftKeyboard());
+        onView(withId(R.id.new_skill_description)).perform(typeText("Anything but Java"), closeSoftKeyboard());
+        onView(withId(R.id.radioButton)).perform(click());
+
+        // add skill to db
+        onView(withId(R.id.add_skill_to_database)).perform(click());
+
+        //now we can edit the trade Request. First return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+        // edit the trade by adding your new skill
+        onView(withId(R.id.counterTrade)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.your_invList)).atPosition(0).perform(click());
+        onView(withId(R.id.sendTrade)).perform(click());
+
+        // verify that offer list now includes the skill you just added
+        onData(anything()).inAdapterView(allOf(withId(R.id.offerList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testBorrowingTracking(){
+        //TODO
+    }
+    @Test
+    public void testSuccessfulTradeNotification(){
+        //TODO
+    }
+    // TODO: Figure out how to do spinners with Espresso UI testing... also TOP Traders test done similarly
+    @Test
+    public void sortSkillsByCategory(){
+        // This works you can see by trying it.... but how to navigate a category spinner UI test with
+        // Espresso is not clear and Google has failed me....
+    }
+    @Test
+    public void testTopTradersSorted(){
+        //TODO
     }
 }

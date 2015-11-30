@@ -29,7 +29,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.Inventory.class);
     }
 
-    public void testAddSkill() {
+    public void testAddSkill() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -49,7 +49,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         assertTrue(inv.get(db, 0).equals(skill));
     }
 
-    public void testRemoveSkill() {
+    public void testRemoveSkill() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -70,7 +70,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
     }
 
 
-    public void testSetSkillProperties() {
+    public void testSetSkillProperties() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -96,7 +96,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         assertTrue(!held_skill.isVisible());
     }
 
-    public void testSkillSorting() {
+    public void testSkillSorting() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
@@ -121,7 +121,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         assertEquals(inv.orderByCategory(), list1);
     }
 
-    public void testSearchSkills() {
+    public void testSearchSkills() throws NoInternetException {
         MasterController mc = new MasterController();
         mc.initializeController();
         UserDatabase db = mc.getUserDB();
