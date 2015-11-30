@@ -56,6 +56,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
     static String SEARCH_TYPE_PARAM = "All_search",
                 FILTER_PARAM = "filter",
                 FILTER2_PARAM = "filter2",
+                USER_FILTER = "user_filter",
                 SEARCH_QUERY = "query";
     private int screenType;
     private Spinner categorySpinner, sortingSpinner;
@@ -63,6 +64,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
     private ListAdapter searchAdapter;
     private List<Stringeable> items;
     private ListView resultsList;
+    private User userFilter = null;
 
     /**
      * Handles UI affairs.
@@ -89,6 +91,9 @@ public class SearchScreenActivity extends SearchMenuActivity {
         String filter2 = "Name";
         if (searchExtras.containsKey(FILTER2_PARAM))
             filter2 = searchExtras.getString(FILTER2_PARAM);
+
+        if (searchExtras.containsKey(USER_FILTER))
+            userFilter = DatabaseController.getAccountByUserID((ID) searchExtras.get(USER_FILTER));
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
@@ -229,7 +234,8 @@ public class SearchScreenActivity extends SearchMenuActivity {
             // search skills
             Set<Skill> skills = masterController.getAllSkillz();
             for (Skill s : skills)
-                if (s.toString().toLowerCase().contains(search) &&
+                if ((userFilter == null || userFilter.getInventory().hasSkill(s)) &&
+                        s.toString().toLowerCase().contains(search) &&
                         (s.getCategory().toLowerCase().equals(category) || category.equals("all")) &&
                         (s.isVisible() || masterController.userHasSkill(s)))
                     items.add(s);

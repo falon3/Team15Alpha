@@ -163,8 +163,9 @@ public class ProfileActivity extends ButtonMenuActivity {
      * @param view View Objeckt.
      */
     public void checkInventory(View view){
-        Intent intent = new Intent(profileContext, InventoryActivity.class);
-        intent.putExtra(InventoryActivity.ID_PARAM, owner.getUserID());
+        Intent intent = new Intent(profileContext, SearchScreenActivity.class);
+        intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
+        intent.putExtra(SearchScreenActivity.USER_FILTER, owner.getUserID());
         startActivity(intent);
     }
 
