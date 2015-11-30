@@ -1,7 +1,7 @@
 package com.skilltradiez.skilltraderz;
 
 /**
- * ~~DESCRIPTION: If we don't have a user that exists, we will throw this exception out!
+ * If we don't have a user that exists, we will throw this exception out!
  * At least it is slightly more graceful than just returning null and causing potential
  * return value issues in other parts of the program.
  */
