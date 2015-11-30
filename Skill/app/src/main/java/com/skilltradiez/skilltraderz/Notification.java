@@ -18,7 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**~~DESCRIPTION:
+/**
  * This is going to be an interface in this program for the entire framework of notifications.
  * We may have many sorts of notifications that all vary throughout this application, it is our
  * goal here with this interface to (as is the goal of most interfaces) create a structural
@@ -30,13 +30,25 @@ package com.skilltradiez.skilltraderz;
  */
 
 public abstract class Notification {
+    /** Abstract Class Variables:
+     * 1: notify: This boolean flag indicates when the database must be triggered to change. This
+     *      is going to be inherited by subclasses to allow flexibility in triggering notifications
+     *      to our database.
+
+     */
     private boolean notify = false;
+
+    /**
+     * Assigns the notify variable to True, when assigned to true the database will be triggered
+     * to make changes to itself.
+     */
     public void notifyDB() {
         notify = true;
     }
 
     /**
      * Reads the flag indicating if something has changed, and clears it.
+     * @return Boolean. True/False.
      */
     public boolean hasChanged() {
         boolean tmp = notify;
@@ -44,5 +56,11 @@ public abstract class Notification {
         return tmp;
     }
 
+    /**
+     * Abstract method, acts as a placeholder for commit functionality in subclasses.
+     *
+     * @param userDB UserDatabase Object.
+     * @return Boolean. True/False.
+     */
     abstract boolean commit(UserDatabase userDB);
 }

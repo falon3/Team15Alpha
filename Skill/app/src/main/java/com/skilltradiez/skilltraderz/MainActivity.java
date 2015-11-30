@@ -33,63 +33,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * ~~DESCRIPTION:
+ *
  * We want an android framework that will support the ability for the user to interact
  * with our application in a very logical and easy way. So we're going to create an activity
  * that is associated with just the activities with the user. This activity is going to be
  * associated purely with the entire skill description process that the user will need to interact
  * with through our application.
- * <p/>
- * ~~ACCESS:
- * This may seem redundant but for formatting purposes... this is a "public" class, meaning that
- * we can have this class actually be accessed technically anywhere in the application that
- * calls it. But since this is an activity it may seem a bit strange to refer to instantiating
- * an instance of the "EditTradeActivity" object.
- * <p/>
- * Instead what is happening is that we are having this activity be called by the onCreate() method
- * as is traditionally done in the android studio framework for android applications. In this
- * instance we're going to create this activity and then we'll have an onstart() method following
- * this which is going to make it so that we have this activate a cascade of events that are all
- * interelated with the main primary goal of allowing us to have a screen where we edit the
- * trading activity!
- * <p/>
- * ~~CONSTRUCTOR:
- * Upon calling the method onCreate() for this activity the android studio framework will
- * cause the android application to create an instance of this actvity and display it to the user.
- * <p/>
- * ~~ATTRIBUTES/METHODS:
- * 1: MAKESEARCHTHREAD:
- * This is going to grant the user the ability to make a search thread for searching
- * through various things through our application such as profiles, friends, skills,
- * inventories.
- * <p/>
- * 2: NEWUSER:
- * This is going to be how we actually add a new user to our application and our application
- * database. Without this UI element and method tied to the UI we would no doubt have
- * a complete and utter failure of this application.
- * <p/>
- * <p/>
- * 3: BEGINALLSEARCH:
- * This is going to be how we're going to actually begin all of the potential searches
- * within this application. We let it begin a potential search options from this UI option
- * which invokes this UI method.
- * <p/>
- * 4: BEGINREFINEDSEARCH:
- * Suppose the user of the application wants a furhter refined search with more speficic options
- * that are tied to the search process. This is going to be the method called and then we will
- * provide all of the search options to the various users.
- * <p/>
- * 5: SHOWPROFILE
- * This is going to be the method called when the user clicks on the UI where we will
- * successfully have all of the profile of what they clicked on through this method.
- * <p/>
- * 6: CREATENEWSKILL:
- * Suppose we have the user wanting to create a new skill for our application. This is going
- * to be the method that is called through the UI when the UI is clicked that will prompt
- * for the entire cascade of what is going to be produced through the entire cascaded process.
  */
 
 public class MainActivity extends GeneralMenuActivity {
+    /**Activity Class Variables:
+     * 1: connected: A basic boolean starting TRUE if we are connected to the internet or FALSE
+     *      if we are not connected to the internet.
+     * 2: newUserName: A string associated with the user input for a new username.
+     * 3: newUserEmail: A string associated with user input for a new user email.
+     * 4: makeNewUser: A UI Button that when clicked prompts method calls.
+     */
+
+
 
     private Context mainContext = this;
     //Main screen
@@ -152,6 +113,15 @@ public class MainActivity extends GeneralMenuActivity {
 
     /**
      * Create a new user when you first open up the app.
+     *
+     * If the username or email fields are empty, prompt the user with a toast warning.
+     * If both fields are entered, take the fields and assign them to string variables.
+     *    Put these string variables into the database by calling the DatabaseController method
+     *    to create a new user.
+     *
+     * However this also has another core functionality. If the user is already there then we
+     *    give the user a welcome message and forward them to the next activity.
+     * @param view View Object.
      */
     public void newUser(View view) {
         final Context context = getApplicationContext();
@@ -187,11 +157,10 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     /**
-     * Browse all skillz or users in the database. Might be able to combine this with refined search
-     * for better code reuse. EEDIT
-     *
-     * @param view
+     * Deletes the database. This is a method primarily based around testing.
+     * @param view View Object.
      */
+
     public void beginAllSearch(View view) {
         Intent intent = new Intent(mainContext, SearchScreenActivity.class);
         if (view.getId() == R.id.All_Skillz) {
@@ -234,18 +203,34 @@ public class MainActivity extends GeneralMenuActivity {
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Basic getter method that returns the EditText associated with the username.
+     *
+     * @return EditText UI Element
+     */
     public EditText getNameField() {
         return newUserName;
     }
 
+    /**
+     * Basic getter method that returns the EditText associated with email.
+     * @return EditText UI Element
+     */
     public EditText getEmailField() {
         return newUserEmail;
     }
 
+    /**
+     * Basic getter method that returns the Button associated with the login.
+     * @return Button UI Element
+     */
     public Button getLoginButton() {
         return makeNewUser;
     }
 
+    /**
+     * Clears the fields that are present on the Activity.
+     */
     public void clearFields() {
         runOnUiThread(new Runnable() {
             public void run() {
@@ -255,9 +240,14 @@ public class MainActivity extends GeneralMenuActivity {
         });
     }
 
-    /* method to check if connected to internet to be called when app opens and also before anytime online activity is needed
-       source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
-       returns true if connectivity is available*/
+
+    /**
+     * Checks if the device connected to internet
+     * source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
+     * Returns true if connectivity is available, False otherwise.
+     * @return Boolean. True/False.
+     */
+
     public boolean isConnected() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -30,6 +30,8 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         super(context, R.layout.spinner_item);
         this.context = context;
         this.itemList = itemList;
+
+        setDropDownViewResource(R.layout.spinner_item);
     }
 
     public View getDropDownView(int position, View convertView, ViewGroup parent) {

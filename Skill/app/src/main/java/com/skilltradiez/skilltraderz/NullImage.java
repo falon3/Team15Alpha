@@ -20,7 +20,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.graphics.Bitmap;
 
-/** ~~DESCRIPTION:
+/**
  * A null image is going to be the default image that we utilize in this application.
  * We cannot exactly utilize a "null" in the way that a null will undoubtebly cause cataclysmic
  * errors, bugs, and other joyful stuff that just... is... totally... NOT joyful.
@@ -32,28 +32,14 @@ import android.graphics.Bitmap;
  *
  * This class extends the Image superclass and thus is expected to have the full functionality
  * that is inline with the image class.
- *
- * ~~ACCESS:
- * This class has full public access, meaning that any other class or part of the program can
- * successfully instantiate one of these objects into itself! :)
- *
- * Please also make note that this is a SUBCLASS of the SUPERCLASS that is the "Image" superclass.
- * And thus this class, when instantiated, obtains all of the methods/attributes of the image
- * superclass.
- *
- * ~~CONSTRUCTORS:
- * This class has one single constructor that will accept NO parameters. There are no parameters
- * needed here! What this image DOES do though in the constructor is that it WILL be taking in
- * a default image (a .tiff) which will be sent to the superclass!
- *
- * ~~ATTRIBUTES/METHODS:
- * This class absolutely has no atttributes or methods of it's own. This is keeping strongly
- * in mind that this is a SUBCLASS of the SUPERCLASS of the Image superclass. So while this has
- * no attributes/methods of it's own (sans the constructor itself), it's superclass surely
- * does :)
  */
 
 public class NullImage extends Image {
+
+    /**
+     * The constructor for this assigns a basic default image to the "bitmap" variable which is
+     * representative of the image. It is not actually "null". It is our default.
+     */
     public NullImage() {
         super();
         Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ALPHA_8);
