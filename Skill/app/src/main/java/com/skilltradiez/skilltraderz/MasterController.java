@@ -124,14 +124,13 @@ public final class MasterController implements ControllerInterface {
     }
 
     public void makeNewSkill(String name, String category, String description, String quality, boolean isVisible, List<Image> images) {
-        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, quality, isVisible, images));
+        addCurrentSkill(new Skill(getUserDB(), name, category, description, quality, isVisible, images));
         DatabaseController.save();
     }
 
     @Deprecated
     public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
-        getCurrentUser().getInventory().add(new Skill(getUserDB(), name, category, description, "good enough", isVisible, images));
-        DatabaseController.save();
+        makeNewSkill(name, category, description, "good enough", isVisible, images);
     }
 
     /**
