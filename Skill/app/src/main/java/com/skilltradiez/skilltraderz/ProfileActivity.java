@@ -213,7 +213,8 @@ public class ProfileActivity extends ButtonMenuActivity {
         startActivity(intent);
     }
 
-    protected void clickOnLeftButton(View v) {
+    @Override
+    public void clickOnLeftButton(View v) {
         startTrade(v);
     }
 
@@ -224,7 +225,8 @@ public class ProfileActivity extends ButtonMenuActivity {
         startActivity(intent);
     }
 
-    protected void clickOnRightButton(View v) {
+    @Override
+    public void clickOnRightButton(View v) {
         addRemoveFriend(v);
     }
 
