@@ -18,7 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**~~DESCRIPTION:
+/**
  * This is going to be an interface in this program for the entire framework of notifications.
  * We may have many sorts of notifications that all vary throughout this application, it is our
  * goal here with this interface to (as is the goal of most interfaces) create a structural

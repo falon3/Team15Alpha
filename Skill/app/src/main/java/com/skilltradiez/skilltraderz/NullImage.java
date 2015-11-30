@@ -20,7 +20,7 @@ package com.skilltradiez.skilltraderz;
 
 import android.graphics.Bitmap;
 
-/** ~~DESCRIPTION:
+/**
  * A null image is going to be the default image that we utilize in this application.
  * We cannot exactly utilize a "null" in the way that a null will undoubtebly cause cataclysmic
  * errors, bugs, and other joyful stuff that just... is... totally... NOT joyful.

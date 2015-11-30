@@ -33,7 +33,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * ~~DESCRIPTION:
+ *
  * We want an android framework that will support the ability for the user to interact
  * with our application in a very logical and easy way. So we're going to create an activity
  * that is associated with just the activities with the user. This activity is going to be

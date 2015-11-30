@@ -20,7 +20,7 @@ package com.skilltradiez.skilltraderz;
 import java.util.List;
 
 /**
- * DESCRIPTION: When a user is going to utilize a search we are going to want to have some sort
+ * When a user is going to utilize a search we are going to want to have some sort
  * of reply back to the application, this class is purely dedicated to achieving the amount of
  * total, successful and failed attempts.
  *

@@ -20,7 +20,7 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 
-/** ~~DESCRIPTION:
+/**
  * A profile is the visible representation of any particular user of our application, this is the
  * particular method in where the other users of the application will learn more about this user
  * and will decide if they wish to pursue a trade or to deny a trade or change/modify a trade with
