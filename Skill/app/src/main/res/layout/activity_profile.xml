@@ -34,6 +34,7 @@
         android:layout_above="@+id/friend_list_button"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
+        android:textColor="@color/listLightYellow"
         android:background="@drawable/button_with_border"
         android:onClick="checkInventory"
         android:text="@string/user_inventory"
@@ -47,6 +48,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/maketrade"
+        android:textColor="@color/listLightYellow"
         android:background="@drawable/button_with_border"
         android:onClick="showFriendsList"
         android:text="@string/friend_List" />
