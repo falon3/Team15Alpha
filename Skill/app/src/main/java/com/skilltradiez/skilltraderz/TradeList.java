@@ -272,6 +272,10 @@ public class TradeList extends Notification {
         MasterController.getCurrentUser().getProfile().tradeSuccess();
     }
 
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(owner);
+    }
+
     /**
      * Basic getter method that returns the type of the TradeList Object.
      * @return String "TradesList"

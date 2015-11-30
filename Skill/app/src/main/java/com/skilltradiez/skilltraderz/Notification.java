@@ -60,10 +60,14 @@ public abstract class Notification {
     }
 
     public boolean isSticky() {
-        boolean tmp = stickyNotify;
-        stickyNotify = false;
-        return tmp;
+        return stickyNotify;
     }
+
+    public void setSticky(boolean stick) {
+        stickyNotify = stick;
+    }
+
+    public abstract boolean relatesToUser(ID userID);
 
     /**
      * Abstract method, acts as a placeholder for commit functionality in subclasses.

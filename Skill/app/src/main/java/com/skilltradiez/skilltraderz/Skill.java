@@ -526,6 +526,13 @@ public class Skill extends Stringeable {
         return skillID != null ? skillID.hashCode() : 0;
     }
 
+    public boolean relatesToUser(ID userID) {
+        for (ID id:owners)
+            if (userID.equals(id))
+               return true;
+        return false;
+    }
+
     public String getType() {
         return "Skill: "+getName();
     }

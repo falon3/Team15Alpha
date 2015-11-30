@@ -170,14 +170,6 @@ public class Profile extends Stringeable {
     }
 
     /**
-     * Basic getter method that returns a String of the Profile Object's description.
-     * @return String of the description.
-     */
-    //public String getDescription() {
-    //    return getLocation();
-    //}
-
-    /**
      * Basic getter method that returns a new default image. (Default is NullImage).
      * @return Image Object.
      */
@@ -233,5 +225,9 @@ public class Profile extends Stringeable {
      */
     public String getDescription() {
         return email+(location == null ? "" : ", "+location+".");
+    }
+
+    public boolean relatesToUser(ID userID) {
+        return userID.equals(DatabaseController.getAccountByUsername(username));
     }
 }

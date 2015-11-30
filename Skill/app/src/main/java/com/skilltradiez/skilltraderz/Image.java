@@ -23,6 +23,7 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * So our program is core on trades, and profiles and users. Users have profiles and there is a
@@ -213,5 +214,17 @@ public class Image extends Notification {
      */
     public String getDescription() {
         return "Looks good.";
+    }
+
+    public boolean relatesToUser(ID userID) {
+        List<Skill> skillz = DatabaseController.getAccountByUserID(userID).getInventory().cloneSkillz();
+        List<ID> images;
+        for (Skill s:skillz) {
+            images = s.getImages();
+            for (ID id:images)
+                if (id.equals(this.id))
+                    return true;
+        }
+        return false;
     }
 }
