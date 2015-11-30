@@ -226,9 +226,11 @@ class ChangeList {
         for (Notification note : notifications) {
             try {
                 // Perform needed changes
-                if (note.hasChanged())
+                if (note.hasChanged()) {
+                    System.out.println("commit " + note.getType());
                     if (!note.commit(userDB))
                         note.notifyDB();
+                }
             } catch (Exception e2) {
                 // if exception then also fails to commit
                 e2.printStackTrace();
