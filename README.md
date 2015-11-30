@@ -47,9 +47,15 @@ Part 4 requirements:
 
    6. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
 
-   7. Reuse Statement: [ElasticSearch](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/ElasticSearch)
 
-
+##Reuse Statement 
+  Third party libraries we used in our app include:
+  
+  * ElasticSearch (https://www.elastic.co/guide/en/elasticsearch/reference/1.4/docs.html)
+  * Junit(http://junit.org/)
+  * Gson(https://github.com/google/gson)
+  * Espresso(http://developer.android.com/training/testing/ui-testing/espresso-testing.html#setup)
+  * Hamcrest(https://code.google.com/p/hamcrest/)
 
 ## License 
 ####   __SkillTradiez__ -- _The lost adventures_
