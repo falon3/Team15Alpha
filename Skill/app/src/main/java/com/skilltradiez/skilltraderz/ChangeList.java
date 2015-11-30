@@ -125,8 +125,7 @@ class ChangeList {
         List<Notification> notifications = getNotificationsAsList(),
                 changed = new ArrayList<Notification>();
         for (Notification note: notifications)
-            if (note.hasChanged()) {
-                note.notifyDB();
+            if (note.isSticky()) {
                 changed.add(note);
             }
         return changed;

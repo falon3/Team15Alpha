@@ -64,6 +64,7 @@ public class MainActivity extends GeneralMenuActivity {
     private Button makeNewUser;
     private ListView recentActivities;
     private RecentActivityAdapter adapter;
+    private List<Notification> notifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +89,8 @@ public class MainActivity extends GeneralMenuActivity {
         }
 
         recentActivities = (ListView) findViewById(R.id.activitiesList);
-        //TODO check if reload adds changes
-        adapter = new RecentActivityAdapter(this, masterController.getUserDB().getChangeList().getChangedNotifications());
+        notifications = new ArrayList<Notification>();
+        adapter = new RecentActivityAdapter(this, notifications);
 
         recentActivities.setAdapter(adapter);
 
@@ -122,11 +123,10 @@ public class MainActivity extends GeneralMenuActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        //TODO may have to update notifications
-        //TODO so uncomment if you dare
-        //adapter = new RecentActivityAdapter(this, masterController.getUserDB().getChangeList().getChangedNotifications());
+    public void onResume() {
+        super.onResume();
+        notifications.clear();
+        notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
         adapter.notifyDataSetChanged();
     }
 

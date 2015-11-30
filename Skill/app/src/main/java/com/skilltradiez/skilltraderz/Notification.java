@@ -38,12 +38,15 @@ public abstract class Notification {
      */
     private boolean notify = false;
 
+    private boolean stickyNotify = false;
+
     /**
      * Assigns the notify variable to True, when assigned to true the database will be triggered
      * to make changes to itself.
      */
     public void notifyDB() {
         notify = true;
+        stickyNotify = true;
     }
 
     /**
@@ -53,6 +56,12 @@ public abstract class Notification {
     public boolean hasChanged() {
         boolean tmp = notify;
         notify = false;
+        return tmp;
+    }
+
+    public boolean isSticky() {
+        boolean tmp = stickyNotify;
+        stickyNotify = false;
         return tmp;
     }
 

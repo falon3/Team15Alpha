@@ -102,7 +102,6 @@ public class Profile extends Stringeable {
      * Basic setter method that sets the email of the profile Object to the String passed as
      * a parameter to this method.
      * @param email String input.
-     * @throws IllegalArgumentException.
      */
     public void setEmail(String email) throws IllegalArgumentException {
         if (email.length() > 50)
@@ -233,6 +232,6 @@ public class Profile extends Stringeable {
      * @return String formatted of "email, location."
      */
     public String getDescription() {
-        return email+", "+location+".";
+        return email+(location == null ? "" : ", "+location+".");
     }
 }
