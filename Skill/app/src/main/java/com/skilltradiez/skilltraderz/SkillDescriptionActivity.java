@@ -69,8 +69,8 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
      * onStart method and then refreshes.
      */
     @Override
-    public void onStart(){
-        super.onStart();
+    public void onResume(){
+        super.onResume();
         refresh();
     }
 

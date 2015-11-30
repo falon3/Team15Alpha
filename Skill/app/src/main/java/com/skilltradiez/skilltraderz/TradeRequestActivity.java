@@ -98,8 +98,8 @@ public class TradeRequestActivity extends GeneralMenuActivity {
      * application to run in this Activity.
      */
     @Override
-    public void onStart(){
-        super.onStart();
+    public void onResume(){
+        super.onResume();
         tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
 
         offerList.setAdapter(offerAdapter);
