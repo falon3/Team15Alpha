@@ -49,7 +49,7 @@
         android:hint="@string/new_skill_name"
         android:maxLength="40"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#057777" />
+        android:textColor="@color/mainTextColor" />
 
     <TextView
         android:id="@+id/Desc"
