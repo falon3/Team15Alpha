@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,6 +19,10 @@ import java.util.List;
 public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
     private Context context;
     private List<T> itemList;
+    SpinnerAdapter(Context context, T itemList[]) {
+        this(context, Arrays.asList(itemList));
+    }
+
     SpinnerAdapter(Context context, List<T> itemList) {
         super(context, R.layout.spinner_item, itemList);
         this.context = context;
@@ -44,9 +50,6 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         // Populate the data into the template view using the data object
-        Typeface myTypeFace = Typeface.createFromAsset(context.getAssets(),
-                "fonts/gilsanslight.otf");
-        viewHolder.item.setTypeface(myTypeFace);
         viewHolder.item.setText(item.toString());
         return view;
     }
