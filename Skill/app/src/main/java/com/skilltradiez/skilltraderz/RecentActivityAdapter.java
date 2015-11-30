@@ -11,17 +11,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Stephen on 2015-11-29.
+ * When we have our application, we care about activities that have occured that were relatively
+ * recent in time. This class is a mostly UI-centric effort to establish an Adapter that can
+ * be utilized throughout the application for Recent Activities.
  */
 public class RecentActivityAdapter extends ArrayAdapter<Notification> {
     private final Activity context;
     private final List<Notification> items;
+
+    /**
+     * This constructor will assign the context and List of Notification Objects from the
+     * parameters passed into this constructor.
+     * @param context Activity.
+     * @param itemList List of Notification Objects.
+     */
     public RecentActivityAdapter(Activity context, List<Notification> itemList) {
         super(context, R.layout.recent_act_item, itemList);
         this.context = context;
         this.items = itemList;
     }
 
+    /**
+     * This method is involved in setting up the UI elements on the android applcation in such a
+     * fashion that they may appropriately represent the most recent activities that have
+     * occured with our application.
+     * @param position Integer of position on the User Interface.
+     * @param view View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         Notification item = getItem(position);
@@ -45,7 +63,10 @@ public class RecentActivityAdapter extends ArrayAdapter<Notification> {
         return view;
     }
 
-    // Acting As A Struct
+    /**
+     * This ViewHolder class is acting similar to a struct, holding TextView variables for name,
+     * desceiption, and status.
+     */
     public class ViewHolder {
         TextView name;
         TextView desc;
