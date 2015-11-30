@@ -17,6 +17,7 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -25,15 +26,27 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * In any application we have users with a particular set of preferences. Some may like certain
+ * aspects of the application to be in a particular format- others may prefer others in yet some
+ * other configuration. This Activity is purely based around the fact that users should be
+ * enabled and given the power of choice- to be able to choose what sort of settings they want
+ * to have when they utilize our application.
+ */
 public class SettingsActivity extends GeneralMenuActivity {
 
     private Button saveSettings;
     private TextView usernameSettings;
     private EditText citySettings, emailSettings;
     private CheckBox downloadPics;
-
     private Profile user;
 
+    /**
+     * Android Standard onCreate method, this method will be involved in setting up all of the
+     * user interface elements associated with the representation of the settings screen in our
+     * application.
+     * @param savedInstanceState Bundle Object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +71,11 @@ public class SettingsActivity extends GeneralMenuActivity {
     }
 
 
+    /**
+     * When this method is called we will take all of the settings within this activity and then
+     * save them into the database.
+     * @param view View Object.
+     */
     public void saveSettings(View view){
         user.setEmail(emailSettings.getText().toString());
         user.setShouldDownloadImages(downloadPics.isChecked());
