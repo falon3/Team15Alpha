@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
@@ -43,6 +44,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static android.support.test.espresso.Espresso.onView;
 
@@ -171,9 +173,77 @@ public class OfflineUITest {
         onView(withId(R.id.inventory)).perform(click());
         //Doesn't break... success!
     }
+    // should be able to start a trade offline
     @Test
-    public void testStartTrade(){
+    public void testStartTrade() throws UserAlreadyExistsException {
+        String tradeFriend = "Al" + TestUtilities.getRandomString();
+        String tradeUsername = "Bo" + TestUtilities.getRandomString();
+        String tradeEmail = "Em" + TestUtilities.getRandomString();
+        //create friend, make sure they have a skill, add them
+        DatabaseController.createUser(tradeFriend);
+        GeneralMenuActivity g_activity = (GeneralMenuActivity) getActivityInstance();
+        g_activity.getMasterController().makeNewSkill("miscellaneous", "stupid trade test", "High", true, new ArrayList<Image>());
 
+        //login and add friend
+        onView(withId(R.id.usernameField)).perform(typeText(tradeUsername), closeSoftKeyboard());
+        onView(withId(R.id.emailField)).perform(typeText(tradeEmail), closeSoftKeyboard());
+        onView(withId(R.id.beginApp)).perform(click());
+
+        //return home to browse users find friend
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.All_Users)).perform(click());
+        onView(withId(R.id.search_bar)).perform(typeText(tradeFriend), closeSoftKeyboard());
+        onView(withId(R.id.search_bar_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        //add friend
+        onView(withId(R.id.right_button)).perform(click());
+
+        //lose connectivity and start trade
+        //simulate going offline with bad HTTPClient now
+        MasterController.getUserDB().setHttpClient(new BrokenHTTPClient());
+        DatabaseController.refresh();
+
+        // start trade
+        onView(withId(R.id.left_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.other_invList)).atPosition(0).perform(click());
+        onView(withId(R.id.sendTrade)).perform(click());
+
+        //return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // check that a trade was added
+        onData(anything()).inAdapterView(allOf(withId(R.id.requestList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
+
+        //resume connectivity on regular HTTPclient and make sure things don't break
+        MasterController.getUserDB().setHttpClient(new HTTPClient());
+        DatabaseController.refresh();
+
+        //Also check again to see that local changes weren't overwritten by database info
+        // so check if trade still exists
+
+        //return home and view trade history
+        onView(withId(R.id.Go_Home_Menu)).perform(click());
+        onView(withId(R.id.Trade_History)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.results_list)).atPosition(0).perform(click());
+
+        // check that a trade was added
+        onData(anything()).inAdapterView(allOf(withId(R.id.requestList), isDisplayed())).atPosition(0).check(matches(isDisplayed()));
     }
 
+    Activity currentActivity;
+    public Activity getActivityInstance(){
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
+                if (resumedActivities.iterator().hasNext()){
+                    currentActivity = (Activity) resumedActivities.iterator().next();
+                }
+            }
+        });
+
+        return currentActivity;
+    }
 }
