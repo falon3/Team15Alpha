@@ -236,6 +236,7 @@ public class EspressoTest {
     }
 
     Activity currentActivity;
+    // helper function for testStartTrade
     public Activity getActivityInstance(){
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
@@ -248,4 +249,5 @@ public class EspressoTest {
 
         return currentActivity;
     }
+
 }
