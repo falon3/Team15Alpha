@@ -11,7 +11,7 @@
    3. [Javadoc interface documentation](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
    4. [Test Cases](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
    5. [Requirement Specifications](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
-   6. Object-Oriented Design: Our [UML](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
+   6. [Object-Oriented Design](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
    7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
    8. [Reuse Statement](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Reuse-Statement)
    9. [Demonstrate something tangible](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
