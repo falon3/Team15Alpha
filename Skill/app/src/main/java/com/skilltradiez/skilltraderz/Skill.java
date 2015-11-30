@@ -124,7 +124,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ *
  * A skill represents something that a person can do. In this application we have skills as the
  * primary element surrounding the entire purpose of why a user would want to obtain this app.
  * Therefore it is critical that we store details on that particular skill in an easy to access,
