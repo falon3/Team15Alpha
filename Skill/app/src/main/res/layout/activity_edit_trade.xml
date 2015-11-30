@@ -136,7 +136,6 @@
         android:id="@+id/Requests"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:layout_above="@+id/sendTrade"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/requestHeader"
@@ -169,34 +168,5 @@
         </TableRow>
 
     </TableLayout>
-
-    <Button
-        android:id="@+id/sendTrade"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/button"
-        android:onClick="sendTrade"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:singleLine="true"
-        android:text="@string/send_trade"
-        android:textColor="@color/listLightYellow" />
-
-    <Button
-        android:id="@+id/deleteTrade"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/sendTrade"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/button"
-        android:onClick="deleteRequest"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/delete_trade"
-        android:textColor="@color/listLightYellow" />
 
 </RelativeLayout>

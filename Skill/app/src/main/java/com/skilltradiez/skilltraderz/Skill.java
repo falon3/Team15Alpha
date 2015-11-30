@@ -428,7 +428,7 @@ public class Skill extends Stringeable {
                 Set<Skill> skillz = MasterController.getUserDB().getSkills();
                 skillz.remove(prev_version);
                 skillz.add(this);
-                System.out.println("Updated skill");
+                System.out.println("Updated skill: "+prev_version.getName());
 
             } else if (prev_version.isOwner(owner) && prev_version.getNumOwners() > 1) {
                 //if other users had and it was now updated then make new skill and remove self from old one
@@ -443,7 +443,7 @@ public class Skill extends Stringeable {
                 System.out.println(prev_version.isOwner(owner));
                 System.out.println(prev_version.getNumOwners());
                 // i think this happens when the user isn't a previous owner!
-                return true; // give up
+                // give up
             }
         } catch (IOException e) {
             e.printStackTrace();
