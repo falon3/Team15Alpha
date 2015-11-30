@@ -45,10 +45,10 @@
         android:layout_alignParentEnd="true">
 
         <ImageButton
-            android:id="@id/All_Users"
+            android:id="@+id/All_Users"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:background="@drawable/mainButton"
+            android:background="@drawable/mainbutton"
             android:src="@drawable/ic_person"
             android:onClick="beginAllSearch"
             android:text="@string/browse_users"
@@ -56,38 +56,36 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@id/All_Skillz"
+            android:id="@+id/All_Skillz"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/sk_plus"
-            android:background="@drawable/mainButton"
+            android:background="@drawable/mainbutton"
             android:onClick="beginAllSearch"
             android:text="@string/browse_skillz"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@id/My_Friends"
+            android:id="@+id/My_Friends"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:src="@drawable/ic_person"
-            android:background="@drawable/mainButton"
+            android:src="@drawable/ic_action_social_group"
+            android:background="@drawable/mainbutton"
             android:onClick="beginAllSearch"
             android:text="@string/your_friends"
             android:textColor="@color/ListViewYellow"
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@id/Trade_History"
+            android:id="@+id/Trade_History"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/ic_mail"
-            android:background="@drawable/mainButton"
+            android:background="@drawable/mainbutton"
             android:onClick="beginAllSearch"
             android:text="@string/trade_history"
             android:textColor="@color/ListViewYellow" />
 
     </LinearLayout>
-
-
 </RelativeLayout>
