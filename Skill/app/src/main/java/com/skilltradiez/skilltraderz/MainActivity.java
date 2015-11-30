@@ -92,9 +92,6 @@ import android.widget.Toast;
 public class MainActivity extends GeneralMenuActivity {
 
     private Context mainContext = this;
-
-    //Main screen
-    private Button searchAllSkillzButton, searchAllUsersButton, tradeHistory, myFriends;
     //Main screen
     public static boolean connected;
 
@@ -124,11 +121,6 @@ public class MainActivity extends GeneralMenuActivity {
         newUserName = (EditText) findViewById(R.id.usernameField);
         newUserEmail = (EditText) findViewById(R.id.emailField);
         makeNewUser = (Button) findViewById(R.id.beginApp);
-        // mainActivity
-
-        searchAllSkillzButton = (Button) findViewById(R.id.All_Skillz);
-        searchAllUsersButton = (Button) findViewById(R.id.All_Users);
-        //goToProfile = (Button) findViewById(R.id.go_to_profile);
 
         // Checks internet connectivity every second on separate thread
         Thread thread = new Thread(new Runnable() {
@@ -206,6 +198,9 @@ public class MainActivity extends GeneralMenuActivity {
             intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
         } else if (view.getId() == R.id.All_Users) {
             intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
+        } else if ((view.getId() == R.id.My_Friends)){
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
+            intent.putExtra(SearchScreenActivity.FILTER_PARAM, "Friends");
         } else {
             intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
         }
