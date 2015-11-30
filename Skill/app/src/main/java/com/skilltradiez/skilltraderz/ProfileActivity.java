@@ -66,7 +66,6 @@ public class ProfileActivity extends ButtonMenuActivity {
     private Context profileContext = this;
     private Button viewInventory, friendListButton;
     private TextView userContactInfo, profileTitle;
-    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,6 @@ public class ProfileActivity extends ButtonMenuActivity {
         profileTitle = (TextView) findViewById(R.id.user_name);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
-
     }
 
     @Override
@@ -91,16 +89,6 @@ public class ProfileActivity extends ButtonMenuActivity {
         owner = masterController.getUserByName(userProfileName);
         populateProfile();
         enableButtons();
-    }
-
-    /**
-     * When this method is called it will reverse the state of if images are automatically
-     * downloaded. If they are enabled this sets them to disabled, if they are disabled then
-     * they will be enabled.
-     * @param v View Object.
-     */
-    public void toggleAutoImgDownloads(View v) {
-        owner.getProfile().setShouldDownloadImages(checkBox.isChecked());
     }
 
     /**
@@ -150,7 +138,6 @@ public class ProfileActivity extends ButtonMenuActivity {
         if (masterController.getCurrentUser().equals(owner)) {
             deactivateRightButton();
             deactivateLeftButton();
-
         } else {
             friendListButton.setVisibility(View.INVISIBLE);
         }
