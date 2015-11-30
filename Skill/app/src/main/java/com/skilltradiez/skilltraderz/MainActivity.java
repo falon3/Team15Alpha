@@ -172,6 +172,12 @@ public class MainActivity extends GeneralMenuActivity {
             if (new_guy != null) {
                 Toast.makeText(context, "Welcome, " + username, Toast.LENGTH_SHORT).show();
                 setContentView(R.layout.activity_main);
+
+                recentActivities = (ListView) findViewById(R.id.activitiesList);
+                notifications = new ArrayList<Notification>();
+                adapter = new RecentActivityAdapter(this, notifications);
+
+                recentActivities.setAdapter(adapter);
             } else {
                 Toast.makeText(context, username + " Already Exists!", Toast.LENGTH_SHORT).show();
                 // Do nothing

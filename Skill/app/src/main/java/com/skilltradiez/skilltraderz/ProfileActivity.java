@@ -82,7 +82,6 @@ public class ProfileActivity extends ButtonMenuActivity {
         checkBox = (CheckBox) findViewById(R.id.auto_img);
         userContactInfo = (TextView) findViewById(R.id.user_description);
         friendListButton = (Button) findViewById(R.id.friend_list_button);
-
     }
 
     @Override
