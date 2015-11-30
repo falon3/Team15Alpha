@@ -30,13 +30,32 @@ package com.skilltradiez.skilltraderz;
 public class UserAlreadyExistsException extends Exception {
     //Cover our behinds with constructors for this exception. No point in having a useless
     //empty exception.
+
+    /**
+     * Given no parameters, call the superclass of this exception (Exception) with no params.
+     */
     UserAlreadyExistsException() {super();}
 
+
+    /**
+     * Given only a string message as a parameter, invoke the superclass with the message String.
+     * @param message String input of displayed message.
+     */
     public UserAlreadyExistsException(String message) {super(message);}
 
+    /**
+     * Given only a throwable of the source of the error, invoke the superclass Exception with it.
+     * @param errorSource Throwable Object.
+     */
+    public UserAlreadyExistsException(Throwable errorSource){ super(errorSource);}
+
+    /**
+     * Given only a throwable of the source of the error, invoke the superclass Exception with it.
+     * @param errorSource Throwable Object.
+     */
     public UserAlreadyExistsException(String message, Throwable errorSource) {
         super(message, errorSource);
     }
 
-    public UserAlreadyExistsException(Throwable errorSource){ super(errorSource);}
+
 }
