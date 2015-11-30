@@ -118,7 +118,7 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         inv.add(skill2);
         inv.add(skill);
 
-        assertEquals(inv.orderByCategory(db), list1);
+        assertEquals(inv.orderByCategory(), list1);
     }
 
     public void testSearchSkills() {
@@ -144,11 +144,11 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
         inv.add(skill);
         inv.add(skill2);
 
-        assertEquals(inv.findByName(db, "Name"), list1);
-        assertEquals(inv.findByName(db, "Naem"), list2);
-        assertEquals(inv.findByCategory(db, "category"), list1);
-        assertEquals(inv.findByCategory(db, "dategory"), list2);
+        assertEquals(inv.findByName("Name"), list1);
+        assertEquals(inv.findByName("Naem"), list2);
+        assertEquals(inv.findByCategory("category"), list1);
+        assertEquals(inv.findByCategory("dategory"), list2);
         list1.add(skill2);
-        assertEquals(inv.findByCategory(db, "gory"), list1);
+        assertEquals(inv.findByCategory("gory"), list1);
     }
 }
