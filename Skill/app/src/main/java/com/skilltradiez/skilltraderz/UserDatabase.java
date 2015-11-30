@@ -182,7 +182,11 @@ public class UserDatabase {
      * @param currentUser User Object.
      */
     public void setCurrentUser(User currentUser) {
+        //TODO THIS IS BAD!!!!!!!!!!!
+        //THIS INVALIDATES EVERY USER OBJECT EVERYWHERE!
+        //NEED TO COPY IN THE DATA INSTEAD.
         this.currentUser = currentUser;
+
         getChangeList().add(currentUser.getFriendsList());
         getChangeList().add(currentUser.getTradeList());
         getChangeList().add(currentUser.getProfile());

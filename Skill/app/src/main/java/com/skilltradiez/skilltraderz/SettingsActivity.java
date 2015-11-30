@@ -39,7 +39,7 @@ public class SettingsActivity extends GeneralMenuActivity {
     private TextView usernameSettings;
     private EditText citySettings, emailSettings;
     private CheckBox downloadPics;
-    private Profile user;
+    private User user;
 
     /**
      * Android Standard onCreate method, this method will be involved in setting up all of the
@@ -60,13 +60,13 @@ public class SettingsActivity extends GeneralMenuActivity {
         emailSettings = (EditText) findViewById(R.id.settings_user_contact_field);
         downloadPics = (CheckBox) findViewById(R.id.settings_picture_checkbox);
 
-        user = masterController.getCurrentUser().getProfile();
+        user = MasterController.getCurrentUser();
 
-        usernameSettings.setText(user.getUsername());
+        usernameSettings.setText(user.getProfile().getUsername());
 
-        emailSettings.setText(user.getEmail());
-        citySettings.setText(user.getLocation());
-        downloadPics.setChecked(user.getShouldDownloadImages());
+        emailSettings.setText(user.getProfile().getEmail());
+        citySettings.setText(user.getProfile().getLocation());
+        downloadPics.setChecked(user.getProfile().getShouldDownloadImages());
 
     }
 
@@ -77,9 +77,9 @@ public class SettingsActivity extends GeneralMenuActivity {
      * @param view View Object.
      */
     public void saveSettings(View view){
-        user.setEmail(emailSettings.getText().toString());
-        user.setShouldDownloadImages(downloadPics.isChecked());
-        user.setLocation(citySettings.getText().toString());
+        user.getProfile().setEmail(emailSettings.getText().toString());
+        user.getProfile().setShouldDownloadImages(downloadPics.isChecked());
+        user.getProfile().setLocation(citySettings.getText().toString());
 
         DatabaseController.save();
         finish();
