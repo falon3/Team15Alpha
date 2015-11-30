@@ -205,6 +205,11 @@ public class EditTradeActivity extends ButtonMenuActivity {
     private void loadItems() {
         DatabaseController.refresh();
 
+        yourInv.clear();
+        otherInv.clear();
+        offer.clear();
+        request.clear();
+
         // Fill two Lists
         yourInv.addAll(activeUser.getInventory().cloneSkillz());
         otherInv.addAll(passiveUser.getInventory().cloneSkillz());
