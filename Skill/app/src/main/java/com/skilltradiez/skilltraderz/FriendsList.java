@@ -51,6 +51,7 @@ public class FriendsList extends Notification {
      */
     private ID owner;
     private List<ID> friendsList;
+    private ID mostRecentFriend;
 
     /**
      * Takes in the ID Object for the owner of this FriendsList Object and will assign the
@@ -86,6 +87,7 @@ public class FriendsList extends Notification {
      */
     public void removeFriend(User terrible_person) {
         friendsList.remove(terrible_person.getUserID());
+        mostRecentFriend = terrible_person.getUserID();
         notifyDB();
     }
 
@@ -96,6 +98,7 @@ public class FriendsList extends Notification {
     public void addFriend(User great_person) {
         if (hasFriend(great_person)) return;
         friendsList.add(great_person.getUserID());
+        mostRecentFriend = great_person.getUserID();
         notifyDB();
     }
 

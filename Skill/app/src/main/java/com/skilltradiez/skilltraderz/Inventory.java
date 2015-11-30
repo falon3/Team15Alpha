@@ -55,7 +55,6 @@ public class Inventory extends Notification {
     public Inventory(ID user) {
         skillz = new ArrayList<ID>();
         this.user = user;
-        this.mostRecentSkill = skillz.get(0);
     }
 
     /**
@@ -281,6 +280,7 @@ public class Inventory extends Notification {
      * @return String of the Description of this Inventory.
      */
     public String getDescription() {
+        if (mostRecentSkill == null) return "how did this happen???";
         return DatabaseController.getSkillByID(mostRecentSkill).getName()+" was added or removed.";
     }
 
