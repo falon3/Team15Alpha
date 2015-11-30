@@ -48,10 +48,6 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".InventoryActivity"
-            android:label=""
-            android:parentActivityName=".ProfileActivity"/>
-        <activity
             android:name=".TradeRequestActivity"
             android:label=""
             android:launchMode="singleInstance"/>

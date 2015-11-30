@@ -124,7 +124,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * A skill represents something that a person can do. In this application we have skills as the
  * primary element surrounding the entire purpose of why a user would want to obtain this app.
  * Therefore it is critical that we store details on that particular skill in an easy to access,
@@ -143,11 +142,29 @@ public class Skill extends Stringeable {
     private ArrayList<ID> owners;
 
     /**
-     * CONSTRUCTOR
-     **/
+     * Creates a new skill with the parameters passed into this constructor.
+     * @param db UserDatabase Object.
+     * @param skill_name String input.
+     * @param category String input.
+     * @param description String input.
+     * @param isVisible Boolean flag.
+     * @param images List of Image Objects.
+     */
     Skill(UserDatabase db, String skill_name, String category, String description, boolean isVisible, List<Image> images) {
         this(db, skill_name, category, description, "test quality", isVisible, images);
     }
+
+    /**
+     * Creates a new skill with the parameters passed into this constructor. Has more parameters
+     * than the one above... in particular the quality parameter.
+     * @param db UserDatabase Object.
+     * @param skill_name String input.
+     * @param category String input.
+     * @param description String input.
+     * @param quality String input.
+     * @param isVisible Boolean flag.
+     * @param images List of Image Objects.
+     */
     Skill(UserDatabase db, String skill_name, String category, String description, String quality, boolean isVisible, List<Image> images) {
         setName(skill_name);
         owners = new ArrayList<ID>();
@@ -165,6 +182,12 @@ public class Skill extends Stringeable {
         DatabaseController.addSkill(this);
     }
 
+    /**
+     * Reduced constructor to make a new Skill, takes in two parameters and uses them and defaults
+     * to create a new Skill object.
+     * @param db UserDatabase Objekt.
+     * @param skill Skill Objekt
+     */
     Skill(UserDatabase db, Skill skill) {
         setName(skill.getName());
         owners = new ArrayList<ID>();
@@ -182,8 +205,10 @@ public class Skill extends Stringeable {
     }
 
     /**
-     * METHODS
-     **/
+     * This method takes in a List of Image Objects and will add the images to this Skill and then
+     * notify the database of this change.
+     * @param images List of Image Objects.
+     */
     public void setImages(List<Image> images) {
         if (this.images == null) {
             this.images = new ArrayList<ID>();
@@ -194,98 +219,182 @@ public class Skill extends Stringeable {
         }
         notifyDB();
     }
+
+    /**
+     * Given an Image Object and an Integer as a position desired, this method will take the image
+     * and will put it in the position supplied as a parameter.
+     * @param image Image Object.
+     * @param pos Integer Value.
+     */
     public void setImage(Image image, int pos) {
         this.images.set(pos, image.getID());
     }
 
+    /**
+     * Basic getter method that when invoked will return the Image for the Skill Object in question.
+     * @return Image Object.
+     */
     @Override
     public Image getImage() {
         return (images == null || images.size() == 0) ? new NullImage() : DatabaseController.getImageByID(images.get(0));
     }
 
+    /**
+     * Basic getter method that will return the List of ID Objects for all images of the Skill.
+     * @return List of ID Objects.
+     */
     public List<ID> getImages() {
         return images;
     }
 
+    /**
+     * Adds a passed in Image Object to the Skill Object.
+     * @param image Image Object.
+     */
     public void addImage(Image image) {
         images.add(image.getID());
     }
 
+    /**
+     * Removes a passed in Image Object from the Skill Objekt.
+     * @param image Image Object.
+     */
     public void removeImage(Image image) {
         images.remove(image.getID());
     }
 
-    //Traditional getter and setter methods for the private attribute name
+    /**
+     * Basic getter method that returns a String of the name of the Skill Object.
+     * @return String of the name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Basic setter method that sets the passed in String parameter of the name to the Skill
+     * Object having this method invoked upon it.
+     * @param name String of the name.
+     */
     public void setName(String name) {
         this.name = name;
         notifyDB();
     }
 
-    //Traditional getter and setter methods for the private attribute getCategory
+    /**
+     * Basic getter method that gets the String format of the category of the Skill Object.
+     * @return String of the category of the skill.
+     */
     public String getCategory() {
         return category;
     }
 
+    /**
+     * Basic setter method that sets the passed in String parameter of the category to the Skill
+     * Object having this method invoked upon it.
+     * @param category String input.
+     */
     public void setCategory(String category) {
         this.category = category;
         notifyDB();
     }
 
-    //DELETION of an image method. Replaces the image with a newly instantiated NullImage
-    //object within this line.
+    /**
+     * Delection of an image. Replaces the image with a newly instantiated NullImage
+     * object.
+     * @param pos Integer of the position.
+     */
     public void deleteImage(int pos) {
         images.remove(pos);
         notifyDB();
     }
 
-    //Traditional getter and setter methods for the private attribute description.
+    /**
+     * Basic getter method to obtain the String of the Skill Object's description.
+     * @return String of the Skill Object description.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Basic setter method that will set the description of the Skill to the String parameter
+     * passed into this method.
+     * @param description String input.
+     */
     public void setDescription(String description) {
         this.description = description;
         notifyDB();
     }
 
+    /**
+     * Basic setter method that will set the quality of the Skill to the String parameter
+     * passed into this method.
+     * @param quality String input.
+     */
     public void setQuality(String quality) {
         this.quality = quality;
         notifyDB();
     }
 
+    /**
+     * Basic getter method that will get the quality of the Skill Object.
+     * @return String of the Skill quality.
+     */
     public String getQuality() {
         return quality;
     }
 
+    /**
+     * Basic getter method that will get the number of owners offering this Skill in particular.
+     * @return Integer value of the number of owners of the skill.
+     */
     public int getTop() {
         return getNumOwners();
     }
 
-    //"Traditional" getter and setter methods for the private boolean attribute visible
-    //Why "isVisible" isn't "getSkillVisible" is... personal preference. It is a boolean so we'll
-    //just go with that! But basically is a getter/setter method.
+    /**
+     * This is prettymuch just a getter method, returning the value of the visible boolean.
+     * @return Boolean. True/False.
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     * This is a basic setter method, it will change the visibility of the Skill to the
+     * Boolean value passed into the method as a parameter.
+     * @param visible Boolean. True/False.
+     */
     public void setVisible(boolean visible) {
         this.visible = visible;
         notifyDB();
     }
 
+    /**
+     * Basic getter method that returns the ID of the Skill Object in question.
+     * @return ID Object.
+     */
     public ID getSkillID() {
         return skillID;
     }
 
+    /**
+     * Special String method that returns the information of this skill as a String: including
+     * the name, category, description and if it is visible or not.
+     * @return String information for the Skill.
+     */
     @Override
     public String toString() {
         return this.getName() + ": " + this.getCategory() + " " + this.getDescription() + (isVisible() ? "" : " (Invisible)");
     }
 
+    /**
+     * This method, once invoked, will commit all of the changes made to Skills to the database
+     * for the application.
+     * @param userDB UserDatabase Object.
+     * @return Boolean. True/False.
+     */
     public boolean commit(UserDatabase userDB) {
         Elastic ela = userDB.getElastic();
         Skill prev_version;
@@ -295,6 +404,10 @@ public class Skill extends Stringeable {
             prev_version = ela.getDocumentSkill(skillID.toString());
             if (prev_version == null)
                 prev_version = this;
+            if (!isOwner(owner) && !prev_version.isOwner(owner)) {
+                System.out.println("shouldnt' happen");
+                return true;
+            }
             if (prev_version.isOwner(owner) && !hasOwners()) {
                 //if removed skill from inventory and no other owners had skill
                 userDB.getSkills().remove(prev_version);
@@ -325,7 +438,9 @@ public class Skill extends Stringeable {
                 System.out.println("dated skill");
             } else {
                 //TODO what if this happened??
-                System.out.println("MAYBE BROKEN, FIXME!!!");
+                System.out.println(owner);
+                System.out.println(prev_version.isOwner(owner));
+                System.out.println(prev_version.getNumOwners());
                 // i think this happens when the user isn't a previous owner!
                 throw new RuntimeException();
             }
@@ -336,40 +451,86 @@ public class Skill extends Stringeable {
         return true;
     }
 
+    /**
+     * Basic getter method that returns the number of owners of the Skill Object.
+     * @return Integer of the number of owners of the Skill.
+     */
     public int getNumOwners() {
         return owners.size();
     }
 
+    /**
+     * Adds the passed in ID Object to the list of owners of the Skill Object.
+     * @param owner ID Object.
+     */
     public void addOwner(ID owner) {
         owners.add(owner);
         notifyDB();
     }
 
+    /**
+     * Removes the passed in ID Object from the list of owners of the Skill Object.
+     * @param owner ID Object.
+     */
     public void removeOwner(ID owner) {
         owners.remove(owner);
         notifyDB();
     }
 
+    /**
+     * This method will return if the passed in ID Object (user ID) is within the list of
+     * owners of the Object. If the user ID is in the list of owners it will return True, else
+     * it will return False.
+     * @param owner ID Object.
+     * @return Boolean. True/False.
+     */
     public boolean isOwner(ID owner) {
         return owners.contains(owner);
     }
 
+    /**
+     * This method will return if there are owners in the owners list (True) or if there aren't
+     * owners in the Skill object's owners list (False).
+     * @return Boolean. True/False.
+     */
     public boolean hasOwners() {
         return !owners.isEmpty();
     }
 
+    /**
+     * Will take in an Object (any ol object...) of the Object type; and will then compare the
+     * current object with the object passed into the method. If they are equal return true. If
+     * they are not equal, then return false.
+     * @param inputObject Object Object.
+     * @return Boolean. True/False.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object inputObject) {
+        if (this == inputObject) return true;
+        if (inputObject == null || getClass() != inputObject.getClass()) return false;
 
-        Skill skill = (Skill) o;
+        Skill skill = (Skill) inputObject;
 
         return !(skillID != null ? !skillID.equals(skill.skillID) : skill.skillID != null);
     }
 
+    /**
+     * This method when called is going to give us a hash (horrendous hash function- I am deeply
+     * offended) of the tradeID ID Object value. Allowing us to easily compare values.
+     * Why is that? Because a hash will make comparison very easy and small.
+     *
+     * @return Integer. THIS integer represents the hash of the tradeID ID object.
+     */
     @Override
     public int hashCode() {
         return skillID != null ? skillID.hashCode() : 0;
+    }
+
+    public String getType() {
+        return "Skill: "+getName();
+    }
+
+    public String getStatus() {
+        return "Edited";
     }
 }

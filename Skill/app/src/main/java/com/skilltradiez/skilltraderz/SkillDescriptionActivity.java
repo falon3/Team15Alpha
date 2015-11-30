@@ -37,7 +37,6 @@ import android.widget.TextView;
 
 public class SkillDescriptionActivity extends GeneralMenuActivity {
     static String ID_PARAM = "skill_id";
-
     private Skill currentSkill;
     private Button addRemoveSkill, editSkill;
     private TextView skillTitle, skillCategory, skillDescription;
@@ -45,6 +44,10 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
     private LinearLayout imageView;
     private Context context = this;
 
+    /**
+     * Standard Activity Method invoked upon creation, handles UI element setup.
+     * @param savedInstanceState Bundle Object.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +64,21 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         imageView = (LinearLayout) findViewById(R.id.imageView);
     }
 
+    /**
+     * Standard Android Activity Method invoked onStart, handles a call to the superclass's
+     * onStart method and then refreshes.
+     */
     @Override
     public void onStart(){
         super.onStart();
         refresh();
     }
 
+    /**
+     * This method is going to be involved in retrieving a large amount of data from the models
+     * of the application for the Skills, Users and Inventories- and set up the UI in a reasonable
+     * manner.
+     */
     public void refresh() {
         setSkillTitle(currentSkill.getName());
         setSkillCategory(currentSkill.getCategory());
@@ -102,23 +114,40 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         }
     }
 
+    /**
+     * Basic setter method that will take the String passed as a parameter to this method and
+     * assign it to the title.
+     * @param text String input.
+     */
     public void setSkillTitle(String text){
         //skillTitle = title of the skill we're looking at
         skillTitle.setText(text);
     }
 
+    /**
+     * Basic setter method that will take the String passed as a parameter to this method and
+     * assign it to the category of the Skill.
+     * @param category String input.
+     */
     public void setSkillCategory(String category) {
         //skillCategory = category of the skill we're looking at
         skillCategory.setText(category);
     }
 
+    /**
+     * Basic setter method that will take the String passed as a parameter to this method and
+     * assign it to the description of the Skill.
+     * @param text
+     */
     public void setSkillDescription(String text){
         //skillDescription = description of the skill we're looking at
         skillDescription.setText(text);
     }
 
+
     /**
-     * Adds or removes a skill from a user's list or trade request
+     * Adds or removes a skill from a user's list or trade request.
+     * @param v View Object.
      */
     public void addRemoveSkill(View v){
         //notify the user that the skill has been added to their profile or trade request depending
@@ -141,10 +170,20 @@ public class SkillDescriptionActivity extends GeneralMenuActivity {
         DatabaseController.save();
     }
 
+    /**
+     * Returns the Button related to adding or removing a skill, involved in gathering information
+     * from the UI to be used in the controllers.
+     * @return Button Object.
+     */
     public Button getAddRemoveSkill(){
         return addRemoveSkill;
     }
 
+    /**
+     * When invoked, this method will change the current activity over to the EditSkillActivity
+     * Activity with the currentSkill being looked at in this activity.
+     * @param view View Object.
+     */
     public void editSkill(View view){
         Intent intent = new Intent(this, EditSkillActivity.class);
         intent.putExtra("skill_id", currentSkill.getSkillID());

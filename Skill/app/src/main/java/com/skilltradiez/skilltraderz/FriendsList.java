@@ -64,7 +64,6 @@ public class FriendsList extends Notification {
         friendsList = new ArrayList<ID>();
     }
 
-
     /**
      * Returns the ID Object for the owner of the FriendsList Object.
      * @return ID Object
@@ -73,7 +72,6 @@ public class FriendsList extends Notification {
         return owner;
     }
 
-
     /**
      * When invoked, will return the list of friends from the FriendsList Object.
      * @return List of ID Objects.
@@ -81,7 +79,6 @@ public class FriendsList extends Notification {
     public List<ID> getFriends() {
         return friendsList;
     }
-
 
     /**
      * Removes the passed in User Object parameter from the FriendsList. Notifies DB of change.
@@ -92,7 +89,6 @@ public class FriendsList extends Notification {
         notifyDB();
     }
 
-
     /**
      * Adds the passed in User Object parameter to the FriendsList. Notifies DB of change.
      * @param great_person User Object.
@@ -102,7 +98,6 @@ public class FriendsList extends Notification {
         friendsList.add(great_person.getUserID());
         notifyDB();
     }
-
 
     /**
      * Will return true/false if the passed in User Object is present in the FriendsList.
@@ -136,5 +131,19 @@ public class FriendsList extends Notification {
             return false;
         }
         return true;
+    }
+
+    public String getType() {
+        return "FriendsList";
+    }
+
+    public String getStatus() {
+        if (friendsList.isEmpty())
+            return "Removed Friend";
+        return "Changed";
+    }
+
+    public String getDescription() {
+        return "";
     }
 }

@@ -114,11 +114,14 @@ public class Inventory extends Notification {
 
     /**
      * Returns a list of Skill Objects associated with the name passed to the method.
-     * @param userDB UserDatabase Object.
      * @param name String input of a name of a Skill.
      * @return A List of Skill Objects
      */
-    public List<Skill> findByName(UserDatabase userDB, String name) {
+    public List<Skill> findByName(String name) {
+        return findByName(name, skillz);
+    }
+
+    public List<Skill> findByName(String name, List<ID> skillz) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
         Skill temp;
         for (ID s : skillz) {
@@ -128,31 +131,49 @@ public class Inventory extends Notification {
         return matching;
     }
 
+    public List<Skill> findByName(List<Skill> skillz, String name) {
+        ArrayList<Skill> matching = new ArrayList<Skill>();
+        for (Skill s : skillz) {
+            if (s.getName().toLowerCase().contains(name.toLowerCase()) && s.isVisible()) matching.add(s);
+        }
+        return matching;
+    }
+
     /**
      * Given a category, yields a list of Skill Objects that are associated with the string given.
-     * @param userDB UserDatabase Object.
      * @param category String input of a category.
      * @return List of Skill Objects
      */
-    public List<Skill> findByCategory(UserDatabase userDB, String category) {
+    public List<Skill> findByCategory(String category) {
+        return findByCategory(category, skillz);
+    }
+
+    public List<Skill> findByCategory(String category, List<ID> skillz) {
         ArrayList<Skill> matching = new ArrayList<Skill>();
-        Skill temp;
-        for (ID s : skillz) {
-            temp = DatabaseController.getSkillByID(s);
-            if (temp.getCategory().toLowerCase().contains(category.toLowerCase()) &&
-                    (temp.isVisible() || DatabaseController.getAccountByUserID(user).getInventory().hasSkill(temp)))
-                matching.add(temp);
+        for (ID id : skillz) {
+            Skill s = DatabaseController.getSkillByID(id);
+            if (s.getCategory().toLowerCase().contains(category.toLowerCase()) &&
+                    (s.isVisible() || DatabaseController.getAccountByUserID(user).getInventory().hasSkill(s)))
+                matching.add(s);
+        }
+        return matching;
+    }
+    public List<Skill> findByCategory(List<Skill> skillz, String category) {
+        ArrayList<Skill> matching = new ArrayList<Skill>();
+        for (Skill s : skillz) {
+            if (s.getCategory().toLowerCase().contains(category.toLowerCase()) &&
+                    (s.isVisible() || DatabaseController.getAccountByUserID(user).getInventory().hasSkill(s)))
+                matching.add(s);
         }
         return matching;
     }
 
     /**
      * When invoked will return a list of Skill Objects sorted by their name.
-     * @param userDB UserDatabase Object.
      * @return List of Skill Objects.
      */
-    public ArrayList<Skill> orderByName(UserDatabase userDB) {
-        ArrayList<Skill> sorted = cloneSkillz(userDB);
+    public ArrayList<Skill> orderByName() {
+        ArrayList<Skill> sorted = cloneSkillz();
         Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
@@ -164,11 +185,10 @@ public class Inventory extends Notification {
 
     /**
      * Returns a copy of the list of skills, sorted ascending by category.
-     * @param userDB UserDatabase Object.
      * @return List of Skill Objects.
      */
-    public ArrayList<Skill> orderByCategory(UserDatabase userDB) {
-        ArrayList<Skill> sorted = cloneSkillz(userDB);
+    public ArrayList<Skill> orderByCategory() {
+        ArrayList<Skill> sorted = cloneSkillz();
         Collections.sort(sorted, new Comparator<Skill>() {
             @Override
             public int compare(Skill lhs, Skill rhs) {
@@ -193,10 +213,9 @@ public class Inventory extends Notification {
 
     /**
      * When invoked will produce a brand new list of Skill Objects and return this new list.
-     * @param userDB UserDatabase Object
      * @return List of Skill Objects.
      */
-    public ArrayList<Skill> cloneSkillz(UserDatabase userDB) {
+    public ArrayList<Skill> cloneSkillz() {
         ArrayList<Skill> newList = new ArrayList<Skill>();
         for (ID id:skillz)
             newList.add(DatabaseController.getSkillByID(id));
@@ -235,5 +254,17 @@ public class Inventory extends Notification {
             return false;
         }
         return true;
+    }
+
+    public String getType() {
+        return "Your Inventory";
+    }
+
+    public String getStatus() {
+        return "Changed";
+    }
+
+    public String getDescription() {
+        return "Something was added or removed.";
     }
 }

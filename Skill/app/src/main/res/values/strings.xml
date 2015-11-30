@@ -149,4 +149,5 @@
     <string name="rating">Quality Of Skill:</string>
     <string name="category_title">Category:</string>
     <string name="good">Good</string>
+    <string name="recentActs">Recent Activities</string>
 </resources>

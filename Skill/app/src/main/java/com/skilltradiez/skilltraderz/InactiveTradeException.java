@@ -46,7 +46,7 @@ public class InactiveTradeException extends Exception {
 
     /**
      * Given only a throwable of the source of the error, invoke the superclass Exception with it.
-     * @param errorSource
+     * @param errorSource Throwable Object.
      */
     public InactiveTradeException(Throwable errorSource){ super(errorSource);}
 

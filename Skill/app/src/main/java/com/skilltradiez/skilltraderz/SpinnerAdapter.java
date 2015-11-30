@@ -1,5 +1,22 @@
 package com.skilltradiez.skilltraderz;
-
+/*
+ *    Team15Alpha
+ *    AppName: SkillTradiez (Subject to change)
+ *    Copyright (C) 2015  Stephen Andersen, Falon Scheers, Elyse Hill, Noah Weninger, Cole Evans
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -13,9 +30,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Stephen on 2015-11-29.
- */
 public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
     private Context context;
     private List<T> itemList;
@@ -31,6 +45,14 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         setDropDownViewResource(R.layout.spinner_drop_item);
     }
 
+    /**
+     * Returns a View with a drop down view, specifically by invoking the getView method and
+     * returning the result of that method.
+     * @param position Integer value.
+     * @param convertView View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     public View getDropDownView(int position, View view, ViewGroup parent) {
         T item = itemList.get(position);
 
@@ -50,6 +72,13 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         return view;
     }
 
+    /**
+     * Takes in a set of parameters and greates a new specialized UI view for the dropdown view.
+     * @param position Integer value.
+     * @param view View Object.
+     * @param parent ViewGroup Object.
+     * @return View Object.
+     */
     public View getView(int position, View view, ViewGroup parent) {
         T item = itemList.get(position);
 
@@ -69,7 +98,9 @@ public class SpinnerAdapter<T extends Object> extends ArrayAdapter {
         return view;
     }
 
-    // Acting As A Struct
+    /**
+     * This class is acting in a similar manner to a struct here.
+     */
     public class ViewHolder {
         TextView item;
     }

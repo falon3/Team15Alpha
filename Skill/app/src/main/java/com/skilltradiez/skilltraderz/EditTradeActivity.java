@@ -205,8 +205,8 @@ public class EditTradeActivity extends GeneralMenuActivity {
         DatabaseController.refresh();
 
         // Fill two Lists
-        yourInv.addAll(activeUser.getInventory().cloneSkillz(MasterController.getUserDB()));
-        otherInv.addAll(passiveUser.getInventory().cloneSkillz(MasterController.getUserDB()));
+        yourInv.addAll(activeUser.getInventory().cloneSkillz());
+        otherInv.addAll(passiveUser.getInventory().cloneSkillz());
         //offer and request begin empty
 
         //... unless we are editing an existing trade
@@ -259,10 +259,9 @@ public class EditTradeActivity extends GeneralMenuActivity {
             Toast.makeText(getApplicationContext(), "You need to request at least one skill!", Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO Send The Trade
         if (trade != null){
             trade.set(masterController.getUserDB(), activeUser, passiveUser, offer, request);
-            activeUser.getTradeList().addTrade(masterController.getUserDB(), trade);
+            DatabaseController.save();
         } else {
             trade = activeUser.getTradeList().createTrade(masterController.getUserDB(), activeUser, passiveUser, offer, request);
         }
