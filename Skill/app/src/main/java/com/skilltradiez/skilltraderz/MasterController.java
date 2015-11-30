@@ -46,6 +46,10 @@ public final class MasterController {
         databaseController = new DatabaseController();
     }
 
+    public DatabaseController getDatabaseController() {
+        return databaseController;
+    }
+
     /**
      * Return the database object! Only available to other controller objects.
      * @return UserDatabase Object.

@@ -73,7 +73,8 @@ public class MainActivity extends GeneralMenuActivity {
         super.onCreate(savedInstanceState);
 
         masterController = new MasterController();
-        masterController.initializeController();
+        if (masterController.getDatabaseController() == null)
+            masterController.initializeController();
 
         //TODO HACK
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -127,6 +128,7 @@ public class MainActivity extends GeneralMenuActivity {
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("Mainactivity onresume");
         if (DatabaseController.isLoggedIn()) {
             notifications.clear();
             notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
