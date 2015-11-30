@@ -28,7 +28,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         super(com.skilltradiez.skilltraderz.UserDatabase.class);
     }
 
-    public void testCreateAccount() {
+    public void testCreateAccount() throws NoInternetException {
         UserDatabase db = MasterController.getUserDB();
         DatabaseController.deleteAllData();
         User user;
@@ -41,7 +41,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testCreateAccountFailCase() {
+    public void testCreateAccountFailCase() throws NoInternetException {
         UserDatabase db = MasterController.getUserDB();
         DatabaseController.deleteAllData();
         User user;
@@ -60,7 +60,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testLogin() {
+    public void testLogin() throws NoInternetException {
         UserDatabase db = MasterController.getUserDB();
         DatabaseController.deleteAllData();
         User user;
@@ -75,7 +75,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         assertTrue(DatabaseController.login("Username") != null);
     }
 
-    public void testDatabasePersistence() {
+    public void testDatabasePersistence() throws NoInternetException {
         UserDatabase db = MasterController.getUserDB();
         DatabaseController.deleteAllData();
         try {
@@ -90,7 +90,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testTradelistPersistence() {
+    public void testTradelistPersistence() throws NoInternetException {
         UserDatabase db = MasterController.getUserDB();
         DatabaseController.deleteAllData();
         try {
@@ -113,7 +113,7 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    public void testFriendListPersistence() {
+    public void testFriendListPersistence() throws NoInternetException {
         UserDatabase db = MasterController.getUserDB();
         DatabaseController.deleteAllData();
         try {

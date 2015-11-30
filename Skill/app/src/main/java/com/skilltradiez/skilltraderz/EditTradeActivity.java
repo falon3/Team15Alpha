@@ -247,7 +247,6 @@ public class EditTradeActivity extends ButtonMenuActivity {
      * @param view View Object of the EditTradeActivity.
      */
     public void deleteRequest(View view){
-        //TODO delete the trade
         if (trade != null)
             masterController.deleteTrade(trade);
 

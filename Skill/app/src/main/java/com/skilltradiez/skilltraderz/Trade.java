@@ -136,10 +136,8 @@ public class Trade extends Stringeable {
 
     /**
      * This method will check if the Trade Object is flagged as a complete Trade.
-     * Returns True if it is complete, False if it is not complete.
-     * @return Boolean. True/False.
      */
-    public boolean checkIfComplete() {
+    public void checkIfComplete() {
         if (half1.hasChanged()) {
             notifyDB();
             half1.notifyDB();
@@ -151,7 +149,6 @@ public class Trade extends Stringeable {
         if (!isActive()) {
             MasterController.getCurrentUser().getTradeList().tradeComplete(tradeID);
         }
-        return true;
     }
 
     /**
