@@ -186,6 +186,7 @@ public class TradeRequestActivity extends GeneralMenuActivity {
     public void acceptRequest(View view){
         trade.getHalfForUser(activeUser).setAccepted(true);
         trade.checkIfComplete();
+        DatabaseController.save();
 
         Context context = getApplicationContext();
         Toast.makeText(context, "Traded With "+ passiveUser.getProfile().getName(), Toast.LENGTH_SHORT).show();

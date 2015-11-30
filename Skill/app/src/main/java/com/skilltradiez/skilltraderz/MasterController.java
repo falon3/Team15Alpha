@@ -32,6 +32,8 @@ import java.util.Set;
  */
 public final class MasterController {
 
+    public MasterController() {}
+
     /**Class Variables:
      * 1: databaseController: Holds a copy of the databaseController, kept static so that the
      *      controller for the database will always keep it's same database.
@@ -198,9 +200,11 @@ public final class MasterController {
      * @param isVisible Boolean Flag.
      * @param images List of Image Objects.
      */
-    public void makeNewSkill(String name, String category, String description, String quality, boolean isVisible, List<Image> images) {
-        addCurrentSkill(new Skill(getUserDB(), name, category, description, quality, isVisible, images));
+    public Skill makeNewSkill(String name, String category, String description, String quality, boolean isVisible, List<Image> images) {
+        Skill s = new Skill(getUserDB(), name, category, description, quality, isVisible, images);
+        addCurrentSkill(s);
         DatabaseController.save();
+        return s;
     }
 
     /**
@@ -212,8 +216,8 @@ public final class MasterController {
      * @param images List of Image Objects.
      */
     @Deprecated
-    public void makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
-        makeNewSkill(name, category, description, "good enough", isVisible, images);
+    public Skill makeNewSkill(String name, String category, String description, boolean isVisible, List<Image> images) {
+        return makeNewSkill(name, category, description, "good enough", isVisible, images);
     }
 
 
@@ -240,13 +244,16 @@ public final class MasterController {
      * @param trade Trade Object to delete.
      */
     public void deleteTrade(Trade trade) {
-        DatabaseController.deleteDocumentTrade(trade.getTradeID());
-        getUserDB().getTrades().remove(trade);
         getUserByID(trade.getHalf1().getUser()).getTradeList().delete(trade);
         getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
 
         getUserDB().getChangeList().getTrades().remove(trade);
         getUserDB().getChangeList().getTradesList().remove(trade);
+
+        DatabaseController.save();
+
+        getUserDB().getTrades().remove(trade);
+        DatabaseController.deleteDocumentTrade(trade.getTradeID());
 
         DatabaseController.save();
     }

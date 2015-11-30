@@ -20,7 +20,9 @@ package com.skilltradiez.skilltraderz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * We have a trade list as one of the core features within our application. Users in our application
@@ -31,7 +33,7 @@ import java.util.List;
 
 public class TradeList extends Notification {
     private ID owner;
-    private List<ID> trades, newTrades, deletedTrades;
+    private Set<ID> trades, newTrades, deletedTrades;
 
     /**
      * Given an ID Object as a parameter, this constructor will assign the owner of this TradeList
@@ -43,33 +45,16 @@ public class TradeList extends Notification {
      */
     TradeList(ID id) {
         owner = id;
-        trades = new ArrayList<ID>();
-        newTrades = new ArrayList<ID>();
-        deletedTrades = new ArrayList<ID>();
-    }
-
-    /**
-     * Basic getter method that returns the List of Trade Objects that have not been commited yet.
-     * @return List of ID Objects.
-     */
-    public List<ID> getPendingTradesList(){
-        return newTrades;
-    }
-
-    /**
-     * Basic getter method that returns the List of Trade Objects that have been commited
-     * previously.
-     * @return List of ID Objects.
-     */
-    public List<ID> getDeletedTradesList(){
-        return deletedTrades;
+        trades = new HashSet<ID>();
+        newTrades = new HashSet<ID>();
+        deletedTrades = new HashSet<ID>();
     }
 
     /**
      * Basic getter method that returns the List of ID Objects of ALL Trades that have occured.
      * @return List of ID Objects.
      */
-    public List<ID> getTradesList(){
+    public Set<ID> getTradesList(){
         return trades;
     }
 
@@ -119,6 +104,8 @@ public class TradeList extends Notification {
         Trade trade = createTrade(userDB, user1, user2, offer);
         // User1 set this offer, so user2 hasn't accepted
         trade.getHalfForUser(user2).setOffer(request);
+        addTrade(userDB, trade);
+        notifyDB();
         return trade;
     }
 
@@ -204,7 +191,7 @@ public class TradeList extends Notification {
      */
     public Trade getMostRecentTrade(UserDatabase userDB) {
         if (trades.isEmpty()) return null;
-        return DatabaseController.getTradeByID(trades.get(trades.size()-1));
+        return DatabaseController.getTradeByID((ID)trades.toArray()[trades.size()-1]);
     }
 
     /**

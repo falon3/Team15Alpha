@@ -240,20 +240,13 @@ public class Inventory extends Notification {
      * @return Boolean. True/False.
      */
     @Override
-    boolean commit(UserDatabase userDB) {
+    public boolean commit(UserDatabase userDB) {
         System.out.println("Inventory commit!");
         try {
             userDB.getElastic().updateDocument("user",
                     DatabaseController.getAccountByUserID(user).getProfile().getUsername(), this, "inventory");
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
-        }
-        //Save Locally
-        try {
-            userDB.getLocal().saveToFile();
-        } catch (IOException e1) {
-            e1.printStackTrace();
             return false;
         }
         return true;

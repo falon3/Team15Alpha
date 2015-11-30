@@ -129,8 +129,8 @@
     <!-- Categories (Trades) -->
     <string-array name="trades_All">
         <item>All</item>
-        <item>Active</item>
-        <item>Inactive</item>
+        <item>In-Progress</item>
+        <item>Complete</item>
     </string-array>
 
     <!-- Sorting (Everything) -->

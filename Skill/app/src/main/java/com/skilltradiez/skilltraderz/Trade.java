@@ -140,10 +140,17 @@ public class Trade extends Stringeable {
      * @return Boolean. True/False.
      */
     public boolean checkIfComplete() {
-        if (half1.hasChanged() || half2.hasChanged())
+        if (half1.hasChanged()) {
             notifyDB();
-        if (!isActive())
+            half1.notifyDB();
+        }
+        if (half2.hasChanged()) {
+            notifyDB();
+            half2.notifyDB();
+        }
+        if (!isActive()) {
             MasterController.getCurrentUser().getTradeList().tradeComplete(tradeID);
+        }
         return true;
     }
 
@@ -187,9 +194,9 @@ public class Trade extends Stringeable {
      */
     public String getCategory(){
         if(isActive()){
-            return "Active";
+            return "In-Progress";
         }
-        return "Inactive";
+        return "Complete";
     }
 
     /**
@@ -242,9 +249,7 @@ public class Trade extends Stringeable {
      * @return String, either "Complete" or "In-Progress".
      */
     public String getStatus() {
-        if (!isActive())
-            return "Complete";
-        return "In-Progress";
+        return getCategory();
     }
 
     /**
