@@ -133,6 +133,10 @@ public class MainActivity extends GeneralMenuActivity {
             notifications.clear();
             notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
             adapter.notifyDataSetChanged();
+            System.out.println("Mainactivity onresume ADAPTERUPDATE: "+notifications.toString());
+
+            //Safety Catch-All
+            DatabaseController.save();
         }
     }
 
