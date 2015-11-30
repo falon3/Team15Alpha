@@ -17,13 +17,14 @@ package com.skilltradiez.skilltraderz;
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import android.util.Log;
-import java.io.IOException;
 
 /**
  * This is a broken version of the HTTPClient primarily used for testing. Has a few methods to
  * allow us to check out what is going on.
  */
+import android.util.Log;
+import java.io.IOException;
+
 public class BrokenHTTPClient extends HTTPClient{
 
     /**
