@@ -32,7 +32,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**~~DESCRIPTION:
+/**
+ * ~~DESCRIPTION:
  * We want an android framework that will support the ability for the user to interact
  * with our application in a very logical and easy way. So we're going to create an activity
  * that is associated with just the activities with the user. This activity is going to be
@@ -49,6 +50,9 @@ public class MainActivity extends GeneralMenuActivity {
      * 4: makeNewUser: A UI Button that when clicked prompts method calls.
      */
 
+
+
+    private Context mainContext = this;
     //Main screen
     public static boolean connected;
 
@@ -83,7 +87,7 @@ public class MainActivity extends GeneralMenuActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     connected = isConnected();
                     try {
                         Thread.sleep(1000);
@@ -93,10 +97,11 @@ public class MainActivity extends GeneralMenuActivity {
                 }
             }
         });
+        thread.start();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_ham, menu);
 
@@ -118,17 +123,16 @@ public class MainActivity extends GeneralMenuActivity {
      *    give the user a welcome message and forward them to the next activity.
      * @param view View Object.
      */
-    public void newUser(View view){
+    public void newUser(View view) {
         final Context context = getApplicationContext();
         final String username;
         User new_guy = null;
 
-        if(newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")){
+        if (newUserName.getText().toString().isEmpty() || newUserName.getText().toString().equals(" ")) {
             Toast.makeText(context, "You need a name!", Toast.LENGTH_SHORT).show();
-        }
-        else if (newUserEmail.getText().toString().isEmpty() || newUserEmail.getText().toString().equals(" ")){
+        } else if (newUserEmail.getText().toString().isEmpty() || newUserEmail.getText().toString().equals(" ")) {
             Toast.makeText(context, "You need an email!", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             username = newUserName.getText().toString();
 
             // Used for error checking
@@ -156,6 +160,44 @@ public class MainActivity extends GeneralMenuActivity {
      * Deletes the database. This is a method primarily based around testing.
      * @param view View Object.
      */
+
+    public void beginAllSearch(View view) {
+        Intent intent = new Intent(mainContext, SearchScreenActivity.class);
+        if (view.getId() == R.id.All_Skillz) {
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 0);
+        } else if (view.getId() == R.id.All_Users) {
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
+        } else if ((view.getId() == R.id.My_Friends)){
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 1);
+            intent.putExtra(SearchScreenActivity.FILTER_PARAM, "Friends");
+        } else {
+            intent.putExtra(SearchScreenActivity.SEARCH_TYPE_PARAM, 2);
+        }
+        startActivity(intent);
+    }
+
+    /**
+     * Take user to their own profile when "Your Profile" button is pressed
+     *
+     * @param view
+     */
+    public void showProfile(View view) {
+        Intent intent = new Intent(mainContext, ProfileActivity.class);
+        intent.putExtra(ProfileActivity.UNIQUE_PARAM, masterController.getCurrentUserUsername());
+        startActivity(intent);
+    }
+
+    /**
+     * Sends user to the EditSkill activity to make a new skill
+     *
+     * @param view
+     */
+    public void createNewSkill(View view) {
+        Intent intent = new Intent(mainContext, EditSkillActivity.class);
+        startActivity(intent);
+    }
+
+    
     public void deleteDatabase(View view) {
         DatabaseController.deleteAllData();
         Toast.makeText(getApplicationContext(), "Complete online database has been deleted!!!!", Toast.LENGTH_SHORT).show();

@@ -7,7 +7,7 @@
         <item name="android:actionBarWidgetTheme">@style/AppTheme.OverflowTextView</item>
         <item name="android:dropDownListViewStyle">@style/AppTheme.OverflowListView</item>
         <item name="android:itemBackground">@color/mainSkillAppColor</item>
-        <item name="android:windowBackground">@color/darkGreyAccent</item>
+        <item name="android:windowBackground">@color/mainBackground</item>
     </style>
 
     <!-- Action Bar Background Style -->
@@ -19,18 +19,18 @@
 
     <!-- Action Bar Text Style -->
     <style name="AppTheme.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/tealTextColor</item>
+        <item name="android:textColor">@color/mainBackground</item>
         <item name="android:icon">@drawable/sz_circle</item>
     </style>
 
     <!-- Overflow Menu Text Style -->
     <style name="AppTheme.OverflowTextView" parent="@style/android:Theme.Holo.Light">
-        <item name="android:textColor">@color/tealTextColor</item>
+        <item name="android:textColor">@color/mainBackground</item>
     </style>
 
     <!-- Overflow Menu Divider Style -->
     <style name="AppTheme.OverflowListView" parent="@android:style/Widget.Holo.ListView.DropDown">
-        <item name="android:divider">@color/darkGreyAccent</item>
+        <item name="android:divider">@color/mainBackground</item>
         <item name="android:dividerHeight">2dp</item>
     </style>
 </resources>
