@@ -26,15 +26,11 @@ import java.io.IOException;
 public class LocalTests extends ActivityInstrumentationTestCase2 {
     public LocalTests() {super(com.skilltradiez.skilltraderz.Local.class); }
 
-    public void testAddLocal() {
+    public void testAddLocal() throws IOException {
         Local lo = new Local();
 
-        try {
-            lo.saveToFile();
-            assertEquals(lo.readFromFile(), lo.getLocalData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        lo.saveToFile();
+        assertEquals(lo.readFromFile(), lo.getLocalData());
     }
 
 

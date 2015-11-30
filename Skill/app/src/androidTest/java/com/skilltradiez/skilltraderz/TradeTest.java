@@ -40,8 +40,10 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
 
             offer.add(new Skill(db, "illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new ArrayList<Image>()));
 
-            Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
-            DatabaseController.save();
+            Trade trade = user.getTradeList().createTrade(db, user, user2, offer, offer);
+            user.getTradeList().addTrade(MasterController.getUserDB(), trade);
+            user2.getTradeList().addTrade(MasterController.getUserDB(), trade);
+
             assertEquals(user.getTradeList().getMostRecentTrade(db), trade);
             assertEquals(user2.getTradeList().getMostRecentTrade(db), trade);
         } catch (UserAlreadyExistsException e) {
@@ -87,8 +89,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             DatabaseController.save();
             assertTrue(trade.isActive());
             // delete the trade
-            user2.getTradeList().delete(user2.getTradeList().getMostRecentTrade(db));
-            DatabaseController.save();
+            mc.deleteTrade(trade);
             assertTrue(user.getTradeList().getActiveTrades(db).size() == 0);
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
@@ -107,7 +108,7 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             List<Skill> counterOffer = new ArrayList<Skill>();
 
             offer.add(new Skill(db,"illlllll", "LLLLLLLLLLLLLLLL", "desc", true, new ArrayList<Image>()));
-            counterOffer.add(new Skill(db,"Counter skill", "meta", "desc", true, new ArrayList<Image>()));
+            counterOffer.add(new Skill(db, "Counter skill", "meta", "desc", true, new ArrayList<Image>()));
 
             Trade trade = user.getTradeList().createTrade(db, user, user2, offer);
             trade.getHalfForUser(user2).setAccepted(false);
@@ -150,33 +151,6 @@ public class TradeTest extends ActivityInstrumentationTestCase2 {
             // Delete An Active Trade
             tl.delete(t);
             assertTrue(tl.getActiveTrades(db).size() == 0);
-        } catch (UserAlreadyExistsException e) {
-            assertTrue(false);
-        }
-    }
-
-    public void testBrowseTradeHistory() throws NoInternetException {
-        MasterController mc = new MasterController();
-        mc.initializeController();
-        UserDatabase db = mc.getUserDB();
-        DatabaseController.deleteAllData();
-        try {
-            User bob = DatabaseController.createUser("Bob");
-            User joel = DatabaseController.createUser("Joel");
-
-            List<Skill> skillz1 = new ArrayList<Skill>(), skillz2 = new ArrayList<Skill>();
-            skillz1.add(new Skill(db, "...YEP", "BAR", "desc", true, new ArrayList<Image>()));
-
-            TradeList tl = bob.getTradeList();
-
-            tl.createTrade(db, bob, joel, skillz2);
-            Trade t1 = tl.getMostRecentTrade(db);
-
-            tl.createTrade(db, bob, joel, skillz1);
-            Trade t2 = tl.getMostRecentTrade(db);
-
-            // Trade History Has been updated
-            assertTrue(!t1.equals(t2));
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }

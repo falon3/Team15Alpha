@@ -27,7 +27,9 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testAddFriend() throws UserAlreadyExistsException, NoInternetException {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
 
         User user1 = DatabaseController.createUser("user1");
@@ -36,11 +38,12 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         user1.getFriendsList().addFriend(user2);
         DatabaseController.save();
         assertTrue(user1.getFriendsList().hasFriend(user2));
-        assertTrue(user2.getFriendsList().hasFriend(user1));
     }
 
     public void testRemoveFriend() throws UserAlreadyExistsException, NoInternetException {
-        UserDatabase db = new UserDatabase();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
 
         User user1 = DatabaseController.createUser("user1");
@@ -49,11 +52,9 @@ public class FriendListTests extends ActivityInstrumentationTestCase2 {
         user1.getFriendsList().addFriend(user2);
         DatabaseController.save();
         assertTrue(user1.getFriendsList().hasFriend(user2));
-        assertTrue(user2.getFriendsList().hasFriend(user1));
 
         user1.getFriendsList().removeFriend(user2);
         DatabaseController.save();
         assertFalse(user1.getFriendsList().hasFriend(user2));
-        assertFalse(user2.getFriendsList().hasFriend(user1));
     }
 }

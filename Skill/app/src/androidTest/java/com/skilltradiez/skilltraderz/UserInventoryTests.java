@@ -87,11 +87,12 @@ public class UserInventoryTests extends ActivityInstrumentationTestCase2 {
 
         // Testing modifying a skill in inventory
         Image dog = new Image(Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8));
+        DatabaseController.addImage(dog);
         Skill held_skill = inv.get(db, 0);
         held_skill.setDescription("I jumped and then got really tired");
         held_skill.addImage(dog);
         held_skill.setVisible(false);
-        assertTrue(dog.equals(held_skill.getImage()));
+        assertEquals(dog, held_skill.getImage());
         assertTrue(held_skill.getDescription().equals("I jumped and then got really tired"));
         assertTrue(!held_skill.isVisible());
     }

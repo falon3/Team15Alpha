@@ -29,7 +29,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testCreateAccount() throws NoInternetException {
-        UserDatabase db = MasterController.getUserDB();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User user;
 
@@ -42,7 +44,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testCreateAccountFailCase() throws NoInternetException {
-        UserDatabase db = MasterController.getUserDB();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User user;
 
@@ -61,7 +65,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testLogin() throws NoInternetException {
-        UserDatabase db = MasterController.getUserDB();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         User user;
 
@@ -76,14 +82,17 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testDatabasePersistence() throws NoInternetException {
-        UserDatabase db = MasterController.getUserDB();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user = DatabaseController.createUser("Username");
             DatabaseController.save();
 
             // The new database should contain all the previous changes
-            db = new UserDatabase();
+            mc.initializeController();
+            db = mc.getUserDB();
             assertTrue(DatabaseController.getAccountByUsername("Username").equals(user));
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
@@ -91,7 +100,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testTradelistPersistence() throws NoInternetException {
-        UserDatabase db = MasterController.getUserDB();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user1 = DatabaseController.createUser("Username1"),
@@ -102,7 +113,8 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             DatabaseController.save();
 
             // The new database should contain all the previous changes
-            db = new UserDatabase();
+            mc.initializeController();
+            db = mc.getUserDB();
             user1 = DatabaseController.getAccountByUsername("Username1");
             user2 = DatabaseController.getAccountByUsername("Username2");
 
@@ -114,7 +126,9 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
     }
 
     public void testFriendListPersistence() throws NoInternetException {
-        UserDatabase db = MasterController.getUserDB();
+        MasterController mc = new MasterController();
+        mc.initializeController();
+        UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         try {
             User user1 = DatabaseController.createUser("Username1"),
@@ -124,12 +138,11 @@ public class UserDatabaseTests extends ActivityInstrumentationTestCase2 {
             DatabaseController.save();
 
             // The new database should contain all the previous changes
-            db = new UserDatabase();
+            mc.initializeController();
             user1 = DatabaseController.getAccountByUsername("Username1");
             user2 = DatabaseController.getAccountByUsername("Username2");
 
             assertTrue(user1.getFriendsList().hasFriend(user2));
-            assertTrue(user2.getFriendsList().hasFriend(user1));
         } catch (UserAlreadyExistsException e) {
             assertTrue(false);
         }

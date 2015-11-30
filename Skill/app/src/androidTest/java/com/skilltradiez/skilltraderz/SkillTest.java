@@ -18,6 +18,7 @@ package com.skilltradiez.skilltraderz;
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
@@ -54,11 +55,12 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
         UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         Skill skill = new Skill(db, "foo", "bar", "desc", true, new ArrayList<Image>());
-        Image img = new Image("foo.tiff");
+        Image img = new Image(Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8));
+        DatabaseController.addImage(img);
         //image should be null initially
-        assertTrue(skill.getImage() == new NullImage());
+        assertTrue(skill.getImage() instanceof NullImage);
         //test setting image
-        skill.setImage(img, 0);
+        skill.addImage(img);
         assertEquals(skill.getImage(), img);
     }
 
@@ -68,10 +70,12 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
         UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         Skill skill = new Skill(db, "foo", "bar", "desc", true, new ArrayList<Image>());
-        Image img = new Image("foo.tiff");
-        Image img2 = new Image("foo.bmp");
+        Image img = new Image(Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8));
+        Image img2 = new Image(Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8));
+        DatabaseController.addImage(img);
+        DatabaseController.addImage(img2);
         //test setting image
-        skill.setImage(img, 0);
+        skill.addImage(img);
         assertEquals(skill.getImage(), img);
         //test changing(retaking) image
         skill.setImage(img2, 0);
@@ -84,12 +88,13 @@ public class SkillTest extends ActivityInstrumentationTestCase2 {
         UserDatabase db = mc.getUserDB();
         DatabaseController.deleteAllData();
         Skill skill = new Skill(db, "foo", "bar", "desc", true, new ArrayList<Image>());
-        Image img = new Image("foo.tiff");
+        Image img = new Image(Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8));
+        DatabaseController.addImage(img);
         //test setting image
-        skill.setImage(img, 0);
+        skill.addImage(img);
         assertEquals(skill.getImage(), img);
         //test deleting image
         skill.deleteImage(0);
-        assertTrue(skill.getImage() == new NullImage());
+        assertTrue(skill.getImage() instanceof NullImage);
     }
 }

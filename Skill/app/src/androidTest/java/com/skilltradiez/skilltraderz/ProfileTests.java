@@ -30,7 +30,9 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public void testSetUsername() throws NoInternetException {
         try {
-            UserDatabase db = new UserDatabase();
+            MasterController mc = new MasterController();
+            mc.initializeController();
+            UserDatabase db = mc.getUserDB();
             DatabaseController.deleteAllData();
             DatabaseController.createUser("Username");
             DatabaseController.save();
@@ -45,7 +47,9 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public void testSetLocation() throws NoInternetException {
         try {
-            UserDatabase db = new UserDatabase();
+            MasterController mc = new MasterController();
+            mc.initializeController();
+            UserDatabase db = mc.getUserDB();
             DatabaseController.deleteAllData();
             User user = DatabaseController.createUser("Username");
             try {
@@ -64,7 +68,9 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public void testSetEmail() throws NoInternetException {
         try {
-            UserDatabase db = new UserDatabase();
+            MasterController mc = new MasterController();
+            mc.initializeController();
+            UserDatabase db = mc.getUserDB();
             DatabaseController.deleteAllData();
             User user = DatabaseController.createUser("Username");
             try {
@@ -83,7 +89,9 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public void testFieldsTooLong() throws NoInternetException {
         try {
-            UserDatabase db = new UserDatabase();
+            MasterController mc = new MasterController();
+            mc.initializeController();
+            UserDatabase db = mc.getUserDB();
             DatabaseController.deleteAllData();
             User user = DatabaseController.createUser("Username");
             try {
@@ -108,7 +116,9 @@ public class ProfileTests extends ActivityInstrumentationTestCase2 {
 
     public void testSetDownloadImages() throws NoInternetException {
         try {
-            UserDatabase db = new UserDatabase();
+            MasterController mc = new MasterController();
+            mc.initializeController();
+            UserDatabase db = mc.getUserDB();
             DatabaseController.deleteAllData();
             User user = DatabaseController.createUser("Username");
 
