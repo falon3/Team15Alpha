@@ -72,9 +72,6 @@ public class EspressoTest {
         MasterController.getUserDB().getLocal().deleteFile();
     }
 
-
-    // Login.CreateAccount
-
     @Test
     public void testCreateUser() {
         String username = TestUtilities.getRandomString();
@@ -85,6 +82,17 @@ public class EspressoTest {
         onView(withId(R.id.beginApp)).perform(click());
         onView(withId(R.id.Go_Profile_Menu)).perform(click());
         onView(withId(R.id.user_name)).check(matches(withText(username)));
+    }
+    @Test
+    public void testConfigureProfileDetails(){
+        testCreateUser();
+        onView(withId(R.id.Go_To_Settings)).perform(click());
+        onView(withId(R.id.settings_user_contact_field)).perform(typeText("NewEmail@phony.com"), closeSoftKeyboard());
+        onView(withId(R.id.settings_save_button)).perform(click());
+
+        // check email was updated in profile
+        onView(withId(R.id.Go_Profile_Menu)).perform(click());
+        onView(withId(R.id.user_description)).check(matches(withText("NewEmail@phony.com")));
     }
     @Test
     public void testModifySkillDetails(){
