@@ -244,13 +244,16 @@ public final class MasterController {
      * @param trade Trade Object to delete.
      */
     public void deleteTrade(Trade trade) {
-        DatabaseController.deleteDocumentTrade(trade.getTradeID());
-        getUserDB().getTrades().remove(trade);
         getUserByID(trade.getHalf1().getUser()).getTradeList().delete(trade);
         getUserByID(trade.getHalf2().getUser()).getTradeList().delete(trade);
 
         getUserDB().getChangeList().getTrades().remove(trade);
         getUserDB().getChangeList().getTradesList().remove(trade);
+
+        DatabaseController.save();
+
+        getUserDB().getTrades().remove(trade);
+        DatabaseController.deleteDocumentTrade(trade.getTradeID());
 
         DatabaseController.save();
     }
