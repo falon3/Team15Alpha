@@ -15,9 +15,7 @@
    6. [Object-Oriented Design](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
    7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
    8. [Reuse Statement](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Reuse-Statement)
-   9. [Demonstrate something tangible](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/p4.mp4) 
-   
-[Bonus Video](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/bonus_demo.mp4)                               sorry about this shida
+   9. [Bonus Video](https://github.com/CMPUT301F15T15/Team15Alpha/blob/master/bonus_demo.mp4)                               sorry about this shida
 
 
 ## License 
