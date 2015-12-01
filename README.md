@@ -7,10 +7,10 @@
 
 ####Part 5 Requirements
    1. [Code Base of Prototype:](https://github.com/CMPUT301F15T15/Team15Alpha)have a code base
-   2. [Code Documentation: brief introductory comment for each source file](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Brief-Comment-For-Each-File)
+   2. [Documentation](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs)
    3. [Javadoc interface documentation](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/Javadocs)
    4. [Test Cases](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/Skill/app/src/androidTest/java/com/skilltradiez/skilltraderz)
-      FOR UI TESTING: PLEASE MAKE SURE YOU HAVE ESPRESSO INSTALLED SO THAT IT WILL WORK 
+      FOR UI TESTING: PLEASE MAKE SURE YOU HAVE ESPRESSO INSTALLED SO THAT IT WILL WORK. You may also need to add dependencies to the gradle script (they are commented out). 
    5. [Requirement Specifications](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Use-Cases)
    6. [Object-Oriented Design](https://github.com/CMPUT301F15T15/Team15Alpha/tree/master/docs/UML)
    7. [Release Planning](https://github.com/CMPUT301F15T15/Team15Alpha/wiki/Release-Planning)
