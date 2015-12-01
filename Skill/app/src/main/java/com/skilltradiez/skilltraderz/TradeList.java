@@ -259,6 +259,8 @@ public class TradeList extends Notification {
         Trade t = DatabaseController.getTradeByID(tradeID);
         DatabaseController.getAccountByUserID(t.getHalf1().getUser()).getProfile().tradeSuccess();
         DatabaseController.getAccountByUserID(t.getHalf2().getUser()).getProfile().tradeSuccess();
+        MasterController.getUserDB().getChangeList().add(DatabaseController.getAccountByUserID(t.getHalf1().getUser()).getProfile());
+        MasterController.getUserDB().getChangeList().add(DatabaseController.getAccountByUserID(t.getHalf2().getUser()).getProfile());
         DatabaseController.save();
     }
 
