@@ -85,6 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:visibility="invisible"
         android:background="@drawable/button"
         android:onClick="deleteDatabase"
         android:paddingLeft="15dp"
