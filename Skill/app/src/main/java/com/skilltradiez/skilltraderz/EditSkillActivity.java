@@ -324,7 +324,7 @@ public class EditSkillActivity extends CameraActivity {
             //Toasty
             Toast.makeText(context, "You made a skill!", Toast.LENGTH_SHORT).show();
         } else { // if we are editing an existing skill
-            if (skillToEdit.getNumOwners() > 1) {
+            if (skillToEdit.getNumOwners() > 1) { // clone skill
                 MasterController.getCurrentUser().getInventory().remove(skillToEdit.getSkillID());
                 skillToEdit = new Skill(MasterController.getUserDB(), skillToEdit);
                 skillToEdit.removeAllOwners();

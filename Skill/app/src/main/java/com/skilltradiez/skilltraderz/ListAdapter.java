@@ -92,7 +92,8 @@ public class ListAdapter extends ArrayAdapter<Stringeable> {
             pre="Successful Trades:";
         }
 
-        viewHolder.topNum.setText(pre+item.getTop());
+        if (!(item instanceof Skill))
+            viewHolder.topNum.setText(pre+item.getTop());
         if (item.getImage() != null)
             viewHolder.img.setImageBitmap(item.getImage().getBitmap());
         return view;
