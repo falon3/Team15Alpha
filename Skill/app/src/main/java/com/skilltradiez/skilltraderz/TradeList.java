@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,9 +46,9 @@ public class TradeList extends Notification {
      */
     TradeList(ID id) {
         owner = id;
-        trades = new HashSet<ID>();
-        newTrades = new HashSet<ID>();
-        deletedTrades = new HashSet<ID>();
+        trades = new LinkedHashSet<ID>();
+        newTrades = new LinkedHashSet<ID>();
+        deletedTrades = new LinkedHashSet<ID>();
     }
 
     /**
