@@ -138,6 +138,11 @@ public class TradeRequestActivity extends GeneralMenuActivity {
         request.addAll(masterController.getStringeableSkillList(trade.getHalfForUser(passiveUser).getOffer()));
         offerAdapter.notifyDataSetChanged();
         requestAdapter.notifyDataSetChanged();
+
+        if (trade.getHalfForUser(activeUser).isAccepted())
+            sendTrade.setVisibility(View.INVISIBLE);
+        else
+            sendTrade.setVisibility(View.VISIBLE);
     }
 
     /**
