@@ -130,6 +130,7 @@ public class MainActivity extends GeneralMenuActivity {
         super.onResume();
         System.out.println("Mainactivity onresume");
         if (DatabaseController.isLoggedIn()) {
+            DatabaseController.refresh();
             notifications.clear();
             notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
             adapter.notifyDataSetChanged();

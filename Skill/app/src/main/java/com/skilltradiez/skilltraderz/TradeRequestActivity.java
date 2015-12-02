@@ -63,16 +63,8 @@ public class TradeRequestActivity extends GeneralMenuActivity {
 
         // Check Intent for Extras
         masterController = new MasterController();
-        Bundle profileExtras = getIntent().getExtras();
 
         // Get active and passive Users
-        ID tradeID = (ID)profileExtras.get(TRADE_ID_PARAM);
-        trade = DatabaseController.getTradeByID(tradeID);
-        ID userID = (ID)profileExtras.get(ACTIVE_USER_ID_PARAM);
-        activeUser = DatabaseController.getAccountByUserID(userID);
-        userID = (ID)profileExtras.get(PASSIVE_USER_ID_PARAM);
-        passiveUser = DatabaseController.getAccountByUserID(userID);
-
         offer = new ArrayList<Stringeable>();
         request = new ArrayList<Stringeable>();
 
@@ -99,6 +91,17 @@ public class TradeRequestActivity extends GeneralMenuActivity {
     @Override
     public void onResume(){
         super.onResume();
+
+        DatabaseController.refresh();
+
+        Bundle profileExtras = getIntent().getExtras();
+        ID tradeID = (ID)profileExtras.get(TRADE_ID_PARAM);
+        trade = DatabaseController.getTradeByID(tradeID);
+        ID userID = (ID)profileExtras.get(ACTIVE_USER_ID_PARAM);
+        activeUser = DatabaseController.getAccountByUserID(userID);
+        userID = (ID)profileExtras.get(PASSIVE_USER_ID_PARAM);
+        passiveUser = DatabaseController.getAccountByUserID(userID);
+
         tradeTitle.setText("Trading With " + passiveUser.getProfile().getUsername());
 
         offerList.setAdapter(offerAdapter);
