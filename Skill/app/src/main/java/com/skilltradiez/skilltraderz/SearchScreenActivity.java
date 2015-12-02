@@ -59,6 +59,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
                 USER_FILTER = "user_filter",
                 SEARCH_QUERY = "query";
     private int screenType;
+    private ID owner = null;
     private Spinner categorySpinner, sortingSpinner;
     private Bundle searchExtras;
     private ListAdapter searchAdapter;
@@ -92,8 +93,9 @@ public class SearchScreenActivity extends SearchMenuActivity {
         if (searchExtras.containsKey(FILTER2_PARAM))
             filter2 = searchExtras.getString(FILTER2_PARAM);
 
+        // Owner exists if Applicable
         if (searchExtras.containsKey(USER_FILTER))
-            userFilter = DatabaseController.getAccountByUserID((ID) searchExtras.get(USER_FILTER));
+            owner = (ID) searchExtras.get(USER_FILTER);
 
         resultsList = (ListView) findViewById(R.id.results_list);
         searchAdapter = new ListAdapter(this, items);
@@ -183,6 +185,9 @@ public class SearchScreenActivity extends SearchMenuActivity {
         super.onResume();
         //Refresh the database :D
         DatabaseController.refresh();
+        if (owner != null)
+            userFilter = DatabaseController.getAccountByUserID(owner);
+
         loadItems();
 
         searchAdapter.notifyDataSetChanged();
