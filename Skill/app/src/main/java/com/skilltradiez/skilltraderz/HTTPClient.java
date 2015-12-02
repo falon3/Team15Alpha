@@ -42,7 +42,7 @@ import java.io.InputStreamReader;
 
 public class HTTPClient {
     private int timeout;
-    private static final int DEFAULT_TIMEOUT = 30000;
+    private static final int DEFAULT_TIMEOUT = 5000;
 
     /**Class Variables:
      * 1: httpClient, when the constructor is invoked for this class we will assign this variable
