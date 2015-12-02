@@ -19,7 +19,9 @@ package com.skilltradiez.skilltraderz;
  */
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -41,6 +43,16 @@ public abstract class SearchMenuActivity extends GeneralMenuActivity {
 
         searchBar = (EditText) findViewById(R.id.search_bar);
         searchBar.setVisibility(View.VISIBLE);
+        searchBar.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    startSearch(getQuery());
+                    return true;
+                }
+                return false;
+            }
+        });
 
         ImageButton searchButton = (ImageButton) findViewById(R.id.search_bar_button);
         searchButton.setVisibility(View.VISIBLE);

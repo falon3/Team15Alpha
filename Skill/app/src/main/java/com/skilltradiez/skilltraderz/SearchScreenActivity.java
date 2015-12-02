@@ -172,6 +172,7 @@ public class SearchScreenActivity extends SearchMenuActivity {
                 }
             }
         });
+        resultsList.setAdapter(searchAdapter);
     }
 
     /**
@@ -180,9 +181,10 @@ public class SearchScreenActivity extends SearchMenuActivity {
     @Override
     public void onResume() {
         super.onResume();
-
+        //Refresh the database :D
+        DatabaseController.refresh();
         loadItems();
-        resultsList.setAdapter(searchAdapter);
+
         searchAdapter.notifyDataSetChanged();
     }
 
@@ -190,8 +192,6 @@ public class SearchScreenActivity extends SearchMenuActivity {
      * Loads items from the database of the application to be displayed on this SearchScreenActivity
      */
     public void loadItems() {
-        //Refresh the database :D
-        DatabaseController.refresh();
         items.clear();
         refineSearch(); // search for nothing initially
 

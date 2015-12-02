@@ -19,7 +19,9 @@ package com.skilltradiez.skilltraderz;
  */
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * This Activity is purely dedicated to displaying an image through the User Interface so that
@@ -52,6 +54,13 @@ public class ImageViewerActivity extends GeneralMenuActivity {
 
         Image image = DatabaseController.forceGetImageByID((ID) getIntent().getExtras().get(IMAGE_ID_PARAM));
         imageView.setImageBitmap(image.getBitmap());
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }

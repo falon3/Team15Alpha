@@ -118,7 +118,7 @@ public final class DatabaseController {
     public static void save() {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
-        toBePushed.push(MasterController.getUserDB());
+        //toBePushed.push(MasterController.getUserDB());
 
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();

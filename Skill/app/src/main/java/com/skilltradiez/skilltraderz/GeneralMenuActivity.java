@@ -20,6 +20,8 @@ package com.skilltradiez.skilltraderz;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -59,6 +61,9 @@ public class GeneralMenuActivity extends ActionBarActivity {
     protected Context generalContext = this;
     public MasterController masterController;
     protected EditText searchBar;
+    private Thread thread;
+    protected static boolean connected;
+    private boolean pause;
     // Search Skillz By default
     private int SEARCH_PARAM = 0;
 
@@ -76,6 +81,26 @@ public class GeneralMenuActivity extends ActionBarActivity {
         View view = inflator.inflate(R.layout.search, null);
 
         actionBar.setCustomView(view);
+
+        pause = false;
+
+        // Checks internet connectivity every second on separate thread
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    connected = isConnected();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    while(pause){try{Thread.sleep(1000);}catch(InterruptedException e){e.printStackTrace();}}
+                    System.out.println("isConnected = "+connected);
+                }
+            }
+        });
+        thread.start();
     }
 
 
@@ -142,6 +167,18 @@ public class GeneralMenuActivity extends ActionBarActivity {
         return false;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        pause = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        pause = true;
+    }
+
     /**
      * Given an integer value to identify the search parameter type, will set the local variable
      * SEARCH_PARAM to the given integer value.
@@ -179,6 +216,19 @@ public class GeneralMenuActivity extends ActionBarActivity {
      */
     protected String getQuery() {
         return searchBar.getText().toString();
+    }
+
+    /**
+     * Checks if the device connected to internet
+     * source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
+     * Returns true if connectivity is available, False otherwise.
+     * @return Boolean. True/False.
+     */
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     //@todo parent activity for enabling the back button on action bar needs work
