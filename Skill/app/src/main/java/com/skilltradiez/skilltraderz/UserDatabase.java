@@ -97,7 +97,8 @@ public class UserDatabase {
      * @param client HTTPClient Object
      */
     public void setHttpClient(HTTPClient client){
-        elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", client);
+        //elastic = new Elastic("http://cmput301.softwareprocess.es:8080/cmput301f15t15/", client);
+        elastic = new Elastic("http://deadmau6.com:9200/cmput301f15t15/", client);
     }
 
     /**
