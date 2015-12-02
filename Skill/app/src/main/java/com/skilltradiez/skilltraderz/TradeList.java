@@ -228,7 +228,7 @@ public class TradeList extends Notification {
         for (ID tradeId : deletedTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
             if (trade == null)
-                return false;
+                continue;
             User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User currentUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
 
