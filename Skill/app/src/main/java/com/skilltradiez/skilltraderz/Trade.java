@@ -34,6 +34,7 @@ package com.skilltradiez.skilltraderz;
  * offers) offers, set if accepted or declined or if it is even still active or not!
  */
 
+import java.io.IOException;
 import java.util.List;
 
 public class Trade extends Stringeable {
@@ -159,6 +160,12 @@ public class Trade extends Stringeable {
      * @return Boolean. True/False.
      */
     public boolean commit(UserDatabase userDB) {
+        try {
+            MasterController.getUserDB().getElastic().addDocument("trade", getTradeID().toString(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         if (half1.hasChanged())
             if (!half1.commit(userDB)) {
                 half1.notifyDB();

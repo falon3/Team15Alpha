@@ -86,6 +86,7 @@ class ChangeList {
      * @param newNote Notification Object.
      */
     public void add(Notification newNote) {
+        if (newNote == null) return;
         if (lock) newNotifications.add(newNote);
         else notifications.add(newNote);
     }
@@ -224,6 +225,10 @@ class ChangeList {
     public void push(UserDatabase userDB) {
         lock = true;
         for (Notification note : notifications) {
+            if (note == null) {
+                oldNotifications.add(note);
+                continue;
+            }
             try {
                 // Perform needed changes
                 if (note.hasChanged()) {

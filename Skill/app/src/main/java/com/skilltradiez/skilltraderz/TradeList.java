@@ -141,6 +141,7 @@ public class TradeList extends Notification {
      * @param trade Trade Object.
      */
     public void addTrade(UserDatabase db, Trade trade) {
+        if (trade == null) return;
         if (trades.contains(trade.getTradeID()))
             return;
         trades.add(trade.getTradeID());
@@ -205,6 +206,8 @@ public class TradeList extends Notification {
     public boolean commit(UserDatabase userDB)  {
         for (ID tradeId : newTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
+            if (trade == null)
+                return false;
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User theUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
             otherUser.getTradeList().addTrade(userDB, trade);
@@ -224,6 +227,8 @@ public class TradeList extends Notification {
         newTrades.clear();
         for (ID tradeId : deletedTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
+            if (trade == null)
+                return false;
             User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User currentUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
 

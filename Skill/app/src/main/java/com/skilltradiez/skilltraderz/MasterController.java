@@ -57,7 +57,7 @@ public final class MasterController {
      * @return UserDatabase Object.
      */
     public static UserDatabase getUserDB() {
-        if (databaseController.getUserDB() == null)
+        if (databaseController == null)
             databaseController = new DatabaseController();
         return databaseController.getUserDB();
     }
