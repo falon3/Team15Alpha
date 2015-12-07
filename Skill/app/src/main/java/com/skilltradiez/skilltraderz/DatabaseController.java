@@ -83,6 +83,7 @@ public final class DatabaseController {
         try {
             List<User> onlineUsers = elastic.getAllUsers();
             for (User u : onlineUsers) {
+                if (u == null) continue;
                 if (u.equals(currentUser)) MasterController.getUserDB().setCurrentUser(u);
                 users.remove(u);
                 users.add(u);
@@ -90,6 +91,7 @@ public final class DatabaseController {
             Set<Skill> skillz = MasterController.getUserDB().getSkills();
             List<Skill> skills = elastic.getAllSkills();
             for (Skill s : skills) {
+                if (s == null) continue;
                 skillz.remove(s);
                 skillz.add(s);
                 changes.remove(s);
@@ -98,6 +100,7 @@ public final class DatabaseController {
             TradeList tradeList = MasterController.getCurrentUser().getTradeList();
             for (ID id : tradeList.getTradesList()) {
                 Trade t = getOnlineTradeByID(id);
+                if (t == null) continue;
                 trades.remove(t);
                 trades.add(t);
                 changes.remove(t);
@@ -115,7 +118,7 @@ public final class DatabaseController {
     public static void save() {
         ChangeList toBePushed = MasterController.getUserDB().getChangeList();
         Local local = MasterController.getUserDB().getLocal();
-        toBePushed.push(MasterController.getUserDB());
+        //toBePushed.push(MasterController.getUserDB());
 
         User currentUser = MasterController.getUserDB().getCurrentUser();
         Set<User> users = MasterController.getUserDB().getUsers();
@@ -163,6 +166,7 @@ public final class DatabaseController {
      * @throws IOException
      */
     public static void addTrade(Trade trade) {
+        if (trade == null) return;
         Set<Trade> trades = MasterController.getUserDB().getTrades();
         trades.add(trade);
         // New Trade
@@ -171,6 +175,8 @@ public final class DatabaseController {
             MasterController.getUserDB().getElastic().addDocument("trade", trade.getTradeID().toString(), trade);
         } catch (IOException e) {
             //it's probably fine, it's on the changelist
+            //hah! it wasn't fine because trades don't just add themselves to elastic, they update!
+            //fixed now.
             e.printStackTrace();
         }
     }
@@ -180,6 +186,7 @@ public final class DatabaseController {
      * @param image Image Object.
      */
     public static void addImage(Image image) {
+        if (image == null) return;
         Set<Image> images = MasterController.getUserDB().getImagez();
         images.add(image);
         MasterController.getUserDB().getChangeList().add(image);
@@ -232,9 +239,6 @@ public final class DatabaseController {
             throw new UserAlreadyExistsException();
 
         User u = new User(username);
-        users.add(u);
-        // You wouldn't be creating a user if you already had one
-        MasterController.getUserDB().setCurrentUser(u);
         try {
             elastic.addDocument("user", username, u);
         } catch (IOException e) {
@@ -242,6 +246,9 @@ public final class DatabaseController {
             // No internet, no registration
             throw new NoInternetException();
         }
+        users.add(u);
+        // You wouldn't be creating a user if you already had one
+        MasterController.getUserDB().setCurrentUser(u);
         return u;
     }
 
@@ -431,6 +438,7 @@ public final class DatabaseController {
      * @throws IOException
      */
     public static void addSkill(Skill skill) {
+        if (skill == null) return;
         Set<Skill> skillz = MasterController.getUserDB().getSkills();
         ChangeList changeList = MasterController.getUserDB().getChangeList();
         Elastic elastic = MasterController.getUserDB().getElastic();

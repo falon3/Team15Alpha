@@ -50,6 +50,7 @@ public class User {
     /**
      * Constructor accepts a String for the username variable for the object, will instantiate
      * a new Profile, Inventory, FriendsList and TradeList associated with this new User Object.
+     *
      * @param username String input.
      */
     User(String username) {
@@ -61,6 +62,7 @@ public class User {
 
     /**
      * Basic getter method that returns the Profile Object.
+     *
      * @return Profile Object.
      */
     public Profile getProfile() {
@@ -69,6 +71,7 @@ public class User {
 
     /**
      * Basic getter method that returns the Inventory Object.
+     *
      * @return Inventory Object.
      */
     public Inventory getInventory() {
@@ -77,6 +80,7 @@ public class User {
 
     /**
      * Basic getter method that returns the FriendsList Object.
+     *
      * @return FriendsList Object.
      */
     public FriendsList getFriendsList() {
@@ -85,6 +89,7 @@ public class User {
 
     /**
      * Basic getter method that returns the TradeList Object.
+     *
      * @return TradeList Object.
      */
     public TradeList getTradeList() {
@@ -93,6 +98,7 @@ public class User {
 
     /**
      * Basic getter method that returns the ID Object for the User.
+     *
      * @return ID Object.
      */
     public ID getUserID() {
@@ -101,6 +107,7 @@ public class User {
 
     /**
      * Special String method that will return a String of the username.
+     *
      * @return String of the username.
      */
     @Override
@@ -112,6 +119,7 @@ public class User {
      * Will take in an Object (any ol object...) of the Object type; and will then compare the
      * current object with the object passed into the method. If they are equal return true. If
      * they are not equal, then return false.
+     *
      * @param inputObject Object Object.
      * @return Boolean. True/False.
      */

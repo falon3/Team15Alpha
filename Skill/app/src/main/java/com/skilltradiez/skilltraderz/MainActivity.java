@@ -57,8 +57,6 @@ public class MainActivity extends GeneralMenuActivity {
      * 4: makeNewUser: A UI Button that when clicked prompts method calls.
      */
     private Context mainContext = this;
-    //Main screen
-    public static boolean connected;
 
     //First time user screen
     private EditText newUserName;
@@ -98,22 +96,6 @@ public class MainActivity extends GeneralMenuActivity {
             newUserEmail = (EditText) findViewById(R.id.emailField);
             makeNewUser = (Button) findViewById(R.id.beginApp);*/
         }
-
-        // Checks internet connectivity every second on separate thread
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    connected = isConnected();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        thread.start();
     }
 
     public void goToFirstTimeUser(){
@@ -141,6 +123,7 @@ public class MainActivity extends GeneralMenuActivity {
         super.onResume();
         System.out.println("Mainactivity onresume");
         if (DatabaseController.isLoggedIn()) {
+            DatabaseController.refresh();
             notifications.clear();
             notifications.addAll(masterController.getUserDB().getChangeList().getChangedNotifications());
             adapter.notifyDataSetChanged();
@@ -280,18 +263,5 @@ public class MainActivity extends GeneralMenuActivity {
                 newUserEmail.setText("");
             }
         });
-    }
-
-    /**
-     * Checks if the device connected to internet
-     * source: http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
-     * Returns true if connectivity is available, False otherwise.
-     * @return Boolean. True/False.
-     */
-    public boolean isConnected() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

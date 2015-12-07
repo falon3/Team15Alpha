@@ -120,7 +120,7 @@ public class ProfileActivity extends ButtonMenuActivity {
         profileTitle.setText(owner.getProfile().getUsername());
         userContactInfo.setText(owner.getProfile().getEmail());
 
-        if(owner.getProfile().getLocation()==null){
+        if(owner.getProfile().getLocation()==null && masterController.getCurrentUser().equals(owner)){
             userCityInfo.setText(CITY_PARAM);
         } else {
             userCityInfo.setText(owner.getProfile().getLocation());

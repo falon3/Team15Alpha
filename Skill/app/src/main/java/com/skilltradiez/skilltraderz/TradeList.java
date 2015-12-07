@@ -21,6 +21,7 @@ package com.skilltradiez.skilltraderz;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,9 +46,9 @@ public class TradeList extends Notification {
      */
     TradeList(ID id) {
         owner = id;
-        trades = new HashSet<ID>();
-        newTrades = new HashSet<ID>();
-        deletedTrades = new HashSet<ID>();
+        trades = new LinkedHashSet<ID>();
+        newTrades = new LinkedHashSet<ID>();
+        deletedTrades = new LinkedHashSet<ID>();
     }
 
     /**
@@ -140,6 +141,7 @@ public class TradeList extends Notification {
      * @param trade Trade Object.
      */
     public void addTrade(UserDatabase db, Trade trade) {
+        if (trade == null) return;
         if (trades.contains(trade.getTradeID()))
             return;
         trades.add(trade.getTradeID());
@@ -204,6 +206,8 @@ public class TradeList extends Notification {
     public boolean commit(UserDatabase userDB)  {
         for (ID tradeId : newTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
+            if (trade == null)
+                return false;
             User otherUser = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User theUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
             otherUser.getTradeList().addTrade(userDB, trade);
@@ -223,6 +227,8 @@ public class TradeList extends Notification {
         newTrades.clear();
         for (ID tradeId : deletedTrades) {
             Trade trade = DatabaseController.getTradeByID(tradeId);
+            if (trade == null)
+                continue;
             User tradePartner = DatabaseController.getAccountByUserID(trade.getHalf2().getUser());
             User currentUser = DatabaseController.getAccountByUserID(trade.getHalf1().getUser());
 
@@ -259,6 +265,8 @@ public class TradeList extends Notification {
         Trade t = DatabaseController.getTradeByID(tradeID);
         DatabaseController.getAccountByUserID(t.getHalf1().getUser()).getProfile().tradeSuccess();
         DatabaseController.getAccountByUserID(t.getHalf2().getUser()).getProfile().tradeSuccess();
+        MasterController.getUserDB().getChangeList().add(DatabaseController.getAccountByUserID(t.getHalf1().getUser()).getProfile());
+        MasterController.getUserDB().getChangeList().add(DatabaseController.getAccountByUserID(t.getHalf2().getUser()).getProfile());
         DatabaseController.save();
     }
 
